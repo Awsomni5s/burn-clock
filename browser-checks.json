@@ -1,5 +1,5 @@
 {
-  "base": "http://127.0.0.1:4173",
+  "base": "http://127.0.0.1:5173",
   "checks": [
     "Initial calendar renders 23 full years from supplied data",
     "All six preset cell counts and November 2025 values match independent Python sums",

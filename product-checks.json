@@ -1,0 +1,128 @@
+{
+  "base": "http://127.0.0.1:4173",
+  "checks": [
+    "Keyboard skip link and all four deterministic decision roles work",
+    "Annual month markers, early archive, sensor transition, outage guidance and area card export",
+    "Every Punjab summary, satellite ratio, hourly ratio and masked/unmasked fan value matches source arithmetic; both PNG cards export",
+    "Methods clearly marks real-person results pending and all test materials download; results sheet has no invented entries",
+    "No automated WCAG2.1 AA violations in all five routes at desktop and mobile widths",
+    "No JavaScript errors during tested product workflows"
+  ],
+  "localReadyMs": 466,
+  "environment": "Headless Chromium, local server, no network/CPU throttling; not a field speed result",
+  "accessibility": [
+    {
+      "viewport": "desktop",
+      "route": "explorer",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 2
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 20
+        }
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "route": "clock",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 14
+        }
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "route": "receipt",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 8
+        }
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "route": "validation",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 4
+        }
+      ]
+    },
+    {
+      "viewport": "desktop",
+      "route": "methods",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 4
+        }
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "route": "explorer",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 2
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 14
+        }
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "route": "clock",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 10
+        }
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "route": "receipt",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 4
+        }
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "route": "validation",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "viewport": "mobile",
+      "route": "methods",
+      "violations": [],
+      "incomplete": []
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "No human comprehension, usability, crop interpretation or manual screen-reader sessions run",
+    "Automated WCAG2.1 AA rules; incomplete checks require human review"
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-11-15T00:37:18.387Z",
+  "automated": [
+    {
+      "name": "Calculation and rule tests",
+      "status": "Passed",
+      "detail": "38/38 tests; independent source fixtures, missingness, annual diagnostics, deterministic guidance, claim-card context and decimal rounding boundaries."
+    },
+    {
+      "name": "Rendered numbers and CSV",
+      "status": "Passed",
+      "detail": "116,637/116,637 assertions; all six presets × 302 months × seven display modes, 1,812 harmonized month panels and CSV rows, 78 clock states, 72 country rows, validation and Methods data fields. Zero discrepancies within displayed rounding. Arbitrary rectangles and scientific inference are not exhaustively certified."
+    },
+    {
+      "name": "Punjab evidence and product workflows",
+      "status": "Passed",
+      "detail": "6 workflow groups: source-count arithmetic, hourly and mask/baseline controls, both PNG exports, all four decision roles, annual markers and honest pending human results."
+    },
+    {
+      "name": "Interaction and edge cases",
+      "status": "Passed",
+      "detail": "11 workflow groups: six presets, missing values, empty/invalid/date-line areas, 2012 transition, platform coverage, outage guidance, CSV, keyboard navigation, mobile layouts and retryable load failure."
+    },
+    {
+      "name": "Automated accessibility",
+      "status": "Passed automated rules; manual review pending",
+      "detail": "Zero WCAG 2.1 A/AA rule violations across 10 route/viewport combinations (five routes, desktop and mobile). 82 node-level incomplete findings across scans need manual review; these are not unique defects. Screen-reader usability and human accessibility sessions have not been run."
+    },
+    {
+      "name": "Default-area production load",
+      "status": "Passed local lab budget",
+      "detail": "local-desktop: headline 174 ms, usable calendar 444 ms; simulated-mobile: headline 1287 ms, usable calendar 2578 ms. Cold Chromium contexts, one observation per profile, local production preview. Simulated mobile: 10 Mbps, 100 ms latency, 4× CPU slowdown. Calendar budget set before measurement: under 10 seconds. These are not field or real-device results."
+    }
+  ],
+  "human": {
+    "status": "not_run",
+    "round1": null,
+    "retest": null
+  },
+  "evidence": {
+    "numeric": "/qa/numeric-checks.json",
+    "product": "/qa/product-checks.json",
+    "interactions": "/qa/browser-checks.json",
+    "performance": "/qa/performance-checks.json",
+    "unit": "/qa/unit-checks.json"
+  },
+  "limitations": [
+    "Arbitrary custom AOIs are covered separately by edge-case tests, not exhaustively enumerated here.",
+    "Punjab receipt and new decision text are audited separately.",
+    "Raster-figure pixels, visual chart positions, explanatory constants and external scientific claims are not certified by this suite.",
+    "No real-person usability test results are implied.",
+    "No human comprehension, usability, crop interpretation or manual screen-reader sessions run",
+    "Automated WCAG2.1 AA rules; incomplete checks require human review",
+    "Native map readiness does not measure full visual tile/font completion. Real-device and real-network testing still required."
+  ]
+}

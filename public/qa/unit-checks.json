@@ -1,0 +1,160 @@
+{
+  "success": true,
+  "total": 38,
+  "passed": 38,
+  "failed": 0,
+  "tests": [
+    {
+      "name": "geographic selection selects negative and positive tile origins across the date line",
+      "status": "passed"
+    },
+    {
+      "name": "geographic selection uses half-open bounds and supports date-line boxes",
+      "status": "passed"
+    },
+    {
+      "name": "geographic selection rejects invalid or empty bounds",
+      "status": "passed"
+    },
+    {
+      "name": "geographic selection selects cell centers rather than southwest corners",
+      "status": "passed"
+    },
+    {
+      "name": "monthly sums, nulls and anomalies retains observed zeros but never substitutes zero for missing values",
+      "status": "passed"
+    },
+    {
+      "name": "monthly sums, nulls and anomalies does not display a partial sum when one included cell is missing",
+      "status": "passed"
+    },
+    {
+      "name": "monthly sums, nulls and anomalies an area with no archived cell centers is no data",
+      "status": "passed"
+    },
+    {
+      "name": "monthly sums, nulls and anomalies calculates same-month baseline quantiles only within 2003–2022",
+      "status": "passed"
+    },
+    {
+      "name": "monthly sums, nulls and anomalies keeps valid harmonization when raw monthly coverage is masked",
+      "status": "passed"
+    },
+    {
+      "name": "monthly sums, nulls and anomalies interpolates quantiles and formats midnight correctly",
+      "status": "passed"
+    },
+    {
+      "name": "clock diagnostic a weak Terra count does not suppress a testable Aqua signal",
+      "status": "passed"
+    },
+    {
+      "name": "clock diagnostic marks insufficient VIIRS support as not identifiable",
+      "status": "passed"
+    },
+    {
+      "name": "clock diagnostic does not issue a drift verdict before 2021",
+      "status": "passed"
+    },
+    {
+      "name": "clock diagnostic uses a two-sided threshold and preserves the robust state",
+      "status": "passed"
+    },
+    {
+      "name": "clock diagnostic compares the same complete cells over baseline and target",
+      "status": "passed"
+    },
+    {
+      "name": "clock diagnostic never interprets incomplete baseline support as zero",
+      "status": "passed"
+    },
+    {
+      "name": "CSV evidence exports blanks for null, zero for zero, and provenance with annual badges",
+      "status": "passed"
+    },
+    {
+      "name": "decimal display boundaries preserves exact hundredth totals before display rounding",
+      "status": "passed"
+    },
+    {
+      "name": "decimal display boundaries does not round interpolated floating noise to the wrong tenth",
+      "status": "passed"
+    },
+    {
+      "name": "decimal display boundaries preserves positive and negative half-minute satellite shifts",
+      "status": "passed"
+    },
+    {
+      "name": "deterministic decision guidance never turns failed loads, loading, empty cells or missing months into a trend",
+      "status": "passed"
+    },
+    {
+      "name": "deterministic decision guidance distinguishes non-evaluation, weak support and within-threshold evidence",
+      "status": "passed"
+    },
+    {
+      "name": "deterministic decision guidance does not convert an Aqua diagnostic into a true decline estimate",
+      "status": "passed"
+    },
+    {
+      "name": "deterministic decision guidance offers all four roles a concrete distinct action with unchanged evidence",
+      "status": "passed"
+    },
+    {
+      "name": "deterministic decision guidance keeps a raw outage compatible with a valid harmonized estimate",
+      "status": "passed"
+    },
+    {
+      "name": "deterministic decision guidance flags modelling in converted months and early archive limits",
+      "status": "passed"
+    },
+    {
+      "name": "Punjab evidence and self-contained claim card calculates the official count change, not a replacement all-day decline",
+      "status": "passed"
+    },
+    {
+      "name": "Punjab evidence and self-contained claim card includes the16:00 observation in late-hour shares and uses pixel-hours",
+      "status": "passed"
+    },
+    {
+      "name": "Punjab evidence and self-contained claim card keeps the unmasked whole-afternoon measure separate from the matched fan",
+      "status": "passed"
+    },
+    {
+      "name": "Punjab evidence and self-contained claim card binds unit, period and mask to each numerical claim",
+      "status": "passed"
+    },
+    {
+      "name": "Punjab evidence and self-contained claim card escapes XML and preserves context in the exported image text",
+      "status": "passed"
+    },
+    {
+      "name": "independent Python reference: all preset months and clock years punjab: 302 monthly aggregates and 13 annual clock diagnostics",
+      "status": "passed"
+    },
+    {
+      "name": "independent Python reference: all preset months and clock years parana: 302 monthly aggregates and 13 annual clock diagnostics",
+      "status": "passed"
+    },
+    {
+      "name": "independent Python reference: all preset months and clock years cerrado: 302 monthly aggregates and 13 annual clock diagnostics",
+      "status": "passed"
+    },
+    {
+      "name": "independent Python reference: all preset months and clock years africa: 302 monthly aggregates and 13 annual clock diagnostics",
+      "status": "passed"
+    },
+    {
+      "name": "independent Python reference: all preset months and clock years kalimantan: 302 monthly aggregates and 13 annual clock diagnostics",
+      "status": "passed"
+    },
+    {
+      "name": "independent Python reference: all preset months and clock years california: 302 monthly aggregates and 13 annual clock diagnostics",
+      "status": "passed"
+    },
+    {
+      "name": "independent Python reference: all preset months and clock years records finite coverage of the independent reference",
+      "status": "passed"
+    }
+  ]
+}

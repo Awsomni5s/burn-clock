@@ -1,5 +1,5 @@
 import {PLATFORMS,PLATFORM_NAMES,PLATFORM_COLORS,type ClockYear} from '../types';
-import {hour,signed} from '../data';
+import {hour,signed,lookChangeMinutes} from '../data';
 export default function ClockWheel({clock,compact=false}:{clock:ClockYear|undefined;compact?:boolean}){
   const c=150,r=105;
   const point=(h:number,radius:number)=>{const a=h/24*Math.PI*2-Math.PI/2;return [c+radius*Math.cos(a),c+radius*Math.sin(a)];};
@@ -20,7 +20,7 @@ export default function ClockWheel({clock,compact=false}:{clock:ClockYear|undefi
       <text x={c} y={c-1} textAnchor="middle" fontSize="13" fontWeight="650" fill="#343d45">{clock?.year??'—'}</text>
       <text x={c} y={c+12} textAnchor="middle" fontSize="7.5" letterSpacing="1" fill="#868d94">SOLAR TIME</text>
     </svg>
-    <div className="clock-times">{PLATFORMS.filter(p=>clock?.look[p]!=null).map(p=><div className="clock-time" key={p}><span className="platform-dot" style={{background:PLATFORM_COLORS[p]}}/><span>{PLATFORM_NAMES[p]}</span><strong>{hour(clock!.look[p])}</strong>{!compact&&<small>{clock?.baselineLook[p]!=null?signed((clock.look[p]!-clock.baselineLook[p]!)*60,0)+' min':'—'}</small>}</div>)}</div>
+    <div className="clock-times">{PLATFORMS.filter(p=>clock?.look[p]!=null).map(p=><div className="clock-time" key={p}><span className="platform-dot" style={{background:PLATFORM_COLORS[p]}}/><span>{PLATFORM_NAMES[p]}</span><strong>{hour(clock!.look[p])}</strong>{!compact&&<small>{clock?.baselineLook[p]!=null?signed(lookChangeMinutes(clock.look[p]!,clock.baselineLook[p]!),0)+' min':'—'}</small>}</div>)}</div>
     {!compact&&<p className="fine-print">Median of 1° cell medians. Dashed hands: 2013–19 baseline. Daytime observations only; not orbital predictions.</p>}
   </div>;
 }

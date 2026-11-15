@@ -1,5 +1,5 @@
 import {describe,it,expect} from 'vitest';
-import {areaTiles,inside,validBox,quantile,createAccumulator,computeClock,csvForArea,hour} from './data';
+import {areaTiles,inside,validBox,quantile,createAccumulator,computeClock,csvForArea,hour,number,lookChangeMinutes,signed} from './data';
 import {PLATFORMS,type Manifest,type CalendarTile,type ClockTile,type BBox,type Platform} from './types';
 const box:BBox=[0,0,2,2];
 const manifest=(months:string[]):Manifest=>({generated_utc:'2026-11-14',months,tiles:['p00_p000'],sources:[],outage_months:[],platforms:{T:{first:'2000-11',last:'2025-12'},A:{first:'2002-07',last:'2025-12'},N:{first:'2012-01',last:'2025-12'},J1:{first:'2018-04',last:'2025-12'}},totals:{detections_processed:0,by_platform:{T:0,A:0,N:0,J1:0,J2:0},type0_detections:0,active_cell_days:0,archives:0}});
@@ -29,4 +29,10 @@ describe('clock diagnostic',()=>{
 });
 describe('CSV evidence',()=>{
   it('exports blanks for null, zero for zero, and provenance with annual badges',()=>{const a=createAccumulator(manifest(['2025-01']));a.add(tile([[0]]),box);const csv=csvForArea(a.finish().months,computeClock([clockFixture()],box),box);expect(csv).toContain('clock_badge_annual');expect(csv).toContain('source_satellites');expect(csv).toContain('robust');expect(csv).toContain(',0,0,0,0,,0,0,0,');expect(csv).toContain('not a calibrated AOI 90% interval');});
+});
+
+describe('decimal display boundaries',()=>{
+ it('preserves exact hundredth totals before display rounding',()=>{const a=createAccumulator(manifest(['2025-01']));const t=tile(Array.from({length:500},(_,i)=>[i===0?.79:.29]));t.cells=t.cells.map((_,i)=>[0,i*.25]);a.add(t,[-90,-180,90,180]);expect(a.finish().months[0].harm).toBe(145.5);expect(number(a.finish().months[0].harm)).toBe('146');});
+ it('does not round interpolated floating noise to the wrong tenth',()=>{expect(number(580.9499999999999,1)).toBe('581.0');expect(number(145.5)).toBe('146');expect(number(-1.1499999999999999,1)).toBe('-1.2');});
+ it('preserves positive and negative half-minute satellite shifts',()=>{expect(lookChangeMinutes(13.085,13.11)).toBe(-1.5);expect(signed(lookChangeMinutes(13.085,13.11),0)).toBe('-2');expect(signed(lookChangeMinutes(14.325,13.15),0)).toBe('+71');});
 });

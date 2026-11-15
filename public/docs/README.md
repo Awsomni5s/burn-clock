@@ -4,12 +4,11 @@ Site address: [Burn Clock](https://burn-clock.ottoskibeli.chatgpt.site) (owner-p
 
 A static satellite observatory for harmonized burning-activity calendars and changing satellite look times. Built from the supplied November 14, 2026 pipeline and public-data bundle.
 
-The application lives in [`burn-clock/`](burn-clock/). It uses React, TypeScript, MapLibre and Vite, with no application backend. The two supplied pipeline archives are byte-identical; one was imported.
+This directory contains the application. It uses React, TypeScript, MapLibre and Vite, with no application backend. The two supplied pipeline archives are byte-identical; one was imported.
 
 ## Run locally
 
 ```sh
-cd burn-clock
 npm ci
 npm run dev
 ```
@@ -32,12 +31,11 @@ The supplied manifest records **548,501,203 rows**, **48 archives**, **515,029,9
 
 The app retains the supplied final scientific numbers. It does not rerun the heavy FIRMS archive, refit models or fabricate missing results. The intermediate Parquet inputs needed for a full scientific rerun were not supplied. The report's model winner is the pre-drift ratio bridge; the GBM lost on the registered tile-year metric.
 
-`public/data/` at the workspace root contains the original extracted data. `burn-clock/public/data/` contains deterministic gzip copies for serving. The supplied manifest's empty-harmonization and size notes are stale; the final tile arrays are populated. A separate generated catalog records current packaged sizes without editing the scientific manifest.
+`../public/data/` in the original workspace contains the extracted data (not included in this source checkout). `public/data/` contains deterministic gzip copies for serving. The supplied manifest's empty-harmonization and size notes are stale; the final tile arrays are populated. A separate generated catalog records current packaged sizes without editing the scientific manifest.
 
 ## Verification
 
 ```sh
-cd burn-clock
 npm test
 npm run build
 python3 scripts/audit_data.py
@@ -47,7 +45,7 @@ node scripts/browser_checks.mjs
 
 The browser checks require the dev server at `http://127.0.0.1:5173` or `BURN_CLOCK_URL` set to another running preview. Data auditing requires the original sibling `public/data/` directory. `scripts/prepare_data.py` rebuilds the gzip serving package from that directory without rerunning the scientific pipeline.
 
-The complete tile audit checks 1,237 tiles, 191,187 cells and 57,738,474 cell-months. Every gzip copy matches the original JSON byte-for-byte; there are zero interval/source violations. See `burn-clock/data-audit.json`, `burn-clock/browser-checks.json` and the test suite for reproducible checks. One original NASA archive was independently downloaded and verified; the other 47 were reconciled against the supplied processing manifest, not redownloaded.
+The complete tile audit checks 1,237 tiles, 191,187 cells and 57,738,474 cell-months. Every gzip copy matches the original JSON byte-for-byte; there are zero interval/source violations. See `data-audit.json`, `browser-checks.json` and the test suite for reproducible checks. One original NASA archive was independently downloaded and verified; the other 47 were reconciled against the supplied processing manifest, not redownloaded.
 
 ## Interpretation
 
@@ -60,3 +58,24 @@ AI assistance (Codex) was used for the app, documentation and checks. The suppli
 Read [DATA_PROVENANCE.md](DATA_PROVENANCE.md), [VALIDATION_REPORT.md](VALIDATION_REPORT.md), [SOURCE_AUDIT.md](SOURCE_AUDIT.md), [COMPETITOR_DIFFERENTIATION.md](COMPETITOR_DIFFERENTIATION.md) and [JUDGE_DEMO.md](JUDGE_DEMO.md). The deployed app also exposes these under `/docs/`.
 
 NASA FIRMS supplies MODIS and VIIRS observations. GK2A data: Jethva, Zenodo 20084790, CC BY 4.0. MapLibre: BSD 3-Clause; React: MIT; fonts DM Sans and Manrope: SIL Open Font License with license files included. Geographic base layers © Natural Earth, public domain; map glyphs from the MapLibre demo font collection. No competitor code was copied.
+
+## Product revision and human study
+
+The product now includes fixed-rule area guidance for four decision roles, PNG claim cards, a contextual Punjab summary with late-hour shares, and a Methods test-status section. Source numbers are unchanged. Harmonized area sums use integer hundredths (the supplied output precision) to prevent decimal-half display errors.
+
+```sh
+python3 scripts/numeric_reference.py
+npm test
+# With a running server (set BURN_CLOCK_URL for a production preview):
+npm run test:numeric
+npm run test:product
+npm run test:browser
+# Against a production preview with no other browser tests running:
+node scripts/performance_checks.mjs
+# After passing runs; records actual reports and leaves human results pending:
+node scripts/record_product_validation.mjs
+```
+
+The independent numeric reference covers all six preset calendars and clock years. Browser reports specify the finite rendered states that were audited; they do not certify all possible rectangles or the underlying scientific inference. Product checks include automated WCAG2.1 AA rules, mobile layout, evidence arithmetic and PNG downloads. Manual accessibility, real-device speed and comprehension remain human work.
+
+The Sunday study protocol and blank results sheet are in `public/docs/USER_TEST_PROTOCOL.md` and `public/docs/USER_TEST_RESULTS_TEMPLATE.csv` within the app. No real-person tests have been run or results invented. The site remains owner-private: use a supervised signed-in device or explicitly arrange participant access. Report actual first-round results, the top three confusions and a new-participant retest on Methods only after collecting them.

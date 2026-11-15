@@ -1,0 +1,21 @@
+{
+  "base": "http://127.0.0.1:4173",
+  "runs": [
+    {
+      "profile": "local-desktop",
+      "headlineMs": 174,
+      "calendarMs": 444,
+      "mapMs": 1494,
+      "calendarUnder10Seconds": true
+    },
+    {
+      "profile": "simulated-mobile",
+      "headlineMs": 1287,
+      "calendarMs": 2578,
+      "mapMs": 4807,
+      "calendarUnder10Seconds": true
+    }
+  ],
+  "environment": "Cold browser contexts; headless Chromium on this local machine; production Vite preview; simulated mobile=10Mbps,100mslatency,4xCPU. One observation per profile, not a percentile or field metric.",
+  "limits": "Native map readiness does not measure full visual tile/font completion. Real-device and real-network testing still required."
+}

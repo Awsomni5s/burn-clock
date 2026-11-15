@@ -14,7 +14,8 @@ export async function fetchData<T>(path:string, signal?:AbortSignal):Promise<T> 
   }
   return JSON.parse(new TextDecoder().decode(bytes)) as T;
 }
-export const number=(n:unknown,digits=0):string=> typeof n==='number'&&Number.isFinite(n)?n.toLocaleString('en-US',{maximumFractionDigits:digits,minimumFractionDigits:digits}):'—';
+// Remove sub-display floating noise (for example, interpolated 580.9499999999999).
+export const number=(n:unknown,digits=0):string=> typeof n==='number'&&Number.isFinite(n)?Number(n.toPrecision(14)).toLocaleString('en-US',{maximumFractionDigits:digits,minimumFractionDigits:digits}):'—';
 export const signed=(n:unknown,digits=1):string=>typeof n==='number'&&Number.isFinite(n)?`${n>0?'+':''}${number(n,digits)}`:'—';
 export function hour(h:number|null):string {if(h==null)return '—';const minutes=Math.round(h*60)%1440;return `${String(Math.floor(minutes/60)).padStart(2,'0')}:${String(minutes%60).padStart(2,'0')}`;}
 export function quantile(values:number[],q:number):number|null {if(!values.length)return null;const a=[...values].sort((a,b)=>a-b);const i=(a.length-1)*q;return a[Math.floor(i)]+(a[Math.ceil(i)]-a[Math.floor(i)])*(i-Math.floor(i));}
@@ -35,7 +36,9 @@ export function createAccumulator(manifest:Manifest){
       rows.forEach((r,mi)=>{
         for(const p of PLATFORMS){const v=tile.raw[p]?.[ci]?.[mi];if(valid(v))r.raw[p]+=v;else r.rawMissing[p]++;}
         const h=tile.harm[ci]?.[mi],lo=tile.harm_lo[ci]?.[mi],hi=tile.harm_hi[ci]?.[mi];
-        if(valid(h)&&valid(lo)&&valid(hi)){r.harm+=h;r.lo+=lo;r.hi+=hi;}else r.harmMissing++;
+        // Supplied production precision is two decimals (pipeline/harmonize/CONFIG.yaml).
+        // Sum integer hundredths so a 145.50 total cannot drift below the display tie.
+        if(valid(h)&&valid(lo)&&valid(hi)){r.harm+=Math.round(h*100);r.lo+=Math.round(lo*100);r.hi+=Math.round(hi*100);}else r.harmMissing++;
         r.src.add(tile.src[ci]?.[mi]??'X');
       });
     });
@@ -53,7 +56,7 @@ export function createAccumulator(manifest:Manifest){
       });
       const source=[...r.src].sort().join('');
       const used=source==='V'?satellites.filter(p=>['N','J1','J2'].includes(p)):source==='M'?satellites.filter(p=>['T','A'].includes(p)):[];
-      return {month:r.month,raw,harm:usable?r.harm:null,lo:usable?r.lo:null,hi:usable?r.hi:null,src:cells?source:'X',satellites:used,anomaly:'missing',median:null,p25:null,p75:null};
+      return {month:r.month,raw,harm:usable?r.harm/100:null,lo:usable?r.lo/100:null,hi:usable?r.hi/100:null,src:cells?source:'X',satellites:used,anomaly:'missing',median:null,p25:null,p75:null};
     });
     for(const m of months){
       const base=months.filter(x=>x.month>='2003-01'&&x.month<='2022-12'&&x.month.slice(5)===m.month.slice(5)&&x.harm!=null).map(x=>x.harm!);
@@ -102,4 +105,7 @@ export function csvForArea(months:Month[],clock:ClockYear[],box:BBox):string{
   const q=(v:unknown)=>{const s=v==null?'':String(v);return /[",\n]/.test(s)?`"${s.replaceAll('"','""')}"`:s;};
   return [header,...months.map(m=>{const c=clock.find(x=>x.year===Number(m.month.slice(0,4)));return [m.month,...box,...PLATFORMS.map(p=>m.raw[p]),m.harm,m.lo,m.hi,m.anomaly,m.median,c?.badge??'not_identifiable',c?.drivers.join('+')??'',c?.bend,m.src,m.satellites.join('+'),'daytime 0.05-degree active cell-days (harm: S-NPP scale)','approximate sum of cell bounds; not a calibrated AOI 90% interval'];})].map(row=>row.map(q).join(',')).join('\r\n');
 }
+// Source look times have two decimal places; medians can add one. Subtract
+// integer millihours so an exact half-minute survives display rounding.
+export function lookChangeMinutes(current:number,baseline:number):number{return (Math.round(current*1000)-Math.round(baseline*1000))*6/100;}
 export function download(filename:string,content:string,type='text/csv;charset=utf-8'){const url=URL.createObjectURL(new Blob([content],{type}));const a=document.createElement('a');a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}

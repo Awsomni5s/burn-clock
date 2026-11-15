@@ -58,3 +58,24 @@ AI assistance (Codex) was used for the app, documentation and checks. The suppli
 Read [DATA_PROVENANCE.md](public/docs/DATA_PROVENANCE.md), [VALIDATION_REPORT.md](public/docs/VALIDATION_REPORT.md), [SOURCE_AUDIT.md](public/docs/SOURCE_AUDIT.md), [COMPETITOR_DIFFERENTIATION.md](public/docs/COMPETITOR_DIFFERENTIATION.md) and [JUDGE_DEMO.md](public/docs/JUDGE_DEMO.md). The deployed app also exposes these under `/docs/`.
 
 NASA FIRMS supplies MODIS and VIIRS observations. GK2A data: Jethva, Zenodo 20084790, CC BY 4.0. MapLibre: BSD 3-Clause; React: MIT; fonts DM Sans and Manrope: SIL Open Font License with license files included. Geographic base layers © Natural Earth, public domain; map glyphs from the MapLibre demo font collection. No competitor code was copied.
+
+## Product revision and human study
+
+The product now includes fixed-rule area guidance for four decision roles, PNG claim cards, a contextual Punjab summary with late-hour shares, and a Methods test-status section. Source numbers are unchanged. Harmonized area sums use integer hundredths (the supplied output precision) to prevent decimal-half display errors.
+
+```sh
+python3 scripts/numeric_reference.py
+npm test
+# With a running server (set BURN_CLOCK_URL for a production preview):
+npm run test:numeric
+npm run test:product
+npm run test:browser
+# Against a production preview with no other browser tests running:
+node scripts/performance_checks.mjs
+# After passing runs; records actual reports and leaves human results pending:
+node scripts/record_product_validation.mjs
+```
+
+The independent numeric reference covers all six preset calendars and clock years. Browser reports specify the finite rendered states that were audited; they do not certify all possible rectangles or the underlying scientific inference. Product checks include automated WCAG2.1 AA rules, mobile layout, evidence arithmetic and PNG downloads. Manual accessibility, real-device speed and comprehension remain human work.
+
+The Sunday study protocol and blank results sheet are in `public/docs/USER_TEST_PROTOCOL.md` and `public/docs/USER_TEST_RESULTS_TEMPLATE.csv` within the app. No real-person tests have been run or results invented. The site remains owner-private: use a supervised signed-in device or explicitly arrange participant access. Report actual first-round results, the top three confusions and a new-participant retest on Methods only after collecting them.
