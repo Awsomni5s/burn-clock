@@ -132,6 +132,8 @@ try {
   const airDo = await page.getByTestId('nm-when').locator('.nm-do').innerText();
   check('next move: switching job changes the action', () => { assert.notEqual(policyDo, airDo); assert.match(airDo, /emissions/); });
   check('next move: role is kept in the URL', () => assert.match(page.url(), /role=air/));
+  const wa = decodeURIComponent((await page.getByTestId('nm-whatsapp').getAttribute('href')).split('text=')[1]);
+  check('next move: WhatsApp summary has the three answers, actions and the link', () => { assert.match(wa, /for smoke & air quality/); assert.equal((wa.match(/Do:/g) || []).length, 3); assert.match(wa, /role=air/); });
   const [icsFile] = await Promise.all([page.waitForEvent('download'), page.getByTestId('nm-ics').click()]);
   const seasonIcs = readFileSync(await icsFile.path(), 'utf8');
   check('next move: .ics has two seasons with reminders', () => { assert.equal((seasonIcs.match(/BEGIN:VEVENT/g) || []).length, 2); assert.match(seasonIcs, /DTSTART;VALUE=DATE:\d{4}1001/); assert.match(seasonIcs, /TRIGGER:-P14D/); });

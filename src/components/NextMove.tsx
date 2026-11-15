@@ -39,6 +39,13 @@ export default function NextMove({area,name,months,a,b,manifest,preset,ask=false
     const avg=mean.map((v,i)=>n[i]?v/n[i]:0),tot=avg.reduce((p,q)=>p+q,0),next=(today.getUTCMonth()+1)%12;return tot?{month:MONTH_NAMES[next],share:100*avg[next]/tot}:null;},[area]);
   const h=claim?.harmonized,change=h&&h.status==='ok'&&h.changePct!=null?h.changePct:null;
   const seasonLabel=critical.length?seasons.map(s=>s.label).join(' and '):'—';
+  const [copied,setCopied]=useState(false);
+  const summary=()=>[`Burn Clock · ${name} · for ${ROLE_CHIPS[role].toLowerCase()}`,
+    `1. Season: ${seasonLabel}${facts?` (${Math.round(facts.peakShare)}% of a typical year)`:''}. Do: ${whenAction(role,seasonLabel,facts?.peakShare??null)}`,
+    `2. Trend: ${VERDICT_SHORT[verdict]}. Do: ${ACTIONS[verdict][role][verdict==='timing'?{policy:2,air:1,journalist:0,research:0}[role]:0]}`,
+    `3. This week: ${amount?AMOUNT_LABEL[amount.status]:'not available'}${live?`, timing: ${LIVE_INLINE[live.status]}`:''}. Do: ${thisWeekAction(role,amount?.status??'unknown',live?.status??'unknown')}`,
+    `NASA FIRMS data, provisional for this week. ${location.href}`].join('\n');
+  const copy=async()=>{try{await navigator.clipboard.writeText(summary());setCopied(true);setTimeout(()=>setCopied(false),2000);}catch{setCopied(false);}};
   const download=()=>{const ics=seasonICS({name,months:critical,share:facts?.peakShare??null,link:location.href,today});const url=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));const el=document.createElement('a');el.href=url;el.download=`burning-season-${name.replace(/[^A-Za-z0-9]+/g,'-').toLowerCase()}.ics`;el.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
   return <section className="next-move" aria-labelledby="next-move-title" data-testid="next-move">
     <div className="next-move-head"><div><p className="eyebrow">Your next move · {name}</p><h2 id="next-move-title">What this calendar means for your work</h2></div>
@@ -58,6 +65,6 @@ export default function NextMove({area,name,months,a,b,manifest,preset,ask=false
         <p className="nm-do"><span>Do:</span> {thisWeekAction(role,amount?.status??'unknown',live?.status??'unknown')}</p>
         <button className="nm-link" onClick={scrollTo('live-title')}>This week in detail ↓</button></article>
     </div>
-    <p className="nm-more"><button className="nm-link" onClick={scrollTo('answer')}>All actions for your job and a one-page brief ↓</button>{preset==='punjab'&&<a href="#act" data-testid="nm-act">Punjab district planner, by district →</a>}{ask&&<button className="nm-link" onClick={scrollTo('ask-panel')}>Ask the advisor about this place ↓</button>}</p>
+    <p className="nm-more"><a className="nm-share" href={`https://wa.me/?text=${encodeURIComponent(summary())}`} target="_blank" rel="noopener noreferrer" data-testid="nm-whatsapp">Send this to WhatsApp</a><button className="nm-link" onClick={copy} data-testid="nm-copy">{copied?'Copied':'Copy summary and link'}</button><button className="nm-link" onClick={scrollTo('answer')}>All actions for your job and a one-page brief ↓</button>{preset==='punjab'&&<a href="#act" data-testid="nm-act">Punjab district planner, by district →</a>}{ask&&<button className="nm-link" onClick={scrollTo('ask-panel')}>Ask the advisor about this place ↓</button>}</p>
   </section>;
 }
