@@ -57,7 +57,7 @@ try{
   await goto(calendar.presets.punjab.box);await openDetails();
   const h=receipt.gk2a_by_hour,u=receipt.gk2a_unique_pixel_days,total=values=>values.reduce((a,b)=>a+b,0);
   const late=values=>100*values.filter((_,i)=>h.hours[i]>=16).reduce((a,b)=>a+b,0)/total(values);
-  await page.goto(base+'/#home');await page.locator('.home-story').waitFor();
+  await page.goto(base+'/?view=story#home');await page.locator('.home-story').waitFor();
   includes(await text(page.locator('.home-story')),fmt(100*(1-receipt.claim_source.value_2025/receipt.claim_source.value_2021))+'%','home official count');
   includes(await text(page.locator('.home-story')),fmt(u['2025']/u['2019'],2)+'×','home baseline');
   {const byYear=JSON.parse(readFileSync('public/data/gk2a_hourly_by_year.json','utf8')).pixel_hours;check(JSON.stringify(byYear['2021']),JSON.stringify(h.pixel_hours_2021),'hourly-by-year 2021 equals receipt');check(JSON.stringify(byYear['2025']),JSON.stringify(h.pixel_hours_2025),'hourly-by-year 2025 equals receipt');await page.waitForFunction(()=>document.querySelector('.share-values')?.textContent.includes('(2019)'),null,{timeout:30000}).catch(()=>{});includes(await text(page.locator('.share-values')),fmt(late(byYear['2019']),1)+'% (2019) → '+fmt(late(h.pixel_hours_2025),1)+'% (2025)','home late-hour shares');}coverage.homeNumbers+=4;

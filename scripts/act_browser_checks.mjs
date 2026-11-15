@@ -106,7 +106,7 @@ try {
   assert.equal(await page.getByTestId('ask-panel').count(), 0);
   const actx = await browser.newContext({viewport: {width: 1280, height: 900}}), ap = await actx.newPage();
   await ap.route('**/api/ask', route => route.request().method() === 'GET' ? route.fulfill({json: {configured: true, model: 'claude-haiku-5-5'}}) : route.fulfill({json: {status: 'ok', answer: 'Timing matters here: activity fell about 80%. https://burn-clock.vercel.app/?box=27.6,73.8,32.6,77.6#explorer', tools: [{name: 'check_place', input: {lat: 30.9, lon: 75.8}}], unverified: [], model: 'claude-haiku-5-5'}}));
-  await ap.goto(`${base}/#home`); await ap.getByTestId('ask-panel').waitFor({timeout: 30000});
+  await ap.goto(`${base}/?view=ask#home`); await ap.getByTestId('ask-panel').waitFor({timeout: 30000});
   await ap.getByLabel('Your question').fill('Can I trust the Punjab drop?'); await ap.getByRole('button', {name: 'Ask', exact: true}).click();
   await ap.getByTestId('ask-answer').waitFor();
   check('ask answer shows the number check', async () => {});
@@ -137,6 +137,13 @@ try {
   const [icsFile] = await Promise.all([page.waitForEvent('download'), page.getByTestId('nm-ics').click()]);
   const seasonIcs = readFileSync(await icsFile.path(), 'utf8');
   check('next move: .ics has two seasons with reminders', () => { assert.equal((seasonIcs.match(/BEGIN:VEVENT/g) || []).length, 2); assert.match(seasonIcs, /DTSTART;VALUE=DATE:\d{4}1001/); assert.match(seasonIcs, /TRIGGER:-P14D/); });
+  // 11b. Home is an app: one tab at a time; the next-move links switch tabs.
+  await page.goto(`${base}/?role=policy#home`); await page.getByTestId('next-move').waitFor({timeout: 90000});
+  const onlyOverview = await page.locator('#answer').count();
+  await page.getByTestId('nm-trend').getByRole('button', {name: /See the two checks/}).click(); await page.locator('#answer').waitFor({timeout: 30000});
+  check('home tabs: the trend check is its own tab, opened from the next-move card', () => { assert.equal(onlyOverview, 0); assert.match(page.url(), /view=trend/); });
+  const nmOnTrend = await page.getByTestId('next-move').count();
+  check('home tabs: next move hidden on the trend tab', () => assert.equal(nmOnTrend, 0));
   // 12. Area shapes: a circle and a province count only the cells inside them.
   const cells = async url => { await page.goto(`${base}/${url}`); await page.locator('.area-name').filter({hasText: /grid cells/}).waitFor({timeout: 90000}); return page.locator('.area-name').innerText(); };
   const boxText = await cells('?box=29.6,74.46,31.4,76.54&choose=true#explorer'), circleText = await cells('?box=29.6,74.46,31.4,76.54&shape=c:30.5,75.5,100&choose=true#explorer');
