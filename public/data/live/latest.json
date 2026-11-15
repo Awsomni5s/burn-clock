@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-15T18:46:28.307Z",
+  "generated_at": "2026-11-15T18:56:35.609Z",
   "feeds": {
     "MODIS": {
       "rows": 76769,
@@ -184,8 +184,8 @@
       },
       "url": "https://firms.modaps.eosdis.nasa.gov/data/active_fire/modis-c6.1/csv/MODIS_C6_1_Global_7d.csv",
       "status": "ok",
-      "fetched_at": "2026-11-15T18:46:28.307Z",
-      "last_attempt_at": "2026-11-15T18:46:28.307Z",
+      "fetched_at": "2026-11-15T18:56:35.609Z",
+      "last_attempt_at": "2026-11-15T18:56:35.609Z",
       "sha256": "9f29a974d7d6106f06a7d40b0eca7a63b13ebd1886a2ff655b0002d3b496345b",
       "error": null
     },
@@ -284,8 +284,8 @@
       },
       "url": "https://firms.modaps.eosdis.nasa.gov/data/active_fire/suomi-npp-viirs-c2/csv/SUOMI_VIIRS_C2_Global_7d.csv",
       "status": "header_only",
-      "fetched_at": "2026-11-15T18:46:28.307Z",
-      "last_attempt_at": "2026-11-15T18:46:28.307Z",
+      "fetched_at": "2026-11-15T18:56:35.609Z",
+      "last_attempt_at": "2026-11-15T18:56:35.609Z",
       "sha256": "fe0401e40606fd90dd4cf24dff508a93539089a4aecf701e2a3c85851fe9bf40",
       "error": null
     },
@@ -384,8 +384,8 @@
       },
       "url": "https://firms.modaps.eosdis.nasa.gov/data/active_fire/noaa-20-viirs-c2/csv/J1_VIIRS_C2_Global_7d.csv",
       "status": "ok",
-      "fetched_at": "2026-11-15T18:46:28.307Z",
-      "last_attempt_at": "2026-11-15T18:46:28.307Z",
+      "fetched_at": "2026-11-15T18:56:35.609Z",
+      "last_attempt_at": "2026-11-15T18:56:35.609Z",
       "sha256": "ba51190563cd3f8208072bfed353665ab434250b0567d5cc6bed73d3408958e1",
       "error": null
     },
@@ -484,8 +484,8 @@
       },
       "url": "https://firms.modaps.eosdis.nasa.gov/data/active_fire/noaa-21-viirs-c2/csv/J2_VIIRS_C2_Global_7d.csv",
       "status": "ok",
-      "fetched_at": "2026-11-15T18:46:28.307Z",
-      "last_attempt_at": "2026-11-15T18:46:28.307Z",
+      "fetched_at": "2026-11-15T18:56:35.609Z",
+      "last_attempt_at": "2026-11-15T18:56:35.609Z",
       "sha256": "93d4dd800e6f70e9dcdaccf55bc32500bb10d8f759e35b43d02d355d04c26a10",
       "error": null
     }
