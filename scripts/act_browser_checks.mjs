@@ -119,6 +119,42 @@ try {
   await page.goto(`${base}/#clock`); await page.getByTestId('live-world').waitFor({timeout: 60000});
   const liveRows = await page.locator('[data-testid=live-world] tbody tr th a').allInnerTexts();
   check('live world rows match file', () => assert.deepEqual(liveRows, worldLive.areas.filter(a => a.status === 'signal').map(a => a.name)));
+  // 11. Your next move: three cards answer when / is it real / this week, per job, and the season exports to a calendar.
+  await page.goto(`${base}/#home`);
+  await page.getByTestId('next-move').waitFor({timeout: 90000});
+  await page.getByTestId('nm-week').getByText(/active cell-days|Live data unavailable/).waitFor({timeout: 60000});
+  const nmWhen = await page.getByTestId('nm-when').innerText();
+  check('next move: Punjab season Oct-Nov with a share', () => assert.match(nmWhen, /Oct–Nov[\s\S]*\d+% of a typical year/));
+  const trendChip = await page.getByTestId('nm-trend').locator('.v-chip').innerText();
+  check('next move: trend card has a verdict', () => assert.match(trendChip, /Timing matters|MODIS record off|Timing isn’t the issue|Can’t tell/));
+  const policyDo = await page.getByTestId('nm-when').locator('.nm-do').innerText();
+  await page.getByTestId('nm-role-air').click();
+  const airDo = await page.getByTestId('nm-when').locator('.nm-do').innerText();
+  check('next move: switching job changes the action', () => { assert.notEqual(policyDo, airDo); assert.match(airDo, /emissions/); });
+  check('next move: role is kept in the URL', () => assert.match(page.url(), /role=air/));
+  const [icsFile] = await Promise.all([page.waitForEvent('download'), page.getByTestId('nm-ics').click()]);
+  const seasonIcs = readFileSync(await icsFile.path(), 'utf8');
+  check('next move: .ics has two seasons with reminders', () => { assert.equal((seasonIcs.match(/BEGIN:VEVENT/g) || []).length, 2); assert.match(seasonIcs, /DTSTART;VALUE=DATE:\d{4}1001/); assert.match(seasonIcs, /TRIGGER:-P14D/); });
+  // 12. Area shapes: a circle and a province count only the cells inside them.
+  const cells = async url => { await page.goto(`${base}/${url}`); await page.locator('.area-name').filter({hasText: /grid cells/}).waitFor({timeout: 90000}); return page.locator('.area-name').innerText(); };
+  const boxText = await cells('?box=29.6,74.46,31.4,76.54&choose=true#explorer'), circleText = await cells('?box=29.6,74.46,31.4,76.54&shape=c:30.5,75.5,100&choose=true#explorer');
+  const n = t => Number(t.match(/([\d,]+) grid cells/)[1].replace(/,/g, ''));
+  check('circle counts fewer cells than its box', () => { assert.match(circleText, /inside this circle/); assert.ok(n(circleText) < n(boxText), circleText + ' vs ' + boxText); });
+  const tools = await page.locator('[data-testid^=shape-]').count();
+  check('four shape tools', () => assert.equal(tools, 4));
+  await page.goto(`${base}/#home`); await page.locator('#place-search').fill('Punjab, India'); await page.locator('#place-search').press('Enter');
+  await page.waitForURL(/shape=a%3AIND%3AIND-3249|shape=a:IND:IND-3249/, {timeout: 30000});
+  await page.getByTestId('next-move').waitFor({timeout: 90000});
+  check('search picks the province outline', () => assert.match(page.url(), /IND-3249/));
+  const provName = await page.locator('.home-place-title').innerText();
+  check('province name shown', () => assert.match(provName, /Punjab, India/));
+  // 13. Day view: on for the Punjab preset, disabled elsewhere.
+  await page.goto(`${base}/?cview=days#home`); await page.getByTestId('day-calendar').waitFor({timeout: 90000});
+  const busiest = await page.locator('.day-summary').innerText();
+  check('day view shows busiest days', () => assert.match(busiest, /Busiest day in \d{4}: \d+ (Oct|Nov)/));
+  await page.goto(`${base}/?box=-20,-55,-5,-40#explorer`); await page.locator('.calendar-core').waitFor({timeout: 90000});
+  const daysDisabled = await page.getByRole('button', {name: 'Days'}).isDisabled();
+  check('days button disabled outside Punjab', () => assert.equal(daysDisabled, true));
   // 10. Mobile layout: no horizontal scroll on the planner.
   const mobile = await browser.newPage({viewport: {width: 390, height: 844}});
   await mobile.goto(`${base}/?district=Fazilka#act`); await mobile.getByTestId('act-window').waitFor();

@@ -1,3 +1,4 @@
+import {inPolys,type Polys} from './shape';
 import {timingChecks} from './timing';
 import {PLATFORMS, type Platform,type BBox,type Manifest,type CalendarTile,type ClockTile,type Month,type ClockYear,type ClockTest} from './types';
 
@@ -30,10 +31,11 @@ export function validBox(b:number[]):b is BBox{return b.length===4&&b.every(Numb
 export function createAccumulator(manifest:Manifest){
   let cells=0;
   const rows=manifest.months.map(month=>({month,raw:Object.fromEntries(PLATFORMS.map(p=>[p,0])) as Record<Platform,number>,rawMissing:Object.fromEntries(PLATFORMS.map(p=>[p,0])) as Record<Platform,number>,harm:0,lo:0,hi:0,harmMissing:0,src:new Set<string>()}));
-  function add(tile:CalendarTile,box:BBox){
+  function add(tile:CalendarTile,box:BBox,polys?:Polys|null){
     tile.cells.forEach(([lat,lon],ci)=>{
       // Tiles store SW coordinates; select by the cell center as the pipeline does.
       if(!inside(lat+.125,lon+.125,box))return;
+      if(polys&&!inPolys(lat+.125,lon+.125,polys))return;
       cells++;
       rows.forEach((r,mi)=>{
         for(const p of PLATFORMS){const v=tile.raw[p]?.[ci]?.[mi];if(valid(v))r.raw[p]+=v;else r.rawMissing[p]++;}
