@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "generatedAt": "2026-11-15T01:23:59.507Z",
+  "base": "http://127.0.0.1:4173",
+  "releases": [
+    {
+      "filename": "burnclock_public_data_2026-11-14_1.tar.gz",
+      "bytes": 85301473,
+      "sha256": "e44b3552654cbe84149c89b9775580528aefb1cb6a521e41177294fb05021255",
+      "parts": 6
+    },
+    {
+      "filename": "burnclock_contours_2026-11-14.tar.gz",
+      "bytes": 17128711,
+      "sha256": "a67a2036e5e97eb9773b3d1c5709ebedbdc43f85313702c1fce2d7147d8f34cb",
+      "parts": 2
+    },
+    {
+      "filename": "burnclock_pipeline_code_2026-11-14_2.tar.gz",
+      "bytes": 264867,
+      "sha256": "b3c0865cd95cc6e411c408caac58287dc16d64e48f6aa8fe5625a13a26e327d1",
+      "parts": 1
+    }
+  ],
+  "scope": "Actual browser downloads reconstructed by the application from served parts, then independently SHA-256 checked. Upstream pipeline reproducibility is not established."
+}

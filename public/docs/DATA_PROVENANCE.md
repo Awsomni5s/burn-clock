@@ -102,7 +102,7 @@ These are the exact missing-file records supplied with the manifest. Only the `v
 
 - [GK2A hourly fire/hot-smoke dataset, Jethva, Zenodo 20084790](https://zenodo.org/records/20084790), associated with [Timing the Flames](https://www.mdpi.com/2072-4292/18/10/1506). The supplied receipt attributes the dataset to CC BY 4.0. The record and paper were checked, but raw GK2A files were not reprocessed in this app build. GK2A is preliminary, coarse-resolution evidence, not ground truth.
 - [PIB, 1 December 2025](https://www.pib.gov.in/PressReleseDetailm.aspx?PRID=2197201&lang=2&reg=3): primary source for the reported 5,114 Punjab incidents and 93% reduction relative to 2021, using the official September 15–November 30 window. The receipt uses October–November and a different sampling unit.
-- [NASA FIRMS notification](https://firms2.modaps.eosdis.nasa.gov/content/notifications/firms2/news.html): observation-delivery transition from S-NPP in November 2026. This operational context does not mean the app contains 2026 observations.
+- [NASA FIRMS notification](https://firms2.modaps.eosdis.nasa.gov/content/notifications/firms2/news.html): observation-delivery transition from S-NPP in November 2026. This operational context does not extend the historical archive. The addendum adds a separate, dated provisional snapshot.
 - [NASA Terra orbital information](https://terra.nasa.gov/about) and [NASA Earth Observatory timing overview](https://science.nasa.gov/earth/earth-observatory/new-timing-for-stubble-burning-in-india/): context for clock drift and time-of-day sensitivity, not independent certification of the supplied model outputs.
 
 ## Local artifact fingerprints
@@ -112,7 +112,7 @@ The fingerprints below were recomputed from the delivered files during this buil
 | File | Bytes | SHA-256 |
 | --- | ---: | --- |
 | `public/data/manifest.json` | 37,773 | `c27f274918f7ee1316f308159835f8f37e19db10cadbb28111e809a863101907` |
-| `public/data/validation.json` | 31,588 | `de8201da433939765840d3e83b6e6fa8b72683447e45177f6586e18acd0ed089` |
+| `public/data/validation.json` | 27,564 | `87982904c2daedd241b595b513defd1f65a920a8b1f1cc211f84ad0616a41391` |
 | `public/data/punjab_receipt.json` | 26,828 | `d390d54d1c6a5dd87ffe3dc41713d14d34eac94a2eacfe0ea2ace8f4c51d28f2` |
 | `public/data/world/countries.json` | 15,944 | `cb32d21d9cd39b45913dd424ecb571b326c99f974764ad27bd77643805395988` |
 | `public/data/world/continents.json` | 1,773 | `982eccf9c11763ce4e7d80f54df583d5d4ace823919ac99684f5c4ad903f5443` |
@@ -128,3 +128,9 @@ The supplied final validation reports a 1.06% global median annual LOYO error, 8
 Raw platform months are null when unavailable or more than 30% of days are missing; retained raw values are not coverage-scaled. The harmonized production policy can use and rescale observations at 50% coverage, so its missingness may differ. All-platform coverage and source fields must travel with exported values. Summed cell-level interval endpoints are conservative bounds rather than a calibrated 90% area-level confidence interval.
 
 The original pipeline scripts are supplied for inspection. Re-running ingestion requires network access and the Python dependencies noted in the pipeline; re-running receipt/world analysis also requires upstream processed inputs that were not included. The application can be built and served from the delivered JSON independently of those large upstream inputs.
+
+## Addendum release reconciliation
+
+The newer public-data archive changes only `validation.json` among 2,133 entries; its same-day pair analysis is now embedded. The older supplied validation report’s null-field note is superseded by this release. The pipeline has 106 byte-identical extracted files. No heavy historical FIRMS processing was repeated. The contour archive adds 88 precomputed GeoJSON maps plus metadata; its generator is absent. Original archive hashes and byte lengths are published in `data/releases.json`.
+
+A separate NASA FIRMS seven-day snapshot was fetched on 15 November 2026 UTC. It is provisional, not merged into historical data, and is not automatically refreshed on the current host. Updated primary-source context and reproduction limits are in `ADDENDUM_IMPLEMENTATION.md`.

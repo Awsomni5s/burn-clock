@@ -1,0 +1,41 @@
+{
+  "generatedAt": "2026-11-15T01:22:30.322Z",
+  "status": "passed",
+  "base": "http://127.0.0.1:4173",
+  "assertions": 2337,
+  "failureCount": 0,
+  "coverage": {
+    "claims": 23,
+    "trends": 13,
+    "sliderStates": 8,
+    "sourceAttributes": 635,
+    "homeNumbers": 13,
+    "customAreas": 4,
+    "edgeStates": 6,
+    "permalinkRoundTrips": 1,
+    "pngExports": 1
+  },
+  "groups": [
+    "Homepage headline, afternoon metrics and every base-year/mask combination",
+    "punjab: independent Claim Checker and trend comparisons",
+    "parana: independent Claim Checker and trend comparisons",
+    "cerrado: independent Claim Checker and trend comparisons",
+    "africa: independent Claim Checker and trend comparisons",
+    "kalimantan: independent Claim Checker and trend comparisons",
+    "california: independent Claim Checker and trend comparisons",
+    "California task permalink, embedded source/context and actual PNG export",
+    "Eight real-source clock shifts and actual 2025 overlay",
+    "Empty months, empty area, one-cell/equator/date-line areas and Terra-only archive edge"
+  ],
+  "failures": [],
+  "fatal": null,
+  "runtimeErrors": [],
+  "elapsedSeconds": 25.74,
+  "fixtureSha256": "287b4feb45217b101a8c95885d06ba72288516d956cd16e552ab64e11ff613ae",
+  "scope": "Independent Python reference for every six-preset Claim Checker/trend fixture, source annotations, home Punjab metrics and base-year fan, eight curve shifts, real 2025 overlay, California permalink/PNG and explicit geographic/missing-data edge states.",
+  "limitations": [
+    "Finite enumerated states, not every possible drawn area or year/month combination.",
+    "PNG export integrity and embedded context are checked; malicious cropping resistance and human comprehension require people.",
+    "These checks do not imply any real-person testing results."
+  ]
+}

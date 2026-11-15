@@ -1,9 +1,61 @@
 {
   "success": true,
-  "total": 38,
-  "passed": 38,
+  "total": 78,
+  "passed": 78,
   "failed": 0,
   "tests": [
+    {
+      "name": "addendum fixed insight rules requires a clock-sensitive Aqua driver and a positive ratio departure",
+      "status": "passed"
+    },
+    {
+      "name": "addendum fixed insight rules names Terra only when Terra drives a clock-sensitive badge",
+      "status": "passed"
+    },
+    {
+      "name": "addendum fixed insight rules qualifies an OK timing result instead of certifying a real trend",
+      "status": "passed"
+    },
+    {
+      "name": "addendum fixed insight rules handles both low support and an earlier-than-diagnostic comparison",
+      "status": "passed"
+    },
+    {
+      "name": "addendum fixed insight rules treats one as no change, inclusive at either range endpoint",
+      "status": "passed"
+    },
+    {
+      "name": "addendum fixed insight rules requires strictly more than 30% converted months and a documented transfer failure",
+      "status": "passed"
+    },
+    {
+      "name": "addendum fixed insight rules retains the difference between partial outages and missing monthly estimates",
+      "status": "passed"
+    },
+    {
+      "name": "addendum fixed insight rules returns at most three in the stated order without promoting later warnings",
+      "status": "passed"
+    },
+    {
+      "name": "contour data contract uses original fixed metadata palette and open-ended bands without recolouring",
+      "status": "passed"
+    },
+    {
+      "name": "contour data contract matches cell and tile indexing at negative coordinates and the date line",
+      "status": "passed"
+    },
+    {
+      "name": "contour data contract sums original monthly values exactly and keeps true zero distinct from missing",
+      "status": "passed"
+    },
+    {
+      "name": "contour data contract reads the hourly receipt ratio and refuses to invent other base-year ratios",
+      "status": "passed"
+    },
+    {
+      "name": "contour data contract serves every declared year and hour with feature colours and levels unchanged",
+      "status": "passed"
+    },
     {
       "name": "geographic selection selects negative and positive tile origins across the date line",
       "status": "passed"
@@ -154,6 +206,114 @@
     },
     {
       "name": "independent Python reference: all preset months and clock years records finite coverage of the independent reference",
+      "status": "passed"
+    },
+    {
+      "name": "release download integrity joins parts in order and verifies complete bytes before producing a file",
+      "status": "passed"
+    },
+    {
+      "name": "release download integrity rejects changed part bytes and never returns a corrupt archive",
+      "status": "passed"
+    },
+    {
+      "name": "release download integrity rejects full hash mismatch even when every part hash is valid",
+      "status": "passed"
+    },
+    {
+      "name": "release download integrity stops cancellation and reports HTTP failure without creating a file",
+      "status": "passed"
+    },
+    {
+      "name": "release download integrity rejects repeated parts, mismatched size and external download paths",
+      "status": "passed"
+    },
+    {
+      "name": "claim checker safeguards and defined math sums selected months; uses cross-divided bounds and deduplicates months",
+      "status": "passed"
+    },
+    {
+      "name": "claim checker safeguards and defined math requires both raw totals >=50, distinguishing a missing month from zero",
+      "status": "passed"
+    },
+    {
+      "name": "claim checker safeguards and defined math does not divide by zero, invent missing bounds, or accept reversed bounds",
+      "status": "passed"
+    },
+    {
+      "name": "claim checker safeguards and defined math returns explicit unavailable states for empty, malformed and absent selections",
+      "status": "passed"
+    },
+    {
+      "name": "claim checker safeguards and defined math warns across 2012 and for a >30% converted share; source mixtures count as converted",
+      "status": "passed"
+    },
+    {
+      "name": "claim checker safeguards and defined math reports selected outages without treating a partial interruption as a zero month",
+      "status": "passed"
+    },
+    {
+      "name": "descriptive Theil–Sen trend takes the median of every pairwise slope rather than ordinary least squares",
+      "status": "passed"
+    },
+    {
+      "name": "descriptive Theil–Sen trend normalizes both bound slopes by median central H and orders negative endpoints",
+      "status": "passed"
+    },
+    {
+      "name": "descriptive Theil–Sen trend labels a bound-slope range crossing zero as no clear trend",
+      "status": "passed"
+    },
+    {
+      "name": "descriptive Theil–Sen trend excludes incomplete years and uses actual year spacing, not a compact index",
+      "status": "passed"
+    },
+    {
+      "name": "descriptive Theil–Sen trend requires two complete years and a positive median for percentage trends",
+      "status": "passed"
+    },
+    {
+      "name": "descriptive Theil–Sen trend reports an opposite MODIS trend only with complete same-year Terra and Aqua",
+      "status": "passed"
+    },
+    {
+      "name": "clock illustration and fixed-offset conversion interpolates between measured hours and drops the shifted curve beyond the displayed window",
+      "status": "passed"
+    },
+    {
+      "name": "clock illustration and fixed-offset conversion converts solar time with an explicit longitude and UTC offset; wraps clock rounding",
+      "status": "passed"
+    },
+    {
+      "name": "independent Python fixture loaded directly from source gzip files Punjab + Haryana: all claim and trend cases",
+      "status": "passed"
+    },
+    {
+      "name": "independent Python fixture loaded directly from source gzip files Paraná Delta: all claim and trend cases",
+      "status": "passed"
+    },
+    {
+      "name": "independent Python fixture loaded directly from source gzip files Cerrado / MATOPIBA: all claim and trend cases",
+      "status": "passed"
+    },
+    {
+      "name": "independent Python fixture loaded directly from source gzip files Central African savanna: all claim and trend cases",
+      "status": "passed"
+    },
+    {
+      "name": "independent Python fixture loaded directly from source gzip files Kalimantan: all claim and trend cases",
+      "status": "passed"
+    },
+    {
+      "name": "independent Python fixture loaded directly from source gzip files California: all claim and trend cases",
+      "status": "passed"
+    },
+    {
+      "name": "independent Python fixture loaded directly from source gzip files matches independent empty, one-cell, equator and antimeridian reference areas",
+      "status": "passed"
+    },
+    {
+      "name": "independent Python fixture loaded directly from source gzip files matches the real 2021 curve at eight shift values",
       "status": "passed"
     }
   ]

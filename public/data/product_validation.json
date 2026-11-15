@@ -1,35 +1,45 @@
 {
-  "generatedAt": "2026-11-15T00:37:18.387Z",
+  "generatedAt": "2026-11-15T01:25:14.849Z",
   "automated": [
     {
-      "name": "Calculation and rule tests",
+      "name": "Calculations and fixed rules",
       "status": "Passed",
-      "detail": "38/38 tests; independent source fixtures, missingness, annual diagnostics, deterministic guidance, claim-card context and decimal rounding boundaries."
+      "detail": "78/78 unit tests. Independent Python claim/trend/clock-shift references; missing data, geographic edges, fixed guidance and release checksum failure cases. Four separate Node tests passed for the live CSV parser, retries and stale-snapshot preservation."
     },
     {
-      "name": "Rendered numbers and CSV",
+      "name": "Supplied calendar files",
       "status": "Passed",
-      "detail": "116,637/116,637 assertions; all six presets × 302 months × seven display modes, 1,812 harmonized month panels and CSV rows, 78 clock states, 72 country rows, validation and Methods data fields. Zero discrepancies within displayed rounding. Arbitrary rectangles and scientific inference are not exhaustively certified."
+      "detail": "1,237 compressed files match supplied bytes exactly; 57,738,474 cell-months checked for shape, interval ordering and source flags; zero violations. This does not independently reproduce upstream satellite processing."
     },
     {
-      "name": "Punjab evidence and product workflows",
+      "name": "Rendered historical numbers and CSV",
       "status": "Passed",
-      "detail": "6 workflow groups: source-count arithmetic, hourly and mask/baseline controls, both PNG exports, all four decision roles, annual markers and honest pending human results."
+      "detail": "118,449/118,449 assertions. Six presets, 302 months, seven display modes, month panels and CSV rows, annual clock states, validation and Methods fields. Agreement within displayed rounding; finite coverage, not all arbitrary rectangles."
     },
     {
-      "name": "Interaction and edge cases",
+      "name": "New claims, trends and clock illustration",
       "status": "Passed",
-      "detail": "11 workflow groups: six presets, missing values, empty/invalid/date-line areas, 2012 transition, platform coverage, outage guidance, CSV, keyboard navigation, mobile layouts and retryable load failure."
+      "detail": "2,337/2,337 assertions against source-file Python references. Includes year/month comparisons, trends, clock shifts, empty/single-cell/equator/date-line areas, source labels, card export and permalink round trip."
     },
     {
-      "name": "Automated accessibility",
+      "name": "Product workflows",
+      "status": "Passed",
+      "detail": "17 workflow groups. Search and coordinates, keyboard actions, maps and unsmoothed source cells, both actual PNG exports, empty selections, source failures/retry and live unavailable/stale/observed-zero states."
+    },
+    {
+      "name": "Accessibility and phone layout",
       "status": "Passed automated rules; manual review pending",
-      "detail": "Zero WCAG 2.1 A/AA rule violations across 10 route/viewport combinations (five routes, desktop and mobile). 82 node-level incomplete findings across scans need manual review; these are not unique defects. Screen-reader usability and human accessibility sessions have not been run."
+      "detail": "Zero WCAG 2.1 A/AA violations and no page overflow in 12 route/viewport scans (six routes, desktop and 375px phone). 88 node-level incomplete findings remain across scans; these are not unique defects. SVG contrast and human screen-reader/colour-blind usability still require review."
     },
     {
-      "name": "Default-area production load",
+      "name": "First useful answer",
       "status": "Passed local lab budget",
-      "detail": "local-desktop: headline 174 ms, usable calendar 444 ms; simulated-mobile: headline 1287 ms, usable calendar 2578 ms. Cold Chromium contexts, one observation per profile, local production preview. Simulated mobile: 10 Mbps, 100 ms latency, 4× CPU slowdown. Calendar budget set before measurement: under 10 seconds. These are not field or real-device results."
+      "detail": "desktop: first useful answer 79 ms; Claim Checker ready 533 ms; throttled-4G: first useful answer 1874 ms; Claim Checker ready 6316 ms. Cold-cache local production preview, one observation per profile. Throttled profile: 1.6 Mbps down, 150 ms latency, 4× CPU slowdown. Pre-set first-answer budget: under 3 seconds. Not field percentiles or real-device evidence."
+    },
+    {
+      "name": "Original release downloads",
+      "status": "Passed",
+      "detail": "3 original archives reconstructed from served parts and SHA-256 checked. The supplied contour generator is missing; complete map regeneration is not claimed."
     }
   ],
   "human": {
@@ -38,19 +48,27 @@
     "retest": null
   },
   "evidence": {
+    "unit": "/qa/unit-checks.json",
     "numeric": "/qa/numeric-checks.json",
-    "product": "/qa/product-checks.json",
-    "interactions": "/qa/browser-checks.json",
-    "performance": "/qa/performance-checks.json",
-    "unit": "/qa/unit-checks.json"
+    "addendum-numeric": "/qa/addendum-numeric-checks.json",
+    "addendum-product": "/qa/addendum-product-checks.json",
+    "addendum-performance": "/qa/addendum-performance-checks.json",
+    "data-audit": "/qa/data-audit.json",
+    "release": "/qa/release-checks.json"
   },
   "limitations": [
     "Arbitrary custom AOIs are covered separately by edge-case tests, not exhaustively enumerated here.",
     "Punjab receipt and new decision text are audited separately.",
     "Raster-figure pixels, visual chart positions, explanatory constants and external scientific claims are not certified by this suite.",
     "No real-person usability test results are implied.",
-    "No human comprehension, usability, crop interpretation or manual screen-reader sessions run",
-    "Automated WCAG2.1 AA rules; incomplete checks require human review",
-    "Native map readiness does not measure full visual tile/font completion. Real-device and real-network testing still required."
+    "Automated checks do not replace human comprehension, usability, crop interpretation, keyboard-only exploration or screen-reader sessions.",
+    "PNG timings measure one automated local export, not a real participant task time.",
+    "No human participants or before/after study results are claimed.",
+    "SVG/chart contrast checks marked incomplete still require manual review; zero automated violations is not a complete accessibility certification.",
+    "Browser performance measured separately on a stable production build.",
+    "Lab measurements, not field percentiles or real-device results. Full maps/claim preparation measured separately; participant card timing not inferred.",
+    "Human study, manual crop/misuse and screen-reader sessions have not run.",
+    "Six-hour GitHub workflow is a template; this Sites repository does not run GitHub Actions.",
+    "Contour generator and some global-atlas inputs are absent from the supplied source."
   ]
 }

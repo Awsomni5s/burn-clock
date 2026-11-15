@@ -1,15 +1,22 @@
 # Burn Clock testing record
 
-This is an evidence log, not a claim that every planned check has been run. Human testing remains **not run**. Never fill a participant, quote or score from an automated run or an AI review.
+Recorded software report: 2026-11-15T01:25:14.849Z. This is an evidence log, not a claim that every planned check has been run. Human testing remains **not run**. Never fill a participant, quote or score from an automated run or an AI review.
 
-## Addendum revision: current work
+## Addendum revision: completed software checks
 
 | Check | Actual observation | Status |
 |---|---|---|
 | Public NRT CSV parser and statistics | Four `node:test` cases passed: quoted CSV and local-solar rollover; header-only and malformed payloads; five attempts with exponential backoff; preserving an older snapshot on feed failure and keeping first-failure values unavailable. | Passed, 2026-11-15 UTC |
 | Live source fetch | Four public seven-day endpoints fetched at `2026-11-15T00:57:53.189Z`: MODIS 82,587 rows; S-NPP header only; NOAA-20 431,187 rows; NOAA-21 422,848 rows. Per-preset summaries and payload SHA-256 hashes are in `data/live/latest.json`. | Observed snapshot, provisional |
 | Scientific context | iFOREST's published summary reports approximately 37% less Punjab burnt area from the 2022 peak to 2025; the analysis cutoff and inconsistent 35% slide heading are recorded. NOAA's 2 November update confirms S-NPP data delivery ended at 15:40 UTC that day. | Primary-source checked; not independent scientific reproduction |
-| Full addendum calculations, rendered numbers, new controls and contours | Record final output from the revision's independent Python, unit, browser, accessibility and speed checks here after they complete. Earlier-build results below do not certify new features. | Await final integration run |
+| Calculations and fixed rules | 78/78 unit tests. Independent Python claim/trend/clock-shift references; missing data, geographic edges, fixed guidance and release checksum failure cases. Four separate Node tests passed for the live CSV parser, retries and stale-snapshot preservation. | Passed |
+| Supplied calendar files | 1,237 compressed files match supplied bytes exactly; 57,738,474 cell-months checked for shape, interval ordering and source flags; zero violations. This does not independently reproduce upstream satellite processing. | Passed |
+| Rendered historical numbers and CSV | 118,449/118,449 assertions. Six presets, 302 months, seven display modes, month panels and CSV rows, annual clock states, validation and Methods fields. Agreement within displayed rounding; finite coverage, not all arbitrary rectangles. | Passed |
+| New claims, trends and clock illustration | 2,337/2,337 assertions against source-file Python references. Includes year/month comparisons, trends, clock shifts, empty/single-cell/equator/date-line areas, source labels, card export and permalink round trip. | Passed |
+| Product workflows | 17 workflow groups. Search and coordinates, keyboard actions, maps and unsmoothed source cells, both actual PNG exports, empty selections, source failures/retry and live unavailable/stale/observed-zero states. | Passed |
+| Accessibility and phone layout | Zero WCAG 2.1 A/AA violations and no page overflow in 12 route/viewport scans (six routes, desktop and 375px phone). 88 node-level incomplete findings remain across scans; these are not unique defects. SVG contrast and human screen-reader/colour-blind usability still require review. | Passed automated rules; manual review pending |
+| First useful answer | desktop: first useful answer 79 ms; Claim Checker ready 533 ms; throttled-4G: first useful answer 1874 ms; Claim Checker ready 6316 ms. Cold-cache local production preview, one observation per profile. Throttled profile: 1.6 Mbps down, 150 ms latency, 4× CPU slowdown. Pre-set first-answer budget: under 3 seconds. Not field percentiles or real-device evidence. | Passed local lab budget |
+| Original release downloads | 3 original archives reconstructed from served parts and SHA-256 checked. The supplied contour generator is missing; complete map regeneration is not claimed. | Passed |
 | Five-second comprehension | No real people tested. | Not run |
 | T1 Punjab, T2 California card, T3 Cerrado, T4 Paraná | No participant tasks or timings recorded. | Not run |
 | Human crop, screen-reader and colour-blind checks | No human observations recorded. | Not run |
@@ -49,3 +56,11 @@ The facilitator script and empty result sheet are [USER_TEST_PROTOCOL.md](USER_T
 | Manual accessibility observations | Not run | Not run |
 
 After real sessions, replace pending cells only with observed results and link their retained evidence. Record the top three confusions, changes and build, then genuine before/after results from new people. Use “Tested with N people; X of N read the Punjab result correctly” only when N and X actually exist.
+
+## Changes verified during software review
+
+Fixed an empty-month comparison sharing link that previously reopened default months, made calendar mode buttons wrap at 375 px, and raised clock-label contrast. The final browser suite passes after these changes; source-annotation and numeric calculations remain covered by independent references. These were software-review findings, not participant confusions or measured human improvements.
+
+The last structural change places the calendar and hourly evidence before fixed guidance/export, matching the requested reading order. The 2,337-assertion new-feature audit and 17-group product suite were repeated afterward. The larger 118,449-assertion historical audit covers the same unchanged aggregation/math and source data; its original execution timestamp is retained.
+
+Original archive downloads were exercised through the actual browser interface and independently SHA-256 checked after reconstruction. Their exact supplied bytes are preserved. The first-answer timing includes the Punjab values and baseline caveat; it does not imply the map or complete Claim Checker is ready within three seconds.

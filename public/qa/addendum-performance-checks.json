@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "runs": [
+    {
+      "profile": "desktop",
+      "firstUsefulAnswerMs": 79,
+      "claimReadyMs": 533,
+      "underThreeSeconds": true
+    },
+    {
+      "profile": "throttled-4G",
+      "firstUsefulAnswerMs": 1874,
+      "claimReadyMs": 6316,
+      "underThreeSeconds": true
+    }
+  ],
+  "definition": "First useful answer: source-derived Punjab headline, afternoon comparison and baseline caveat rendered. Cold cache; production preview on local machine; one observation per profile.",
+  "throttling": "4G profile: 1.6 Mbps down, 0.75 Mbps up, 150 ms latency, 4× CPU slowdown; headless Chromium. Vite preview assets may be uncompressed, unlike production hosting.",
+  "limits": "Lab measurements, not field percentiles or real-device results. Full maps/claim preparation measured separately; participant card timing not inferred."
+}

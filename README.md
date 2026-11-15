@@ -4,7 +4,7 @@ Site address: [Burn Clock](https://burn-clock.ottoskibeli.chatgpt.site) (owner-p
 
 A static satellite observatory for harmonized burning-activity calendars and changing satellite look times. Built from the supplied November 14, 2026 pipeline and public-data bundle.
 
-This directory contains the application. It uses React, TypeScript, MapLibre and Vite, with no application backend. The two supplied pipeline archives are byte-identical; one was imported.
+This directory contains the application. It uses React, TypeScript, MapLibre and Vite, with no application backend. The three supplied pipeline archive revisions have byte-identical extracted contents; one source tree was imported.
 
 ## Run locally
 
@@ -27,7 +27,7 @@ Open the local URL printed by Vite. `npm run build` produces the static `dist/` 
 
 ## What the data contain
 
-The supplied manifest records **548,501,203 rows**, **48 archives**, **515,029,947 type-0 detections** and **192,342,680 daytime active cell-days**. Observations span November 2000–December 2025. Terra, Aqua, S-NPP and NOAA-20 are present. NOAA-21 and 2026 observations are absent.
+The supplied manifest records **548,501,203 rows**, **48 archives**, **515,029,947 type-0 detections** and **192,342,680 daytime active cell-days**. Observations span November 2000–December 2025. Terra, Aqua, S-NPP and NOAA-20 are present. NOAA-21 and 2026 observations are absent from that historical archive. A separately labelled provisional seven-day snapshot includes NOAA-21 and 2026 detections; it never enters the merged calendar.
 
 The app retains the supplied final scientific numbers. It does not rerun the heavy FIRMS archive, refit models or fabricate missing results. The intermediate Parquet inputs needed for a full scientific rerun were not supplied. The report's model winner is the pre-drift ratio bridge; the GBM lost on the registered tile-year metric.
 
@@ -79,3 +79,11 @@ node scripts/record_product_validation.mjs
 The independent numeric reference covers all six preset calendars and clock years. Browser reports specify the finite rendered states that were audited; they do not certify all possible rectangles or the underlying scientific inference. Product checks include automated WCAG2.1 AA rules, mobile layout, evidence arithmetic and PNG downloads. Manual accessibility, real-device speed and comprehension remain human work.
 
 The Sunday study protocol and blank results sheet are in `public/docs/USER_TEST_PROTOCOL.md` and `public/docs/USER_TEST_RESULTS_TEMPLATE.csv` within the app. No real-person tests have been run or results invented. The site remains owner-private: use a supervised signed-in device or explicitly arrange participant access. Report actual first-round results, the top three confusions and a new-participant retest on Methods only after collecting them.
+
+## Addendum revision
+
+The updated one-page flow opens with the Punjab answer, then place search, comparison, calendar, hourly evidence and fixed guidance with PNG/permalink export. It includes the supplied world and Punjab contour maps, a clock-shift illustration, Theil–Sen trend sensitivity, source-line links and checksum-verified original release downloads. Use `public/docs/TESTING.md` and `public/data/product_validation.json` for actual current check results.
+
+The latest supplied validation file embeds same-day pairs. The supplied contour generator is missing, so a full map rebuild is not claimed. The six-hour GitHub workflow is a template and is not active on this Sites host. English ships until a native speaker reviews translations. Human studies and competition submission are pending. The demo capture and submission draft are in the original workspace’s `output/` folder.
+
+Current browser checks (set `BURN_CLOCK_URL` to a running production preview): `scripts/numeric_browser_checks.mjs`, `scripts/addendum_numeric_checks.mjs`, `scripts/addendum_product_checks.mjs`, `scripts/release_browser_checks.mjs`, and `scripts/addendum_performance_checks.mjs`. The speed check must run without competing browser or build jobs.

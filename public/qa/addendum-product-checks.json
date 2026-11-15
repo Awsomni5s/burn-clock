@@ -1,0 +1,971 @@
+{
+  "generatedAt": "2026-11-15T01:23:56.004Z",
+  "base": "http://127.0.0.1:4173",
+  "scope": "Integrated application workflows and six-route desktop/mobile accessibility",
+  "checks": [
+    {
+      "name": "First useful Punjab answer and baseline visible above the desktop fold",
+      "status": "passed",
+      "details": {
+        "baselineBottomPx": 466,
+        "viewportHeight": 1000,
+        "foldThresholdPx": 768
+      }
+    },
+    {
+      "name": "Skip link, region presets and place search operate with the keyboard",
+      "status": "passed"
+    },
+    {
+      "name": "Coordinate entry validates bounds and preserves the empty-is-not-zero rule",
+      "status": "passed"
+    },
+    {
+      "name": "Both actual PNG claim exports include full-sized rendered receipts",
+      "status": "passed",
+      "details": [
+        {
+          "filename": "burn-clock-punjab.png",
+          "width": 1200,
+          "height": 816,
+          "bytes": 199932,
+          "localExportMs": 1080
+        },
+        {
+          "filename": "burn-clock-punjab-2021-2025.png",
+          "width": 1000,
+          "height": 831,
+          "bytes": 211946,
+          "localExportMs": 60
+        }
+      ]
+    },
+    {
+      "name": "Fixed decision roles, empty month choice and early-year timing remain explicit",
+      "status": "passed"
+    },
+    {
+      "name": "World year and keyboard point inspection use unsmoothed source cells",
+      "status": "passed"
+    },
+    {
+      "name": "Coupled afternoon maps and illustration keep their geographic and simulation limits",
+      "status": "passed"
+    },
+    {
+      "name": "Six screens fit desktop and 375px mobile and meet automated WCAG 2.1 AA rules",
+      "status": "passed"
+    },
+    {
+      "name": "Clock text meets minimum contrast on its known light backgrounds",
+      "status": "passed",
+      "details": [
+        {
+          "text": "00",
+          "minimumContrast": 5.94
+        },
+        {
+          "text": "03",
+          "minimumContrast": 5.94
+        },
+        {
+          "text": "06",
+          "minimumContrast": 5.94
+        },
+        {
+          "text": "09",
+          "minimumContrast": 5.94
+        },
+        {
+          "text": "12",
+          "minimumContrast": 5.94
+        },
+        {
+          "text": "15",
+          "minimumContrast": 5.94
+        },
+        {
+          "text": "18",
+          "minimumContrast": 5.94
+        },
+        {
+          "text": "21",
+          "minimumContrast": 5.94
+        },
+        {
+          "text": "2025",
+          "minimumContrast": 9.86
+        },
+        {
+          "text": "SOLAR TIME",
+          "minimumContrast": 5.94
+        }
+      ]
+    },
+    {
+      "name": "Methods keeps real participant results pending and provides blank study materials",
+      "status": "passed"
+    },
+    {
+      "name": "Initial source failure is explicit and retry recovers without zeroed evidence",
+      "status": "passed"
+    },
+    {
+      "name": "Area-file failure leaves the official receipt visible and retries successfully",
+      "status": "passed"
+    },
+    {
+      "name": "Loading source evidence never flashes a numerical zero",
+      "status": "passed"
+    },
+    {
+      "name": "Unavailable live snapshot preserves the historical calendar",
+      "status": "passed"
+    },
+    {
+      "name": "Live feeds distinguish failed, stale, header-only and observed-zero states",
+      "status": "passed"
+    },
+    {
+      "name": "Place-search outage leaves preset and coordinate alternatives usable",
+      "status": "passed"
+    },
+    {
+      "name": "No unhandled JavaScript errors in integrated workflows",
+      "status": "passed"
+    }
+  ],
+  "accessibility": [
+    {
+      "route": "explorer",
+      "viewport": "desktop",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "text[x=\"55\"][y=\"275\"][text-anchor=\"middle\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"163.33333333333331\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"271.66666666666663\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"380\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"488.3333333333333\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"596.6666666666667\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"705\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[y=\"20\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"227.91666666666674\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"255.00000000000006\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "text[x=\"412.0833333333333\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route": "receipt",
+      "viewport": "desktop",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "text[x=\"55\"][y=\"275\"][text-anchor=\"middle\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"163.33333333333331\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"271.66666666666663\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"380\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"488.3333333333333\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"596.6666666666667\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"705\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[y=\"20\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"227.91666666666674\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"255.00000000000006\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"412.0833333333333\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                ".ratio-row:nth-child(2) > .ratio-track > .ratio-number"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".ratio-row:nth-child(3) > .ratio-track > .ratio-number"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".ratio-row:nth-child(4) > .ratio-track > .ratio-number"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".ratio-row:nth-child(5) > .ratio-track > .ratio-number"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route": "clock",
+      "viewport": "desktop",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "text[y=\"30\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"237.68124086713192\"][y=\"66.31875913286811\"][font-size=\"11\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "text[x=\"274\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[y=\"241.6812408671319\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "text[y=\"278\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"62.31875913286811\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "text[x=\"26\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"62.31875913286808\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "text[y=\"149\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "text[y=\"162\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route": "validation",
+      "viewport": "desktop",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "route": "methods",
+      "viewport": "desktop",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "route": "about",
+      "viewport": "desktop",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "route": "explorer",
+      "viewport": "mobile",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "text[x=\"55\"][y=\"275\"][text-anchor=\"middle\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"163.33333333333331\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"271.66666666666663\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"380\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"488.3333333333333\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"596.6666666666667\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"705\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[y=\"20\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"227.91666666666674\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"255.00000000000006\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"412.0833333333333\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                ".panel > .table-scroll[role=\"region\"] > table > tbody > tr:nth-child(1) > td:nth-child(4)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(1) > td:nth-child(4) > time"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(1) > td:nth-child(4) > a"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".panel > .table-scroll[role=\"region\"] > table > tbody > tr:nth-child(2) > td:nth-child(4)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(2) > td:nth-child(4) > time"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(2) > td:nth-child(4) > a"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "td[data-testid=\"live-time-N\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".panel > .table-scroll[role=\"region\"] > table > tbody > tr:nth-child(3) > td:nth-child(4)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(3) > td:nth-child(4) > time"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(3) > td:nth-child(4) > a"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".panel > .table-scroll[role=\"region\"] > table > tbody > tr:nth-child(4) > td:nth-child(4)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(4) > td:nth-child(4) > time"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(4) > td:nth-child(4) > a"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                ".panel > .table-scroll[role=\"region\"] > table > tbody > tr:nth-child(5) > td:nth-child(4)"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(5) > td:nth-child(4) > time"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "tr:nth-child(5) > td:nth-child(4) > a"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route": "receipt",
+      "viewport": "mobile",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "text[x=\"55\"][y=\"275\"][text-anchor=\"middle\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"163.33333333333331\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"271.66666666666663\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"380\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"488.3333333333333\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"596.6666666666667\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"705\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[y=\"20\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"227.91666666666674\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"255.00000000000006\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"412.0833333333333\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                ".ratio-row:nth-child(2) > .ratio-track > .ratio-number"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".ratio-row:nth-child(3) > .ratio-track > .ratio-number"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".ratio-row:nth-child(4) > .ratio-track > .ratio-number"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".ratio-row:nth-child(5) > .ratio-track > .ratio-number"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route": "clock",
+      "viewport": "mobile",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "text[y=\"30\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"237.68124086713192\"][y=\"66.31875913286811\"][font-size=\"11\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "text[x=\"274\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[y=\"241.6812408671319\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "text[y=\"278\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"62.31875913286811\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "text[x=\"26\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+            },
+            {
+              "target": [
+                "text[x=\"62.31875913286808\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "text[y=\"149\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            },
+            {
+              "target": [
+                "text[y=\"162\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route": "validation",
+      "viewport": "mobile",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "route": "methods",
+      "viewport": "mobile",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "route": "about",
+      "viewport": "mobile",
+      "violations": [],
+      "incomplete": []
+    }
+  ],
+  "overflow": [
+    {
+      "route": "explorer",
+      "viewportName": "desktop",
+      "viewport": 1440,
+      "document": 1440,
+      "offenders": []
+    },
+    {
+      "route": "receipt",
+      "viewportName": "desktop",
+      "viewport": 1440,
+      "document": 1440,
+      "offenders": []
+    },
+    {
+      "route": "clock",
+      "viewportName": "desktop",
+      "viewport": 1440,
+      "document": 1440,
+      "offenders": []
+    },
+    {
+      "route": "validation",
+      "viewportName": "desktop",
+      "viewport": 1440,
+      "document": 1440,
+      "offenders": []
+    },
+    {
+      "route": "methods",
+      "viewportName": "desktop",
+      "viewport": 1440,
+      "document": 1440,
+      "offenders": []
+    },
+    {
+      "route": "about",
+      "viewportName": "desktop",
+      "viewport": 1440,
+      "document": 1440,
+      "offenders": []
+    },
+    {
+      "route": "explorer",
+      "viewportName": "mobile",
+      "viewport": 375,
+      "document": 375,
+      "offenders": []
+    },
+    {
+      "route": "receipt",
+      "viewportName": "mobile",
+      "viewport": 375,
+      "document": 375,
+      "offenders": []
+    },
+    {
+      "route": "clock",
+      "viewportName": "mobile",
+      "viewport": 375,
+      "document": 375,
+      "offenders": []
+    },
+    {
+      "route": "validation",
+      "viewportName": "mobile",
+      "viewport": 375,
+      "document": 375,
+      "offenders": [
+        {
+          "tag": "DIV",
+          "class": "",
+          "text": "0.9623",
+          "right": 404,
+          "width": 27
+        },
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "0.96",
+          "right": 404,
+          "width": 27
+        },
+        {
+          "tag": "I",
+          "class": "",
+          "text": "",
+          "right": 404,
+          "width": 27
+        },
+        {
+          "tag": "SMALL",
+          "class": "",
+          "text": "23",
+          "right": 404,
+          "width": 27
+        },
+        {
+          "tag": "DIV",
+          "class": "",
+          "text": "0.9724",
+          "right": 435,
+          "width": 26
+        },
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "0.97",
+          "right": 435,
+          "width": 26
+        },
+        {
+          "tag": "I",
+          "class": "",
+          "text": "",
+          "right": 435,
+          "width": 26
+        },
+        {
+          "tag": "SMALL",
+          "class": "",
+          "text": "24",
+          "right": 435,
+          "width": 26
+        },
+        {
+          "tag": "DIV",
+          "class": "",
+          "text": "0.9225",
+          "right": 467,
+          "width": 27
+        },
+        {
+          "tag": "SPAN",
+          "class": "",
+          "text": "0.92",
+          "right": 467,
+          "width": 27
+        },
+        {
+          "tag": "I",
+          "class": "",
+          "text": "",
+          "right": 467,
+          "width": 27
+        },
+        {
+          "tag": "SMALL",
+          "class": "",
+          "text": "25",
+          "right": 467,
+          "width": 27
+        }
+      ]
+    },
+    {
+      "route": "methods",
+      "viewportName": "mobile",
+      "viewport": 375,
+      "document": 375,
+      "offenders": []
+    },
+    {
+      "route": "about",
+      "viewportName": "mobile",
+      "viewport": 375,
+      "document": 375,
+      "offenders": []
+    }
+  ],
+  "pageErrors": [],
+  "cards": [
+    {
+      "filename": "burn-clock-punjab.png",
+      "width": 1200,
+      "height": 816,
+      "bytes": 199932,
+      "localExportMs": 1080
+    },
+    {
+      "filename": "burn-clock-punjab-2021-2025.png",
+      "width": 1000,
+      "height": 831,
+      "bytes": 211946,
+      "localExportMs": 60
+    }
+  ],
+  "limitations": [
+    "Automated checks do not replace human comprehension, usability, crop interpretation, keyboard-only exploration or screen-reader sessions.",
+    "PNG timings measure one automated local export, not a real participant task time.",
+    "No human participants or before/after study results are claimed.",
+    "SVG/chart contrast checks marked incomplete still require manual review; zero automated violations is not a complete accessibility certification.",
+    "Browser performance measured separately on a stable production build."
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-15T01:15:35.691Z",
+  "generatedAt": "2026-11-15T01:23:56.004Z",
   "base": "http://127.0.0.1:4173",
   "scope": "Integrated application workflows and six-route desktop/mobile accessibility",
   "checks": [
@@ -29,14 +29,14 @@
           "width": 1200,
           "height": 816,
           "bytes": 199932,
-          "localExportMs": 138
+          "localExportMs": 1080
         },
         {
           "filename": "burn-clock-punjab-2021-2025.png",
           "width": 1000,
           "height": 831,
           "bytes": 211946,
-          "localExportMs": 50
+          "localExportMs": 60
         }
       ]
     },
@@ -414,12 +414,6 @@
         {
           "id": "color-contrast",
           "nodes": [
-            {
-              "target": [
-                ".segmented > button:nth-child(3)"
-              ],
-              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
-            },
             {
               "target": [
                 "text[x=\"55\"][y=\"275\"][text-anchor=\"middle\"]"
@@ -827,15 +821,7 @@
       "viewportName": "mobile",
       "viewport": 375,
       "document": 375,
-      "offenders": [
-        {
-          "tag": "BUTTON",
-          "class": "",
-          "text": "Compared with usual",
-          "right": 431,
-          "width": 163
-        }
-      ]
+      "offenders": []
     },
     {
       "route": "receipt",
@@ -965,14 +951,14 @@
       "width": 1200,
       "height": 816,
       "bytes": 199932,
-      "localExportMs": 138
+      "localExportMs": 1080
     },
     {
       "filename": "burn-clock-punjab-2021-2025.png",
       "width": 1000,
       "height": 831,
       "bytes": 211946,
-      "localExportMs": 50
+      "localExportMs": 60
     }
   ],
   "limitations": [
@@ -981,83 +967,5 @@
     "No human participants or before/after study results are claimed.",
     "SVG/chart contrast checks marked incomplete still require manual review; zero automated violations is not a complete accessibility certification.",
     "Browser performance measured separately on a stable production build."
-  ],
-  "targetedFollowUps": [
-    {
-      "name": "Mobile Calendar mode labels remain fully visible and keyboard-operable after wrap fix",
-      "status": "passed",
-      "testedAt": "2026-11-15T01:18:15.674Z",
-      "base": "http://127.0.0.1:4173",
-      "viewport": {
-        "width": 375,
-        "height": 844
-      },
-      "geometry": {
-        "flexWrap": "wrap",
-        "group": {
-          "left": 29,
-          "right": 346,
-          "top": 379.703125,
-          "bottom": 463.828125
-        },
-        "card": {
-          "left": 16,
-          "right": 359
-        },
-        "buttons": [
-          {
-            "text": "Combined record",
-            "left": 33,
-            "right": 175.3125,
-            "top": 383.703125,
-            "bottom": 421.765625,
-            "width": 142.3125,
-            "scrollWidth": 142,
-            "clientWidth": 142
-          },
-          {
-            "text": "By satellite",
-            "left": 175.3125,
-            "right": 268.140625,
-            "top": 383.703125,
-            "bottom": 421.765625,
-            "width": 92.828125,
-            "scrollWidth": 93,
-            "clientWidth": 93
-          },
-          {
-            "text": "Compared with usual",
-            "left": 33,
-            "right": 195.71875,
-            "top": 421.765625,
-            "bottom": 459.828125,
-            "width": 162.71875,
-            "scrollWidth": 163,
-            "clientWidth": 163
-          }
-        ]
-      },
-      "keyboardActions": [
-        {
-          "control": "Compared with usual",
-          "key": "Enter",
-          "selected": true
-        },
-        {
-          "control": "By satellite",
-          "key": "Enter",
-          "selected": true
-        },
-        {
-          "control": "Combined record",
-          "key": "Enter",
-          "selected": true
-        }
-      ],
-      "pageErrors": [],
-      "screenshot": "tmp/addendum-product-qa-production/calendar-controls-mobile-fixed.png",
-      "scope": "Targeted check after Calendar CSS wrapping change. The full 17-group suite was not rerun."
-    }
-  ],
-  "lastUpdatedAt": "2026-11-15T01:18:15.696Z"
+  ]
 }
