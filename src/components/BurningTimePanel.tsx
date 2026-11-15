@@ -1,3 +1,7 @@
+import {Evidence} from './Provenance';
+import Term from './Term';
+import GisDownload from './GisDownload';
+import {useURLState,numeric} from '../urlState';
 import {useEffect,useRef,useState} from 'react';
 import * as maplibregl from 'maplibre-gl';
 import type {GeoJSONSource} from 'maplibre-gl';
@@ -33,7 +37,7 @@ function FireMap({file,year,label}:{file:string;year:number;label:string}){
 
 export default function BurningTimePanel({data}:{data:Record<string,any>}){
   const container=useRef<HTMLElement>(null);
-  const [visible,setVisible]=useState(false),[meta,setMeta]=useState<ContourMeta|null>(null),[base,setBase]=useState(2021),[hour,setHour]=useState(17),[error,setError]=useState('');
+  const [visible,setVisible]=useState(false),[meta,setMeta]=useState<ContourMeta|null>(null),[base,setBase]=useURLState('mapsBase',2021,s=>[2019,2021,2023].includes(+s)?+s:null),[hour,setHour]=useURLState('hour',17,numeric(12,18)),[error,setError]=useState('');
   useEffect(()=>{if(!container.current)return;if(!('IntersectionObserver' in window)){setVisible(true);return;}const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){setVisible(true);observer.disconnect();}},{rootMargin:'250px'});observer.observe(container.current);return()=>observer.disconnect();},[]);
   useEffect(()=>{if(!visible)return;const abort=new AbortController();fetch('/data/contours/contours_meta.json',{signal:abort.signal}).then(r=>{if(!r.ok)throw Error('Metadata unavailable');return r.json();}).then(setMeta).catch(e=>{if(e.name!=='AbortError')setError('The map metadata could not be loaded. The Punjab receipt remains available below.');});return()=>abort.abort();},[visible]);
   const ratio=receiptHourRatio(data,base,hour),hours=meta?.punjab_gk2a.hours_ist??data.gk2a_by_hour?.hours??[];
@@ -45,9 +49,9 @@ export default function BurningTimePanel({data}:{data:Record<string,any>}){
       <ContourLegend series={meta.punjab_viirs} palette={meta.palette}/>
       <h3>What a satellite watching every hour saw</h3><div className="burning-controls"><label>India time <input type="range" aria-label="GK2A map hour in India time" min={hours[0]} max={hours.at(-1)} step="1" value={hour} onChange={e=>setHour(Number(e.target.value))}/><output>{hour}:00 IST</output></label></div>
       <div className="burning-pair"><FireMap file={`punjab_gk2a_${base}_${hour}`} year={base} label={`GK2A at ${hour}:00 IST`}/><FireMap file={`punjab_gk2a_2025_${hour}`} year={2025} label={`GK2A at ${hour}:00 IST`}/></div>
-      <p className="burning-hour-caption" data-testid="burning-hour-ratio" role="status">{ratio==null?`The supplied receipt has no ${hour}:00 numerical ratio for 2025 versus ${base}. Compare the maps; no aggregate ratio is inferred from contour colours.`:`At ${hour}:00 IST, 2025 had ${number(ratio,2)}× the 2021 fire pixel-hours in Punjab.`}</p>
+      <p className="burning-hour-caption" data-testid="burning-hour-ratio" role="status"><Evidence value={ratio==null?`The supplied receipt has no ${hour}:00 numerical ratio for 2025 versus ${base}. Compare the maps; no aggregate ratio is inferred from contour colours.`:`At ${hour}:00 IST, 2025 had ${number(ratio,2)}× the 2021 fire pixel-hours in Punjab.`} expression={`gk2a_by_hour.ratio_2025_2021[hour=${hour}]; baseline=${base}`} source="punjab_receipt.json → gk2a_by_hour" producer="pipeline/analysis/punjab_receipt.py"/></p>
       <ContourLegend series={meta.punjab_gk2a} palette={meta.palette} hour={hour}/>
-      <div className="burning-map-notes"><p><strong>Compare years within each row, not colours between rows.</strong> Top and bottom use different satellites and units. Both rows show Punjab and Haryana; the numerical hourly caption uses the receipt’s Punjab-only counts. The view and colour levels stay fixed. GK2A coverage: {meta.punjab_gk2a.coverage}.</p><p>GK2A is preliminary, uses coarse pixels and can flag hot smoke. The {hours.at(-1)}:00 result is near sunset and uses different thresholds. The maps do not establish why burning moved later or measure total smoke.</p><p>Source: supplied <a href="/data/contours/contours_meta.json">contour metadata</a>; <a href="/data/punjab_receipt.json.gz" download>Punjab receipt</a> → gk2a_by_hour. GK2A: {meta.punjab_gk2a.source}. Basemap: Natural Earth, public domain.</p></div>
+      <div className="gis-downloads"><GisDownload file={`punjab_gk2a_${base}_${hour}`} label={`${base} GK2A ${hour}:00`}/><GisDownload file={`punjab_gk2a_2025_${hour}`} label={`2025 GK2A ${hour}:00`}/><GisDownload file={`punjab_viirs_${base}`} label={`${base} S-NPP`}/><GisDownload file="punjab_viirs_2025" label="2025 S-NPP"/></div><div className="burning-map-notes"><p><strong>Compare years within each row, not colours between rows.</strong> Top and bottom use different satellites and units. Both rows show Punjab and Haryana; the numerical hourly caption uses the receipt’s Punjab-only counts. The view and colour levels stay fixed. <Term text="GK2A"/> coverage: {meta.punjab_gk2a.coverage}.</p><p><Term text="GK2A"/> is preliminary, uses coarse pixels and can flag hot smoke. The {hours.at(-1)}:00 result is near sunset and uses different thresholds. The maps do not establish why burning moved later or measure total smoke.</p><p>Source: supplied <a href="/data/contours/contours_meta.json">contour metadata</a>; <a href="/data/punjab_receipt.json.gz" download>Punjab receipt</a> → gk2a_by_hour. <Term text="GK2A"/>: {meta.punjab_gk2a.source}. Basemap: Natural Earth, public domain.</p></div>
     </>:<div className="burning-deferred" role="status">{error||'The four comparison maps load when this panel comes into view.'}</div>}
   </section>;
 }

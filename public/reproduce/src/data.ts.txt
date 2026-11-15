@@ -14,8 +14,9 @@ export async function fetchData<T>(path:string, signal?:AbortSignal):Promise<T> 
   }
   return JSON.parse(new TextDecoder().decode(bytes)) as T;
 }
+export function displayLocale(){if(typeof location==='undefined')return 'en-US';const u=new URL(location.href),b=u.searchParams.get('box');return ['#receipt','#brief'].includes(u.hash)||(!b||b==='27.6,73.8,32.6,77.6')?'en-IN':'en-US';}
 // Remove sub-display floating noise (for example, interpolated 580.9499999999999).
-export const number=(n:unknown,digits=0):string=> typeof n==='number'&&Number.isFinite(n)?Number(n.toPrecision(14)).toLocaleString('en-US',{maximumFractionDigits:digits,minimumFractionDigits:digits}):'—';
+export const number=(n:unknown,digits=0):string=> typeof n==='number'&&Number.isFinite(n)?Number(n.toPrecision(14)).toLocaleString(displayLocale(),{maximumFractionDigits:digits,minimumFractionDigits:digits}):'—';
 export const signed=(n:unknown,digits=1):string=>typeof n==='number'&&Number.isFinite(n)?`${n>0?'+':''}${number(n,digits)}`:'—';
 export function hour(h:number|null):string {if(h==null)return '—';const minutes=Math.round(h*60)%1440;return `${String(Math.floor(minutes/60)).padStart(2,'0')}:${String(minutes%60).padStart(2,'0')}`;}
 export function quantile(values:number[],q:number):number|null {if(!values.length)return null;const a=[...values].sort((a,b)=>a-b);const i=(a.length-1)*q;return a[Math.floor(i)]+(a[Math.ceil(i)]-a[Math.floor(i)])*(i-Math.floor(i));}

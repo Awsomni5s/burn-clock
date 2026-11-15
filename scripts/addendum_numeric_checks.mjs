@@ -11,7 +11,8 @@ const receipt=JSON.parse(gunzipSync(readFileSync(new URL('public/data/punjab_rec
 const names={punjab:'Punjab + Haryana',parana:'Paraná Delta',cerrado:'Cerrado / MATOPIBA',africa:'Central African savanna',kalimantan:'Kalimantan',california:'California'};
 const platformNames={T:'Terra',A:'Aqua',N:'S-NPP',J1:'NOAA-20',J2:'NOAA-21'},months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const badges={clock_sensitive:'Timing check: the answer depends on when satellites look',robust:'Timing check: OK',not_identifiable:'Timing check: not enough fires to tell',not_evaluated:'Timing check starts in 2021'};
-const fmt=(v,d=0)=>typeof v==='number'&&Number.isFinite(v)?new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}).format(Number(v.toPrecision(14))):'—';
+let locale='en-IN';
+const fmt=(v,d=0)=>typeof v==='number'&&Number.isFinite(v)?new Intl.NumberFormat(locale,{minimumFractionDigits:d,maximumFractionDigits:d}).format(Number(v.toPrecision(14))):'—';
 const signed=(v,d=1)=>typeof v==='number'&&Number.isFinite(v)?(v>0?'+':'')+fmt(v,d):'—';
 const change=v=>v==null?'unavailable':`${v<0?'down':v>0?'up':'unchanged by'} ${fmt(Math.abs(v),1)}%`;
 const expectedSentence=(c,name)=>c.harmonized.status==='ok'?`Between ${c.a} and ${c.b}, the ${c.months.map(m=>months[m-1]).join(', ')} combined fire-activity record in ${name} was ${change(c.harmonized.changePct)} (approximate change range ${signed(c.harmonized.rangePct[0],1)}% to ${signed(c.harmonized.rangePct[1],1)}%).`:`A complete ${c.a}–${c.b} comparison is unavailable for ${name}: ${c.harmonized.status.replaceAll('_',' ')}.`;
@@ -26,6 +27,7 @@ const text=async locator=>(await locator.innerText()).trim();
 const started=Date.now(),browser=await chromium.launch({headless:true,args:['--enable-unsafe-swiftshader']});
 const page=await browser.newPage({viewport:{width:1440,height:1100}});page.on('pageerror',e=>errors.push(e.message));
 const goto=async(box,c={months:[10,11],a:2021,b:2025})=>{
+  locale=box.join(',')==='27.6,73.8,32.6,77.6'?'en-IN':'en-US';
   const url=new URL(base);url.searchParams.set('box',box.join(','));url.searchParams.set('months',c.months.join(','));url.searchParams.set('a',String(c.a));url.searchParams.set('b',String(c.b));url.hash='explorer';
   await page.goto(url.href,{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>document.querySelector('.claim-sentence')||document.querySelector('.empty-state'),undefined,{timeout:60000});
 };
@@ -80,7 +82,7 @@ try{
   await checkClaim(california,names.california,'California permalink');coverage.permalinkRoundTrips++;
   const cardText=await page.locator('.claim-image').textContent();for(const phrase of ['2019 versus 2024','baseline is 2019','Approximate bounds','not unique fires','Timing check:','Source: NASA FIRMS',link])includes(cardText,phrase,'Card embedded context');
   const downloadPromise=page.waitForEvent('download');await page.getByRole('button',{name:'Make a claim card',exact:true}).click();const download=await downloadPromise;await download.saveAs(fileURLToPath(new URL('california-claim-card.png',shotDir)));
-  const png=readFileSync(new URL('california-claim-card.png',shotDir));check(png.subarray(0,8).toString('hex'),'89504e470d0a1a0a','Claim card PNG signature');check(png.readUInt32BE(16),1000,'Claim card PNG width');check(png.readUInt32BE(20)>600,true,'Claim card contains full context height');coverage.pngExports++;group('California task permalink, embedded source/context and actual PNG export');
+  const png=readFileSync(new URL('california-claim-card.png',shotDir));check(png.subarray(0,8).toString('hex'),'89504e470d0a1a0a','Claim card PNG signature');check(png.readUInt32BE(16),650,'Claim card PNG width');check(png.readUInt32BE(20)>600,true,'Claim card contains full context height');coverage.pngExports++;group('California task permalink, embedded source/context and actual PNG export');
   await goto(calendar.presets.punjab.box);const illustration=page.locator('.clock-illustration');await illustration.scrollIntoViewIfNeeded();
   const max=Math.max(...h.pixel_hours_2021,...h.pixel_hours_2025);
   for(const state of fixture.curve){

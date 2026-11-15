@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-11-15T03:31:22.829Z",
+  "status": "passed",
+  "runs": [
+    {
+      "profile": "desktop",
+      "firstUsefulAnswerMs": 210,
+      "claimReadyMs": 389,
+      "underThreeSeconds": true
+    },
+    {
+      "profile": "throttled-4G",
+      "firstUsefulAnswerMs": 2082,
+      "claimReadyMs": 6885,
+      "underThreeSeconds": true
+    }
+  ],
+  "interactions": [
+    {
+      "profile": "desktop",
+      "action": "Change comparison year",
+      "value": "2019",
+      "eventToPaintMs": 14.4,
+      "under100ms": true
+    },
+    {
+      "profile": "desktop",
+      "action": "Change comparison year",
+      "value": "2021",
+      "eventToPaintMs": 12.4,
+      "under100ms": true
+    },
+    {
+      "profile": "desktop",
+      "action": "Change comparison year",
+      "value": "2023",
+      "eventToPaintMs": 12.2,
+      "under100ms": true
+    },
+    {
+      "profile": "throttled-4G",
+      "action": "Change comparison year",
+      "value": "2019",
+      "eventToPaintMs": 61.2,
+      "under100ms": true
+    },
+    {
+      "profile": "throttled-4G",
+      "action": "Change comparison year",
+      "value": "2021",
+      "eventToPaintMs": 54.1,
+      "under100ms": true
+    },
+    {
+      "profile": "throttled-4G",
+      "action": "Change comparison year",
+      "value": "2023",
+      "eventToPaintMs": 51.8,
+      "under100ms": true
+    }
+  ],
+  "definition": "One cold-cache local production run per profile; useful answer includes headline, afternoon comparison and peak-baseline caveat. Interaction includes two animation frames after a comparison-year change.",
+  "limits": [
+    "Finite local lab samples; not field percentiles or real-device evidence.",
+    "Full area preparation and maps can exceed the first-answer budget; explicit loading text remains visible.",
+    "Throttled profile: 1.6 Mbps down, 150 ms latency, 4× CPU slowdown.",
+    "Run without competing browser, data-audit or build jobs."
+  ]
+}

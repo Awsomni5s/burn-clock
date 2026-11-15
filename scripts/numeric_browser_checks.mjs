@@ -17,12 +17,14 @@ const platforms={T:'Terra',A:'Aqua',N:'S-NPP',J1:'NOAA-20',J2:'NOAA-21'};
 const monthNames=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const statuses={above:'Above typical',normal:'Within typical range',below:'Below typical',missing:'No baseline'};
 const badgeNames={robust:'Timing check: OK',clock_sensitive:'Timing check: the answer depends on when satellites look',not_identifiable:'Timing check: not enough fires to tell',not_evaluated:'Timing check starts in 2021'};
-const fmt=(v,d=0)=>typeof v==='number'&&Number.isFinite(v)?new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}).format(Object.is(v,-0)?0:v):'—';
+let locale='en-IN';
+const fmt=(v,d=0)=>typeof v==='number'&&Number.isFinite(v)?new Intl.NumberFormat(locale,{minimumFractionDigits:d,maximumFractionDigits:d}).format(Object.is(v,-0)?0:v):'—';
 const signed=(v,d=1)=>typeof v==='number'&&Number.isFinite(v)?(v>0?'+':'')+fmt(v,d):'—';
 // Clock tiles store hundredths of an hour; a median can add one decimal.
 // Integer millihours keep expected half-minute rounding independent of float cancellation.
 const lookChangeMinutes=(current,baseline)=>(Math.round(current*1000)-Math.round(baseline*1000))*6/100;
 const clockTime=v=>{const mins=Math.round(v*60)%1440;return `${String(Math.floor(mins/60)).padStart(2,'0')}:${String(mins%60).padStart(2,'0')}`;};
+const civilReference=(solar,box,year,id)=>{const zones={punjab:'Asia/Kolkata',parana:'America/Argentina/Buenos_Aires',cerrado:'America/Fortaleza',africa:'Africa/Bangui',kalimantan:'Asia/Pontianak',california:'America/Los_Angeles'};const utc=new Date(`${year}-11-15T12:00:00Z`),parts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone:zones[id],year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(utc).map(p=>[p.type,p.value]));const offset=(Date.UTC(+parts.year,+parts.month-1,+parts.day,+parts.hour,+parts.minute)-utc.getTime())/3600000;return ((solar-(box[1]+box[3])/30+offset)%24+24)%24;};
 const sourceName=s=>s==='V'?'VIIRS observed':s==='M'?'MODIS converted':'No data';
 const label=m=>`${monthNames[Number(m.slice(5))-1]} ${m.slice(0,4)}`;
 let assertions=0,failureCount=0;
@@ -53,6 +55,7 @@ try{
  await page.goto(base,{waitUntil:'domcontentloaded'});
  await page.locator('.heat-cell').first().waitFor({timeout:60000});
  for(const [id,preset] of Object.entries(expected.presets)){
+   locale=id==='punjab'?'en-IN':'en-US';
    if(!page.url().endsWith('#explorer'))await page.locator('nav a[href="#explorer"]').click();
    await page.getByLabel('Region preset').selectOption(id);
    await page.waitForFunction(n=>document.querySelector('.area-name')?.textContent.includes(n+' archived grid cells'),fmt(preset.cellCount),{timeout:60000});
@@ -148,7 +151,7 @@ try{
      check(state.times.length,available.length,p+'/look row count');
      for(const [i,platform] of available.entries()){
        const now=state.times[i];check(now?.name,platforms[platform],p+'/'+platform+'/name');
-       check(now?.time,clockTime(clock.look[platform]),p+'/'+platform+'/look');
+       check(now?.time,clockTime(civilReference(clock.look[platform],preset.box,clock.year,id)),p+'/'+platform+'/look');
        check(now?.change,clock.baselineLook[platform]===null?'—':signed(lookChangeMinutes(clock.look[platform],clock.baselineLook[platform]),0)+' min',p+'/'+platform+'/look change');
      }
      check(state.tests.length,clock.tests.length,p+'/test count');
@@ -219,7 +222,7 @@ try{
  const drift=Object.entries(validation.changepoint.drift_2020_22.global.R_by_year),bars=page.locator('.drift-spark > div');
  check(await bars.count(),drift.length,'Validation/drift years count');
  for(const [i,[year,value]] of drift.entries()){
-   vcheck(await text(bars.nth(i).locator('span')),fmt(value,2),'drift/'+year+'/ratio');
+   vcheck(await text(bars.nth(i).locator(':scope > span')),fmt(value,2),'drift/'+year+'/ratio');
    vcheck(await text(bars.nth(i).locator('small')),year.slice(2),'drift/'+year+'/year');
  }
  vinc(await text(section(page,'Reconstructed MODIS versus observed VIIRS').locator('.chart-caption')),'×'+fmt(validation.changepoint.drift_2020_22.global.seam_2023_25_vs_training,3),'drift aggregate');

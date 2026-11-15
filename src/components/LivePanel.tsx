@@ -1,3 +1,7 @@
+import {Evidence} from './Provenance';
+import {civilHour,areaZone,zoneLabel,civilNote} from '../civilTime';
+import {PRESETS} from '../types';
+import {useURLState,choice} from '../urlState';
 import {useEffect,useState} from 'react';
 import {hour,number} from '../data';
 import {PLATFORMS,PLATFORM_NAMES} from '../types';
@@ -7,26 +11,27 @@ type Feed={status:'ok'|'header_only'|'stale'|'unavailable';fetched_at:string|nul
 type Snapshot={generated_at:string;feeds:Record<string,Feed>;presets:{id:string;name:string}[];freshness_note:string};
 type Context={snpp_cessation:{verified:boolean;effective_at:string;source:string}};
 export default function LivePanel(){
- const [data,setData]=useState<Snapshot|null>(null),[context,setContext]=useState<Context|null>(null),[error,setError]=useState(''),[preset,setPreset]=useState('punjab');
+ const [data,setData]=useState<Snapshot|null>(null),[context,setContext]=useState<Context|null>(null),[error,setError]=useState(''),[preset,setPreset]=useURLState('liveArea','punjab',choice(['punjab','parana','cerrado','africa','kalimantan','california']));
  useEffect(()=>{const abort=new AbortController();Promise.all([
   fetch('/data/live/latest.json',{signal:abort.signal}).then(r=>{if(!r.ok)throw Error('Snapshot not available');return r.json();}),
   fetch('/data/context_sources.json',{signal:abort.signal}).then(r=>r.ok?r.json():null)
  ]).then(([d,c])=>{setData(d);setContext(c);}).catch(e=>{if(e.name!=='AbortError')setError('The provisional snapshot could not be loaded. The historical record is still available.');});return()=>abort.abort();},[]);
  if(error)return <section className="panel live-panel"><h2>This week (near-real-time, provisional)</h2><p role="status">{error}</p></section>;
  if(!data)return <section className="panel live-panel"><h2>This week (near-real-time, provisional)</h2><p role="status">Loading the last saved snapshot…</p></section>;
+ const box=(PRESETS.find(p=>p.id===preset)??PRESETS[0]).box,zone=areaZone(box);
  const old=Date.now()-Date.parse(data.generated_at)>12*60*60*1000;
  return <section className="panel live-panel" aria-labelledby="live-title">
   <h2 id="live-title">This week (near-real-time, provisional)</h2>
-  <p>Last snapshot attempt: <time dateTime={data.generated_at} data-testid="live-generated" data-source="live/latest.json → generated_at">{data.generated_at.replace('T',' ').replace(/\.\d+Z$/,' UTC')}</time>. {old?'This saved snapshot is older than 12 hours. ':''}A zero count in a working feed means no detections in this box, not no burning.</p>
+  <p>Last snapshot attempt: <time dateTime={data.generated_at} data-testid="live-generated" data-source="live/latest.json → generated_at">{new Date(data.generated_at).toLocaleString('en-GB',{timeZone:zone})+' '+zoneLabel(zone)}</time>. {old?'This saved snapshot is older than 12 hours. ':''}A zero count in a working feed means no detections in this box, not no burning.</p>
   <label>Snapshot area <select value={preset} onChange={e=>setPreset(e.target.value)}>{data.presets.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select></label>
-  <div className="table-scroll" tabIndex={0} role="region" aria-label="Provisional satellite detections"><table><thead><tr><th>Satellite</th><th>Detections, all day/night</th><th>Median daytime pass, local solar time</th><th>Snapshot status</th></tr></thead><tbody>
+  <div className="table-scroll" tabIndex={0} role="region" aria-label="Provisional satellite detections"><table><thead><tr><th>Satellite</th><th>Detections, all day/night</th><th>Estimated daytime pass, local time</th><th>Snapshot status</th></tr></thead><tbody>
    {PLATFORMS.map(p=>{const f=data.feeds[p==='T'||p==='A'?'MODIS':p],r=f?.platforms[p]?.presets[preset];const unavailable=!f||f.status==='unavailable',empty=f?.status==='header_only';const prefix=`live/latest.json → feeds.${p==='T'||p==='A'?'MODIS':p}.platforms.${p}.presets.${preset}`;return <tr key={p}><th scope="row">{PLATFORM_NAMES[p]}</th>
-    <td data-testid={`live-count-${p}`} data-source={`${prefix}.detections`}>{unavailable?'Unavailable':empty?'No new data':r?`${number(r.detections)} detections`:'Unavailable'}</td>
-    <td data-testid={`live-time-${p}`} data-source={`${prefix}.median_daytime_local_solar_hour`}>{empty||unavailable||r?.median_daytime_local_solar_hour==null?'No observed daytime pass':hour(r.median_daytime_local_solar_hour)}</td>
+    <td data-testid={`live-count-${p}`} data-source={`${prefix}.detections`}><Evidence value={unavailable?'Unavailable':empty?'No new data':r?`${number(r.detections)} detections`:'Unavailable'} expression={`${prefix}.detections`} source="live/latest.json" producer="scripts/fetch_live.mjs"/></td>
+    <td data-testid={`live-time-${p}`} data-source={`${prefix}.median_daytime_local_solar_hour`}><Evidence value={empty||unavailable||r?.median_daytime_local_solar_hour==null?'No observed daytime pass':hour(civilHour(r.median_daytime_local_solar_hour,box,(f.fetched_at??data.generated_at).slice(0,10),zone))} expression={`${prefix}.median_daytime_local_solar_hour; civilHour using snapshot date and midpoint`} source="live/latest.json" producer="src/civilTime.ts"/></td>
     <td>{f?.status==='stale'?'Fetch failed; retained snapshot':empty?'CSV contains its header only':unavailable?'Fetch failed; no previous snapshot':'Fetched'}{f?.fetched_at&&<> · <time dateTime={f.fetched_at}>{f.fetched_at.slice(0,10)}</time></>} {f&&<a href={f.url}>Source CSV</a>}</td>
    </tr>;})}
   </tbody></table></div>
   {context?.snpp_cessation.verified&&data.feeds.N?.status==='header_only'&&<p><strong>S-NPP: no new data since <span data-testid="snpp-ended" data-source="context_sources.json → snpp_cessation.effective_at">{new Date(context.snpp_cessation.effective_at).toLocaleDateString('en-US',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'})}</span>.</strong> <a href={context.snpp_cessation.source}>NOAA confirms data delivery ended</a>; this fetched seven-day CSV contains only its header.</p>}
-  <details><summary>Details: what these counts and times mean</summary><p>These are raw detections in the feed’s rolling seven-day window, with all published confidence levels and day/night observations. The displayed pass time uses daytime detections only: median of UTC hour + longitude ÷ 15, wrapped to a local solar day. A detection-based median does not describe every pass or show cloud and missing observations. These provisional feeds are never added to the historical merged calendar.</p><p>{data.freshness_note}</p><p><a href="/data/live/latest.json">Download snapshot</a> · <Reproduce id="liveSnapshot"/></p></details>
+  <details><summary>Details: what these counts and times mean</summary><p>These are raw detections in the feed’s rolling seven-day window, with all published confidence levels and day/night observations. The displayed pass time converts the supplied daytime detection-time median using the area midpoint and time-zone rules on the snapshot date. A detection-based median does not describe every pass or show cloud and missing observations. These provisional feeds are never added to the historical merged calendar.</p><p>{civilNote}</p><p>{data.freshness_note}</p><p><a href="/data/live/latest.json">Download snapshot</a> · <Reproduce id="liveSnapshot"/></p></details>
  </section>;
 }

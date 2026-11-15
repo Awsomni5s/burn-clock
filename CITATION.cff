@@ -1,0 +1,44 @@
+cff-version: 1.2.0
+message: >-
+  Please cite Burn Clock and the upstream datasets when using this software.
+  The collective author is provisional; no Burn Clock DOI has been assigned.
+  Code is MIT licensed. The derived data compilation is CC BY 4.0, subject to
+  the source rights and attribution described in DATA_LICENSE.md.
+type: software
+title: "Burn Clock: satellite timing and fire activity"
+authors:
+  - name: "Burn Clock contributors"
+version: "1.0.0"
+date-released: "2026-11-14"
+url: "https://burn-clock.ottoskibeli.chatgpt.site/"
+license: MIT
+repository-code: "https://github.com/Awsomni5s/burn-clock"
+abstract: >-
+  An application for examining satellite observation times, harmonized fire
+  activity calendars, and the Punjab afternoon burning comparison. Historical
+  observations end in December 2025. Satellite detections, active cell-days,
+  and geostationary pixel-hours are distinct measures; none is a direct measure
+  of emissions or burned area. The supplied scientific pipeline has not been
+  fully rerun during the application build.
+keywords:
+  - active fire
+  - satellite observation timing
+  - MODIS
+  - VIIRS
+  - GK2A
+references:
+  - type: data
+    title: "Hourly Fire Detection Dataset of Post-monsoon Stubble Burning in Northwestern India derived from GK2-AMI Geostationary Satellite Observations"
+    authors:
+      - family-names: Jethva
+        given-names: Hiren
+    doi: "10.5281/zenodo.20084790"
+    version: "v1"
+    date-released: "2026-05-12"
+    license: CC-BY-4.0
+    url: "https://zenodo.org/records/20084790"
+  - type: data
+    title: "Fire Information for Resource Management System (FIRMS)"
+    authors:
+      - name: "NASA FIRMS"
+    url: "https://firms.modaps.eosdis.nasa.gov/"

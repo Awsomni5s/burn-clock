@@ -3,14 +3,14 @@
   "runs": [
     {
       "profile": "desktop",
-      "firstUsefulAnswerMs": 79,
-      "claimReadyMs": 533,
+      "firstUsefulAnswerMs": 104,
+      "claimReadyMs": 201,
       "underThreeSeconds": true
     },
     {
       "profile": "throttled-4G",
-      "firstUsefulAnswerMs": 1874,
-      "claimReadyMs": 6316,
+      "firstUsefulAnswerMs": 2088,
+      "claimReadyMs": 6884,
       "underThreeSeconds": true
     }
   ],

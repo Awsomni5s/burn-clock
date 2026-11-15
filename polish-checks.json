@@ -1,0 +1,149 @@
+{
+  "generatedAt": "2026-11-15T03:30:24.867Z",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "URL controls, browser back/forward and reload restore the scientific view",
+      "status": "passed"
+    },
+    {
+      "name": "Numeric provenance contains the precise source, producer, version and fingerprint",
+      "status": "passed"
+    },
+    {
+      "name": "NASA URLs use chosen day and bbox; dateline selections produce two valid views",
+      "status": "passed"
+    },
+    {
+      "name": "Country order and displayed values equal the shipped atlas",
+      "status": "passed"
+    },
+    {
+      "name": "Four-step judge tour reaches the actual evidence, card and validation",
+      "status": "passed"
+    },
+    {
+      "name": "Hourly, baseline, shift, calendar and map state survive direct links",
+      "status": "passed"
+    },
+    {
+      "name": "GIS download is decompressed GeoJSON identical to the selected source",
+      "status": "passed",
+      "detail": {
+        "features": 7
+      }
+    },
+    {
+      "name": "Policy brief numbers derive from the receipt; print is one page",
+      "status": "passed",
+      "detail": {
+        "pages": 1
+      }
+    },
+    {
+      "name": "Citation is downloadable and DOI publication remains explicitly pending",
+      "status": "passed"
+    },
+    {
+      "name": "Punjab claim PNG is readable at phone width and keeps all context",
+      "status": "passed",
+      "detail": {
+        "width": 720,
+        "height": 1225,
+        "bytes": 239806
+      }
+    },
+    {
+      "name": "API paths exist and iframe badge carries context without site navigation",
+      "status": "passed"
+    },
+    {
+      "name": "Invalid URL inputs recover; missing archive coverage stays distinct from zero",
+      "status": "passed"
+    },
+    {
+      "name": "Desktop and phone additions have no overflow or automated accessibility violations",
+      "status": "passed"
+    },
+    {
+      "name": "No unhandled browser errors",
+      "status": "passed"
+    }
+  ],
+  "accessibility": [
+    {
+      "route": "explorer",
+      "width": 1440,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 11
+        }
+      ]
+    },
+    {
+      "route": "brief",
+      "width": 1440,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "route": "api",
+      "width": 1440,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "route": "embed",
+      "width": 1440,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "route": "explorer",
+      "width": 375,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 15
+        }
+      ]
+    },
+    {
+      "route": "brief",
+      "width": 375,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 4
+        }
+      ]
+    },
+    {
+      "route": "api",
+      "width": 375,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 4
+        }
+      ]
+    },
+    {
+      "route": "embed",
+      "width": 375,
+      "violations": [],
+      "incomplete": []
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Finite automated states, not real participant or screen-reader evidence.",
+    "External NASA URL parsing verified separately; these checks verify constructed URLs.",
+    "External iframe embedding depends on sharing and host frame policy."
+  ]
+}

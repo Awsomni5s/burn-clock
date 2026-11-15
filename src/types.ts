@@ -25,3 +25,5 @@ export const PRESETS:{id:string;name:string;country:string;box:BBox}[] = [
   {id:'kalimantan',name:'Kalimantan',country:'Indonesia',box:[-3.5,110,1,117]},
   {id:'california',name:'California',country:'United States',box:[34,-124,42,-117]}
 ];
+
+export const GK2A_COLOR='#b35422';

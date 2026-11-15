@@ -1,6 +1,6 @@
 {
   "status": "passed",
-  "base": "http://127.0.0.1:4173",
+  "base": "http://127.0.0.1:4179",
   "assertions": 118449,
   "failureCount": 0,
   "coverage": {
@@ -28,7 +28,7 @@
   "failures": [],
   "fatal": null,
   "runtimeErrors": [],
-  "elapsedSeconds": 44.41,
+  "elapsedSeconds": 32.85,
   "fixtureSha256": "943e32efd1d3aa91a88b9fd3d4e0c9c375ce47b451a4495d68c08888f10a75cd",
   "scope": "All six supplied presets, all 302 available months in seven display modes, all harmonized selected-month panels, representative raw selected panels, every exported CSV row, all 13 clock years per preset, all 72 country rows, listed validation data fields, and Methods manifest data fields.",
   "exclusions": [

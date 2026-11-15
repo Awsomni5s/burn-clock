@@ -1,0 +1,3 @@
+import {useState} from 'react';
+import {fetchData,download} from '../data';
+export default function GisDownload({file,label}:{file:string;label:string}){const [status,setStatus]=useState('');return <span className="gis-downloads"><button onClick={async()=>{setStatus('Preparing GeoJSON…');try{const data=await fetchData(`contours/${file}.geojson.gz`);download(file+'.geojson',JSON.stringify(data),'application/geo+json');setStatus('GeoJSON saved. WGS84; smoothed level curves.');}catch{setStatus('Could not load the level curves. Try again.');}}}>Download {label} GeoJSON</button><span role="status">{status}</span></span>;}

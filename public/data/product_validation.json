@@ -1,40 +1,40 @@
 {
-  "generatedAt": "2026-11-15T01:25:14.849Z",
+  "generatedAt": "2026-11-15T03:32:20.984Z",
   "automated": [
     {
       "name": "Calculations and fixed rules",
       "status": "Passed",
-      "detail": "78/78 unit tests. Independent Python claim/trend/clock-shift references; missing data, geographic edges, fixed guidance and release checksum failure cases. Four separate Node tests passed for the live CSV parser, retries and stale-snapshot preservation."
+      "detail": "84 unit tests, including civil-time/DST and NASA URL checks; four live-parser/failure tests. Independent Python reference values rebuilt from supplied outputs."
     },
     {
       "name": "Supplied calendar files",
       "status": "Passed",
-      "detail": "1,237 compressed files match supplied bytes exactly; 57,738,474 cell-months checked for shape, interval ordering and source flags; zero violations. This does not independently reproduce upstream satellite processing."
+      "detail": "1,237 tiles, 191,187 cells and 57,738,474 cell-months checked for shape, missingness, interval ordering and source flags. Locked method fingerprint matches. All 72 ranked country rows match the supplied atlas."
     },
     {
       "name": "Rendered historical numbers and CSV",
       "status": "Passed",
-      "detail": "118,449/118,449 assertions. Six presets, 302 months, seven display modes, month panels and CSV rows, annual clock states, validation and Methods fields. Agreement within displayed rounding; finite coverage, not all arbitrary rectangles."
+      "detail": "118,449 assertions across six presets, calendar modes, month panels, CSV rows, annual clock states, validation and Methods fields. Civil-time references include historical zone offsets. Finite coverage, not every possible rectangle."
     },
     {
-      "name": "New claims, trends and clock illustration",
+      "name": "Claim comparisons and timing illustration",
       "status": "Passed",
-      "detail": "2,337/2,337 assertions against source-file Python references. Includes year/month comparisons, trends, clock shifts, empty/single-cell/equator/date-line areas, source labels, card export and permalink round trip."
+      "detail": "2,337 assertions against independent Python values, including geographic/missing-data edges, baseline choices, clock shifts, actual PNG and permalink."
     },
     {
-      "name": "Product workflows",
+      "name": "Sharing, provenance and judge tour",
       "status": "Passed",
-      "detail": "17 workflow groups. Search and coordinates, keyboard actions, maps and unsmoothed source cells, both actual PNG exports, empty selections, source failures/retry and live unavailable/stale/observed-zero states."
+      "detail": "14 workflow groups covering back/forward/reload, file/field fingerprints, NASA URLs, country ranking, four tour steps, GeoJSON equality, one-page PDF, honest DOI status and embed context."
     },
     {
-      "name": "Accessibility and phone layout",
-      "status": "Passed automated rules; manual review pending",
-      "detail": "Zero WCAG 2.1 A/AA violations and no page overflow in 12 route/viewport scans (six routes, desktop and 375px phone). 88 node-level incomplete findings remain across scans; these are not unique defects. SVG contrast and human screen-reader/colour-blind usability still require review."
+      "name": "Product and accessibility checks",
+      "status": "Passed automated checks; human review pending",
+      "detail": "17 existing workflow groups plus 8 new route/viewport scans. Zero automated WCAG A/AA violations across 20 scans; no page overflow. Incomplete findings, screen-reader and real-person comprehension still require manual review."
     },
     {
-      "name": "First useful answer",
-      "status": "Passed local lab budget",
-      "detail": "desktop: first useful answer 79 ms; Claim Checker ready 533 ms; throttled-4G: first useful answer 1874 ms; Claim Checker ready 6316 ms. Cold-cache local production preview, one observation per profile. Throttled profile: 1.6 Mbps down, 150 ms latency, 4× CPU slowdown. Pre-set first-answer budget: under 3 seconds. Not field percentiles or real-device evidence."
+      "name": "First useful answer and interaction speed",
+      "status": "Passed local lab sample",
+      "detail": "desktop: answer 210 ms, full claim 389 ms; throttled-4G: answer 2082 ms, full claim 6885 ms. Comparison-year changes: 12.2–61.2 ms across 6 samples. Cold-cache production preview; not field percentiles. Maps and full area preparation are measured separately."
     },
     {
       "name": "Original release downloads",
@@ -54,7 +54,10 @@
     "addendum-product": "/qa/addendum-product-checks.json",
     "addendum-performance": "/qa/addendum-performance-checks.json",
     "data-audit": "/qa/data-audit.json",
-    "release": "/qa/release-checks.json"
+    "release": "/qa/release-checks.json",
+    "polish": "/qa/polish-checks.json",
+    "bundle": "/qa/bundle-checks.json",
+    "speed": "/qa/polish-performance-checks.json"
   },
   "limitations": [
     "Arbitrary custom AOIs are covered separately by edge-case tests, not exhaustively enumerated here.",
@@ -68,7 +71,10 @@
     "Browser performance measured separately on a stable production build.",
     "Lab measurements, not field percentiles or real-device results. Full maps/claim preparation measured separately; participant card timing not inferred.",
     "Human study, manual crop/misuse and screen-reader sessions have not run.",
-    "Six-hour GitHub workflow is a template; this Sites repository does not run GitHub Actions.",
-    "Contour generator and some global-atlas inputs are absent from the supplied source."
+    "Contour generator and some global-atlas inputs are absent from the supplied source.",
+    "GitHub snapshot workflow produces an artifact; it does not automatically deploy it to Sites.",
+    "GOES receipt, global NetCDF/GeoTIFF grid and Burn Clock DOI are pending actual delivery/publication.",
+    "Iframe and static-file access inherit the owner-private site audience.",
+    "Provenance covers scientific readouts; controls, axis scales and literal explanatory examples are not independent measurements."
   ]
 }

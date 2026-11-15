@@ -1,11 +1,13 @@
 /** Exact supplied producers. A source link does not imply that all upstream inputs shipped. */
 export interface ProvenanceEntry {label:string;file:string;line:number;source:string;note?:string}
 export const PROVENANCE = {
+  civilTimes:{label:'Local civil-time conversion',file:'src/civilTime.ts',line:6,source:'clock/<tile>.json → look; annual medians converted using midpoint and reference-date IANA offset',note:'Approximate civil time. Scientific source day assignment remains unchanged.'},
+  contourCell:{label:'Original annual cell value',file:'src/contours.ts',line:1,source:'tiles/<tile>.json → harm; sum of available months within the selected year'},
   archiveTotals:{label:'Archive totals',file:'pipeline/build_public.py',line:278,source:'manifest.json → totals'},
   calendarRaw:{label:'Monthly satellite record',file:'pipeline/build_public.py',line:110,source:'tiles/<tile>.json → raw',note:'Historical raw values are active cell-days, not distinct fire events.'},
   calendarHarmonized:{label:'Merged monthly record',file:'pipeline/harmonize/produce.py',line:135,source:'tiles/<tile>.json → harm, harm_lo, harm_hi, src'},
-  areaAggregation:{label:'Selected-area totals',file:'src/data.ts',line:28,source:'tiles/<tile>.json; selection by cell center; missingness preserved'},
-  timingCheck:{label:'Annual timing check',file:'src/data.ts',line:71,source:'clock/<tile>.json → day; 2013–19 baseline; 2021 onward'},
+  areaAggregation:{label:'Selected-area totals',file:'src/data.ts',line:29,source:'tiles/<tile>.json; selection by cell center; missingness preserved'},
+  timingCheck:{label:'Annual timing check',file:'src/data.ts',line:72,source:'clock/<tile>.json → day; 2013–19 baseline; 2021 onward'},
   passTimes:{label:'Satellite pass times',file:'pipeline/build_public.py',line:159,source:'clock/<tile>.json → look',note:'The browser takes the median of available cell-level medians. These are detection-conditioned times.'},
   officialDecline:{label:'Official reported count',file:'pipeline/analysis/punjab_receipt.py',line:158,source:'punjab_receipt.json → claim_source',note:'Reported external counts from CAQM/CREAMS; mixed satellites, 15 September–30 November. Percentage = 100 × (1 − 2025/2021).'},
   punjabBySatellite:{label:'Punjab by satellite',file:'pipeline/analysis/punjab_receipt.py',line:49,source:'punjab_receipt.json → by_clock',note:'Daytime active cell-days; shared calendar-day outage mask within each platform comparison.'},

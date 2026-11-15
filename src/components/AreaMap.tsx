@@ -1,3 +1,6 @@
+import {Evidence} from './Provenance';
+import GisDownload from './GisDownload';
+import {useURLState,numeric} from '../urlState';
 import {useEffect,useRef,useState} from 'react';
 import * as maplibregl from 'maplibre-gl';
 import type {GeoJSONSource} from 'maplibre-gl';
@@ -16,7 +19,7 @@ export default function AreaMap({box,name,onBox,manifest,initialYear=2025}:{box:
   const container=useRef<HTMLDivElement>(null),map=useRef<maplibregl.Map|null>(null),callback=useRef(onBox),currentBox=useRef(box);
   const drawing=useRef(false),start=useRef<[number,number]|null>(null),hoverTimer=useRef<ReturnType<typeof setTimeout>|null>(null),hoverAbort=useRef<AbortController|null>(null);
   const [draw,setDraw]=useState(false),[first,setFirst]=useState(false),[ready,setReady]=useState(false),[error,setError]=useState(''),[layerLoading,setLayerLoading]=useState(true);
-  const [year,setYear]=useState(Math.max(2001,Math.min(2025,initialYear))),[meta,setMeta]=useState<ContourMeta|null>(null),[dataManifest,setDataManifest]=useState<Manifest|undefined>(manifest);
+  const [year,setYear]=useURLState('mapYear',Math.max(2001,Math.min(2025,initialYear)),numeric(2001,2025)),[meta,setMeta]=useState<ContourMeta|null>(null),[dataManifest,setDataManifest]=useState<Manifest|undefined>(manifest);
   const [pointText,setPointText]=useState('Hover over the map for an original, unsmoothed annual cell value.'),[pointStatus,setPointStatus]=useState('');
   const [latitude,setLatitude]=useState(String((box[0]+box[2])/2)),[longitude,setLongitude]=useState(String((box[1]+box[3])/2));
   const tileCache=useRef(new Map<string,CalendarTile>()),inspectRef=useRef<(lat:number,lon:number,announce?:boolean)=>void>(()=>{});
@@ -76,13 +79,13 @@ export default function AreaMap({box,name,onBox,manifest,initialYear=2025}:{box:
   },[year,ready,meta]);
   const toggleDraw=()=>{drawing.current=!drawing.current;setDraw(drawing.current);setFirst(false);start.current=null;if(map.current)map.current.getCanvas().style.cursor=drawing.current?'crosshair':'';if(!drawing.current)(map.current?.getSource('aoi') as GeoJSONSource)?.setData(polygon(box));};
   return <section className="contour-map-section" aria-label={`Fire activity map for ${name}`}>
-    <div className="contour-year-controls"><label>Map year <input aria-label="World map year" type="range" min={meta?.world.years[0]??2001} max={meta?.world.years.at(-1)??2025} step="1" value={year} onChange={e=>setYear(Number(e.target.value))}/><output>{year}</output></label></div>
+    <GisDownload file={`world_${year}`} label={`${year} world level curves`}/><div className="contour-year-controls"><label>Map year <input aria-label="World map year" type="range" min={meta?.world.years[0]??2001} max={meta?.world.years.at(-1)??2025} step="1" value={year} onChange={e=>setYear(Number(e.target.value))}/><output>{year}</output></label></div>
     <div className="area-map"><div ref={container} className="map-canvas"/>
       <div className="map-toolbar"><div className="map-tools"><button className={draw?'map-btn active':'map-btn'} aria-pressed={draw} onClick={toggleDraw}>{draw?'Cancel drawing':'Draw area'}</button><button className="map-btn" onClick={()=>map.current?.jumpTo({center:[20,15],zoom:1.2})}>Show world</button><button className="map-btn" onClick={()=>fit(box)}>Fit area</button><button className="map-btn" onClick={()=>map.current?.zoomIn({duration:0})}>Zoom in</button><button className="map-btn" onClick={()=>map.current?.zoomOut({duration:0})}>Zoom out</button></div></div>
       {draw&&<div className="draw-hint" role="status">{first?'Choose the opposite corner.':'Choose the first corner.'} Use the page’s area coordinate fields for keyboard selection.</div>}
       {(!ready||layerLoading)&&!error&&<div className="map-loading" role="status">Loading {year} fire activity…</div>}{error&&<div className="map-error" role="status">{error}</div>}
     </div>
     {meta?<ContourLegend series={meta.world} palette={meta.palette}/>:<div className="contour-legend" role="status">Loading fixed contour legend. Smoothed for display; blank means no fire nearby or no data.</div>}
-    <div className="contour-inspector"><p data-testid="original-cell-value">{pointText}</p><details><summary>Inspect an original cell by coordinates</summary><form className="contour-point-form" onSubmit={e=>{e.preventDefault();const lat=Number(latitude),lon=Number(longitude);if(latitude.trim()===''||longitude.trim()===''||!Number.isFinite(lat)||!Number.isFinite(lon)||lat< -90||lat>90||lon< -180||lon>180){setPointStatus('Enter latitude −90 to 90 and longitude −180 to 180.');return;}inspectRef.current(lat,lon,true);}}><label>Latitude<input type="number" min="-90" max="90" step="any" value={latitude} onChange={e=>setLatitude(e.target.value)} required/></label><label>Longitude<input type="number" min="-180" max="180" step="any" value={longitude} onChange={e=>setLongitude(e.target.value)} required/></label><button type="submit">Inspect point</button><p role="status">{pointStatus}</p></form></details></div>
+    <div className="contour-inspector"><p data-testid="original-cell-value"><Evidence value={pointText} expression={`annualPoint; sum of harm for ${year}`} source="tiles/*.json → harm; exact cell/tile identified in readout" producer="src/contours.ts"/></p><details><summary>Inspect an original cell by coordinates</summary><form className="contour-point-form" onSubmit={e=>{e.preventDefault();const lat=Number(latitude),lon=Number(longitude);if(latitude.trim()===''||longitude.trim()===''||!Number.isFinite(lat)||!Number.isFinite(lon)||lat< -90||lat>90||lon< -180||lon>180){setPointStatus('Enter latitude −90 to 90 and longitude −180 to 180.');return;}inspectRef.current(lat,lon,true);}}><label>Latitude<input type="number" min="-90" max="90" step="any" value={latitude} onChange={e=>setLatitude(e.target.value)} required/></label><label>Longitude<input type="number" min="-180" max="180" step="any" value={longitude} onChange={e=>setLongitude(e.target.value)} required/></label><button type="submit">Inspect point</button><p role="status">{pointStatus}</p></form></details></div>
   </section>;
 }

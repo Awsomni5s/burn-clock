@@ -15,12 +15,12 @@ export function punjabCard(data:ReceiptData,url:string):ClaimCard {
 const escape=(s:string)=>s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 function wrap(s:string,max=88){const lines:string[]=[];let line='';for(const word of s.split(/\s+/)){if((line+' '+word).trim().length>max&&line){lines.push(line);line=word}else line=(line+' '+word).trim();}if(line)lines.push(line);return lines;}
 export function claimSVG(card:ClaimCard):string {
- let y=58;const items:string[]=[];
- const text=(s:string,size:number,color:string,max:number)=>{for(const line of wrap(s,max)){items.push(`<text x="48" y="${y}" fill="${color}" font-family="Arial, sans-serif" font-size="${size}">${escape(line)}</text>`);y+=size*1.45;}};
- text('BURN CLOCK · OBSERVATION RECEIPT',16,'#a55335',95);y+=12;text(card.title,28,'#26363c',67);y+=10;text(card.context,19,'#4d6069',92);y+=28;
- for(const line of card.lines){text(line,22,'#26363c',86);y+=25;}
- text(card.source,16,'#4d6069',115);y+=10;text(card.url,14,'#4d6069',125);
- return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="${Math.ceil(y+30)}" role="img" aria-label="${escape(card.title)}"><title>${escape(card.title)}</title><desc>${escape(card.lines.join(' '))}</desc><rect width="100%" height="100%" fill="#fffaf4"/><rect width="8" height="100%" fill="#b65c3b"/>${items.join('')}</svg>`;
+ let y=46;const items:string[]=[];
+ const text=(s:string,size:number,color:string,max:number)=>{for(const line of wrap(s,max)){items.push(`<text x="32" y="${y}" fill="${color}" font-family="Arial, sans-serif" font-size="${size}">${escape(line)}</text>`);y+=size*1.45;}};
+ text('BURN CLOCK · OBSERVATION RECEIPT',18,'#a55335',55);y+=12;text(card.title,32,'#26363c',34);y+=10;text(card.context,22,'#4d6069',49);y+=28;
+ for(const line of card.lines){text(line,26,'#26363c',47);y+=25;}
+ text(card.source,18,'#4d6069',65);y+=10;text(card.url,17,'#4d6069',68);
+ return `<svg xmlns="http://www.w3.org/2000/svg" width="720" height="${Math.ceil(y+30)}" role="img" aria-label="${escape(card.title)}"><title>${escape(card.title)}</title><desc>${escape(card.lines.join(' '))}</desc><rect width="100%" height="100%" fill="#fffaf4"/><rect width="8" height="100%" fill="#b65c3b"/>${items.join('')}</svg>`;
 }
 export async function saveClaimCard(card:ClaimCard,filename:string){
  const url=URL.createObjectURL(new Blob([claimSVG(card)],{type:'image/svg+xml;charset=utf-8'}));

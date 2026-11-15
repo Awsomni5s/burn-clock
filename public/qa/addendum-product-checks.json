@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-11-15T01:23:56.004Z",
-  "base": "http://127.0.0.1:4173",
+  "generatedAt": "2026-11-15T03:25:53.532Z",
+  "base": "http://127.0.0.1:5173",
   "scope": "Integrated application workflows and six-route desktop/mobile accessibility",
   "checks": [
     {
       "name": "First useful Punjab answer and baseline visible above the desktop fold",
       "status": "passed",
       "details": {
-        "baselineBottomPx": 466,
+        "baselineBottomPx": 558,
         "viewportHeight": 1000,
         "foldThresholdPx": 768
       }
@@ -26,17 +26,17 @@
       "details": [
         {
           "filename": "burn-clock-punjab.png",
-          "width": 1200,
-          "height": 816,
-          "bytes": 199932,
-          "localExportMs": 1080
+          "width": 720,
+          "height": 1225,
+          "bytes": 239901,
+          "localExportMs": 298
         },
         {
           "filename": "burn-clock-punjab-2021-2025.png",
-          "width": 1000,
-          "height": 831,
-          "bytes": 211946,
-          "localExportMs": 60
+          "width": 650,
+          "height": 888,
+          "bytes": 207863,
+          "localExportMs": 69
         }
       ]
     },
@@ -97,7 +97,7 @@
           "minimumContrast": 9.86
         },
         {
-          "text": "SOLAR TIME",
+          "text": "LOCAL TIME",
           "minimumContrast": 5.94
         }
       ]
@@ -280,7 +280,7 @@
               "target": [
                 "text[x=\"255.00000000000006\"]"
               ],
-              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
             },
             {
               "target": [
@@ -292,11 +292,23 @@
               "target": [
                 ".ratio-row:nth-child(2) > .ratio-track > .ratio-number"
               ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".ratio-row:nth-child(2) > .ratio-track > .ratio-number > .evidence-number[role=\"button\"][title=\"Show this number’s source\"]"
+              ],
               "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
             },
             {
               "target": [
                 ".ratio-row:nth-child(3) > .ratio-track > .ratio-number"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".ratio-row:nth-child(3) > .ratio-track > .ratio-number > .evidence-number[role=\"button\"][title=\"Show this number’s source\"]"
               ],
               "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
             },
@@ -304,11 +316,23 @@
               "target": [
                 ".ratio-row:nth-child(4) > .ratio-track > .ratio-number"
               ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".ratio-row:nth-child(4) > .ratio-track > .ratio-number > .evidence-number[role=\"button\"][title=\"Show this number’s source\"]"
+              ],
               "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
             },
             {
               "target": [
                 ".ratio-row:nth-child(5) > .ratio-track > .ratio-number"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".ratio-row:nth-child(5) > .ratio-track > .ratio-number > .evidence-number[role=\"button\"][title=\"Show this number’s source\"]"
               ],
               "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
             }
@@ -416,6 +440,30 @@
           "nodes": [
             {
               "target": [
+                "a[href$=\"#validation\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "nav > a[href$=\"#methods\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "a[href$=\"#api\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "a[href$=\"#about\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
                 "text[x=\"55\"][y=\"275\"][text-anchor=\"middle\"]"
               ],
               "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
@@ -472,7 +520,7 @@
               "target": [
                 "text[x=\"255.00000000000006\"]"
               ],
-              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
             },
             {
               "target": [
@@ -590,6 +638,30 @@
           "nodes": [
             {
               "target": [
+                "a[href$=\"#validation\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "nav > a[href$=\"#methods\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "a[href$=\"#api\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "a[href$=\"#about\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
                 "text[x=\"55\"][y=\"275\"][text-anchor=\"middle\"]"
               ],
               "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
@@ -646,7 +718,7 @@
               "target": [
                 "text[x=\"255.00000000000006\"]"
               ],
-              "summary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
             },
             {
               "target": [
@@ -658,11 +730,23 @@
               "target": [
                 ".ratio-row:nth-child(2) > .ratio-track > .ratio-number"
               ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".ratio-row:nth-child(2) > .ratio-track > .ratio-number > .evidence-number[role=\"button\"][title=\"Show this number’s source\"]"
+              ],
               "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
             },
             {
               "target": [
                 ".ratio-row:nth-child(3) > .ratio-track > .ratio-number"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".ratio-row:nth-child(3) > .ratio-track > .ratio-number > .evidence-number[role=\"button\"][title=\"Show this number’s source\"]"
               ],
               "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
             },
@@ -670,11 +754,23 @@
               "target": [
                 ".ratio-row:nth-child(4) > .ratio-track > .ratio-number"
               ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".ratio-row:nth-child(4) > .ratio-track > .ratio-number > .evidence-number[role=\"button\"][title=\"Show this number’s source\"]"
+              ],
               "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
             },
             {
               "target": [
                 ".ratio-row:nth-child(5) > .ratio-track > .ratio-number"
+              ],
+              "summary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".ratio-row:nth-child(5) > .ratio-track > .ratio-number > .evidence-number[role=\"button\"][title=\"Show this number’s source\"]"
               ],
               "summary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
             }
@@ -690,6 +786,30 @@
         {
           "id": "color-contrast",
           "nodes": [
+            {
+              "target": [
+                "a[href$=\"#validation\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "nav > a[href$=\"#methods\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "a[href$=\"#api\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "a[href$=\"#about\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
             {
               "target": [
                 "text[y=\"30\"]"
@@ -758,19 +878,73 @@
       "route": "validation",
       "viewport": "mobile",
       "violations": [],
-      "incomplete": []
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "nav > a[href$=\"#explorer\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "nav > a[href$=\"#methods\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "a[href$=\"#api\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            },
+            {
+              "target": [
+                "a[href$=\"#about\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ]
     },
     {
       "route": "methods",
       "viewport": "mobile",
       "violations": [],
-      "incomplete": []
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "a[href$=\"#clock\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ]
     },
     {
       "route": "about",
       "viewport": "mobile",
       "violations": [],
-      "incomplete": []
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "a[href$=\"#clock\"]"
+              ],
+              "summary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ]
     }
   ],
   "overflow": [
@@ -821,21 +995,108 @@
       "viewportName": "mobile",
       "viewport": 375,
       "document": 375,
-      "offenders": []
+      "offenders": [
+        {
+          "tag": "A",
+          "class": "",
+          "text": "Validation",
+          "right": 418,
+          "width": 64
+        },
+        {
+          "tag": "A",
+          "class": "",
+          "text": "Methods",
+          "right": 488,
+          "width": 57
+        },
+        {
+          "tag": "A",
+          "class": "",
+          "text": "API & reuse",
+          "right": 576,
+          "width": 75
+        },
+        {
+          "tag": "A",
+          "class": "",
+          "text": "About",
+          "right": 628,
+          "width": 39
+        }
+      ]
     },
     {
       "route": "receipt",
       "viewportName": "mobile",
       "viewport": 375,
       "document": 375,
-      "offenders": []
+      "offenders": [
+        {
+          "tag": "A",
+          "class": "",
+          "text": "Validation",
+          "right": 420,
+          "width": 64
+        },
+        {
+          "tag": "A",
+          "class": "",
+          "text": "Methods",
+          "right": 490,
+          "width": 57
+        },
+        {
+          "tag": "A",
+          "class": "",
+          "text": "API & reuse",
+          "right": 578,
+          "width": 75
+        },
+        {
+          "tag": "A",
+          "class": "",
+          "text": "About",
+          "right": 630,
+          "width": 39
+        }
+      ]
     },
     {
       "route": "clock",
       "viewportName": "mobile",
       "viewport": 375,
       "document": 375,
-      "offenders": []
+      "offenders": [
+        {
+          "tag": "A",
+          "class": "",
+          "text": "Validation",
+          "right": 421,
+          "width": 64
+        },
+        {
+          "tag": "A",
+          "class": "",
+          "text": "Methods",
+          "right": 491,
+          "width": 57
+        },
+        {
+          "tag": "A",
+          "class": "",
+          "text": "API & reuse",
+          "right": 580,
+          "width": 75
+        },
+        {
+          "tag": "A",
+          "class": "",
+          "text": "About",
+          "right": 632,
+          "width": 39
+        }
+      ]
     },
     {
       "route": "validation",
@@ -843,6 +1104,34 @@
       "viewport": 375,
       "document": 375,
       "offenders": [
+        {
+          "tag": "A",
+          "class": "",
+          "text": "Check a place",
+          "right": 45,
+          "width": 91
+        },
+        {
+          "tag": "A",
+          "class": "",
+          "text": "Methods",
+          "right": 426,
+          "width": 57
+        },
+        {
+          "tag": "A",
+          "class": "",
+          "text": "API & reuse",
+          "right": 515,
+          "width": 75
+        },
+        {
+          "tag": "A",
+          "class": "",
+          "text": "About",
+          "right": 567,
+          "width": 39
+        },
         {
           "tag": "DIV",
           "class": "",
@@ -853,6 +1142,13 @@
         {
           "tag": "SPAN",
           "class": "",
+          "text": "0.96",
+          "right": 404,
+          "width": 27
+        },
+        {
+          "tag": "SPAN",
+          "class": "evidence-number",
           "text": "0.96",
           "right": 404,
           "width": 27
@@ -886,46 +1182,11 @@
           "width": 26
         },
         {
-          "tag": "I",
-          "class": "",
-          "text": "",
-          "right": 435,
-          "width": 26
-        },
-        {
-          "tag": "SMALL",
-          "class": "",
-          "text": "24",
-          "right": 435,
-          "width": 26
-        },
-        {
-          "tag": "DIV",
-          "class": "",
-          "text": "0.9225",
-          "right": 467,
-          "width": 27
-        },
-        {
           "tag": "SPAN",
-          "class": "",
-          "text": "0.92",
-          "right": 467,
-          "width": 27
-        },
-        {
-          "tag": "I",
-          "class": "",
-          "text": "",
-          "right": 467,
-          "width": 27
-        },
-        {
-          "tag": "SMALL",
-          "class": "",
-          "text": "25",
-          "right": 467,
-          "width": 27
+          "class": "evidence-number",
+          "text": "0.97",
+          "right": 435,
+          "width": 26
         }
       ]
     },
@@ -934,31 +1195,75 @@
       "viewportName": "mobile",
       "viewport": 375,
       "document": 375,
-      "offenders": []
+      "offenders": [
+        {
+          "tag": "A",
+          "class": "",
+          "text": "Check a place",
+          "right": -161,
+          "width": 91
+        },
+        {
+          "tag": "A",
+          "class": "",
+          "text": "Punjab evidence",
+          "right": -41,
+          "width": 107
+        },
+        {
+          "tag": "A",
+          "class": "",
+          "text": "Satellite timing",
+          "right": 68,
+          "width": 96
+        }
+      ]
     },
     {
       "route": "about",
       "viewportName": "mobile",
       "viewport": 375,
       "document": 375,
-      "offenders": []
+      "offenders": [
+        {
+          "tag": "A",
+          "class": "",
+          "text": "Check a place",
+          "right": -160,
+          "width": 91
+        },
+        {
+          "tag": "A",
+          "class": "",
+          "text": "Punjab evidence",
+          "right": -40,
+          "width": 107
+        },
+        {
+          "tag": "A",
+          "class": "",
+          "text": "Satellite timing",
+          "right": 69,
+          "width": 96
+        }
+      ]
     }
   ],
   "pageErrors": [],
   "cards": [
     {
       "filename": "burn-clock-punjab.png",
-      "width": 1200,
-      "height": 816,
-      "bytes": 199932,
-      "localExportMs": 1080
+      "width": 720,
+      "height": 1225,
+      "bytes": 239901,
+      "localExportMs": 298
     },
     {
       "filename": "burn-clock-punjab-2021-2025.png",
-      "width": 1000,
-      "height": 831,
-      "bytes": 211946,
-      "localExportMs": 60
+      "width": 650,
+      "height": 888,
+      "bytes": 207863,
+      "localExportMs": 69
     }
   ],
   "limitations": [
