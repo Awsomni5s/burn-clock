@@ -11,7 +11,7 @@ import Reproduce from '../components/Reproduce';
 const BurningTimePanel=lazy(()=>import('../components/BurningTimePanel'));
 import {ArrowUpRight,Clock3,Info,ExternalLink,Download} from 'lucide-react';
 import {number,hour} from '../data';
-import {PLATFORM_COLORS,type Platform} from '../types';
+import {PLATFORM_COLORS,GK2A_COLOR,type Platform} from '../types';
 import {receiptFacts} from '../insights';
 import {punjabCard,saveClaimCard} from '../claimCard';
 // Source JSON is retained verbatim; the page renders its nested scientific fields.
@@ -37,7 +37,7 @@ export default function Receipt({data}:{data:Json}){
       <div className="inline-notice"><Info size={16}/><span>Terra and Aqua changed look times; their ratios are not controlled estimates of the decline in activity. S-NPP and NOAA-20 provide near-fixed-clock comparisons.</span></div><div className="source-note"><Reproduce id="punjabBySatellite"/> · Source: punjab_receipt.json → by_clock · daytime 0.05° cell-days · {data.region}</div>
     </section>
     <div className="two-col"><section className="card"><div className="card-heading"><div><div className="eyebrow">02 / THROUGH THE AFTERNOON</div><h2>The hourly view</h2><p><Term text="GK2A"/> <Term text="pixel-hours"/> · 2025 ÷ 2021 · confidence ≥ <Evidence value={data.gk2a_by_hour.conf_min} expression={"data.gk2a_by_hour.conf_min"} source={"punjab_receipt.json"} producer={"pipeline/analysis/punjab_receipt.py"}/></p></div></div>
-      <div className="hour-chart">{data.gk2a_by_hour.hours.map((h:number,i:number)=>{const r=data.gk2a_by_hour.ratio_2025_2021[i];return <div className="hour-column" key={h}><span>×<Evidence value={number(r,2)} expression={"number(r,2)"} source={"punjab_receipt.json"} producer={"pipeline/analysis/punjab_receipt.py"}/></span><div className="hour-bar-track"><i style={{height:(r/2.25*100)+'%',background:h===18?'#c1b6ab':'#d9774f'}}/></div><small>{h}:00</small></div>;})}<div className="hour-reference" style={{bottom:'calc(27px + 170px / 2.25)'}}><span>No change</span></div></div>
+      <div className="hour-chart">{data.gk2a_by_hour.hours.map((h:number,i:number)=>{const r=data.gk2a_by_hour.ratio_2025_2021[i];return <div className="hour-column" key={h}><span>×<Evidence value={number(r,2)} expression={"number(r,2)"} source={"punjab_receipt.json"} producer={"pipeline/analysis/punjab_receipt.py"}/></span><div className="hour-bar-track"><i style={{height:(r/2.25*100)+'%',background:GK2A_COLOR}}/></div><small>{h}:00</small></div>;})}<div className="hour-reference" style={{bottom:'calc(27px + 170px / 2.25)'}}><span>No change</span></div></div>
       <p className="chart-caption">Indian Standard Time (UTC + 5:30). The 18:00 result is near sunset and uses different thresholds; it should not carry a headline.</p><div className="source-note">Source: punjab_receipt.json → gk2a_by_hour · no <Term text="GK2A"/> outage mask available</div></section>
 </div>
     <section className="card interpretation"><span className="eyebrow">WHAT THE EVIDENCE SUPPORTS</span><h2>Burning declined in the near-fixed-clock record.<br/>The size of that decline depends on the observation window.</h2><p>The official count and whole-afternoon <Term text="GK2A"/> <Term text="pixel-days"/> both declined from 2021. The later-hour pattern matters for monitoring, but it does not make the official count fake or establish a corrected true fire count. The clock-sensitive verdict alone does not establish motive or isolate a single cause.</p></section>
