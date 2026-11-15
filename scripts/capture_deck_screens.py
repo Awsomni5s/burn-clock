@@ -7,6 +7,8 @@ async def main():
         await pg.goto(B+"/#home"); await pg.wait_for_timeout(2500)
         await pg.screenshot(path=O+"home_top.png",clip={"x":0,"y":0,"width":1280,"height":700})
         await pg.locator(".verdict-strip").screenshot(path=O+"strip.png")
+        await pg.get_by_test_id("next-move").wait_for(timeout=60000); await pg.get_by_test_id("nm-week").get_by_text("cell-days").wait_for(timeout=60000)
+        await pg.get_by_test_id("next-move").screenshot(path=O+"nextmove.png")
         await pg.locator(".hour-share").screenshot(path=O+"hourshare.png")
         await pg.goto(B+"/?box=27.6,73.8,32.6,77.6&months=10,11&a=2021&b=2025#explorer"); await pg.get_by_test_id("verdict").wait_for(timeout=60000); await pg.wait_for_timeout(800)
         await pg.locator(".trend-verdict").screenshot(path=O+"verdict_punjab.png")

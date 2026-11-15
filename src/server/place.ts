@@ -3,7 +3,7 @@ import {areaTiles,createAccumulator,computeClock,validBox} from '../data';
 import {computeClaim} from '../stats';
 import {verdictFor,verdictSentence,VERDICT_LABEL} from '../verdict';
 import {lateLabel,modisLabel} from '../labels';
-import {liveTiming,type LiveCells} from '../liveCheck';
+import {liveTiming,liveAmount,type LiveCells} from '../liveCheck';
 import type {AreaResult,BBox,Catalog,CalendarTile,ClockTile,Manifest} from '../types';
 
 /** Loads a file under /data by its published path (e.g. 'manifest.json.gz') and returns parsed JSON. */
@@ -37,14 +37,15 @@ export async function checkPlace(q:PlaceQuery,load:Loader,appUrl:string){
   const {area,manifest}=await buildArea(q.box,load);
   if(!area.cellCount)return {status:'no_data' as const,message:'No archived fire cells in this box. Empty coverage is no data, not proof of no burning.',box:q.box};
   const r=computeClaim(area,q.months,q.a,q.b,manifest),v=verdictFor(r.checks),label=q.months.length>1&&q.months.every((m,i)=>i===0||m===q.months[i-1]+1)?`${MONTHS[q.months[0]-1]}–${MONTHS[q.months.at(-1)!-1]}`:q.months.map(m=>MONTHS[m-1]).join(', ');
-  let live:ReturnType<typeof liveTiming>|null=null,liveWindow=null;
-  try{const cells=await load('live/week_cells.json.gz') as LiveCells;live=liveTiming(cells,q.box,area.months);liveWindow=cells.window;}catch{live=null;}
+  let live:ReturnType<typeof liveTiming>|null=null,amount:ReturnType<typeof liveAmount>|null=null,liveWindow=null;
+  try{const cells=await load('live/week_cells.json.gz') as LiveCells;live=liveTiming(cells,q.box,area.months);amount=liveAmount(cells,q.box,area.months);liveWindow=cells.window;}catch{live=null;}
   const link=new URL(appUrl);link.searchParams.set('box',q.box.join(','));link.searchParams.set('months',q.months.join(','));link.searchParams.set('a',String(q.a));link.searchParams.set('b',String(q.b));link.hash='explorer';
   return {status:'ok' as const,box:q.box,months:q.months,a:q.a,b:q.b,cells:area.cellCount,
     verdict:{id:v,label:VERDICT_LABEL[v],sentence:verdictSentence(v,r,label)},
     checks:{burning_moved_later:lateLabel(r.checks.late),older_modis_record_off:modisLabel(r.checks.relationship),late:r.checks.late,relationship:r.checks.relationship,drivers:r.checks.drivers},
     combined_record:{status:r.harmonized.status,change_pct:r.harmonized.changePct,range_pct:r.harmonized.rangePct,unit:'daytime active 0.05° cell-days, S-NPP VIIRS scale'},
     live:live&&{window:liveWindow,status:live.status,aqua_per_noaa20:live.ratio,normal_range:live.low!=null?[live.low,live.high]:null,reason:live.reason||null},
+    this_week_vs_usual:amount&&{status:amount.status,noaa20_cell_days_per_week:Math.round(amount.week),usual_week_same_month_2019_2025:amount.median!=null?{median:Math.round(amount.median),min:Math.round(amount.min!),max:Math.round(amount.max!)}:null,definition:'NOAA-20 daytime active cell-days in NASA FIRMS seven-day file, scaled to 7 days, against the archive NOAA-20 month total ×7/days for 2019–2025. record = above every year; above/below = vs median; lowest = below every year. Provisional; read together with live.status (a low count with burning moved later is not less burning).'},
     link:link.toString(),
     limits:'Counts are satellite observations, not individual fires, burned area or emissions. Timing checks are diagnostics, not proof of cause. The live check is provisional (NASA FIRMS seven-day files).',
     source:'Burn Clock, NASA FIRMS MODIS C6.1 and VIIRS 375 m'};

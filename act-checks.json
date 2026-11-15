@@ -1,5 +1,5 @@
 {
-  "tested_at": "2026-11-15T20:06:16.694Z",
+  "tested_at": "2026-11-15T20:55:56.540Z",
   "status": "passed",
   "checks": [
     {
@@ -116,6 +116,54 @@
     },
     {
       "name": "live world rows match file",
+      "ok": true
+    },
+    {
+      "name": "next move: Punjab season Oct-Nov with a share",
+      "ok": true
+    },
+    {
+      "name": "next move: trend card has a verdict",
+      "ok": true
+    },
+    {
+      "name": "next move: switching job changes the action",
+      "ok": true
+    },
+    {
+      "name": "next move: role is kept in the URL",
+      "ok": true
+    },
+    {
+      "name": "next move: .ics has two seasons with reminders",
+      "ok": true
+    },
+    {
+      "name": "circle counts fewer cells than its box",
+      "ok": true
+    },
+    {
+      "name": "four shape tools",
+      "ok": true
+    },
+    {
+      "name": "hand-drawn outline becomes the area",
+      "ok": true
+    },
+    {
+      "name": "search picks the province outline",
+      "ok": true
+    },
+    {
+      "name": "province name shown",
+      "ok": true
+    },
+    {
+      "name": "day view shows busiest days",
+      "ok": true
+    },
+    {
+      "name": "days button disabled outside Punjab",
       "ok": true
     },
     {

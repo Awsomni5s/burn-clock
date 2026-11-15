@@ -23,7 +23,7 @@ Rules:
 - If someone describes a fire or smoke emergency happening now, tell them first to contact local emergency services.
 - Only discuss fire records, satellites, smoke and what to do about them; politely decline anything else.`;
 export const TOOLS=[
-  {name:'check_place',description:'Verdict for any place on Earth: can you trust its fire trend, the two timing checks, the combined-record change and range, and this week’s live check. Give lat/lon (with optional radius_deg 0.25–5) or box.',
+  {name:'check_place',description:'Verdict for any place on Earth: can you trust its fire trend, the two timing checks, the combined-record change and range, this week’s live timing check, and whether this week has more or less burning than an average week of the same month (this_week_vs_usual). Give lat/lon (with optional radius_deg 0.25–5) or box.',
     input_schema:{type:'object',properties:{lat:{type:'number'},lon:{type:'number'},radius_deg:{type:'number'},box:{type:'array',items:{type:'number'},description:'[south, west, north, east]'},months:{type:'array',items:{type:'integer'},description:'Calendar months 1–12'},a:{type:'integer',description:'First year (2001–2024)'},b:{type:'integer',description:'Second year (2002–2025)'}}}},
   {name:'punjab_district',description:'For a district of Punjab, India: best field-check window (India time), busiest two weeks, how much further the ~1:40 pm satellite count fell than the whole afternoon, safe wording, and this week’s detections.',
     input_schema:{type:'object',properties:{district:{type:'string'}},required:['district']}},

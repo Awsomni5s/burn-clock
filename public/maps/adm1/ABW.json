@@ -1,0 +1,1 @@
+{"type":"FeatureCollection","features":[{"type":"Feature","properties":{"id":"ABW-5150","name":"Aruba","country":"Aruba","type":null,"box":[12.418,-70.061,12.625,-69.888]},"geometry":{"type":"Polygon","coordinates":[[[-70.061,12.625],[-69.925,12.519],[-69.888,12.418],[-70.058,12.537],[-70.061,12.625]]]}}]}

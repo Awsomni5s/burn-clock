@@ -30,3 +30,22 @@ export function liveTiming(doc:LiveCells,box:BBox,months:Month[]):LiveResult{
   return {...empty,ratio:Math.exp(rho),baseline:Math.exp(mu),low:Math.exp(mu-thr),high:Math.exp(mu+thr),delta,threshold:thr,status,reason:''};
 }
 export const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+/** Is it burning more or less than usual this week? This week's NOAA-20 cell-days (seven-day file), scaled to seven
+ * days, against an average week of the same calendar month in 2019–25 from the archive's own NOAA-20 record (same
+ * satellite, same unit; the near-real-time file also keeps low-confidence and static-source detections, so it reads a
+ * little high). */
+export type AmountStatus='record'|'above'|'below'|'lowest'|'quiet'|'unknown';
+export interface AmountResult{status:AmountStatus;month:number;week:number;median:number|null;min:number|null;max:number|null;years:number;days:number}
+export function liveAmount(doc:LiveCells,box:BBox,months:Month[]):AmountResult{
+  const last=doc.window.last_date,first=doc.window.first_date??last;
+  const m=Number((last??'2026-11-01').slice(5,7)),days=last&&first?Math.round((Date.parse(last)-Date.parse(first))/864e5)+1:7;
+  const week=liveSums(doc,box).J1*7/Math.max(1,days);
+  const dim=(y:number)=>new Date(Date.UTC(y,m,0)).getUTCDate();
+  const hist:number[]=[];for(let y=2019;y<=2025;y++){const r=months.find(x=>x.month===`${y}-${String(m).padStart(2,'0')}`)?.raw?.J1;if(r!=null)hist.push(r*7/dim(y));}
+  const base={month:m,week,days,years:hist.length,median:null,min:null,max:null};
+  if(!last||hist.length<4)return {...base,status:'unknown'};
+  const s=[...hist].sort((a,b)=>a-b),median=s.length%2?s[(s.length-1)/2]:(s[s.length/2-1]+s[s.length/2])/2,min=s[0],max=s.at(-1)!;
+  const status:AmountStatus=week<5&&median<5?'quiet':week>max?'record':week>median?'above':week<min?'lowest':'below';
+  return {...base,median,min,max,status};
+}

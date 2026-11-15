@@ -89,3 +89,49 @@
 .home-top .home-search{margin-bottom:6px}
 .mock-app .home-place-title{font-size:1.5rem;margin:18px 0 6px}
 @media(max-width:600px){.heatmap.with-clock .heatmap-row,.heatmap.with-clock .heatmap-header{grid-template-columns:30px repeat(12,minmax(0,1fr)) 46px}.v-chip.mini{font-size:.58rem;padding:1px 2px}}
+.day-calendar{margin-top:8px}
+.day-grid{display:grid;gap:1px;align-items:center;min-width:620px}
+.day-head{font-size:9px;color:#505a5f;white-space:nowrap;overflow:visible}
+.day-cell{height:14px;border:0;padding:0;min-width:0;cursor:pointer}
+.day-cell.peak{outline:2px solid #0b0c0c;outline-offset:-1px}
+.day-cell.missing{background-image:repeating-linear-gradient(45deg,#d4d8db 0 2px,transparent 2px 4px)}
+.day-summary{font-size:.92rem;margin:4px 0 8px}.day-pick{font-size:.92rem;margin:8px 0}
+.mock-app .day-cell{min-height:0;height:13px;width:100%;display:block}
+.day-calendar{padding:0 20px 8px}
+.day-grid{gap:1px 1px}
+/* Your next move: the answer before the evidence */
+.next-move{margin:28px 0 24px;padding:22px 24px;border:2px solid #0b0c0c;background:#fff}
+.next-move-head{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between;margin-bottom:16px}
+.next-move-head h2{margin:2px 0 0;font-size:1.45rem}
+.next-move .eyebrow{margin:0;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#505a5f}
+.role-chips{display:flex;flex-wrap:wrap;gap:6px}
+.role-chips button{font:inherit;font-size:.88rem;padding:6px 12px;border:1.5px solid #8a3a14;background:#fff;color:#8a3a14;border-radius:999px;cursor:pointer}
+.role-chips button.active{background:#8a3a14;color:#fff}
+.role-chips button:focus-visible,.nm-link:focus-visible{outline:3px solid #ffdd00;outline-offset:2px}
+.next-move-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.nm-card{display:flex;flex-direction:column;gap:8px;padding:16px;background:#f8f8f6;border-top:5px solid #6f777b}
+.nm-card.verdict-timing{border-top-color:#b34b20}.nm-card.verdict-modis{border-top-color:#a77c00}.nm-card.verdict-clear{border-top-color:#00703c}
+.nm-card[data-testid=nm-when]{border-top-color:#8a3a14}
+.nm-q{margin:0;font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#505a5f}
+.nm-big{margin:0;font-size:1.6rem;font-weight:700;line-height:1.15}
+.nm-big .v-chip{font-size:1rem}
+.nm-sub{margin:0;font-size:.92rem;color:#383f43}
+.nm-do{margin:4px 0 0;padding:10px 12px;background:#fff;border-left:4px solid #0b0c0c;font-size:.95rem}
+.nm-do span{font-weight:700}
+.nm-btn{align-self:flex-start;margin-top:auto;font-size:.88rem}
+.nm-link{align-self:flex-start;margin-top:auto;padding:0;border:0;background:none;color:#1d70b8;text-decoration:underline;font:inherit;font-size:.9rem;cursor:pointer}
+.nm-more{display:flex;flex-wrap:wrap;gap:8px 22px;margin:14px 0 0;font-size:.95rem}
+.nm-more .nm-link{margin:0;font-size:.95rem}
+@media(max-width:860px){.next-move-grid{grid-template-columns:1fr}.next-move{padding:16px}.nm-big{font-size:1.35rem}}
+.role-chips button{margin:0;border-radius:999px!important}
+.nm-more>*{margin:0!important}
+.nm-more{align-items:center}.nm-more>*{flex:0 0 auto;width:auto!important;padding:0!important;line-height:1.4;min-height:0!important}
+.nm-more>*{flex:0 1 auto!important;white-space:normal;text-align:left;max-width:100%}.nm-link{white-space:normal;text-align:left;max-width:100%}
+/* Sticky place bar with jump links */
+.report-toolbar{position:sticky;top:0;z-index:30;flex-wrap:wrap}
+.jump-links{display:flex;flex-wrap:nowrap;gap:4px;margin-left:auto;overflow-x:auto;max-width:100%}
+.jump-links button{flex:0 0 auto;margin:0;padding:4px 10px;border:1px solid #b1b4b6;background:#fff;color:#0b0c0c;font-size:.85rem;border-radius:999px;cursor:pointer}
+.jump-links button:hover{border-color:#0b0c0c}
+@media(max-width:600px){.jump-links{margin-left:0;width:100%}}
+.report-toolbar .jump-links button{padding:3px 10px!important;min-height:0!important;font-size:.85rem!important;text-decoration:none!important;border-radius:999px!important;background:#fff!important;color:#0b0c0c!important;border:1px solid #b1b4b6!important}
+@media(max-width:600px){.report-toolbar{position:static}}
