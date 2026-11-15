@@ -1,5 +1,5 @@
 {
-  "tested_at": "2026-11-15T18:41:01.380Z",
+  "tested_at": "2026-11-15T18:55:26.602Z",
   "status": "passed",
   "checks": [
     {
@@ -100,6 +100,18 @@
     },
     {
       "name": "live check axe",
+      "ok": true
+    },
+    {
+      "name": "ask panel hidden when assistant is off",
+      "ok": true
+    },
+    {
+      "name": "ask answer shows the number check",
+      "ok": true
+    },
+    {
+      "name": "ask panel axe",
       "ok": true
     },
     {

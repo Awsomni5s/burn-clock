@@ -11,7 +11,7 @@ export const HELP=['Burn Clock bot: when Punjab’s fires burn, and whether a fi
   '/week: this week across Punjab',
   '/check 30.9 75.85: verdict for any place on Earth (1° around the point, Oct–Nov 2021 vs 2025)',
   '/subscribe Sangrur: a weekly message for that district (/unsubscribe to stop)',
-  'Or share your location.'].join('\n');
+  'Or share your location, or just ask a question in plain words (when the assistant is switched on).'].join('\n');
 
 const verdictText=(r:Awaited<ReturnType<typeof checkPlace>>)=>r.status!=='ok'?r.message:[
   `Verdict: ${r.verdict.label}`,r.verdict.sentence,

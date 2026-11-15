@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-11-15 — Ask Burn Clock (Claude, with checked numbers)
+
+- **`/api/ask`:** Claude answers plain-language questions using only Burn Clock's tools (`check_place`, `punjab_district`, `punjab_week`, the same code as the site).
+  - Every number in the answer is checked on the server against the tool results, allowing rounding and fractions shown as percentages. A failing number triggers one retry naming it; if it still fails, the reader sees a warning listing it.
+  - Rate-limited, with an optional daily cap.
+  - Off until `ANTHROPIC_API_KEY` is set; the panel stays hidden until then.
+- An Ask panel on the home page and the Punjab planner. Plain-text messages to the Telegram bot go to the same assistant.
+- **Tests:** `src/server/ask.test.ts` covers the number checker. `scripts/api_checks.mjs` runs a fake Claude through tool use, a verified answer, a flagged invented number with retry, the off state, input checks, the rate limit and Telegram free text.
+
 ## 2026-11-15 — Public JSON API and a Telegram bot
 
 - **`/api/check`** returns the verdict for any box or point: the two checks, the combined-record change and range, and this week's live check, as JSON with open CORS. **`/api/punjab`** returns a district's planner summary as JSON or text.

@@ -492,7 +492,7 @@ var HELP = [
   "/week: this week across Punjab",
   "/check 30.9 75.85: verdict for any place on Earth (1\xB0 around the point, Oct\u2013Nov 2021 vs 2025)",
   "/subscribe Sangrur: a weekly message for that district (/unsubscribe to stop)",
-  "Or share your location."
+  "Or share your location, or just ask a question in plain words (when the assistant is switched on)."
 ].join("\n");
 var verdictText = (r) => r.status !== "ok" ? r.message : [
   `Verdict: ${r.verdict.label}`,
@@ -546,6 +546,121 @@ Provisional NASA FIRMS data.` };
   return null;
 }
 
+// src/server/ask.ts
+var DEFAULT_MODEL = "claude-haiku-5-5";
+var SYSTEM = `You are Burn Clock's assistant. Burn Clock checks whether a satellite fire trend can be trusted, given that fire satellites look at fixed times of day and burning can move to other hours.
+Answer ONLY from the tool results in this conversation. Never use outside knowledge for numbers, dates, places' fire counts or causes.
+Every number you write must appear in a tool result (you may round it). If the tools cannot answer, say so and suggest what the user can try on the site.
+Keep answers short (under 120 words), plain English, no markdown tables. Say what the numbers are: satellite observations, not individual fires or emissions. The live check is provisional.
+For places, call check_place with a latitude and longitude (or a box) and the months and years the user asks about (defaults: October\u2013November, 2021 vs 2025).
+For Punjab districts (India), call punjab_district. For "this week in Punjab", call punjab_week. End with the most useful link from the tool result.`;
+var TOOLS = [
+  {
+    name: "check_place",
+    description: "Verdict for any place on Earth: can you trust its fire trend, the two timing checks, the combined-record change and range, and this week\u2019s live check. Give lat/lon (with optional radius_deg 0.25\u20135) or box.",
+    input_schema: { type: "object", properties: { lat: { type: "number" }, lon: { type: "number" }, radius_deg: { type: "number" }, box: { type: "array", items: { type: "number" }, description: "[south, west, north, east]" }, months: { type: "array", items: { type: "integer" }, description: "Calendar months 1\u201312" }, a: { type: "integer", description: "First year (2001\u20132024)" }, b: { type: "integer", description: "Second year (2002\u20132025)" } } }
+  },
+  {
+    name: "punjab_district",
+    description: "For a district of Punjab, India: best field-check window (India time), busiest two weeks, how much further the ~1:40 pm satellite count fell than the whole afternoon, safe wording, and this week\u2019s detections.",
+    input_schema: { type: "object", properties: { district: { type: "string" } }, required: ["district"] }
+  },
+  { name: "punjab_week", description: "This week across Punjab: Aqua (~4 pm) vs NOAA-20 (~2 pm) detections and the districts with the most late-afternoon detections.", input_schema: { type: "object", properties: {} } }
+];
+async function runTool(name, input, load, appUrl) {
+  if (name === "check_place") {
+    const p = new URLSearchParams();
+    if (Array.isArray(input.box)) p.set("box", input.box.join(","));
+    else {
+      if (input.lat != null) p.set("lat", String(input.lat));
+      if (input.lon != null) p.set("lon", String(input.lon));
+      if (input.radius_deg != null) p.set("radius_deg", String(input.radius_deg));
+    }
+    if (Array.isArray(input.months)) p.set("months", input.months.join(","));
+    if (input.a) p.set("a", String(input.a));
+    if (input.b) p.set("b", String(input.b));
+    const q = parseQuery(p);
+    return "error" in q ? { status: "bad_request", message: q.error } : checkPlace(q, load, appUrl);
+  }
+  if (name === "punjab_district") return punjabSummary(String(input.district ?? ""), load, appUrl);
+  if (name === "punjab_week") {
+    const wk = await load("punjab_week.json"), r = weekRatio(wk);
+    return {
+      window: wk.window,
+      aqua_per_noaa20: r.ratio,
+      aqua_detections: r.aqua,
+      noaa20_detections: r.viirs,
+      typical_2013_2021: "about 0.2",
+      aqua_crossing_ist: wk.median_pass_ist.A,
+      noaa20_crossing_ist: wk.median_pass_ist.J1,
+      districts_by_aqua: [...wk.districts].sort((x, y) => (y.daytime.A ?? 0) - (x.daytime.A ?? 0)).slice(0, 8).map((d) => ({ district: d.name, aqua: d.daytime.A ?? 0, noaa20_noaa21: (d.daytime.J1 ?? 0) + (d.daytime.J2 ?? 0) })),
+      link: appUrl.replace(/\/$/, "") + "/#act"
+    };
+  }
+  return { status: "error", message: "Unknown tool" };
+}
+function numbersIn(text) {
+  return [...text.replace(/(\d),(\d{3})/g, "$1$2").matchAll(/(?<![\w.])[-−]?\d+(?:\.\d+)?/g)].map((m) => Number(m[0].replace("\u2212", "-")));
+}
+function unverified(answer2, sources, question) {
+  const pool = [...sources.flatMap(numbersIn), ...numbersIn(question)], ok = (n) => {
+    const a = Math.abs(n);
+    if (Number.isInteger(n) && (a <= 12 || a >= 2e3 && a <= 2030)) return true;
+    const r = (x, d) => Math.round(x * 10 ** d) / 10 ** d;
+    return pool.some((p) => {
+      const q = Math.abs(p);
+      for (let d = 0; d <= 3; d++) if (r(q, d) === a || r(q * 100, d) === a) return true;
+      return false;
+    });
+  };
+  return numbersIn(answer2.replace(/https?:\/\/\S+/g, "")).filter((n) => !ok(n));
+}
+async function ask(question, env, load, appUrl, fetchImpl = fetch) {
+  const model = env.ANTHROPIC_MODEL || DEFAULT_MODEL, tools = [], sources = [];
+  const call = async (messages2) => {
+    const r = await fetchImpl("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "x-api-key": env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json" }, body: JSON.stringify({ model, max_tokens: 600, system: SYSTEM, tools: TOOLS, messages: messages2 }) });
+    if (!r.ok) throw Error(`Claude API ${r.status}`);
+    return r.json();
+  };
+  const messages = [{ role: "user", content: question }];
+  let final = "";
+  for (let round = 0; round < 5; round++) {
+    const res = await call(messages);
+    messages.push({ role: "assistant", content: res.content });
+    const uses = res.content.filter((c) => c.type === "tool_use");
+    if (res.stop_reason !== "tool_use" || !uses.length) {
+      final = res.content.filter((c) => c.type === "text").map((c) => c.text).join("\n").trim();
+      break;
+    }
+    const results = [];
+    for (const u of uses) {
+      tools.push({ name: u.name, input: u.input });
+      let out;
+      try {
+        out = await runTool(u.name, u.input, load, appUrl);
+      } catch (e) {
+        out = { status: "error", message: e instanceof Error ? e.message : String(e) };
+      }
+      const s = JSON.stringify(out);
+      sources.push(s);
+      results.push({ type: "tool_result", tool_use_id: u.id, content: s.slice(0, 12e3) });
+    }
+    messages.push({ role: "user", content: results });
+  }
+  if (!final) return { status: "error", answer: "No answer could be produced. Try the place search on the site.", tools, unverified: [], model };
+  let bad = unverified(final, sources, question);
+  if (bad.length) {
+    messages.push({ role: "user", content: `These numbers in your answer do not appear in any tool result: ${bad.join(", ")}. Rewrite the answer using only numbers from the tool results.` });
+    const res = await call(messages);
+    const retry = res.content.filter((c) => c.type === "text").map((c) => c.text).join("\n").trim();
+    if (retry) {
+      final = retry;
+      bad = unverified(final, sources, question);
+    }
+  }
+  return { status: bad.length ? "unverified" : "ok", answer: final, tools, unverified: bad, model };
+}
+
 // src/server/handlers.ts
 var cache = /* @__PURE__ */ new Map();
 function originLoader(origin, fetchImpl = fetch) {
@@ -563,7 +678,7 @@ function originLoader(origin, fetchImpl = fetch) {
     return cache.get(key2);
   };
 }
-var json = (body, status = 200, maxAge = 900) => new Response(JSON.stringify(body, null, 1), { status, headers: { "content-type": "application/json; charset=utf-8", "access-control-allow-origin": "*", "cache-control": status === 200 ? `public, s-maxage=${maxAge}, stale-while-revalidate=86400` : "no-store" } });
+var json = (body, status = 200, maxAge = 900) => new Response(JSON.stringify(body, null, 1), { status, headers: { "content-type": "application/json; charset=utf-8", "access-control-allow-origin": "*", "cache-control": status === 200 && maxAge > 0 ? `public, s-maxage=${maxAge}, stale-while-revalidate=86400` : "no-store" } });
 var site = (request, env) => env.PUBLIC_SITE_URL || new URL(request.url).origin;
 async function handleCheck(request, env = {}, loader) {
   const u = new URL(request.url), q = parseQuery(u.searchParams);
@@ -613,7 +728,20 @@ async function handleTelegram(request, env, loader, fetchImpl = fetch) {
   if (request.headers.get("x-telegram-bot-api-secret-token") !== env.TELEGRAM_WEBHOOK_SECRET) return json({ status: "forbidden" }, 403);
   const update = await request.json(), u = new URL(request.url);
   try {
-    const a = await answer(update, loader ?? originLoader(u.origin, fetchImpl), site(request, env), upstashStore(env, fetchImpl));
+    const load = loader ?? originLoader(u.origin, fetchImpl), text = update.message?.text?.trim() ?? "";
+    if (env.ANTHROPIC_API_KEY && text && !text.startsWith("/") && update.message) {
+      const chat = update.message.chat.id, limit = await allowed("tg:" + chat, env, fetchImpl);
+      if (limit) {
+        await send(env, chat, limit, fetchImpl);
+        return json({ ok: true });
+      }
+      const r = await ask(text.slice(0, 500), env, load, site(request, env), fetchImpl);
+      await send(env, chat, r.answer + (r.status === "unverified" ? `
+
+\u26A0\uFE0F Some numbers above could not be checked against Burn Clock data: ${r.unverified.join(", ")}. Treat them with care.` : "\n\n\u2713 Numbers checked against Burn Clock data."), fetchImpl);
+      return json({ ok: true });
+    }
+    const a = await answer(update, load, site(request, env), upstashStore(env, fetchImpl));
     if (a) await send(env, a.chat, a.text, fetchImpl);
   } catch (e) {
     const chat = update.message?.chat.id;
@@ -642,7 +770,46 @@ async function handleSetup(request, env, fetchImpl = fetch) {
   await fetchImpl(`${base}/setMyCommands`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ commands: [{ command: "district", description: "Check window and this week for a Punjab district" }, { command: "week", description: "This week across Punjab" }, { command: "check", description: "Verdict for any place: /check lat lon" }, { command: "subscribe", description: "Weekly message for a district" }, { command: "unsubscribe", description: "Stop weekly messages" }, { command: "help", description: "How to use the bot" }] }) });
   return json({ status: "ok", webhook: hook });
 }
+var hits = /* @__PURE__ */ new Map();
+async function allowed(ip, env, fetchImpl) {
+  const now = Date.now(), list = (hits.get(ip) ?? []).filter((t) => now - t < 36e5);
+  if (list.length >= 20) return "Too many questions from this address this hour. Please try again later.";
+  list.push(now);
+  hits.set(ip, list);
+  if (env.UPSTASH_REDIS_REST_URL && env.UPSTASH_REDIS_REST_TOKEN) {
+    try {
+      const day = (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
+      const r = await fetchImpl(env.UPSTASH_REDIS_REST_URL, { method: "POST", headers: { authorization: `Bearer ${env.UPSTASH_REDIS_REST_TOKEN}`, "content-type": "application/json" }, body: JSON.stringify(["INCR", `burnclock:ask:${day}`]) });
+      const n = (await r.json()).result;
+      if (n > Number(env.ASK_DAILY_LIMIT || 500)) return "The assistant has reached today\u2019s question limit. The site\u2019s pages answer the same questions.";
+    } catch {
+    }
+  }
+  return null;
+}
+async function handleAsk(request, env, loader, fetchImpl = fetch) {
+  const on = !!env.ANTHROPIC_API_KEY;
+  if (request.method === "GET") return json({ configured: on, model: on ? env.ANTHROPIC_MODEL || DEFAULT_MODEL : null }, 200, 60);
+  if (!on) return json({ status: "not_configured", message: "The assistant is not switched on (ANTHROPIC_API_KEY is not set)." }, 503);
+  if (request.method !== "POST") return json({ status: "method_not_allowed" }, 405);
+  let question = "";
+  try {
+    question = String((await request.json()).question ?? "").trim();
+  } catch {
+    return json({ status: "bad_request", message: 'Send JSON: {"question": "\u2026"}' }, 400);
+  }
+  if (!question || question.length > 500) return json({ status: "bad_request", message: "Ask a question of up to 500 characters." }, 400);
+  const limit = await allowed(request.headers.get("x-forwarded-for")?.split(",")[0].trim() || "unknown", env, fetchImpl);
+  if (limit) return json({ status: "rate_limited", message: limit }, 429);
+  const u = new URL(request.url);
+  try {
+    return json(await ask(question, env, loader ?? originLoader(u.origin, fetchImpl), site(request, env), fetchImpl), 200, 0);
+  } catch (e) {
+    return json({ status: "error", message: "The assistant could not answer right now." }, 502);
+  }
+}
 export {
+  handleAsk,
   handleCheck,
   handleDigest,
   handlePunjab,

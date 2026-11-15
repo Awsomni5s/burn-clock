@@ -4,6 +4,7 @@ import {number} from '../data';
 import {download} from '../data';
 import {useURLState} from '../urlState';
 import ThisWeek from '../components/ThisWeek';
+import AskPanel from '../components/AskPanel';
 import {saveClaimCard} from '../claimCard';
 import {ALL,MIN_HOURLY,bestWindow,busiestDays,gapRange,seasonDates,districtAt,fieldCheckIcs,countGap,districtCsv,findDistrict,hourLabel,lateShare,passShare,priority,profileCsv,sum,windowLabel,wording,type DistrictDoc} from '../act';
 
@@ -129,6 +130,7 @@ export default function ActOnIt(){
       <div className="act-buttons no-print"><button className="button secondary" onClick={()=>download('burn-clock-punjab-districts.csv',districtCsv(doc))}>Download district table (CSV)</button><a className="button secondary" href="/data/punjab_districts.json" download>District data (JSON, with boundaries)</a><a className="button secondary" href={`/api/punjab?district=${encodeURIComponent(d.name===ALL?'all':d.name)}`}>This district as JSON (API)</a></div>
       <ul className="act-list"><li>GK2A: {doc.sources.gk2a}.</li><li>Polar satellites: {doc.sources.viirs}.</li><li>Districts: {doc.sources.boundaries}. {doc.assignment}</li><li>Built by <code>{doc.script}</code> on {doc.generated_utc.slice(0,10)}. GK2A pixels outside every district polygon (for example on the border) are left out of district totals: {number(doc.gk2a_unassigned_pixel_hours[String(year)])} pixel-hours in {year}.</li></ul>
     </section>
+    <AskPanel compact/>
     <p className="act-elsewhere">Outside Punjab there is no hourly record here yet. <a href="#explorer">Check any place</a> for its verdict and role-specific actions.</p>
   </article>;
 }
