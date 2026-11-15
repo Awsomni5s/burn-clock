@@ -1,5 +1,24 @@
 # Changelog
 
+## 2026-11-15 — Public JSON API and a Telegram bot
+
+- **`/api/check`** returns the verdict for any box or point: the two checks, the combined-record change and range, and this week's live check, as JSON with open CORS. **`/api/punjab`** returns a district's planner summary as JSON or text.
+- **Telegram bot** (`/api/telegram`):
+  - `/district`, `/week`, `/check lat lon`, a shared location (Punjab gives a district summary; elsewhere a verdict for 1° around the point), deep links from the site, and `/subscribe`/`/unsubscribe`;
+  - a weekly digest through Vercel Cron (`/api/digest`, CRON_SECRET), with subscriptions stored in Upstash Redis;
+  - one-time webhook setup at `/api/telegram-setup`.
+  - It is off until its environment variables are set, and the site hides the Telegram links until then.
+- The server code (`src/server/`) reuses the app's own calculations and is bundled to `api/_lib/server.mjs` by `scripts/build_api.mjs`. `scripts/api_checks.mjs`, part of the gate, checks the API against the app's verdicts and the planner file, and drives the bot with a fake Telegram and Redis.
+- The API page now says the site is public and documents the live API. Place reports (research and air-quality roles) and the Punjab planner link to their JSON.
+
+## 2026-11-15 — Live timing check for any place, auto-refreshing data
+
+- **Live check on every place report:** "Is burning happening later than usual this week?"
+  - `scripts/fetch_live_cells.py` turns NASA FIRMS' global seven-day files into `public/data/live/week_cells.json.gz` (daytime 0.05° cell-days per satellite in 0.25° bins).
+  - `src/liveCheck.ts` compares this week's Aqua ÷ NOAA-20 with the same month in 2013–19 for the selected box. It uses the verdict's threshold, with NOAA-20 bridged to S-NPP from the area's own overlap.
+  - Unit-tested on all six presets, and browser-checked with an axe scan.
+- **Auto-refresh:** `.github/workflows/live-data.yml` now runs every six hours. It rebuilds the preset snapshot, Punjab-this-week and the live grid, then commits them, so Vercel redeploys with fresh data and no server is needed.
+
 ## 2026-11-15 — Act on it, audited against rival tools
 
 - **Right now (live).**

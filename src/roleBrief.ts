@@ -1,6 +1,6 @@
 import type {ClaimResult} from './stats';
 import {verdictFor,verdictSentence,VERDICT_LABEL} from './verdict';
-import {lateLabel,modisLabel} from './components/TimingChecks';
+import {lateLabel,modisLabel} from './labels';
 import {ROLES,type Role} from './insights';
 
 const esc=(s:string)=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]!));

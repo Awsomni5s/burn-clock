@@ -50,3 +50,4 @@
 .act-cal-row{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
 .act-cal-row label{display:flex;flex-direction:column;gap:4px;font-weight:700;font-size:.9rem}
 .act-cal-row input[type=number]{width:80px}
+.api-live code,.api-docs p code{overflow-wrap:anywhere;word-break:break-word}

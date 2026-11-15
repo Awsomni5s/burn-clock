@@ -1,4 +1,4 @@
-import type {TimingChecks as Checks,TimingStatus} from '../timing';
+import type {TimingChecks as Checks} from '../timing';
 import type {ClaimResult} from '../stats';
 import {PLATFORM_NAMES} from '../types';
 import {number,signed} from '../data';
@@ -6,9 +6,8 @@ import {Evidence} from './Provenance';
 import {verdictFor,verdictSentence,VERDICT_LABEL} from '../verdict';
 import type {ReactNode} from 'react';
 
-/** Plain labels. The later-burning question can only be "likely": the check is a diagnostic, not proof. */
-export const lateLabel=(s:TimingStatus)=>s==='signal'?'Yes, likely':s==='within'?'No sign':'Can’t tell';
-export const modisLabel=(s:TimingStatus)=>s==='signal'?'Yes':s==='within'?'No':'Can’t tell';
+import {lateLabel,modisLabel} from '../labels';
+export {lateLabel,modisLabel};
 /** Kept for the claim card text. */
 export const timingLabel=lateLabel;
 

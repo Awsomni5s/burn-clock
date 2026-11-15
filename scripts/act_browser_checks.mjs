@@ -92,7 +92,15 @@ try {
   check('consistency check', async () => {});
   assert.match(await gp.getByTestId('act-consistency').innerText(), /Consistency check:/);
   await geo.close();
-  // 7. Mobile layout: no horizontal scroll on the planner.
+  // 7. Live timing check on a place report (any place): renders one of four answers with its numbers or a reason.
+  await page.goto(`${base}/?box=27.6,73.8,32.6,77.6&months=10,11&a=2021&b=2025#explorer`);
+  await page.getByTestId('live-check').waitFor({timeout: 90000});
+  const liveAnswer = await page.getByTestId('live-answer').innerText(), liveText = await page.getByTestId('live-text').innerText();
+  check('live check answer', () => assert.ok(['Yes, likely, this week', 'No sign this week', 'No, Aqua sees less', 'Can’t tell this week'].includes(liveAnswer)));
+  check('live check explains itself', () => assert.ok(/active cells|Too few|incomplete/.test(liveText)));
+  const liveAxe = await new AxeBuilder({page}).include('[data-testid=live-check]').withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
+  check('live check axe', () => assert.deepEqual(liveAxe.violations.map(v => v.id), []));
+  // 8. Mobile layout: no horizontal scroll on the planner.
   const mobile = await browser.newPage({viewport: {width: 390, height: 844}});
   await mobile.goto(`${base}/?district=Fazilka#act`); await mobile.getByTestId('act-window').waitFor();
   const overflow = await mobile.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);

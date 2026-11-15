@@ -51,3 +51,10 @@
 .mock-app .role-brief h3{margin:0 0 4px}
 .role-brief>p{margin:0 0 8px}
 .brief-status{font-size:.9rem;color:#005a30;margin:6px 0 0}
+/* Live timing check */
+.live-check{border:2px dashed #6f5aa8;padding:14px 18px;margin:0 0 18px;background:#fbfaff}
+.mock-app .live-check h3{margin:2px 0 6px;font-size:1.1rem}
+.live-check .live-answer{display:inline-block;font-size:1.1rem;padding:2px 10px;border:2px solid #6f5aa8;color:#3f2f7a;background:#fff;margin-bottom:6px}
+.live-check.live-signal .live-answer{border-color:#c2410c;color:#7a3300;background:#fff1e0}
+.live-check.live-within .live-answer,.live-check.live-below .live-answer{border-color:#00703c;color:#005a30;background:#e7f4ec}
+.live-check p{margin:6px 0;max-width:70ch}

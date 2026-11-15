@@ -1,5 +1,5 @@
 {
-  "tested_at": "2026-11-15T18:00:06.953Z",
+  "tested_at": "2026-11-15T18:41:01.380Z",
   "status": "passed",
   "checks": [
     {
@@ -88,6 +88,18 @@
     },
     {
       "name": "consistency check",
+      "ok": true
+    },
+    {
+      "name": "live check answer",
+      "ok": true
+    },
+    {
+      "name": "live check explains itself",
+      "ok": true
+    },
+    {
+      "name": "live check axe",
       "ok": true
     },
     {

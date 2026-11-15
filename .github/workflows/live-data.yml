@@ -1,28 +1,40 @@
-name: Refresh provisional FIRMS snapshot
-# Template: the current Sites source remote does not run GitHub Actions.
-# A future GitHub installation can run this every six hours. It produces an
-# artifact for review/deployment; it never silently edits the historical archive.
+name: Refresh live NASA FIRMS data
+# Every six hours: download NASA FIRMS' public seven-day files (no API key), rebuild the three provisional
+# live files and commit them. A host that deploys on push (Vercel) then serves the fresh data with no server.
+# The historical archive is never touched.
 on:
   workflow_dispatch:
   schedule:
     - cron: '17 */6 * * *'
 permissions:
-  contents: read
+  contents: write
+concurrency:
+  group: live-data
+  cancel-in-progress: false
 jobs:
-  fetch:
+  refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Fetch the four public seven-day feeds
-        run: node scripts/fetch_live.mjs
-      - name: Retain snapshot even if a feed is stale
-        if: always()
-        uses: actions/upload-artifact@v4
+      - uses: actions/setup-python@v5
         with:
-          name: provisional-firms-snapshot
-          path: public/data/live/latest.json
-          if-no-files-found: error
+          python-version: '3.12'
+      - run: python -m pip install shapely
+      - name: Preset snapshot (all four feeds)
+        run: node scripts/fetch_live.mjs
+      - name: Punjab districts this week
+        run: python scripts/fetch_punjab_week.py
+      - name: Live timing check grid (any place)
+        run: python scripts/fetch_live_cells.py
+      - name: Commit if anything changed
+        run: |
+          git config user.name "burn-clock-live-data"
+          git config user.email "actions@users.noreply.github.com"
+          git add public/data/live/latest.json public/data/punjab_week.json public/data/live/week_cells.json.gz
+          if git diff --cached --quiet; then echo "No change"; exit 0; fi
+          git commit -m "Refresh provisional NASA FIRMS seven-day data"
+          git push
