@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-15 — First GitHub integrity run
+
+GitHub's Linux run passed the data checks and all 120,786 numeric assertions, then caught mobile overflow from the long live-observations button label. Action buttons now wrap within the available width, including when system fonts are wider than macOS defaults. This was an automated finding, not participant feedback.
+
 ## 2026-11-15 — Verification, sharing and reuse
 
 Added NASA Worldview/FIRMS links tied to area and day, a four-step judge tour, numeric provenance dialogs, a configuration/row-count footer, browser history and shareable analytical controls, atlas-derived country ranking, a one-page policy brief, API documentation, a compact iframe badge, and decompressed GIS contour downloads. Added date-specific civil-time displays, Indian digit grouping, glossary definitions and print styles.
