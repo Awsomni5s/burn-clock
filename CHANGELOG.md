@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-15 — Latest mock screens and selected-month timing
+
+Implemented the uploaded 11-screen design: task-led home, distinct place and claim pages, four role-specific panels, annual charts with bounds, map-first Punjab evidence, global exploration, reliability summary, About and phone menu. Retained NASA links, provenance, exports, tour, citation and the one-page brief. Replaced stale mock values with source-derived values and used only the two supplied years of hourly shares.
+
+Replaced visible fixed-season timing verdicts with two checks from selected monthly raw values. The referenced addendum §1b was absent; Methods states the exact implementation interpretation and missing specification. Missing Africa baseline support remains inconclusive. CSV and embed outputs now use explicit month/season checks.
+
+Automated testing found and fixed a lost search-place name, unavailable NASA links on empty areas, and user-entered unverified claim text leaking into the exported comparison URL. These are automated/developer findings, not human-study results. See [mock mapping](public/docs/MOCK_IMPLEMENTATION.md) and the actual Methods test record.
+
 ## 2026-11-15 — First GitHub integrity run
 
 GitHub's Linux run passed the data checks and all 120,786 numeric assertions, then caught mobile overflow from the long live-observations button label. Action buttons now wrap within the available width, including when system fonts are wider than macOS defaults. This was an automated finding, not participant feedback.

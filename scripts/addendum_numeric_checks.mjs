@@ -6,6 +6,7 @@ import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 const root=new URL('../',import.meta.url),base=process.env.BURN_CLOCK_URL||'http://127.0.0.1:5173';
 const fixtureBytes=readFileSync(new URL('stats_expected.json',import.meta.url)),fixture=JSON.parse(fixtureBytes);
+const timing=JSON.parse(readFileSync(new URL('timing_expected.json',import.meta.url)));
 const calendar=JSON.parse(readFileSync(new URL('numeric_expected.json',import.meta.url)));
 const receipt=JSON.parse(gunzipSync(readFileSync(new URL('public/data/punjab_receipt.json.gz',root))));
 const names={punjab:'Punjab + Haryana',parana:'Paraná Delta',cerrado:'Cerrado / MATOPIBA',africa:'Central African savanna',kalimantan:'Kalimantan',california:'California'};
@@ -31,7 +32,7 @@ const goto=async(box,c={months:[10,11],a:2021,b:2025})=>{
   const url=new URL(base);url.searchParams.set('box',box.join(','));url.searchParams.set('months',c.months.join(','));url.searchParams.set('a',String(c.a));url.searchParams.set('b',String(c.b));url.hash='explorer';
   await page.goto(url.href,{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>document.querySelector('.claim-sentence')||document.querySelector('.empty-state'),undefined,{timeout:60000});
 };
-const openDetails=async()=>{await page.locator('.claim-checker > details').evaluateAll(elements=>elements.forEach(el=>{el.open=true;}));};
+const openDetails=async()=>{await page.locator('.claim-checker details').evaluateAll(elements=>elements.forEach(el=>{el.open=true;}));};
 const setMonths=async selected=>{for(let month=1;month<=12;month++){const control=page.getByLabel('Claim month '+months[month-1],{exact:true});if(await control.isChecked()!==selected.includes(month))await control.setChecked(selected.includes(month));}};
 const setCase=async c=>{await setMonths(c.months);await page.getByLabel('Claim year A',{exact:true}).selectOption(String(c.a));await page.getByLabel('Claim year B',{exact:true}).selectOption(String(c.b));await openDetails();};
 const sourced=async(id,path)=>{const locator=page.getByTestId(id);check(await locator.count(),1,`${id}: unique test id`);const source=await locator.evaluate(el=>el.closest('[data-source]')?.getAttribute('data-source')??'');check(source.length>0,true,`${id}: source annotation`);if(path)includes(source,path,`${id}: expected source`);coverage.sourceAttributes++;};
@@ -44,7 +45,9 @@ async function checkClaim(c,name,label){
   }
   for(const [suffix,value,digits] of [['a',c.harmonized.sumA,2],['b',c.harmonized.sumB,2],['ratio',c.harmonized.ratio,4]]){const id='claim-harm-'+suffix;check(await text(page.getByTestId(id)),fmt(value,digits),label+'/'+id);await sourced(id);}
   check(await text(page.getByTestId('claim-converted-share')),fmt(c.convertedShare*100,1)+'%',label+'/converted share');await sourced('claim-converted-share');
-  const badge=c.b<2021?badges.not_evaluated:badges[c.timing?.badge??'not_identifiable'];check(await text(page.locator('.claim-checker > .clock-badge-block .badge-title strong')),badge,label+'/timing check');
+  const presetId=Object.keys(names).find(id=>names[id]===name), t=presetId?timing.presets[presetId][c.months.join(',')+'|'+c.b]:timing.edges[label];
+  if(t){const labels={signal:'Signal detected',within:'No signal detected',unknown:'Can’t tell'};check(await text(page.getByTestId('timing-late')),labels[t.late],label+'/later-burning');check(await text(page.getByTestId('timing-relationship')),labels[t.relationship],label+'/MODIS relationship');}
+
   for(const [code,wanted] of [['seam_2012',Math.min(c.a,c.b)<2012&&Math.max(c.a,c.b)>=2012],['converted_modis',c.convertedShare>.3],['outage',c.outages.length>0]])check(await page.locator(`.claim-warnings [data-warning="${code}"]`).count()>0,wanted,label+'/warning '+code);
   if(c.outages.length){const warning=await text(page.locator('[data-warning="outage"]'));for(const o of c.outages)includes(warning,`${o.platform} ${o.month}`,label+'/named outage');}
   check(await page.getByRole('button',{name:'Make a claim card',exact:true}).isDisabled(),c.harmonized.status!=='ok',label+'/export availability');coverage.claims++;
@@ -54,10 +57,13 @@ try{
   await goto(calendar.presets.punjab.box);await openDetails();
   const h=receipt.gk2a_by_hour,u=receipt.gk2a_unique_pixel_days,total=values=>values.reduce((a,b)=>a+b,0);
   const late=values=>100*values.filter((_,i)=>h.hours[i]>=16).reduce((a,b)=>a+b,0)/total(values);
-  const home=[['home-official-decline',fmt(100*(1-receipt.claim_source.value_2025/receipt.claim_source.value_2021))+'%'],['home-afternoon-decline',fmt(100*(1-u['2025']/u['2021']))+'% lower'],['home-at17',fmt(h.pixel_hours_2025[h.hours.indexOf(17)]/h.pixel_hours_2021[h.hours.indexOf(17)],2)+'× at 5 pm'],['home-late-share',fmt(late(h.pixel_hours_2025))+'% versus '+fmt(late(h.pixel_hours_2021))+'%'],['home-2019-ratio',fmt(u['2025']/u['2019'],2)+'×']];
-  for(const [id,wanted] of home){check(await text(page.getByTestId(id)),wanted,id);await sourced(id);coverage.homeNumbers++;}
-  for(const fan of receipt.base_year_fan){await page.getByLabel('Punjab baseline year').selectOption(String(fan.base));for(const masked of [false,true]){await page.getByLabel('Match satellite outage days').setChecked(masked);check(await text(page.getByTestId('home-fan-ratio')),fmt(fan[masked?'gk2a':'gk2a_unmasked'],3)+'×',`Home fan ${fan.base}/${masked}`);await sourced('home-fan-ratio');coverage.homeNumbers++;}}
-  group('Homepage headline, afternoon metrics and every base-year/mask combination');
+  await page.goto(base+'/#home');await page.locator('.home-story').waitFor();
+  includes(await text(page.locator('.home-story')),fmt(100*(1-receipt.claim_source.value_2025/receipt.claim_source.value_2021))+'%','home official count');
+  includes(await text(page.locator('.home-story')),fmt(u['2025']/u['2019'],2)+'×','home baseline');
+  includes(await text(page.locator('.share-values')),fmt(late(h.pixel_hours_2021),1)+'% → '+fmt(late(h.pixel_hours_2025),1)+'%','home late-hour shares');coverage.homeNumbers+=4;
+  await page.goto(base+'/#receipt');await page.locator('.fan-controls').waitFor();
+  for(const fan of receipt.base_year_fan){await page.locator('.fan-controls').getByRole('button',{name:String(fan.base),exact:true}).click();for(const masked of [false,true]){await page.getByLabel('Matched outage mask').setChecked(masked);for(const [i,key] of ['gk2a','snpp','noaa20'].entries()){check(await text(page.locator('.fan-values strong').nth(i)),'×'+fmt(fan[key+(masked?'':'_unmasked')],3),`Receipt fan ${fan.base}/${masked}/${key}`);coverage.homeNumbers++;}}}
+  group('New home observations and every receipt base-year/mask combination');
   for(const [id,cases] of Object.entries(fixture.presets)){
     await goto(calendar.presets[id].box,cases.claims[0]);await openDetails();
     for(const c of cases.claims){await setCase(c);await checkClaim(c,names[id],`${id}/${c.a}-${c.b}/${c.months}`);}
@@ -80,10 +86,10 @@ try{
   check(url.searchParams.get('months'),'8,9','California permalink months');check(url.searchParams.get('a'),'2019','California permalink A');check(url.searchParams.get('b'),'2024','California permalink B');check(url.searchParams.get('box'),calendar.presets.california.box.join(','),'California permalink box');
   await page.goto(link,{waitUntil:'domcontentloaded'});await page.getByTestId('claim-sentence').waitFor({timeout:60000});await openDetails();check(await text(page.getByTestId('claim-sentence')),before,'California permalink roundtrip result');
   await checkClaim(california,names.california,'California permalink');coverage.permalinkRoundTrips++;
-  const cardText=await page.locator('.claim-image').textContent();for(const phrase of ['2019 versus 2024','baseline is 2019','Approximate bounds','not unique fires','Timing check:','Source: NASA FIRMS',link])includes(cardText,phrase,'Card embedded context');
+  const cardText=await page.locator('.claim-image').textContent();for(const phrase of ['2019 versus 2024','baseline is 2019','Approximate bounds','not unique fires','Selected-month timing checks:','Source: NASA FIRMS',link])includes(cardText,phrase,'Card embedded context');
   const downloadPromise=page.waitForEvent('download');await page.getByRole('button',{name:'Make a claim card',exact:true}).click();const download=await downloadPromise;await download.saveAs(fileURLToPath(new URL('california-claim-card.png',shotDir)));
   const png=readFileSync(new URL('california-claim-card.png',shotDir));check(png.subarray(0,8).toString('hex'),'89504e470d0a1a0a','Claim card PNG signature');check(png.readUInt32BE(16),650,'Claim card PNG width');check(png.readUInt32BE(20)>600,true,'Claim card contains full context height');coverage.pngExports++;group('California task permalink, embedded source/context and actual PNG export');
-  await goto(calendar.presets.punjab.box);const illustration=page.locator('.clock-illustration');await illustration.scrollIntoViewIfNeeded();
+  await goto(calendar.presets.punjab.box);await openDetails();const illustration=page.locator('.clock-illustration');await illustration.scrollIntoViewIfNeeded();
   const max=Math.max(...h.pixel_hours_2021,...h.pixel_hours_2025);
   for(const state of fixture.curve){
     await page.getByLabel('Shift burning later',{exact:true}).fill(String(state.shift));check(await text(page.getByTestId('shift-share')),fmt(state.ratio*100,1)+'%',`Clock slider ${state.shift} hours`);await sourced('shift-share');
@@ -100,7 +106,7 @@ try{
     else{await openDetails();await checkClaim(edge.claim,'Custom area',id);await page.getByLabel('Include early archive').check();await page.locator('#month-2000-11').click();check(await text(page.locator('.detail-value')),fmt(edge.earlyMonth.harm),id+'/earliest harmonized month');}
     coverage.customAreas++;coverage.edgeStates++;
   }
-  await goto(calendar.presets.punjab.box);await page.getByLabel('Include early archive').check();await page.getByRole('button',{name:'By satellite',exact:true}).click();await page.getByLabel('Raw satellite').selectOption('T');await page.locator('#month-2000-11').click();check(await text(page.locator('.detail-value')),fmt(calendar.presets.punjab.months[0].raw.T),'Early 2000 Terra counts');await page.getByLabel('Raw satellite').selectOption('A');check(await text(page.locator('.detail-value')),'—','Early 2000 Aqua is missing');coverage.edgeStates++;
+  await goto(calendar.presets.punjab.box);await openDetails();await page.getByLabel('Include early archive').check();await page.getByRole('button',{name:'By satellite',exact:true}).click();await page.getByLabel('Raw satellite').selectOption('T');await page.locator('#month-2000-11').click();check(await text(page.locator('.detail-value')),fmt(calendar.presets.punjab.months[0].raw.T),'Early 2000 Terra counts');await page.getByLabel('Raw satellite').selectOption('A');check(await text(page.locator('.detail-value')),'—','Early 2000 Aqua is missing');coverage.edgeStates++;
   group('Empty months, empty area, one-cell/equator/date-line areas and Terra-only archive edge');check(errors.length,0,'Uncaught browser JavaScript errors');
 }catch(error){fatal=error.stack||String(error);console.error(fatal);}
 finally{

@@ -70,7 +70,9 @@ All numbers come from `pipeline/` scripts. The UI must never compute a number th
 - `look`: median daytime look time, fire season.
 - `day` / `night`: fire-season cell-day counts per year.
 
-**AOI badge, computed in the browser by this rule (written in Methods):**
+**SUPERSEDED (14 Nov, 21:10 ET):** the single badge below is replaced by two timing checks computed from `tiles/*.json` `raw` for the user's own months, not the clock files' fixed `season_months` (which wrongly gave Punjab 2025 "OK"). See section 1b of the Codex addendum. Clock files remain the source for pass times.
+
+**AOI badge (old rule, kept for reference):**
 - Sum `day` counts over the AOI's 1° cells.
 - For year y ≥ 2021: ρ_P(y) = ln(P_day / N_day) for P ∈ {T, A}. Baseline = mean over 2013–2019. Δρ_P = ρ_P(y) − baseline.
 - Noise σ_P = the standard deviation of ρ_P over 2013–2019.

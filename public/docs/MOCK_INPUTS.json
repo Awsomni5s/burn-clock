@@ -1,0 +1,20 @@
+{
+  "inputs": [
+    {
+      "filename": "burnclock_site_mock.html",
+      "bytes": 1724428,
+      "sha256": "b30ba9e4010e3eaf6e65623f2811f79faee6a02e33843d6e64fc4a7d3c2ff39d"
+    },
+    {
+      "filename": "burnclock_site_mock.pdf",
+      "bytes": 3484468,
+      "sha256": "fafd5858969bfc9df3d9e2df418ccba0b0633947b4c8059b0b0aacfecd0ea99b"
+    },
+    {
+      "filename": "DATA_CONTRACT.md",
+      "bytes": 8551,
+      "sha256": "f90768b0a98a799c3fdadfc262d50cc0c120187be79fa7f4d29a8f350f4cb61a"
+    }
+  ],
+  "notes": "Design inputs are not scientific data. See MOCK_IMPLEMENTATION.md for data-derived substitutions and missing section 1b."
+}

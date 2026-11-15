@@ -28,7 +28,7 @@ describe('clock diagnostic',()=>{
   it('never interprets incomplete baseline support as zero',()=>{const t=clockFixture();t.day.N[0][0]=null;expect(computeClock([t],box).at(-1)?.badge).toBe('not_identifiable');});
 });
 describe('CSV evidence',()=>{
-  it('exports blanks for null, zero for zero, and provenance with annual badges',()=>{const a=createAccumulator(manifest(['2025-01']));a.add(tile([[0]]),box);const csv=csvForArea(a.finish().months,computeClock([clockFixture()],box),box);expect(csv).toContain('clock_badge_annual');expect(csv).toContain('source_satellites');expect(csv).toContain('robust');expect(csv).toContain(',0,0,0,0,,0,0,0,');expect(csv).toContain('not a calibrated AOI 90% interval');});
+  it('exports blanks for null, zero for zero, and provenance with explicitly monthly timing checks',()=>{const a=createAccumulator(manifest(['2025-01']));a.add(tile([[0]]),box);const csv=csvForArea(a.finish().months,computeClock([clockFixture()],box),box);expect(csv).toContain('timing_later_burning');expect(csv).toContain('timing_modis_relationship');expect(csv).toContain('source_satellites');expect(csv).toContain('unknown');expect(csv).toContain(',0,0,0,0,,0,0,0,');expect(csv).toContain('not a calibrated AOI 90% interval');});
 });
 
 describe('decimal display boundaries',()=>{

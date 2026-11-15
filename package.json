@@ -9,9 +9,9 @@
     "preview": "vite preview --host 127.0.0.1",
     "test": "vitest run src && node --test scripts/fetch_live.test.mjs",
     "prepare:data": "python3 scripts/prepare_data.py",
-    "test:browser": "node scripts/browser_checks.mjs",
+    "test:browser": "node scripts/mock_product_checks.mjs",
     "test:numeric": "node scripts/numeric_browser_checks.mjs",
-    "test:product": "node scripts/product_checks.mjs",
+    "test:product": "node scripts/mock_product_checks.mjs",
     "test:unit": "vitest run src"
   },
   "dependencies": {

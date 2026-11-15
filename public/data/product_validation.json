@@ -1,45 +1,45 @@
 {
-  "generatedAt": "2026-11-15T03:32:20.984Z",
+  "generatedAt": "2026-11-15T05:32:59.462Z",
   "automated": [
     {
       "name": "Calculations and fixed rules",
       "status": "Passed",
-      "detail": "84 unit tests, including civil-time/DST and NASA URL checks; four live-parser/failure tests. Independent Python reference values rebuilt from supplied outputs."
+      "detail": "94 unit tests and four live-parser tests. Selected-month timing is checked against 1,909 independent Python cases, with explicit Punjab, Africa, missing-data and negative-Aqua regressions."
     },
     {
-      "name": "Supplied calendar files",
+      "name": "Supplied calendar integrity",
       "status": "Passed",
-      "detail": "1,237 tiles, 191,187 cells and 57,738,474 cell-months checked for shape, missingness, interval ordering and source flags. Locked method fingerprint matches. All 72 ranked country rows match the supplied atlas."
+      "detail": "1,237 tiles, 191,187 cells and 57,738,474 cell-months checked for shape, missingness, interval ordering and source flags. The locked configuration fingerprint matches."
     },
     {
-      "name": "Rendered historical numbers and CSV",
+      "name": "Rendered numbers and CSV",
       "status": "Passed",
-      "detail": "118,449 assertions across six presets, calendar modes, month panels, CSV rows, annual clock states, validation and Methods fields. Civil-time references include historical zone offsets. Finite coverage, not every possible rectangle."
+      "detail": "127,653 assertions across six presets, all calendar modes, monthly values, CSV fields, pass times, selected-month timing checks, 72 country rows, validation and Methods."
     },
     {
-      "name": "Claim comparisons and timing illustration",
+      "name": "Comparisons, baselines and illustration",
       "status": "Passed",
-      "detail": "2,337 assertions against independent Python values, including geographic/missing-data edges, baseline choices, clock shifts, actual PNG and permalink."
+      "detail": "2,348 assertions against independent Python references: claim ratios, bounds, trends, geographic/missing-data edges, receipt baseline/mask combinations, hourly shifts, PNG export and permalink."
     },
     {
-      "name": "Sharing, provenance and judge tour",
+      "name": "Sharing and reuse",
       "status": "Passed",
-      "detail": "14 workflow groups covering back/forward/reload, file/field fingerprints, NASA URLs, country ranking, four tour steps, GeoJSON equality, one-page PDF, honest DOI status and embed context."
+      "detail": "14 workflow groups cover history, provenance, NASA links including empty/dateline areas, rankings, judge tour, GIS equality, one-page PDF, citation status and embed context."
     },
     {
-      "name": "Product and accessibility checks",
+      "name": "Latest mock screens and accessibility",
       "status": "Passed automated checks; human review pending",
-      "detail": "17 existing workflow groups plus 8 new route/viewport scans. Zero automated WCAG A/AA violations across 20 scans; no page overflow. Incomplete findings, screen-reader and real-person comprehension still require manual review."
+      "detail": "12 workflow groups cover the home/search, four roles, Africa, annual bars, claim wording/export, mobile menu, source failures and speed. 28 desktop/phone scans reported zero automated WCAG A/AA violations and no page overflow. This does not certify screen-reader or real-person usability."
     },
     {
-      "name": "First useful answer and interaction speed",
-      "status": "Passed local lab sample",
-      "detail": "desktop: answer 210 ms, full claim 389 ms; throttled-4G: answer 2082 ms, full claim 6885 ms. Comparison-year changes: 12.2–61.2 ms across 6 samples. Cold-cache production preview; not field percentiles. Maps and full area preparation are measured separately."
+      "name": "First view and interaction speed",
+      "status": "Passed local production sample",
+      "detail": "Fresh-context home view: 87 ms. Three year changes: 14, 14, 16 ms. Local production Chromium, no network throttling; not field percentiles or a guarantee for remote devices. The complete map/area preparation is separate."
     },
     {
       "name": "Original release downloads",
-      "status": "Passed",
-      "detail": "3 original archives reconstructed from served parts and SHA-256 checked. The supplied contour generator is missing; complete map regeneration is not claimed."
+      "status": "Previously verified; original archives unchanged",
+      "detail": "The earlier recorded check reconstructed all three original archives and verified SHA-256. The current UI update does not modify those archives. The original contour generator and full upstream intermediates remain absent."
     }
   ],
   "human": {
@@ -50,31 +50,32 @@
   "evidence": {
     "unit": "/qa/unit-checks.json",
     "numeric": "/qa/numeric-checks.json",
-    "addendum-numeric": "/qa/addendum-numeric-checks.json",
-    "addendum-product": "/qa/addendum-product-checks.json",
-    "addendum-performance": "/qa/addendum-performance-checks.json",
-    "data-audit": "/qa/data-audit.json",
-    "release": "/qa/release-checks.json",
-    "polish": "/qa/polish-checks.json",
+    "claims": "/qa/addendum-numeric-checks.json",
+    "sharing": "/qa/polish-checks.json",
+    "mock": "/qa/mock-product-checks.json",
     "bundle": "/qa/bundle-checks.json",
-    "speed": "/qa/polish-performance-checks.json"
+    "originalReleases": "/qa/release-checks.json"
   },
   "limitations": [
+    "No real participants tested. Five-second comprehension, misuse/cropping interpretation, task success and real before/after results remain pending.",
+    "Automated accessibility does not replace assistive-technology testing.",
+    "Speed measurements are local and do not certify remote or throttled-device performance.",
+    "Revised addendum §1b was absent; selected-month timing rules are explicitly documented implementation interpretations.",
     "Arbitrary custom AOIs are covered separately by edge-case tests, not exhaustively enumerated here.",
-    "Punjab receipt and new decision text are audited separately.",
     "Raster-figure pixels, visual chart positions, explanatory constants and external scientific claims are not certified by this suite.",
     "No real-person usability test results are implied.",
     "Automated checks do not replace human comprehension, usability, crop interpretation, keyboard-only exploration or screen-reader sessions.",
     "PNG timings measure one automated local export, not a real participant task time.",
     "No human participants or before/after study results are claimed.",
     "SVG/chart contrast checks marked incomplete still require manual review; zero automated violations is not a complete accessibility certification.",
-    "Browser performance measured separately on a stable production build.",
     "Lab measurements, not field percentiles or real-device results. Full maps/claim preparation measured separately; participant card timing not inferred.",
     "Human study, manual crop/misuse and screen-reader sessions have not run.",
     "Contour generator and some global-atlas inputs are absent from the supplied source.",
     "GitHub snapshot workflow produces an artifact; it does not automatically deploy it to Sites.",
     "GOES receipt, global NetCDF/GeoTIFF grid and Burn Clock DOI are pending actual delivery/publication.",
     "Iframe and static-file access inherit the owner-private site audience.",
-    "Provenance covers scientific readouts; controls, axis scales and literal explanatory examples are not independent measurements."
+    "Provenance covers scientific readouts; controls, axis scales and literal explanatory examples are not independent measurements.",
+    "Earlier addendum/product/speed reports are historical; current-screen coverage is in mock-product-checks.json.",
+    "The referenced revised addendum §1b is missing. Exact selected-month rules are documented implementation interpretations, not an unavailable formula claimed as supplied."
   ]
 }

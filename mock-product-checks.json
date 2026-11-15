@@ -1,0 +1,248 @@
+{
+  "generatedAt": "2026-11-15T05:31:45.543Z",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "Home has a working search, explicit Check button, six presets and four task entrances",
+      "status": "passed"
+    },
+    {
+      "name": "Punjab selected months replace the misleading fixed-season verdict",
+      "status": "passed"
+    },
+    {
+      "name": "Annual bars and uncertainty endpoints equal original monthly totals",
+      "status": "passed"
+    },
+    {
+      "name": "Four roles give different actions and the right handoff",
+      "status": "passed"
+    },
+    {
+      "name": "Africa January–February uses its own missing-data limits",
+      "status": "passed"
+    },
+    {
+      "name": "Claim page preserves the submitted text without pretending to verify arbitrary prose",
+      "status": "passed",
+      "detail": {
+        "localExportMs": 70,
+        "width": 650,
+        "height": 976
+      }
+    },
+    {
+      "name": "Mobile menu, role selector, back button and complete report work at 375px",
+      "status": "passed"
+    },
+    {
+      "name": "All new views fit desktop and phone and pass automated accessibility checks",
+      "status": "passed"
+    },
+    {
+      "name": "Source failures, missing areas and retry stay explicit",
+      "status": "passed"
+    },
+    {
+      "name": "Local first view and year-change interaction meet the stated speed budget",
+      "status": "passed",
+      "detail": {
+        "firstViewMs": 87,
+        "yearChangeMs": [
+          14,
+          14,
+          16
+        ],
+        "environment": "Fresh browser context for first view; local Chromium, production build when run through make reproduce; no network throttling"
+      }
+    },
+    {
+      "name": "Human-study results and missing scientific specification remain honest",
+      "status": "passed"
+    },
+    {
+      "name": "No unhandled browser errors",
+      "status": "passed"
+    }
+  ],
+  "accessibility": [
+    {
+      "hash": "home",
+      "width": 1360,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 9
+        }
+      ]
+    },
+    {
+      "hash": "explorer",
+      "width": 1360,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 19
+        }
+      ]
+    },
+    {
+      "hash": "claim",
+      "width": 1360,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "hash": "receipt",
+      "width": 1360,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 28
+        }
+      ]
+    },
+    {
+      "hash": "brief",
+      "width": 1360,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "hash": "clock",
+      "width": 1360,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 10
+        }
+      ]
+    },
+    {
+      "hash": "validation",
+      "width": 1360,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "hash": "methods",
+      "width": 1360,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "hash": "about",
+      "width": 1360,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "hash": "embed",
+      "width": 1360,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "hash": "home",
+      "width": 375,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 9
+        }
+      ]
+    },
+    {
+      "hash": "explorer",
+      "width": 375,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 19
+        }
+      ]
+    },
+    {
+      "hash": "claim",
+      "width": 375,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "hash": "receipt",
+      "width": 375,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 28
+        }
+      ]
+    },
+    {
+      "hash": "brief",
+      "width": 375,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "hash": "clock",
+      "width": 375,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 10
+        }
+      ]
+    },
+    {
+      "hash": "validation",
+      "width": 375,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "hash": "methods",
+      "width": 375,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "hash": "about",
+      "width": 375,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "hash": "embed",
+      "width": 375,
+      "violations": [],
+      "incomplete": []
+    }
+  ],
+  "performance": [
+    {
+      "firstViewMs": 87,
+      "yearChangeMs": [
+        14,
+        14,
+        16
+      ],
+      "environment": "Fresh browser context for first view; local Chromium, production build when run through make reproduce; no network throttling"
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "No real participants tested. Five-second comprehension, misuse/cropping interpretation, task success and real before/after results remain pending.",
+    "Automated accessibility does not replace assistive-technology testing.",
+    "Speed measurements are local and do not certify remote or throttled-device performance.",
+    "Revised addendum §1b was absent; selected-month timing rules are explicitly documented implementation interpretations."
+  ]
+}

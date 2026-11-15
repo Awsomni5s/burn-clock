@@ -16,6 +16,8 @@ npm run dev
 # Open the Local URL printed by Vite.
 ```
 
+The latest uploaded design is implemented across `#home`, `#explorer`, `#claim`, `#receipt`, `#clock`, `#validation`, `#about` and `#brief`. See the [screen-by-screen mapping and scientific differences](public/docs/MOCK_IMPLEMENTATION.md).
+
 Choose **Start here** for the four-step judge tour. Use the source pop-ups on numerical results, NASA verification links, shareable area/year/month/slider states, the policy brief, and API & reuse page.
 
 ## Reproduce and test
@@ -33,10 +35,10 @@ This single command verifies the shipped tile shapes, all interval/source flags 
 Additional checks, against a running production preview:
 
 ```sh
-BURN_CLOCK_URL=http://127.0.0.1:4173 node scripts/addendum_product_checks.mjs
+BURN_CLOCK_URL=http://127.0.0.1:4173 node scripts/mock_product_checks.mjs
 BURN_CLOCK_URL=http://127.0.0.1:4173 node scripts/release_browser_checks.mjs
 # Run alone, without competing build/browser jobs:
-BURN_CLOCK_URL=http://127.0.0.1:4173 node scripts/polish_performance_checks.mjs
+BURN_CLOCK_URL=http://127.0.0.1:4173 node scripts/mock_product_checks.mjs
 ```
 
 Reports in `public/qa/` and the Methods page identify the build/date and finite tested states. No real-person comprehension or task results have been invented. The [Sunday protocol](public/docs/USER_TEST_PROTOCOL.md) and blank results sheet remain ready for the team. Record real results, the top three confusions and a new-participant retest before reporting before/after improvements.
@@ -61,7 +63,9 @@ The supplied release is dated 2026-11-14. Its scientific configuration fingerpri
 - GK2A is preliminary: coarse pixels, possible hot-smoke detections, hour-specific thresholds, and incomplete cloud/outage correction. No GOES/Americas receipt is present yet.
 - Hotspots, cell-days, pixel-days and pixel-hours are observations, not individual fires, burned area or smoke emissions.
 - Paraná and spatial transfer have documented validation weaknesses. Converted zero MODIS counts can have zero-width intervals despite undetected activity. See Validation for the actual errors.
-- A timing badge and country MODIS/S-NPP ratio change do not isolate a causal effect of orbit drift. Country ranking and rectangular explorer aggregation use different spatial/statistical definitions.
+- The latest contract references a revised addendum §1b that was not supplied. The two selected-month checks use a documented interpretation of the existing thresholds; see Methods for exact rules.
+- The mock's complete 2019–25 hourly-share series is unavailable; only supplied 2021/2025 shares are plotted.
+- Timing checks and country MODIS/S-NPP ratio change do not isolate a causal effect of orbit drift. Country ranking and rectangular explorer aggregation use different spatial/statistical definitions.
 - Summed bounds are approximate, not a calibrated regional confidence interval. Missing coverage is never interpreted as zero burning.
 - Annual detection-conditioned pass medians are converted to approximate civil time using a midpoint time zone and an explicit reference date. Large boxes can cross zones; the timezone lookup is approximate near borders. Source day assignment remains local-solar in the scientific archive.
 - Automated accessibility, finite numeric checks and local speed measurements do not establish real-device percentiles, screen-reader usability or participant comprehension. Map/data loading can exceed the first-answer budget.

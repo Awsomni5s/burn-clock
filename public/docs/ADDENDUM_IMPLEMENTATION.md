@@ -1,3 +1,7 @@
+# Current update
+
+The latest mock and contract supersede the single fixed-season timing badge described below. See [MOCK_IMPLEMENTATION.md](MOCK_IMPLEMENTATION.md) for the selected-month checks, missing §1b specification and current screen mapping. The remaining text records the earlier addendum implementation.
+
 # Addendum implementation and evidence boundaries
 
 Source: the user-authorized “Burn Clock — Codex addendum (everything after the first prompt)” supplied 14 November 2026, its three release archives and `DATA_CONTRACT.md`. This record distinguishes implementation choices from observed evidence. Final integrated checks are logged in `TESTING.md`.

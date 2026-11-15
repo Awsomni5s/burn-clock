@@ -1,3 +1,4 @@
+import {timingChecks,type TimingChecks} from './timing';
 import {PLATFORMS, type AreaResult, type ClockYear, type Manifest, type Month, type Platform} from './types';
 
 /** All inputs are the supplied daytime active-cell-day series, not individual fires. */
@@ -14,6 +15,8 @@ export interface HarmonizedClaim {
 }
 export interface ClaimResult {
   months:number[];a:number;b:number;platforms:PlatformClaim[];harmonized:HarmonizedClaim;
+  checks:TimingChecks;
+  /** Archived fixed-season diagnostic, retained only for reproducibility. UI uses checks. */
   timing:ClockYear|null;timingStatus:'available'|'before_2021'|'missing';
   convertedShare:number;convertedMonths:number;selectedMonthCount:number;
   outages:Manifest['outage_months'];warnings:StatWarning[];
@@ -82,7 +85,7 @@ export function computeClaim(area:AreaResult,months:number[],a:number,b:number,m
   if(status==='missing_months')warnings.push({code:'missing_months',message:'The comparison is unavailable because at least one selected month has missing values.'});
   if(status==='zero_baseline')warnings.push({code:'zero_baseline',message:'A zero baseline value or lower bound prevents a finite change range.'});
   if(status==='invalid_bounds')warnings.push({code:'invalid_bounds',message:'A supplied lower bound exceeds its upper bound; no change range can be reported.'});
-  return {months:chosen,a,b,platforms,harmonized,timing:b>=2021?clockB??null:null,timingStatus:b<2021?'before_2021':clockB?'available':'missing',convertedShare,convertedMonths,selectedMonthCount:keys.size,outages,warnings};
+  return {months:chosen,a,b,platforms,harmonized,checks:timingChecks(area.months,chosen,b),timing:b>=2021?clockB??null:null,timingStatus:b<2021?'before_2021':clockB?'available':'missing',convertedShare,convertedMonths,selectedMonthCount:keys.size,outages,warnings};
 }
 
 /** Median of all pairwise slopes. Two complete years suffice for a descriptive slope. */

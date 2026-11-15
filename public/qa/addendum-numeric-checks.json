@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-11-15T03:30:14.118Z",
+  "generatedAt": "2026-11-15T05:29:55.004Z",
   "status": "passed",
   "base": "http://127.0.0.1:4179",
-  "assertions": 2337,
+  "assertions": 2348,
   "failureCount": 0,
   "coverage": {
     "claims": 23,
     "trends": 13,
     "sliderStates": 8,
-    "sourceAttributes": 635,
-    "homeNumbers": 13,
+    "sourceAttributes": 622,
+    "homeNumbers": 28,
     "customAreas": 4,
     "edgeStates": 6,
     "permalinkRoundTrips": 1,
     "pngExports": 1
   },
   "groups": [
-    "Homepage headline, afternoon metrics and every base-year/mask combination",
+    "New home observations and every receipt base-year/mask combination",
     "punjab: independent Claim Checker and trend comparisons",
     "parana: independent Claim Checker and trend comparisons",
     "cerrado: independent Claim Checker and trend comparisons",
@@ -30,7 +30,7 @@
   "failures": [],
   "fatal": null,
   "runtimeErrors": [],
-  "elapsedSeconds": 16.15,
+  "elapsedSeconds": 12.25,
   "fixtureSha256": "287b4feb45217b101a8c95885d06ba72288516d956cd16e552ab64e11ff613ae",
   "scope": "Independent Python reference for every six-preset Claim Checker/trend fixture, source annotations, home Punjab metrics and base-year fan, eight curve shifts, real 2025 overlay, California permalink/PNG and explicit geographic/missing-data edge states.",
   "limitations": [

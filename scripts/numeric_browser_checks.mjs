@@ -10,6 +10,9 @@ const root=new URL('../',import.meta.url);
 const base=process.env.BURN_CLOCK_URL||'http://127.0.0.1:5173';
 const fixtureBytes=readFileSync(new URL('./numeric_expected.json',import.meta.url));
 const expected=JSON.parse(fixtureBytes);
+const timing=JSON.parse(readFileSync(new URL('./timing_expected.json',import.meta.url)));
+const seasons=JSON.parse(readFileSync(new URL('public/data/preset_seasons.json',root)));
+const timingLabels={signal:'Signal detected',within:'No signal detected',unknown:'Can’t tell'};
 const data=name=>JSON.parse(gunzipSync(readFileSync(new URL(`public/data/${name}.json.gz`,root))));
 const manifest=data('manifest'),validation=data('validation'),countries=data('world/countries'),continents=data('world/continents'),pairs=data('same_day_pairs');
 const catalog=JSON.parse(readFileSync(new URL('public/data/catalog.json',root),'utf8'));
@@ -52,12 +55,12 @@ function parseCsv(csv){
 try{
  const page=await browser.newPage({viewport:{width:1440,height:1100}});
  page.on('pageerror',e=>runtimeErrors.push(e.message));
- await page.goto(base,{waitUntil:'domcontentloaded'});
- await page.locator('.heat-cell').first().waitFor({timeout:60000});
+
  for(const [id,preset] of Object.entries(expected.presets)){
    locale=id==='punjab'?'en-IN':'en-US';
-   if(!page.url().endsWith('#explorer'))await page.locator('nav a[href="#explorer"]').click();
-   await page.getByLabel('Region preset').selectOption(id);
+   await page.goto(base+'/?box='+preset.box.join(',')+'&months='+seasons[id].months.join(',')+'#explorer');
+   await page.locator('.claim-sentence').waitFor({timeout:60000});
+   await page.locator('.monthly-detail').evaluate(el=>el.open=true);
    await page.waitForFunction(n=>document.querySelector('.area-name')?.textContent.includes(n+' archived grid cells'),fmt(preset.cellCount),{timeout:60000});
    await page.locator('#month-2025-11').waitFor({timeout:60000});
    await page.getByLabel('Include early archive').check();
@@ -127,26 +130,27 @@ try{
      for(const [i,col] of ['south','west','north','east'].entries())close(row[col],preset.box[i],`${id}/CSV/${m.month}/${col}`);
      check(row.anomaly,m.anomaly,`${id}/CSV/${m.month}/anomaly`);check(row.source_code,m.src,`${id}/CSV/${m.month}/source`);
      check(row.source_satellites,m.satellites.join('+'),`${id}/CSV/${m.month}/satellites`);
-     const clock=preset.clock.find(c=>c.year===Number(m.month.slice(0,4)));
-     check(row.clock_badge_annual,clock?.badge??'not_identifiable',`${id}/CSV/${m.month}/badge`);
-     check(row.clock_drivers,clock?.drivers.join('+')??'',`${id}/CSV/${m.month}/drivers`);
-     close(row.signed_bend_pct,clock?.bend??null,`${id}/CSV/${m.month}/bend`);
+     const c=timing.presets[id][`${Number(m.month.slice(5))}|${Number(m.month.slice(0,4))}`];
+     check(row.timing_later_burning,c.late,`${id}/CSV/${m.month}/later-burning`);
+     check(row.timing_modis_relationship,c.relationship,`${id}/CSV/${m.month}/MODIS relationship`);
+     check(row.timing_months,String(Number(m.month.slice(5))),`${id}/CSV/${m.month}/season`);
+     check(row.timing_drivers,c.drivers.join('+'),`${id}/CSV/${m.month}/drivers`);
+     for(const [i,platform] of ['terra','aqua'].entries()){close(row[platform+'_log_ratio_change'],c.tests[i].delta,`${id}/CSV/${m.month}/${platform}/delta`);close(row[platform+'_threshold'],c.tests[i].threshold,`${id}/CSV/${m.month}/${platform}/threshold`);}
      check(row.outage_flags,manifest.outage_months.filter(o=>o.month===m.month).map(o=>`${o.platform}:${o.missing_days.join('|')}`).join(';'),`${id}/CSV/${m.month}/outage flags`);coverage.csvRows++;
    }
    await page.locator('nav a[href="#clock"]').click();
-   await page.locator('.clock-tests').waitFor({timeout:60000});
+   await page.locator('.clock-explainer .timing-checks').waitFor({timeout:60000});await page.locator('.clock-explainer .timing-detail').evaluate(el=>el.open=true);
    for(const clock of preset.clock){
      await page.getByLabel('Observation year').fill(String(clock.year));
      const state=await page.locator('.clock-explainer').evaluate(el=>({
        year:el.querySelector('.year-chip')?.textContent,
-       badge:el.querySelector('.badge-title strong')?.textContent,
-       bend:el.querySelector('.bend-value strong')?.textContent??null,
+       late:el.querySelector('[data-testid=timing-late]')?.textContent,
+       relationship:el.querySelector('[data-testid=timing-relationship]')?.textContent,
        times:[...el.querySelectorAll('.clock-time')].map(row=>({name:row.querySelectorAll('span')[1]?.textContent,time:row.querySelector('strong')?.textContent,change:row.querySelector('small')?.textContent})),
-       tests:[...el.querySelectorAll('.clock-tests > div')].map(row=>({name:row.querySelector('strong')?.textContent,stat:row.querySelector('span')?.textContent,cells:row.querySelector('small')?.textContent}))
+       tests:[...el.querySelectorAll('.timing-detail tbody tr')].map(row=>[...row.querySelectorAll('th,td')].map(cell=>cell.textContent))
      }));
      const p=`${id}/clock/${clock.year}`;
-     check(state.year,String(clock.year),p+'/year');check(state.badge,badgeNames[clock.badge],p+'/badge');
-     check(state.bend,clock.bend===null?null:signed(clock.bend)+'%',p+'/bend');
+     check(state.year,String(clock.year),p+'/year');const t=timing.presets[id][seasons[id].months.join(',')+'|'+clock.year];check(state.late,timingLabels[t.late],p+'/late');check(state.relationship,timingLabels[t.relationship],p+'/relationship');
      const available=Object.keys(platforms).filter(p=>clock.look[p]!==null);
      check(state.times.length,available.length,p+'/look row count');
      for(const [i,platform] of available.entries()){
@@ -154,11 +158,11 @@ try{
        check(now?.time,clockTime(civilReference(clock.look[platform],preset.box,clock.year,id)),p+'/'+platform+'/look');
        check(now?.change,clock.baselineLook[platform]===null?'—':signed(lookChangeMinutes(clock.look[platform],clock.baselineLook[platform]),0)+' min',p+'/'+platform+'/look change');
      }
-     check(state.tests.length,clock.tests.length,p+'/test count');
-     for(const [i,test] of clock.tests.entries()){
-       check(state.tests[i]?.name,platforms[test.platform],p+'/'+test.platform+'/test name');
-       check(state.tests[i]?.stat,test.testable?`Δρ ${signed(test.delta,3)} · threshold ${fmt(test.threshold,3)}`:test.reason,p+'/'+test.platform+'/statistic');
-       check(state.tests[i]?.cells,`${fmt(test.cells)} matched 1° cells`,p+'/'+test.platform+'/support');
+     check(state.tests.length,2,p+'/test count');
+     for(const [i,test] of t.tests.entries()){
+       check(state.tests[i][0],platforms[test.platform],p+'/'+test.platform+'/name');
+       check(state.tests[i][1],signed(test.delta,3),p+'/'+test.platform+'/delta');
+       check(state.tests[i][2],'±'+fmt(test.threshold,3),p+'/'+test.platform+'/threshold');
      }
      coverage.clockYearStates++;
    }
@@ -171,7 +175,7 @@ try{
    check(row[1],signed(c.bend_TA_pct)+'%',`${c.iso3}/combined bend`);
    check(row[2],signed(c.bend_T_pct)+(c.bend_T_pct==null?'':'%'),`${c.iso3}/Terra bend`);
    check(row[3],signed(c.bend_A_pct)+(c.bend_A_pct==null?'':'%'),`${c.iso3}/Aqua bend`);
-   check(row[4],String(c.cells),`${c.iso3}/cells`);check(row[5],c.reliable?'Supported':'Limited cells',`${c.iso3}/support`);coverage.countryRows++;
+   check(row[4],signed(c.dt_T_h,2)+' h',`${c.iso3}/Terra shift`);check(row[5],signed(c.dt_A_h,2)+' h',`${c.iso3}/Aqua shift`);check(row[6],String(c.cells),`${c.iso3}/cells`);check(row[7],c.reliable?'Supported':'Limited cells',`${c.iso3}/support`);coverage.countryRows++;
  }
  const world=continents.find(c=>c.continent==='World');
  const metrics=await page.locator('.metric-panel').allInnerTexts();

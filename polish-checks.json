@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-15T04:03:51.975Z",
+  "generatedAt": "2026-11-15T05:30:05.418Z",
   "status": "passed",
   "checks": [
     {
@@ -50,7 +50,7 @@
       "detail": {
         "width": 720,
         "height": 1225,
-        "bytes": 239800
+        "bytes": 239806
       }
     },
     {
@@ -78,7 +78,7 @@
       "incomplete": [
         {
           "id": "color-contrast",
-          "nodes": 11
+          "nodes": 19
         }
       ]
     },
@@ -107,7 +107,7 @@
       "incomplete": [
         {
           "id": "color-contrast",
-          "nodes": 15
+          "nodes": 19
         }
       ]
     },
@@ -115,23 +115,13 @@
       "route": "brief",
       "width": 375,
       "violations": [],
-      "incomplete": [
-        {
-          "id": "color-contrast",
-          "nodes": 4
-        }
-      ]
+      "incomplete": []
     },
     {
       "route": "api",
       "width": 375,
       "violations": [],
-      "incomplete": [
-        {
-          "id": "color-contrast",
-          "nodes": 4
-        }
-      ]
+      "incomplete": []
     },
     {
       "route": "embed",
