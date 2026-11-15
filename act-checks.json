@@ -1,5 +1,5 @@
 {
-  "tested_at": "2026-11-15T22:21:47.156Z",
+  "tested_at": "2026-11-15T22:38:09.553Z",
   "status": "passed",
   "checks": [
     {
@@ -143,11 +143,19 @@
       "ok": true
     },
     {
-      "name": "home tabs: the trend check is its own tab, opened from the next-move card",
+      "name": "dashboard: next move, calendar and detail panel side by side, no page scroll",
       "ok": true
     },
     {
-      "name": "home tabs: next move hidden on the trend tab",
+      "name": "dashboard: the This week tab swaps only the detail panel",
+      "ok": true
+    },
+    {
+      "name": "dashboard: the next-move card opens the trend check",
+      "ok": true
+    },
+    {
+      "name": "dashboard: the calendar trust link stays on the page",
       "ok": true
     },
     {

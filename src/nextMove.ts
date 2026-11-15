@@ -1,6 +1,7 @@
 /** "Your next move": the calendar, the trend check and this week's live check turned into what to do, by job. Pure helpers. */
 import type {Role} from './insights';
 import type {Verdict} from './verdict';
+import type {Verdict as V} from './verdict';
 import type {LiveStatus,AmountStatus} from './liveCheck';
 
 export const MONTH_NAMES=['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -85,4 +86,30 @@ export function thisWeekAction(role:Role,amount:AmountStatus,timing:LiveStatus){
     journalist:'Fewer detections than usual, with no timing shift: you can say less burning was detected (provisional).',
     research:'A low week without a timing shift; keep it, flagged as provisional.'}[role];
   return weekAction(role,timing);
+}
+
+/* ===== Plain-language layer: one headline and one command per card, by job ===== */
+export const JOBS:Record<Role,{label:string;who:string;icon:string}>={
+  policy:{label:'District officer',who:'a district officer or enforcement team',icon:'🚜'},
+  air:{label:'Air-quality forecaster',who:'an air-quality forecaster',icon:'🌫️'},
+  journalist:{label:'Journalist',who:'a journalist or fact-checker',icon:'📰'},
+  research:{label:'Researcher',who:'a researcher',icon:'📊'}};
+export function whenPlain(role:Role,label:string,peak:string|null){
+  return {policy:`Have field teams ready for ${label}${peak?`; busiest around ${peak}`:''}.`,
+    air:`Expect most fire smoke in ${label}: raise fire emissions in your forecasts then.`,
+    journalist:`Compare ${label} with ${label} in past years, never whole years.`,
+    research:`Use ${label} as the fire-season window and say so.`}[role];
+}
+export const TREND_HEADLINE:Record<V,string>={timing:'Don’t trust the drop',modis:'Real, but skip old MODIS counts',clear:'Yes, the trend is real',unknown:'Not enough data to tell'};
+export function trendPlain(role:Role,v:V){
+  const t:Record<V,Record<Role,string>>={
+    timing:{policy:'Don’t count the drop as progress: fires now burn after the satellites pass. Check fields after 3–4 pm.',air:'Don’t cut fire emissions by the drop: burning moved later in the day.',journalist:'Don’t write “fires fell X%”. Write “detected fires fell, but burning moved later”.',research:'Treat changes since 2021 here as partly a timing effect.'},
+    modis:{policy:'Judge change with this combined record, not old MODIS counts.',air:'Use VIIRS-based fire inputs from 2021 on.',journalist:'If someone quotes a MODIS trend since 2020, ask about satellite drift.',research:'Don’t use Terra/Aqua trends after 2020 without a drift correction.'},
+    clear:{policy:'You can track progress with this record.',air:'Use the record as it is, with its range.',journalist:'You can report this change, with its range.',research:'Use the combined record with its range.'},
+    unknown:{policy:'Don’t draw a conclusion yet.',air:'Don’t change inputs on this evidence.',journalist:'Don’t report a trend from this yet.',research:'Too little data here for a trend.'}};
+  return t[v][role];
+}
+export function weekHeadline(a:AmountStatus,t:LiveStatus){
+  if((a==='below'||a==='lowest')&&t==='signal')return 'Fewer fires seen, but they’re burning later';
+  return {record:'Busiest week for the time of year',above:'Busier than a normal week',below:'Quieter than a normal week',lowest:'Quietest week for the time of year',quiet:'Little or no burning',unknown:'Can’t compare this week yet'}[a];
 }
