@@ -6,6 +6,9 @@ import {readFileSync, writeFileSync, mkdirSync} from 'node:fs';
 import {gunzipSync} from 'node:zlib';
 const base = process.env.BURN_CLOCK_URL || 'http://127.0.0.1:5173';
 const receipt = JSON.parse(gunzipSync(readFileSync('public/data/punjab_receipt.json.gz')));
+const byYear = JSON.parse(readFileSync('public/data/gk2a_hourly_by_year.json')).pixel_hours;
+assert.deepEqual(byYear['2021'], receipt.gk2a_by_hour.pixel_hours_2021);assert.deepEqual(byYear['2025'], receipt.gk2a_by_hour.pixel_hours_2025);
+for (const [y, v] of Object.entries(byYear)) receipt.gk2a_by_hour['pixel_hours_' + y] = v;
 const expected = JSON.parse(readFileSync('scripts/numeric_expected.json'));
 const browser = await chromium.launch({headless: true, args: ['--enable-unsafe-swiftshader']});
 const context = await browser.newContext({viewport: {width: 1360, height: 1000}}), page = await context.newPage();
@@ -31,8 +34,13 @@ try {
   before.forEach((value, i) => assert.ok(Math.abs(value - baseCounts[i] / total2021 * 100) < 1e-9));
   assert.match(await page.locator('.satellite-timeline').innerText(), /96\.2%/);
   assert.match(await page.locator('.satellite-timeline').innerText(), /Punjab state; pass markers describe the selected Punjab \+ Haryana box/);
-  assert.equal(await page.locator('.timeline-toggle').getByRole('button', {name: '2019', exact: true}).isDisabled(), true);
-  checks.push('Both hourly distributions and late share match original integer counts; 2019 is explicitly unavailable');
+  await page.locator('.timeline-toggle').getByRole('button', {name: '2019', exact: true}).click();
+  await page.waitForFunction(() => document.querySelectorAll('[data-compare-hour]').length === 7);
+  const early = await page.locator('[data-compare-hour]').evaluateAll(els => els.map(el => +el.dataset.share));
+  const c19 = byYear['2019'], t19 = c19.reduce((a, b) => a + b, 0);
+  early.forEach((value, i) => assert.ok(Math.abs(value - c19[i] / t19 * 100) < 1e-9));
+  await page.locator('.timeline-toggle').getByRole('button', {name: '2021', exact: true}).click();
+  checks.push('Both hourly distributions and late share match original integer counts; the 2019 comparison matches gk2a_hourly_by_year.json');
 
   await page.locator('.timeline-toggle').getByRole('button', {name: 'None', exact: true}).click();
   assert.equal(new URL(page.url()).searchParams.get('timelineCompare'), 'none');
@@ -46,10 +54,12 @@ try {
   assert.match(await page.locator('.satellite-timeline h2').innerText(), /4 pm/);
   assert.match(await page.locator('.satellite-timeline').innerText(), /51\.9%/);
   assert.equal(await page.locator('.timeline-toggle').getByRole('button', {name: '2025', exact: true}).count(), 1);
-  await page.getByLabel('Observation year').fill('2019');
+  await page.getByLabel('Observation year').fill('2019');await checkShares(2019);
+  assert.match(await page.locator('.satellite-timeline').innerText(), /35\.3%/);
+  await page.getByLabel('Observation year').fill('2018');
   assert.equal(await page.locator('[data-hour]').count(), 0);
-  assert.match(await page.locator('.satellite-timeline').innerText(), /No usable hourly shares are supplied for 2019/);
-  checks.push('Changing the observed year updates bars and peak, with no fabricated 2019 shares');
+  assert.match(await page.locator('.satellite-timeline').innerText(), /Hourly data covers 2019–2025/);
+  checks.push('Changing the observed year updates bars and peak; 2019 matches its counts and 2018 shows no fabricated shares');
 
   for (const id of ['africa', 'california']) {
     await go(expected.presets[id].box);

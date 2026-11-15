@@ -1,0 +1,49 @@
+/* The verdict card: the single answer every place report leads with. */
+.mock-app .trend-verdict{--v-ink:#383f43;--v-bg:#f3f2f1;--v-edge:#505a5f;border:2px solid var(--v-edge);border-left-width:10px;background:#fff;padding:22px 26px 18px;margin:22px 0 18px}
+.mock-app .trend-verdict.verdict-timing{--v-ink:#7a3300;--v-bg:#fff1e0;--v-edge:#c2410c}
+.mock-app .trend-verdict.verdict-modis{--v-ink:#6b4a00;--v-bg:#fff7d6;--v-edge:#b58105}
+.mock-app .trend-verdict.verdict-clear{--v-ink:#005a30;--v-bg:#e7f4ec;--v-edge:#00703c}
+.mock-app .trend-verdict.verdict-unknown{--v-ink:#383f43;--v-bg:#f3f2f1;--v-edge:#6f777b}
+.trend-verdict .verdict-eyebrow{margin:0 0 6px;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#505a5f}
+.mock-app .trend-verdict .verdict-chip{display:inline-block;margin:0 0 12px;padding:4px 12px;font-size:clamp(1.35rem,2.6vw,1.75rem);line-height:1.25;background:var(--v-bg);color:var(--v-ink);border:2px solid var(--v-edge)}
+.mock-app .trend-verdict .verdict-sentence{font-size:clamp(1.15rem,2vw,1.35rem);line-height:1.4;font-weight:600;max-width:60ch;margin:0 0 12px;color:#0b0c0c}
+.mock-app .trend-verdict .verdict-numbers-line{font-size:.92rem;color:#383f43;margin:0 0 4px;max-width:none}
+.mock-app .trend-verdict .verdict-numbers-line .claim-sentence{border:0;padding:0;margin:0;font-size:inherit;line-height:inherit;display:inline}
+.mock-app .trend-verdict .timing-checks{margin:16px 0 8px}
+.mock-app .trend-verdict .timing-check{background:#fafafa}
+.mock-app .trend-verdict .timing-detail{margin-top:6px}
+.mock-app .controls-hint{font-size:.9rem;color:#505a5f;margin:4px 0 0}
+.mock-app .plain-limit{font-size:.85rem;color:#505a5f}
+/* Verdict chips reused on case-study cards and the home strip */
+.v-chip{display:inline-block;font-weight:700;font-size:.85rem;padding:2px 8px;border:2px solid #6f777b;background:#f3f2f1;color:#383f43}
+.v-chip.verdict-timing{border-color:#c2410c;background:#fff1e0;color:#7a3300}
+.v-chip.verdict-modis{border-color:#b58105;background:#fff7d6;color:#6b4a00}
+.v-chip.verdict-clear{border-color:#00703c;background:#e7f4ec;color:#005a30}
+@media(max-width:600px){.mock-app .trend-verdict{padding:16px 16px 12px;border-left-width:7px}}
+/* Case studies */
+.case-studies h1{margin-top:4px}
+.case-legend{display:flex;flex-wrap:wrap;gap:10px 22px;list-style:none;padding:0;margin:18px 0 26px;font-size:.92rem}
+.case-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.case-card .v-chip{align-self:flex-start}.verdict-eyebrow{font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#505a5f}
+.case-card{border:1px solid #b1b4b6;border-top:6px solid #6f777b;padding:20px 22px 18px;display:flex;flex-direction:column}
+.case-card.verdict-timing{border-top-color:#c2410c}.case-card.verdict-modis{border-top-color:#b58105}.case-card.verdict-clear{border-top-color:#00703c}
+.mock-app .case-card h2{font-size:1.35rem;margin:12px 0 2px}
+.case-card .case-meta{font-size:.85rem;color:#505a5f;margin:0 0 12px}
+.case-card .case-question{font-style:italic;margin:0 0 12px}
+.mock-app .case-card h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:#505a5f;margin:10px 0 4px}
+.case-card p{margin:0 0 6px;font-size:.96rem}
+.case-card .case-lesson{border-top:1px solid #d4d8db;padding-top:10px;margin-top:10px}
+.case-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:14px}
+.mock-app .case-actions .button{display:inline-block;padding:9px 14px;font-weight:700;text-decoration:none;border:2px solid transparent}
+.case-source{font-size:.85rem;color:#505a5f;margin-top:24px;max-width:80ch}
+@media(max-width:760px){.case-grid{grid-template-columns:1fr}}
+/* Home: verdict strip */
+.verdict-strip{padding:8px 0 30px}
+.mock-app .verdict-strip h2{margin:0 0 6px}
+.verdict-strip>p{margin:0 0 16px;max-width:70ch}
+.strip-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:14px}
+.mock-app .strip-card{display:flex;flex-direction:column;gap:6px;border:1px solid #b1b4b6;border-top:5px solid #6f777b;padding:14px 16px;text-decoration:none;color:#0b0c0c}
+.strip-card.verdict-timing{border-top-color:#c2410c}.strip-card.verdict-modis{border-top-color:#b58105}.strip-card.verdict-clear{border-top-color:#00703c}
+.strip-card:hover{background:#f3f2f1}.strip-card .v-chip{align-self:flex-start}
+.strip-card strong{font-size:1.05rem;margin-top:4px}.strip-season{font-size:.82rem;color:#505a5f}.strip-lesson{font-size:.9rem}
+@media(max-width:860px){.strip-grid{grid-template-columns:1fr 1fr}}@media(max-width:520px){.strip-grid{grid-template-columns:1fr}}

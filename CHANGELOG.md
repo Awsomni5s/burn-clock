@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-11-15 — Verdicts, case studies and judge deliverables
+
+- **Verdict card on every place report.** The answer now comes first: one of four verdicts (*Timing matters here*, *The older MODIS record is off here*, *Satellite timing doesn't explain this*, *Can't tell yet*), a one-sentence answer, and the two checks in plain words ("Yes, likely" / "No sign" / "Can't tell"). Rule in `src/verdict.ts`, unit-tested in `src/verdict.test.ts`, documented on the Methods page.
+- **Advice depends on the verdict and the user's job** (4 verdicts × 4 roles) instead of one fixed list per role.
+- **Case studies page** (`#cases`, replaces "Punjab evidence" in the menu): six places, four answers. Each verdict is read from the built app by `scripts/build_case_studies.mjs`, so cards always match place reports.
+- **Punjab hourly data for every year 2019–2025** (`public/data/gk2a_hourly_by_year.json`, `pipeline/analysis/gk2a_hourly_by_year.py`; 2021 and 2025 asserted equal to the receipt). The home chart and timeline now show the year-by-year shift (4 pm or later: 35% → 96%); the timeline's 2019 comparison is enabled; map base years 2019–2024 with labels; the hourly caption now uses the chosen base year (it previously always said 2021).
+- **Claim card leads with the verdict.** Home page gets a "Same check, different answers" strip and a sharper lead. Judge tour rewritten around the verdict.
+- **Fixes:** plain map units; "Jullundur" → Jalandhar; note that fire data stops at the India border; plain outage wording ("S-NPP (November 2025)").
+- **Deliverables:** 7-slide demo deck `public/docs/Burn_Clock_Demo_7_Slides.pdf` (built by `scripts/build_demo_deck.py`); `vercel.json` for public hosting.
+
 ## 2026-11-15 — Satellite and afternoon timeline
 
 Replaced the circular clock with the uploaded timeline design and added it to place/claim reports. Each area has its own named satellite markers and baseline shifts in approximate local civil time. Punjab's observed 2021/2025 hourly shares sit on the same axis, with explicit Punjab-state/October–November scope. The comparison is shareable and supports browser Back. The unsupplied 2019 distribution is unavailable; other regions show only their pass times. Phone layouts keep the full afternoon visible and provide an exact-value source table.

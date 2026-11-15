@@ -39,7 +39,7 @@
    40,
    80
   ],
-  "unit": "GK2A fire detections (confidence >= 2) per 100 km2, Oct-Nov season, in that IST hour",
+  "unit": "Fire detections by GK2A in that hour, per 100 km\u00b2, October\u2013November",
   "label": "Fires seen by the GK2A satellite at {HH}:00 (India time)",
   "coverage": "Punjab and Haryana only (the GK2A dataset covers these two states)",
   "method": "pixel detections binned to 0.025 deg, Gaussian smoothed (sigma 0.05 deg); same levels for every year and hour",
@@ -72,7 +72,7 @@
    60,
    90
   ],
-  "unit": "S-NPP VIIRS daytime active 0.05 deg cell-days per 100 km2, Oct-Nov",
+  "unit": "Days with a fire detected by the ~1:40 pm satellite (S-NPP VIIRS), per 100 km\u00b2, October\u2013November",
   "label": "Fires seen by the ~1:40 pm satellite (S-NPP VIIRS)",
   "coverage": "Punjab and Haryana (FIRMS points inside the two states)",
   "method": "0.05 deg cell-days binned at 0.05 deg, Gaussian smoothed (sigma 0.05 deg); same levels every year",
@@ -116,7 +116,7 @@
    350,
    500
   ],
-  "unit": "harmonized fire-days per year per 0.25 deg cell (VIIRS scale)",
+  "unit": "Days with a fire detected per year, per 0.25\u00b0 square (about 28 km), on the VIIRS scale",
   "label": "Fire activity per year (days with a satellite fire detection, VIIRS-equivalent)",
   "method": "annual sum of harm per 0.25 deg cell, Gaussian smoothed (sigma 0.19 deg), blank where the cell and its neighbours had no fire",
   "hover_rule": "hover shows the unsmoothed cell value from tiles/*.json, never the contour value"

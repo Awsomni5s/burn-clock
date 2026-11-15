@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-15T06:10:56.793Z",
+  "generatedAt": "2026-11-15T07:12:44.227Z",
   "status": "passed",
   "checks": [
     {
@@ -19,7 +19,7 @@
       "status": "passed"
     },
     {
-      "name": "Four-step judge tour reaches the actual evidence, card and validation",
+      "name": "Four-step judge tour reaches the verdict, case studies, hourly evidence and validation",
       "status": "passed"
     },
     {
@@ -50,7 +50,7 @@
       "detail": {
         "width": 720,
         "height": 1225,
-        "bytes": 239806
+        "bytes": 237510
       }
     },
     {
@@ -77,6 +77,10 @@
       "violations": [],
       "incomplete": [
         {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        },
+        {
           "id": "color-contrast",
           "nodes": 48
         }
@@ -98,13 +102,22 @@
       "route": "embed",
       "width": 1440,
       "violations": [],
-      "incomplete": []
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        }
+      ]
     },
     {
       "route": "explorer",
       "width": 375,
       "violations": [],
       "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        },
         {
           "id": "color-contrast",
           "nodes": 40
@@ -127,7 +140,12 @@
       "route": "embed",
       "width": 375,
       "violations": [],
-      "incomplete": []
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        }
+      ]
     }
   ],
   "errors": [],

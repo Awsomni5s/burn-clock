@@ -1,10 +1,10 @@
 {
-  "tested_at": "2026-11-15T06:11:28.489Z",
+  "tested_at": "2026-11-15T07:13:52.781Z",
   "status": "passed",
   "checks": [
-    "Both hourly distributions and late share match original integer counts; 2019 is explicitly unavailable",
+    "Both hourly distributions and late share match original integer counts; the 2019 comparison matches gk2a_hourly_by_year.json",
     "Comparison toggle survives reload and browser Back restores the overlay",
-    "Changing the observed year updates bars and peak, with no fabricated 2019 shares",
+    "Changing the observed year updates bars and peak; 2019 matches its counts and 2018 shows no fabricated shares",
     "Africa and California use their own pass times and civil zones, without Punjab bars",
     "Timeline and accessible source tables fit four widths in both data-availability states",
     "Keyboard chart sources and individual pass-time provenance are usable"

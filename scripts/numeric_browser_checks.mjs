@@ -12,7 +12,7 @@ const fixtureBytes=readFileSync(new URL('./numeric_expected.json',import.meta.ur
 const expected=JSON.parse(fixtureBytes);
 const timing=JSON.parse(readFileSync(new URL('./timing_expected.json',import.meta.url)));
 const seasons=JSON.parse(readFileSync(new URL('public/data/preset_seasons.json',root)));
-const timingLabels={signal:'Signal detected',within:'No signal detected',unknown:'Can’t tell'};
+const timingLabels={signal:'Yes, likely',within:'No sign',unknown:'Can’t tell'},modisLabels={signal:'Yes',within:'No',unknown:'Can’t tell'};
 const data=name=>JSON.parse(gunzipSync(readFileSync(new URL(`public/data/${name}.json.gz`,root))));
 const manifest=data('manifest'),validation=data('validation'),countries=data('world/countries'),continents=data('world/continents'),pairs=data('same_day_pairs');
 const catalog=JSON.parse(readFileSync(new URL('public/data/catalog.json',root),'utf8'));
@@ -61,7 +61,7 @@ try{
    await page.goto(base+'/?box='+preset.box.join(',')+'&months='+seasons[id].months.join(',')+'#explorer');
    await page.locator('.claim-sentence').waitFor({timeout:60000});
    await page.locator('.monthly-detail').evaluate(el=>el.open=true);
-   await page.waitForFunction(n=>document.querySelector('.area-name')?.textContent.includes(n+' archived grid cells'),fmt(preset.cellCount),{timeout:60000});
+   await page.waitForFunction(n=>document.querySelector('.area-name')?.textContent.includes(n+' grid cells'),fmt(preset.cellCount),{timeout:60000});
    await page.locator('#month-2025-11').waitFor({timeout:60000});
    await page.getByLabel('Include early archive').check();
    const months=new Map(preset.months.map(m=>[m.month,m]));
@@ -150,7 +150,7 @@ try{
        tests:[...el.querySelectorAll('.timing-detail tbody tr')].map(row=>[...row.querySelectorAll('th,td')].map(cell=>cell.textContent))
      }));
      const p=`${id}/clock/${clock.year}`;
-     check(state.year,String(clock.year),p+'/year');const t=timing.presets[id][seasons[id].months.join(',')+'|'+clock.year];check(state.late,timingLabels[t.late],p+'/late');check(state.relationship,timingLabels[t.relationship],p+'/relationship');
+     check(state.year,String(clock.year),p+'/year');const t=timing.presets[id][seasons[id].months.join(',')+'|'+clock.year];check(state.late,timingLabels[t.late],p+'/late');check(state.relationship,modisLabels[t.relationship],p+'/relationship');
      const available=Object.keys(platforms).filter(p=>clock.look[p]!==null);
      check(state.times.length,available.length,p+'/look row count');
      for(const [i,platform] of available.entries()){

@@ -81,7 +81,7 @@ export function computeClaim(area:AreaResult,months:number[],a:number,b:number,m
   const warnings:StatWarning[]=[];
   if(valid&&Math.min(a,b)<2012&&Math.max(a,b)>=2012)warnings.push({code:'seam_2012',message:'This comparison crosses the 2012 switch from converted MODIS to VIIRS observations.'});
   if(convertedShare>.3)warnings.push({code:'converted_modis',message:'More than 30% of the selected area-months include converted MODIS values. Prefer 2012 onward when possible.'});
-  if(outages.length)warnings.push({code:'outage',message:`Satellite interruptions affect ${[...new Set(outages.map(o=>`${o.platform} ${o.month}`))].join(', ')}. Missing days are not zero; a partial interruption need not mask the whole month.`});
+  if(outages.length)warnings.push({code:'outage',message:`Satellite outage in ${[...new Set(outages.map(o=>`${({T:'Terra',A:'Aqua',N:'S-NPP',J1:'NOAA-20',J2:'NOAA-21'} as Record<string,string>)[o.platform]??o.platform} (${new Date(o.month+'-15T00:00:00Z').toLocaleString('en',{month:'long',year:'numeric',timeZone:'UTC'})})`))].join(', ')}. Missing days are treated as missing, not zero.`});
   if(status==='missing_months')warnings.push({code:'missing_months',message:'The comparison is unavailable because at least one selected month has missing values.'});
   if(status==='zero_baseline')warnings.push({code:'zero_baseline',message:'A zero baseline value or lower bound prevents a finite change range.'});
   if(status==='invalid_bounds')warnings.push({code:'invalid_bounds',message:'A supplied lower bound exceeds its upper bound; no change range can be reported.'});

@@ -1,0 +1,86 @@
+{
+ "hours_ist": [
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18
+ ],
+ "pixel_hours": {
+  "2019": [
+   114,
+   1401,
+   1983,
+   3274,
+   1889,
+   806,
+   994
+  ],
+  "2020": [
+   80,
+   1242,
+   3261,
+   4520,
+   2936,
+   1203,
+   1987
+  ],
+  "2021": [
+   174,
+   2670,
+   5918,
+   10164,
+   10795,
+   8461,
+   1179
+  ],
+  "2022": [
+   144,
+   1038,
+   1614,
+   3225,
+   3962,
+   4142,
+   4746
+  ],
+  "2023": [
+   49,
+   293,
+   747,
+   2689,
+   5663,
+   11019,
+   6346
+  ],
+  "2024": [
+   28,
+   27,
+   79,
+   529,
+   4609,
+   5520,
+   2652
+  ],
+  "2025": [
+   38,
+   120,
+   91,
+   489,
+   4395,
+   11858,
+   2401
+  ]
+ },
+ "region": "Punjab state, India",
+ "months": [
+  10,
+  11
+ ],
+ "conf_min": 2,
+ "unit": "GK2A fire pixel-hours (one pixel flagged in one hourly image), noon-6 pm India time",
+ "source": "Zenodo 20084790, GK2-AMI fire hotspots, Jethva 2026 (doi:10.3390/rs18101506), CC-BY-4.0",
+ "limits": "Preliminary product with ~4 km pixels; can flag hot smoke; cloud and outages are not separated; noon-6 pm only.",
+ "script": "pipeline/analysis/gk2a_hourly_by_year.py"
+}

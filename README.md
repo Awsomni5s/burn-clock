@@ -2,9 +2,20 @@
 
 [![Integrity](https://github.com/Awsomni5s/burn-clock/actions/workflows/integrity.yml/badge.svg)](https://github.com/Awsomni5s/burn-clock/actions/workflows/integrity.yml)
 
-Check a fire trend, see when satellites observed it, and carry the source and limitations into a shareable receipt. [Open Burn Clock](https://burn-clock.ottoskibeli.chatgpt.site/) (currently owner-private).
+**Can you trust the fire count for your area?** Fire satellites look at each place only a few fixed times a day, and two of them (Terra and Aqua) have drifted to new times. When burning moves to other hours, the fire count changes even if the fires don't. Burn Clock joins NASA's MODIS and VIIRS records into one 2001–2025 fire record, built from 548,501,203 FIRMS detections. For any place and season it then gives a **verdict**: can you trust this trend, or is it an artifact of when satellites look? It also tells you what to do about it, depending on your job.
 
-Punjab’s reported count fell 93% (71,304 → 5,114). In the supplied preliminary GK2A record, whole-afternoon unique pixel-days fell about a third from the 2021 peak; 2025 was 2.14× 2019. At 5 pm, 2025 pixel-hours were 1.40× 2021, and the share at 4 pm or later rose from about 52% to 96%. These are different instruments, units and seasonal windows—not a corrected count of all fires.
+| Verdict | Example (computed by the app) |
+|---|---|
+| **Timing matters here** | Punjab + Haryana, Oct–Nov 2021→2025: counts fell ~80%, but burning moved to after 4 pm (35% → 96% of afternoon fire detections, 2019→2025, hourly GK2A data). |
+| **The older MODIS record is off here** | Kalimantan, Aug–Sep 2019→2025: the decline is real, but a MODIS-only record would misstate it. |
+| **Satellite timing doesn't explain this** | Punjab wheat season (Apr–May) and California: same check, no timing problem. |
+| **Can't tell yet** | Paraná Delta: too few fires for a verdict. |
+
+- **Demo (7 slides):** [`public/docs/Burn_Clock_Demo_7_Slides.pdf`](public/docs/Burn_Clock_Demo_7_Slides.pdf)
+- **Case studies:** `#cases` in the app, built by [`scripts/build_case_studies.mjs`](scripts/build_case_studies.mjs) from the app's own verdicts.
+- **AI use:** built with AI assistants (Anthropic Claude, OpenAI Codex). Every number is produced by code in this repository and checked by the tests below.
+
+Context on Punjab: the reported count fell 93% (71,304 → 5,114). In the preliminary GK2A record, whole-afternoon unique pixel-days fell about a third from the 2021 peak, and 2025 was 2.14× 2019. These are different instruments, units and seasonal windows, not a corrected count of all fires. The shift was first reported by NASA (Jethva 2026), ISRO's Space Applications Centre and iFOREST; Burn Clock makes the same check available everywhere.
 
 ## 60-second quickstart
 

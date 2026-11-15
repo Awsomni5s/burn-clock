@@ -46,10 +46,10 @@ async function checkClaim(c,name,label){
   for(const [suffix,value,digits] of [['a',c.harmonized.sumA,2],['b',c.harmonized.sumB,2],['ratio',c.harmonized.ratio,4]]){const id='claim-harm-'+suffix;check(await text(page.getByTestId(id)),fmt(value,digits),label+'/'+id);await sourced(id);}
   check(await text(page.getByTestId('claim-converted-share')),fmt(c.convertedShare*100,1)+'%',label+'/converted share');await sourced('claim-converted-share');
   const presetId=Object.keys(names).find(id=>names[id]===name), t=presetId?timing.presets[presetId][c.months.join(',')+'|'+c.b]:timing.edges[label];
-  if(t){const labels={signal:'Signal detected',within:'No signal detected',unknown:'Can’t tell'};check(await text(page.getByTestId('timing-late')),labels[t.late],label+'/later-burning');check(await text(page.getByTestId('timing-relationship')),labels[t.relationship],label+'/MODIS relationship');}
+  if(t){const late={signal:'Yes, likely',within:'No sign',unknown:'Can’t tell'},modis={signal:'Yes',within:'No',unknown:'Can’t tell'};check(await text(page.getByTestId('timing-late')),late[t.late],label+'/later-burning');check(await text(page.getByTestId('timing-relationship')),modis[t.relationship],label+'/MODIS relationship');}
 
   for(const [code,wanted] of [['seam_2012',Math.min(c.a,c.b)<2012&&Math.max(c.a,c.b)>=2012],['converted_modis',c.convertedShare>.3],['outage',c.outages.length>0]])check(await page.locator(`.claim-warnings [data-warning="${code}"]`).count()>0,wanted,label+'/warning '+code);
-  if(c.outages.length){const warning=await text(page.locator('[data-warning="outage"]'));for(const o of c.outages)includes(warning,`${o.platform} ${o.month}`,label+'/named outage');}
+  if(c.outages.length){const warning=await text(page.locator('[data-warning="outage"]'));const names={T:'Terra',A:'Aqua',N:'S-NPP',J1:'NOAA-20',J2:'NOAA-21'};for(const o of c.outages)includes(warning,`${names[o.platform]??o.platform} (${new Date(o.month+'-15T00:00:00Z').toLocaleString('en',{month:'long',year:'numeric',timeZone:'UTC'})})`,label+'/named outage');}
   check(await page.getByRole('button',{name:'Make a claim card',exact:true}).isDisabled(),c.harmonized.status!=='ok',label+'/export availability');coverage.claims++;
 }
 
@@ -60,7 +60,7 @@ try{
   await page.goto(base+'/#home');await page.locator('.home-story').waitFor();
   includes(await text(page.locator('.home-story')),fmt(100*(1-receipt.claim_source.value_2025/receipt.claim_source.value_2021))+'%','home official count');
   includes(await text(page.locator('.home-story')),fmt(u['2025']/u['2019'],2)+'×','home baseline');
-  includes(await text(page.locator('.share-values')),fmt(late(h.pixel_hours_2021),1)+'% → '+fmt(late(h.pixel_hours_2025),1)+'%','home late-hour shares');coverage.homeNumbers+=4;
+  {const byYear=JSON.parse(readFileSync('public/data/gk2a_hourly_by_year.json','utf8')).pixel_hours;check(JSON.stringify(byYear['2021']),JSON.stringify(h.pixel_hours_2021),'hourly-by-year 2021 equals receipt');check(JSON.stringify(byYear['2025']),JSON.stringify(h.pixel_hours_2025),'hourly-by-year 2025 equals receipt');includes(await text(page.locator('.share-values')),fmt(late(byYear['2019']),1)+'% (2019) → '+fmt(late(h.pixel_hours_2025),1)+'% (2025)','home late-hour shares');}coverage.homeNumbers+=4;
   await page.goto(base+'/#receipt');await page.locator('.fan-controls').waitFor();
   for(const fan of receipt.base_year_fan){await page.locator('.fan-controls').getByRole('button',{name:String(fan.base),exact:true}).click();for(const masked of [false,true]){await page.getByLabel('Matched outage mask').setChecked(masked);for(const [i,key] of ['gk2a','snpp','noaa20'].entries()){check(await text(page.locator('.fan-values strong').nth(i)),'×'+fmt(fan[key+(masked?'':'_unmasked')],3),`Receipt fan ${fan.base}/${masked}/${key}`);coverage.homeNumbers++;}}}
   group('New home observations and every receipt base-year/mask combination');
@@ -86,7 +86,7 @@ try{
   check(url.searchParams.get('months'),'8,9','California permalink months');check(url.searchParams.get('a'),'2019','California permalink A');check(url.searchParams.get('b'),'2024','California permalink B');check(url.searchParams.get('box'),calendar.presets.california.box.join(','),'California permalink box');
   await page.goto(link,{waitUntil:'domcontentloaded'});await page.getByTestId('claim-sentence').waitFor({timeout:60000});await openDetails();check(await text(page.getByTestId('claim-sentence')),before,'California permalink roundtrip result');
   await checkClaim(california,names.california,'California permalink');coverage.permalinkRoundTrips++;
-  const cardText=await page.locator('.claim-image').textContent();for(const phrase of ['2019 versus 2024','baseline is 2019','Approximate bounds','not unique fires','Selected-month timing checks:','Source: NASA FIRMS',link])includes(cardText,phrase,'Card embedded context');
+  const cardText=await page.locator('.claim-image').textContent();for(const phrase of ['2019 versus 2024','baseline is 2019','Approximate bounds','not unique fires','Has burning moved to hours the satellites miss?','Is the older MODIS record off here?','BURN CLOCK · TREND CHECK','Source: NASA FIRMS',link])includes(cardText,phrase,'Card embedded context');
   const downloadPromise=page.waitForEvent('download');await page.getByRole('button',{name:'Make a claim card',exact:true}).click();const download=await downloadPromise;await download.saveAs(fileURLToPath(new URL('california-claim-card.png',shotDir)));
   const png=readFileSync(new URL('california-claim-card.png',shotDir));check(png.subarray(0,8).toString('hex'),'89504e470d0a1a0a','Claim card PNG signature');check(png.readUInt32BE(16),650,'Claim card PNG width');check(png.readUInt32BE(20)>600,true,'Claim card contains full context height');coverage.pngExports++;group('California task permalink, embedded source/context and actual PNG export');
   await goto(calendar.presets.punjab.box);await openDetails();const illustration=page.locator('.clock-illustration');await illustration.scrollIntoViewIfNeeded();
@@ -101,7 +101,7 @@ try{
   for(let i=0;i<h.hours.length;i++)close(actualPoints[i*20][1],250-h.pixel_hours_2025[i]/max*205,`Actual 2025 curve point ${i}`);group('Eight real-source clock shifts and actual 2025 overlay');
   await openDetails();await setMonths([]);includes(await text(page.getByTestId('claim-sentence')),'invalid selection','Empty month selection');check(await page.getByRole('button',{name:'Make a claim card',exact:true}).isDisabled(),true,'Empty selection cannot export');check(await page.getByRole('button',{name:'Copy claim and link',exact:true}).isDisabled(),true,'Empty selection cannot copy a different comparison');check(await page.locator('.claim-permalink').count(),0,'Empty selection has no ambiguous permalink');coverage.edgeStates++;
   for(const [id,edge] of Object.entries(fixture.edges)){
-    await goto(edge.box,edge.claim);includes(await text(page.locator('.area-name')),fmt(edge.cellCount)+' archived grid cells',id+'/selected cell count');
+    await goto(edge.box,edge.claim);includes(await text(page.locator('.area-name')),fmt(edge.cellCount)+' grid cells',id+'/selected cell count');
     if(!edge.cellCount){includes(await text(page.locator('.empty-state')),'No archived fire cells in this box',id+'/no data message');check(await page.locator('.claim-checker').count(),0,id+'/no invented claim');}
     else{await openDetails();await checkClaim(edge.claim,'Custom area',id);await page.getByLabel('Include early archive').check();await page.locator('#month-2000-11').click();check(await text(page.locator('.detail-value')),fmt(edge.earlyMonth.harm),id+'/earliest harmonized month');}
     coverage.customAreas++;coverage.edgeStates++;
