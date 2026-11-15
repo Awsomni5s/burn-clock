@@ -11,6 +11,7 @@ import {liveTiming,liveAmount,type LiveCells,type LiveStatus} from '../liveCheck
 import {useDaily,dailyValues} from './DayCalendar';
 import {nextSeasons,seasonICS,whenAction,thisWeekAction,ROLE_CHIPS,VERDICT_TRUST,MONTH_NAMES,AMOUNT_LABEL,AMOUNT_CLASS} from '../nextMove';
 
+const LIVE_INLINE:Record<LiveStatus,string>={signal:'burning later than usual',within:'no shift from usual',below:'Aqua sees less than usual',unknown:'can’t tell this week'};
 const LIVE:Record<LiveStatus,string>={signal:'Burning later than usual',within:'No timing shift',below:'Aqua sees less',unknown:'Can’t tell this week'};
 const shortDay=(iso:string)=>new Date(iso+'T12:00:00Z').toLocaleDateString('en-GB',{day:'numeric',month:'short',timeZone:'UTC'});
 const weekClass=(a:import('../liveCheck').AmountStatus|undefined,t:LiveStatus|undefined)=>!a?'unknown':(a==='below'||a==='lowest')&&t==='signal'?'timing':AMOUNT_CLASS[a];
@@ -53,7 +54,7 @@ export default function NextMove({area,name,months,a,b,manifest,preset,ask=false
         <button className="nm-link" onClick={scrollTo('answer')}>Why? See the two checks ↓</button></article>
       <article className={'nm-card verdict-'+weekClass(amount?.status,live?.status)} data-testid="nm-week"><p className="nm-q">3 · This week{doc?.window.first_date&&doc.window.last_date?<> ({shortDay(doc.window.first_date).split(' ')[1]===shortDay(doc.window.last_date).split(' ')[1]?shortDay(doc.window.first_date).split(' ')[0]:shortDay(doc.window.first_date)}–{shortDay(doc.window.last_date)})</>:''}</p>
         <p className="nm-big"><span className={'v-chip verdict-'+weekClass(amount?.status,live?.status)} data-testid="nm-amount">{amount?AMOUNT_LABEL[amount.status]:liveError?'Live data unavailable':'Loading…'}</span></p>
-        <p className="nm-sub">{amount&&live?<>{amount.median!=null?<>{number(amount.week,0)} NOAA-20 active cell-days this week; an average {MONTH_NAMES[amount.month-1]} week in 2019–2025: {number(amount.median,0)} (range {number(amount.min!,0)}–{number(amount.max!,0)}). </>:<>{number(amount.week,0)} NOAA-20 active cell-days this week; too few past {MONTH_NAMES[amount.month-1]} records here to compare. </>}Timing: <strong>{LIVE[live.status].toLowerCase()}</strong>.</>:liveError?'NASA’s near-real-time files could not be read.':'Reading NASA’s last seven days…'}</p>
+        <p className="nm-sub">{amount&&live?<>{amount.median!=null?<>{number(amount.week,0)} NOAA-20 active cell-days this week; an average {MONTH_NAMES[amount.month-1]} week in 2019–2025: {number(amount.median,0)} (range {number(amount.min!,0)}–{number(amount.max!,0)}). </>:<>{number(amount.week,0)} NOAA-20 active cell-days this week; too few past {MONTH_NAMES[amount.month-1]} records here to compare. </>}Timing: <strong>{LIVE_INLINE[live.status]}</strong>.</>:liveError?'NASA’s near-real-time files could not be read.':'Reading NASA’s last seven days…'}</p>
         <p className="nm-do"><span>Do:</span> {thisWeekAction(role,amount?.status??'unknown',live?.status??'unknown')}</p>
         <button className="nm-link" onClick={scrollTo('live-title')}>This week in detail ↓</button></article>
     </div>

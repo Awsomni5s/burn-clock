@@ -12,7 +12,7 @@ export function circlePolys(lat:number,lon:number,km:number,n=72):Polys{
 /** Ramer–Douglas–Peucker in degrees, then capped at `max` points so the URL stays short. */
 export function simplify(points:number[][],tol=0.01,max=160):number[][]{
   const rdp=(pts:number[][],t:number):number[][]=>{if(pts.length<3)return pts;const [a,b]=[pts[0],pts[pts.length-1]];let idx=0,dmax=0;
-    for(let i=1;i<pts.length-1;i++){const p=pts[i],dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy)||1e-12,d=Math.abs(dy*p[0]-dx*p[1]+b[0]*a[1]-b[1]*a[0])/len;if(d>dmax){dmax=d;idx=i;}}
+    for(let i=1;i<pts.length-1;i++){const p=pts[i],dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy),d=len<1e-12?Math.hypot(p[0]-a[0],p[1]-a[1]):Math.abs(dy*p[0]-dx*p[1]+b[0]*a[1]-b[1]*a[0])/len;if(d>dmax){dmax=d;idx=i;}}
     return dmax>t?[...rdp(pts.slice(0,idx+1),t).slice(0,-1),...rdp(pts.slice(idx),t)]:[a,b];};
   let out=rdp(points,tol),t=tol;while(out.length>max){t*=1.6;out=rdp(points,t);}return out;
 }

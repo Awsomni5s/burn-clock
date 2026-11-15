@@ -44,6 +44,7 @@ describe('area shapes',()=>{
   });
   it('simplifies a hand-drawn line to at most the cap',()=>{
     const pts=Array.from({length:1000},(_,i)=>[Math.cos(i/159)*2+75,Math.sin(i/159)*2+30]);
+    const closed=[...pts,pts[0]],rc=simplify(closed);expect(rc.length).toBeGreaterThanOrEqual(4);
     const r=simplify(pts,0.001,160);expect(r.length).toBeLessThanOrEqual(160);expect(r.length).toBeGreaterThan(10);
   });
 });

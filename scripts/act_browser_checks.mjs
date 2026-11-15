@@ -142,6 +142,12 @@ try {
   check('circle counts fewer cells than its box', () => { assert.match(circleText, /inside this circle/); assert.ok(n(circleText) < n(boxText), circleText + ' vs ' + boxText); });
   const tools = await page.locator('[data-testid^=shape-]').count();
   check('four shape tools', () => assert.equal(tools, 4));
+  await page.getByTestId('shape-free').click();
+  const canvas = page.locator('.maplibregl-canvas').first(); await canvas.scrollIntoViewIfNeeded(); const bb = await canvas.boundingBox(), cx = bb.x + bb.width / 2, cy = bb.y + bb.height / 2;
+  await page.mouse.move(cx + 80, cy); await page.mouse.down();
+  for (let i = 1; i < 50; i++) { const t = i / 49 * 2 * Math.PI; await page.mouse.move(cx + 80 * Math.cos(t), cy + 60 * Math.sin(t), {steps: 2}); }
+  await page.mouse.up(); await page.waitForURL(/shape=p%3A/, {timeout: 30000});
+  check('hand-drawn outline becomes the area', () => assert.match(page.url(), /place=Hand-drawn\+area/));
   await page.goto(`${base}/#home`); await page.locator('#place-search').fill('Punjab, India'); await page.locator('#place-search').press('Enter');
   await page.waitForURL(/shape=a%3AIND%3AIND-3249|shape=a:IND:IND-3249/, {timeout: 30000});
   await page.getByTestId('next-move').waitFor({timeout: 90000});

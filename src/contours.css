@@ -48,3 +48,8 @@
 .burning-map-notes a{text-decoration:underline}
 .burning-deferred{min-height:130px;padding:25px 20px}
 @media(max-width:600px){.contour-map-section .area-map{min-height:330px}.contour-year-controls{padding:12px}.contour-map-section .map-btn{font-size:12px;padding:7px 9px}.contour-map-section .map-tools{gap:4px}.contour-legend,.contour-inspector{padding:12px}.contour-bands{gap:6px 12px;font-size:12px}.burning-panel-heading{padding:16px 12px 8px}.burning-controls{padding:10px 12px;gap:10px}.burning-panel h3{margin:12px;font-size:17px}.burning-pair{padding:0 12px}.burning-mini-canvas{height:225px}.burning-mini figcaption{font-size:16px}.burning-panel>.contour-legend{margin:0 12px}.burning-hour-caption{margin:0 12px;font-size:16px}.burning-map-notes{padding:12px;font-size:13px}}
+/* Area shape tools: a row above the map */
+.contour-map-section .shape-tools{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:10px 15px;background:#f4f6f5;border-bottom:1px solid #d5dcd8}
+.contour-map-section .shape-label{font-weight:700;font-size:14px;color:#27312d;margin-right:4px}
+.contour-map-section .shape-tools .map-btn{min-height:38px}
+.contour-map-section .shape-tools .map-btn.active{background:#273b32;color:#fff;border-color:#273b32}
