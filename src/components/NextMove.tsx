@@ -49,9 +49,9 @@ export default function NextMove({area,name,months,a,b,manifest,preset,ask=false
   const copy=async()=>{try{await navigator.clipboard.writeText(summary());setCopied(true);setTimeout(()=>setCopied(false),2000);}catch{setCopied(false);}};
   const download=()=>{const ics=seasonICS({name,months:critical,share:facts?.peakShare??null,link:location.href,today});const url=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));const el=document.createElement('a');el.href=url;el.download=`burning-season-${name.replace(/[^A-Za-z0-9]+/g,'-').toLowerCase()}.ics`;el.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
   return <section className="next-move" aria-labelledby="next-move-title" data-testid="next-move">
-    <div className="next-move-head"><div><p className="eyebrow">Your next move · {name}</p><h2 id="next-move-title">What this calendar means for your work</h2></div>
+    <div className="next-move-head"><div><p className="eyebrow">Your next move · {name}</p><h2 id="next-move-title">What this calendar means for your work</h2><p className="step-tag"><b>2</b> Pick your job</p></div>
       <div className="role-chips" role="group" aria-label="I work on">{(Object.keys(ROLES) as Role[]).map(r=><button key={r} aria-pressed={role===r} className={role===r?'active':''} onClick={()=>setRole(r)} data-testid={'nm-role-'+r}>{ROLE_CHIPS[r]}</button>)}</div></div>
-    <div className="next-move-grid">
+    <p className="step-tag"><b>3</b> Do what it says (one action per card)</p><div className="next-move-grid">
       <article className="nm-card" data-testid="nm-when"><p className="nm-q">1 · When to be ready</p><p className="nm-big">{seasonLabel}</p>
         <p className="nm-sub">{facts?<>{Math.round(facts.peakShare)}% of a typical year’s burning (2003–2022)</>:'Season from the selected months'}{peakDay&&<>. Busiest day in {peakDay.year}: <strong>{peakDay.label}</strong></>}.{next&&<> {next.now?<strong>Under way now.</strong>:<>Next season starts in <strong>{next.daysToStart} days</strong> ({shortDay(next.start.toISOString().slice(0,10))}).</>}</>}{coming&&<> Next month, {coming.month} usually brings {number(coming.share,0)}% of a year’s burning.</>}</p>
         <p className="nm-do"><span>Do:</span> {whenAction(role,seasonLabel,facts?.peakShare??null)}</p>

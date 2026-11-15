@@ -168,3 +168,13 @@
 .place-change{margin:0;padding:0;border:0;background:none;font:inherit;color:#8a3a14;text-decoration:underline;cursor:pointer}
 .home-place-bar a{color:#1d70b8}
 .home-tabs~.next-move{margin-top:16px}
+/* The three steps, visible on arrival and repeated where each happens */
+.how-steps{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:6px 0 14px;padding:0}
+.how-steps li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:#fff4ec;border:1.5px solid #e2b79c}
+.how-steps b,.step-tag b{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:#8a3a14;color:#fff;font-size:.95rem}
+.how-steps span{display:flex;flex-direction:column;font-size:.88rem;color:#383f43;line-height:1.35}
+.how-steps strong{font-size:1rem;color:#0b0c0c}
+.step-tag{display:flex;align-items:center;gap:8px;margin:0 0 8px;font-weight:700;font-size:1rem;color:#8a3a14}
+.home-search .step-tag{grid-column:1/-1}
+.next-move-head .step-tag{margin:10px 0 0}
+@media(max-width:700px){.how-steps{grid-template-columns:1fr;gap:6px}.how-steps li{padding:8px 10px}}
