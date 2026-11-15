@@ -260,3 +260,21 @@
  .plain-app main:has(.dash)>.glossary{display:none}
  .dash{height:calc(100vh - 98px)}
 }
+/* Job picker and plain cards */
+.job-picker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:0 0 12px}
+.job-picker button{display:flex;align-items:center;gap:8px;margin:0;padding:10px 12px;border:2px solid #b1b4b6;background:#fff;color:#0b0c0c;font:inherit;font-weight:700;font-size:.95rem;text-align:left;cursor:pointer;border-radius:6px}
+.job-picker button span{font-size:1.3rem}
+.job-picker button:hover{border-color:#8a3a14}
+.job-picker button.active{border-color:#8a3a14;background:#8a3a14;color:#fff}
+.job-picker button:focus-visible{outline:3px solid #ffdd00;outline-offset:2px}
+.nm-title{display:flex;align-items:center;gap:8px;font-size:1.1rem;margin:4px 0 10px;line-height:1.3}
+.step-num{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:#8a3a14;color:#fff;font-size:.95rem}
+.nm-card .nm-big{font-size:1.25rem;line-height:1.2}
+.nm-card.verdict-season{border-top-color:#8a3a14}
+.nm-card .nm-do{font-size:1rem;font-weight:600;border-left-color:#8a3a14}
+.nm-card .nm-do span{color:#8a3a14}
+.nm-why{font-size:.85rem;color:#383f43}
+.nm-why summary{cursor:pointer;color:#1d70b8;font-weight:600}
+.nm-why p{margin:6px 0}
+@media(min-width:1100px){.dash .nm-card .nm-big{font-size:1.12rem}.dash .nm-card .nm-do{font-size:.92rem}.dash .job-picker button{padding:8px 10px;font-size:.88rem}}
+@media(min-width:1100px){.dash .claim-checker{display:flex;flex-direction:column}.dash .claim-checker>.trend-verdict{order:-1;margin-top:0}}

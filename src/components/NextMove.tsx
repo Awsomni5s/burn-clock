@@ -9,7 +9,7 @@ import {useURLState,choice} from '../urlState';
 import {calendarFacts} from './Calendar';
 import {liveTiming,liveAmount,type LiveCells,type LiveStatus} from '../liveCheck';
 import {useDaily,dailyValues} from './DayCalendar';
-import {nextSeasons,seasonICS,whenAction,thisWeekAction,ROLE_CHIPS,VERDICT_TRUST,MONTH_NAMES,AMOUNT_LABEL,AMOUNT_CLASS} from '../nextMove';
+import {nextSeasons,seasonICS,thisWeekAction,VERDICT_TRUST,MONTH_NAMES,AMOUNT_CLASS,JOBS,whenPlain,TREND_HEADLINE,trendPlain,weekHeadline} from '../nextMove';
 
 const LIVE_INLINE:Record<LiveStatus,string>={signal:'burning later than usual',within:'no shift from usual',below:'Aqua sees less than usual',unknown:'can’t tell this week'};
 const LIVE:Record<LiveStatus,string>={signal:'Burning later than usual',within:'No timing shift',below:'Aqua sees less',unknown:'Can’t tell this week'};
@@ -41,31 +41,35 @@ export default function NextMove({area,name,months,a,b,manifest,preset,ask=false
   const h=claim?.harmonized,change=h&&h.status==='ok'&&h.changePct!=null?h.changePct:null;
   const seasonLabel=critical.length?seasons.map(s=>s.label).join(' and '):'—';
   const [copied,setCopied]=useState(false);
-  const summary=()=>[`Burn Clock · ${name} · for ${ROLE_CHIPS[role].toLowerCase()}`,
-    `1. Season: ${seasonLabel}${facts?` (${Math.round(facts.peakShare)}% of a typical year)`:''}. Do: ${whenAction(role,seasonLabel,facts?.peakShare??null)}`,
-    `2. Trend: ${VERDICT_SHORT[verdict]}. Do: ${ACTIONS[verdict][role][verdict==='timing'?{policy:2,air:1,journalist:0,research:0}[role]:0]}`,
-    `3. This week: ${amount?AMOUNT_LABEL[amount.status]:'not available'}${live?`, timing: ${LIVE_INLINE[live.status]}`:''}. Do: ${thisWeekAction(role,amount?.status??'unknown',live?.status??'unknown')}`,
-    `NASA FIRMS data, provisional for this week. ${location.href}`].join('\n');
+  const peakLabel=peakDay?peakDay.label:null,job=JOBS[role];
+  const whenHead=next?(next.now?'Fire season is on now':`Next fire season in ${next.daysToStart} days`):'Fire season';
+  const doWhen=whenPlain(role,seasonLabel,peakLabel),doTrend=trendPlain(role,verdict),doWeek=thisWeekAction(role,amount?.status??'unknown',live?.status??'unknown');
+  const weekHead=amount&&live?weekHeadline(amount.status,live.status):liveError?'Live data unavailable':'Reading this week’s NASA data…';
+  const summary=()=>[`Burn Clock · ${name} · for ${job.label.toLowerCase()}`,
+    `1. ${whenHead} (${seasonLabel}). Do: ${doWhen}`,
+    `2. ${TREND_HEADLINE[verdict]}. Do: ${doTrend}`,
+    `3. This week: ${weekHead}. Do: ${doWeek}`,
+    `NASA satellite data; this week's data is provisional. ${location.href}`].join('\n');
   const copy=async()=>{try{await navigator.clipboard.writeText(summary());setCopied(true);setTimeout(()=>setCopied(false),2000);}catch{setCopied(false);}};
   const download=()=>{const ics=seasonICS({name,months:critical,share:facts?.peakShare??null,link:location.href,today});const url=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));const el=document.createElement('a');el.href=url;el.download=`burning-season-${name.replace(/[^A-Za-z0-9]+/g,'-').toLowerCase()}.ics`;el.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+  const card=(id:string,n:number,q:string,cls:string,head:string,sub:any,todo:string,why:any,extra?:any)=><article className={'nm-card verdict-'+cls} data-testid={id}>
+    <p className="nm-q">{n} · {q}</p><p className="nm-big" data-testid={id+'-head'}>{head}</p><p className="nm-sub">{sub}</p>
+    <p className="nm-do"><span>Do:</span> {todo}</p>{extra}<details className="nm-why"><summary>Why?</summary>{why}</details></article>;
+  const weekCls=weekClass(amount?.status,live?.status);
   return <section className="next-move" aria-labelledby="next-move-title" data-testid="next-move">
-    <div className="next-move-head"><div><p className="eyebrow">Your next move · {name}</p><h2 id="next-move-title">What this calendar means for your work</h2><p className="step-tag"><b>2</b> Pick your job</p></div>
-      <div className="role-chips" role="group" aria-label="I work on">{(Object.keys(ROLES) as Role[]).map(r=><button key={r} aria-pressed={role===r} className={role===r?'active':''} onClick={()=>setRole(r)} data-testid={'nm-role-'+r}>{ROLE_CHIPS[r]}</button>)}</div></div>
-    <p className="step-tag"><b>3</b> Do what it says (one action per card)</p><div className="next-move-grid">
-      <article className="nm-card" data-testid="nm-when"><p className="nm-q">1 · When to be ready</p><p className="nm-big">{seasonLabel}</p>
-        <p className="nm-sub">{facts?<>{Math.round(facts.peakShare)}% of a typical year’s burning (2003–2022)</>:'Season from the selected months'}{peakDay&&<>. Busiest day in {peakDay.year}: <strong>{peakDay.label}</strong></>}.{next&&<> {next.now?<strong>Under way now.</strong>:<>Next season starts in <strong>{next.daysToStart} days</strong> ({shortDay(next.start.toISOString().slice(0,10))}).</>}</>}{coming&&<> Next month, {coming.month} usually brings {number(coming.share,0)}% of a year’s burning.</>}</p>
-        <p className="nm-do"><span>Do:</span> {whenAction(role,seasonLabel,facts?.peakShare??null)}</p>
-        <button className="button secondary nm-btn" onClick={download} data-testid="nm-ics">Add the season to my calendar (.ics)</button></article>
-      <article className={'nm-card verdict-'+verdict} data-testid="nm-trend"><p className="nm-q">2 · Is the trend real?</p><p className="nm-big"><span className={'v-chip verdict-'+verdict}>{VERDICT_SHORT[verdict]}</span></p>
-        <p className="nm-sub">{VERDICT_TRUST[verdict]}.{change!=null&&<> Combined record {da}→{db}, {dm.map(m=>MONTH_NAMES[m-1].slice(0,3)).join('–')}: <strong>{change>0?'+':'−'}{number(Math.abs(change),0)}%</strong>.</>}</p>
-        <p className="nm-do"><span>Do:</span> {ACTIONS[verdict][role][verdict==='timing'?{policy:2,air:1,journalist:0,research:0}[role]:0]}</p>
-        <button className="nm-link" onClick={go('trend','answer')}>Why? See the two checks ↓</button></article>
-      <article className={'nm-card verdict-'+weekClass(amount?.status,live?.status)} data-testid="nm-week"><p className="nm-q">3 · This week{doc?.window.first_date&&doc.window.last_date?<> ({shortDay(doc.window.first_date).split(' ')[1]===shortDay(doc.window.last_date).split(' ')[1]?shortDay(doc.window.first_date).split(' ')[0]:shortDay(doc.window.first_date)}–{shortDay(doc.window.last_date)})</>:''}</p>
-        <p className="nm-big"><span className={'v-chip verdict-'+weekClass(amount?.status,live?.status)} data-testid="nm-amount">{amount?AMOUNT_LABEL[amount.status]:liveError?'Live data unavailable':'Loading…'}</span></p>
-        <p className="nm-sub">{amount&&live?<>{amount.median!=null?<>{number(amount.week,0)} NOAA-20 active cell-days this week; an average {MONTH_NAMES[amount.month-1]} week in 2019–2025: {number(amount.median,0)} (range {number(amount.min!,0)}–{number(amount.max!,0)}). </>:<>{number(amount.week,0)} NOAA-20 active cell-days this week; too few past {MONTH_NAMES[amount.month-1]} records here to compare. </>}Timing: <strong>{LIVE_INLINE[live.status]}</strong>.</>:liveError?'NASA’s near-real-time files could not be read.':'Reading NASA’s last seven days…'}</p>
-        <p className="nm-do"><span>Do:</span> {thisWeekAction(role,amount?.status??'unknown',live?.status??'unknown')}</p>
-        <button className="nm-link" onClick={go('week','live-title')}>This week in detail ↓</button></article>
+    <p className="step-tag"><b>2</b> I am a…</p>
+    <div className="job-picker" role="group" aria-label="I am a">{(Object.keys(JOBS) as Role[]).map(r=><button key={r} aria-pressed={role===r} className={role===r?'active':''} onClick={()=>setRole(r)} data-testid={'nm-role-'+r}><span aria-hidden="true">{JOBS[r].icon}</span>{JOBS[r].label}</button>)}</div>
+    <h2 id="next-move-title" className="nm-title"><b className="step-num">3</b> Your plan for {name}, as {job.who}</h2>
+    <div className="next-move-grid">
+      {card('nm-when',1,'When to act','season',whenHead,<>{seasonLabel}{facts&&<> · {Math.round(facts.peakShare)}% of a normal year’s fires</>}{peakLabel&&<> · peak around {peakLabel}</>}</>,doWhen,
+        <><p>{facts?<>{Math.round(facts.peakShare)}% of a typical year’s satellite fire detections (2003–2022) fall in {seasonLabel}.</>:'Season from the selected months.'}{peakDay&&<> Busiest day in {peakDay.year}: {peakDay.label}.</>}{coming&&<> Next month, {coming.month} usually brings {number(coming.share,0)}% of a year’s fires.</>}</p></>,
+        <button className="button secondary nm-btn" onClick={download} data-testid="nm-ics">Remind me before next season (.ics)</button>)}
+      {card('nm-trend',2,'Can you trust the trend?',verdict,TREND_HEADLINE[verdict],change!=null?<>Satellites saw {number(Math.abs(change),0)}% {change>0?'more':'fewer'} fires, {da}→{db} ({dm.map(m=>MONTH_NAMES[m-1].slice(0,3)).join('–')})</>:VERDICT_TRUST[verdict],doTrend,
+        <><p><span className={'v-chip verdict-'+verdict}>{VERDICT_SHORT[verdict]}</span> {VERDICT_TRUST[verdict]}.</p><p>{ACTIONS[verdict][role][0]}</p><button className="nm-link" onClick={go('trend','answer')}>See the two checks →</button></>)}
+      {card('nm-week',3,'This week'+(doc?.window.first_date&&doc.window.last_date?` (${shortDay(doc.window.first_date)}–${shortDay(doc.window.last_date)})`:''),weekCls,weekHead,
+        amount&&amount.median!=null?<>{number(amount.week,0)} fire detections vs {number(amount.median,0)} in a normal {MONTH_NAMES[amount.month-1]} week</>:amount?<>{number(amount.week,0)} fire detections this week</>:'',doWeek,
+        <><p><span className={'v-chip verdict-'+weekCls} data-testid="nm-amount">{amount?weekHead:'Loading…'}</span></p>{amount&&live&&<p>{number(amount.week,0)} NOAA-20 active cell-days this week{amount.median!=null&&<>; an average {MONTH_NAMES[amount.month-1]} week in 2019–2025: {number(amount.median,0)} (range {number(amount.min!,0)}–{number(amount.max!,0)})</>}. Timing: {LIVE_INLINE[live.status]}. Provisional NASA near-real-time data.</p>}<button className="nm-link" onClick={go('week','live-title')}>This week in detail →</button></>)}
     </div>
-    <p className="nm-more"><a className="nm-share" href={`https://wa.me/?text=${encodeURIComponent(summary())}`} target="_blank" rel="noopener noreferrer" data-testid="nm-whatsapp">Send this to WhatsApp</a><button className="nm-link" onClick={copy} data-testid="nm-copy">{copied?'Copied':'Copy summary and link'}</button><button className="nm-link" onClick={go('trend','answer')}>All actions for your job and a one-page brief ↓</button>{preset==='punjab'&&<a href="#act" data-testid="nm-act">Punjab district planner, by district →</a>}{ask&&<button className="nm-link" onClick={go('ask','ask-panel')}>Ask the advisor about this place ↓</button>}</p>
+    <p className="nm-more"><a className="nm-share" href={`https://wa.me/?text=${encodeURIComponent(summary())}`} target="_blank" rel="noopener noreferrer" data-testid="nm-whatsapp">Send my plan to WhatsApp</a><button className="nm-link" onClick={copy} data-testid="nm-copy">{copied?'Copied':'Copy my plan'}</button>{preset==='punjab'&&<a href="#act" data-testid="nm-act">Plan by district →</a>}{ask&&<button className="nm-link" onClick={go('ask','ask-panel')}>Ask a question →</button>}</p>
   </section>;
 }
