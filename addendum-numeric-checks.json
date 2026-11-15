@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-11-15T22:53:05.232Z",
+  "generatedAt": "2026-11-15T23:04:40.304Z",
   "status": "passed",
-  "base": "http://127.0.0.1:5190",
+  "base": "http://127.0.0.1:4179",
   "assertions": 2352,
   "failureCount": 0,
   "coverage": {
@@ -30,7 +30,7 @@
   "failures": [],
   "fatal": null,
   "runtimeErrors": [],
-  "elapsedSeconds": 47.13,
+  "elapsedSeconds": 29.1,
   "fixtureSha256": "287b4feb45217b101a8c95885d06ba72288516d956cd16e552ab64e11ff613ae",
   "scope": "Independent Python reference for every six-preset Claim Checker/trend fixture, source annotations, home Punjab metrics and base-year fan, eight curve shifts, real 2025 overlay, California permalink/PNG and explicit geographic/missing-data edge states.",
   "limitations": [

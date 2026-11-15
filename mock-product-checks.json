@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-15T22:49:11.367Z",
-  "status": "failed",
+  "generatedAt": "2026-11-15T23:05:43.195Z",
+  "status": "passed",
   "checks": [
     {
       "name": "Home has a working search, explicit Check button, six presets and four task entrances",
@@ -8,68 +8,263 @@
     },
     {
       "name": "Punjab selected months replace the misleading fixed-season verdict",
-      "status": "failed",
-      "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main h1,.embed-badge').first() to be visible\u001b[22m\n\n    at ready (/home/claude/burn-clock/scripts/mock_product_checks.mjs:13:105)\n    at async file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:17:93\n    at async check (/home/claude/burn-clock/scripts/mock_product_checks.mjs:12:47)\n    at async file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:17:2"
+      "status": "passed"
     },
     {
       "name": "Annual bars and uncertainty endpoints equal original monthly totals",
-      "status": "failed",
-      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n0 !== 23\n\n    at file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:18:313\n    at async check (file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:12:47)\n    at async file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:18:2"
+      "status": "passed"
     },
     {
       "name": "Four roles give different actions and the right handoff",
-      "status": "failed",
-      "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Policy / enforcement', exact: true })\u001b[22m\n\n    at /home/claude/burn-clock/scripts/mock_product_checks.mjs:19:313\n    at check (/home/claude/burn-clock/scripts/mock_product_checks.mjs:12:53)\n    at /home/claude/burn-clock/scripts/mock_product_checks.mjs:19:8"
+      "status": "passed"
     },
     {
       "name": "Africa January–February uses its own missing-data limits",
-      "status": "failed",
-      "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main h1,.embed-badge').first() to be visible\u001b[22m\n\n    at ready (/home/claude/burn-clock/scripts/mock_product_checks.mjs:13:105)\n    at async file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:20:83\n    at async check (/home/claude/burn-clock/scripts/mock_product_checks.mjs:12:47)\n    at async file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:20:2"
+      "status": "passed"
     },
     {
       "name": "Claim page preserves the submitted text without pretending to verify arbitrary prose",
-      "status": "failed",
-      "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main h1,.embed-badge').first() to be visible\u001b[22m\n\n    at ready (/home/claude/burn-clock/scripts/mock_product_checks.mjs:13:105)\n    at async file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:21:111\n    at async check (/home/claude/burn-clock/scripts/mock_product_checks.mjs:12:47)\n    at async file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:21:2"
+      "status": "passed",
+      "detail": {
+        "localExportMs": 141,
+        "width": 650,
+        "height": 1162
+      }
     },
     {
       "name": "Mobile menu, role selector, back button and complete report work at 375px",
-      "status": "failed",
-      "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main h1,.embed-badge').first() to be visible\u001b[22m\n\n    at ready (/home/claude/burn-clock/scripts/mock_product_checks.mjs:13:105)\n    at async file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:22:151\n    at async check (/home/claude/burn-clock/scripts/mock_product_checks.mjs:12:47)\n    at async file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:22:2"
+      "status": "passed"
     },
     {
       "name": "All new views fit desktop and phone and pass automated accessibility checks",
-      "status": "failed",
-      "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main h1,.embed-badge').first() to be visible\u001b[22m\n\n    at ready (/home/claude/burn-clock/scripts/mock_product_checks.mjs:13:105)\n    at async file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:23:293\n    at async check (/home/claude/burn-clock/scripts/mock_product_checks.mjs:12:47)\n    at async file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:23:2"
+      "status": "passed"
     },
     {
       "name": "Source failures, missing areas and retry stay explicit",
-      "status": "failed",
-      "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.home-top') to be visible\u001b[22m\n\n    at /home/claude/burn-clock/scripts/mock_product_checks.mjs:24:476\n    at async check (/home/claude/burn-clock/scripts/mock_product_checks.mjs:12:47)\n    at async file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:24:2"
+      "status": "passed"
     },
     {
       "name": "Local first view and year-change interaction meet the stated speed budget",
-      "status": "failed",
-      "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main h1,.embed-badge').first() to be visible\u001b[22m\n\n    at ready (/home/claude/burn-clock/scripts/mock_product_checks.mjs:13:105)\n    at async file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:25:444\n    at async check (/home/claude/burn-clock/scripts/mock_product_checks.mjs:12:47)\n    at async file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:25:2"
+      "status": "passed",
+      "detail": {
+        "firstViewMs": 229,
+        "yearChangeMs": [
+          72,
+          37,
+          36
+        ],
+        "environment": "Fresh browser context for first view; local Chromium, production build when run through make reproduce; no network throttling"
+      }
     },
     {
       "name": "Human-study results and missing scientific specification remain honest",
-      "status": "failed",
-      "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main h1,.embed-badge').first() to be visible\u001b[22m\n\n    at ready (/home/claude/burn-clock/scripts/mock_product_checks.mjs:13:105)\n    at async file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:26:97\n    at async check (/home/claude/burn-clock/scripts/mock_product_checks.mjs:12:47)\n    at async file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:26:2"
+      "status": "passed"
     },
     {
       "name": "No unhandled browser errors",
-      "status": "failed",
-      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   \"Cannot read properties of undefined (reading 'icon')\",\n+   \"Cannot read properties of undefined (reading 'icon')\",\n+   \"Cannot read properties of undefined (reading 'icon')\",\n+   \"Cannot read properties of undefined (reading 'icon')\"\n+ ]\n- []\n\n    at file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:27:60\n    at check (file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:12:53)\n    at file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:27:8"
+      "status": "passed"
     }
   ],
-  "accessibility": [],
-  "performance": [],
-  "errors": [
-    "Cannot read properties of undefined (reading 'icon')",
-    "Cannot read properties of undefined (reading 'icon')",
-    "Cannot read properties of undefined (reading 'icon')",
-    "Cannot read properties of undefined (reading 'icon')"
+  "accessibility": [
+    {
+      "hash": "home",
+      "width": 1360,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "hash": "explorer",
+      "width": 1360,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 48
+        }
+      ]
+    },
+    {
+      "hash": "claim",
+      "width": 1360,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        }
+      ]
+    },
+    {
+      "hash": "receipt",
+      "width": 1360,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 37
+        }
+      ]
+    },
+    {
+      "hash": "brief",
+      "width": 1360,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "hash": "clock",
+      "width": 1360,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 29
+        }
+      ]
+    },
+    {
+      "hash": "validation",
+      "width": 1360,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "hash": "methods",
+      "width": 1360,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "hash": "about",
+      "width": 1360,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "hash": "embed",
+      "width": 1360,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        }
+      ]
+    },
+    {
+      "hash": "home",
+      "width": 375,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "hash": "explorer",
+      "width": 375,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 40
+        }
+      ]
+    },
+    {
+      "hash": "claim",
+      "width": 375,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        }
+      ]
+    },
+    {
+      "hash": "receipt",
+      "width": 375,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": 37
+        }
+      ]
+    },
+    {
+      "hash": "brief",
+      "width": 375,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "hash": "clock",
+      "width": 375,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        },
+        {
+          "id": "color-contrast",
+          "nodes": 21
+        }
+      ]
+    },
+    {
+      "hash": "validation",
+      "width": 375,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "hash": "methods",
+      "width": 375,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "hash": "about",
+      "width": 375,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "hash": "embed",
+      "width": 375,
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "aria-prohibited-attr",
+          "nodes": 1
+        }
+      ]
+    }
   ],
+  "performance": [
+    {
+      "firstViewMs": 229,
+      "yearChangeMs": [
+        72,
+        37,
+        36
+      ],
+      "environment": "Fresh browser context for first view; local Chromium, production build when run through make reproduce; no network throttling"
+    }
+  ],
+  "errors": [],
   "limitations": [
     "No real participants tested. Five-second comprehension, misuse/cropping interpretation, task success and real before/after results remain pending.",
     "Automated accessibility does not replace assistive-technology testing.",
