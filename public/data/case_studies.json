@@ -1,0 +1,183 @@
+{
+ "generated_utc": "2026-11-15T06:44:16.295Z",
+ "producer": "scripts/build_case_studies.mjs (reads the app’s own verdicts)",
+ "cases": [
+  {
+   "id": "punjab-stubble",
+   "preset": "punjab",
+   "title": "Punjab + Haryana, India",
+   "season": "Stubble-burning season",
+   "months": [
+    10,
+    11
+   ],
+   "a": 2021,
+   "b": 2025,
+   "question": "India reported that farm fires fell 93% between 2021 and 2025. Is that the whole story?",
+   "do": "Monitor after 4 pm, add a geostationary feed to fire alerts, and report the early-afternoon count alongside the timing shift.",
+   "lesson": "A drop in satellite counts can partly be burning moving to hours the satellites don’t see.",
+   "deep": "#receipt",
+   "box": [
+    27.6,
+    73.8,
+    32.6,
+    77.6
+   ],
+   "link": "?box=27.6,73.8,32.6,77.6&months=10,11&a=2021&b=2025#explorer",
+   "verdict": "timing",
+   "verdict_label": "Timing matters here",
+   "sentence": "Fire activity here fell about 80% (2021–2025, Oct–Nov), but part of that drop is burning that moved to hours the satellites don’t see.",
+   "late": "Yes, likely",
+   "modis": "Yes",
+   "viirs": "down 81.0%",
+   "aqua": "down 73.7%"
+  },
+  {
+   "id": "punjab-wheat",
+   "preset": "punjab",
+   "title": "Punjab + Haryana, India",
+   "season": "Wheat season (same place, different crop)",
+   "months": [
+    4,
+    5
+   ],
+   "a": 2019,
+   "b": 2025,
+   "question": "Does the same place show the same timing problem in its other burning season?",
+   "do": "Use the record as it is for this season, with the range shown.",
+   "lesson": "The check doesn’t say “timing matters” everywhere: this is the built-in control.",
+   "box": [
+    27.6,
+    73.8,
+    32.6,
+    77.6
+   ],
+   "link": "?box=27.6,73.8,32.6,77.6&months=4,5&a=2019&b=2025#explorer",
+   "verdict": "clear",
+   "verdict_label": "Satellite timing doesn’t explain this",
+   "sentence": "No clear change between 2019 and 2025: the range runs from −38% to +45%. Satellite timing isn’t the issue here.",
+   "late": "No sign",
+   "modis": "No",
+   "viirs": "down 4.8%",
+   "aqua": "down 27.5%"
+  },
+  {
+   "id": "kalimantan",
+   "preset": "kalimantan",
+   "title": "Kalimantan, Indonesia",
+   "season": "Peat-fire season",
+   "months": [
+    8,
+    9
+   ],
+   "a": 2019,
+   "b": 2025,
+   "question": "2019 was an extreme fire year. How far have fires fallen since, and can MODIS answer that?",
+   "do": "Use the combined record, not a Terra or Aqua series, to report the decline.",
+   "lesson": "The error can run the opposite way from Punjab: MODIS can exaggerate a decline.",
+   "box": [
+    -3.5,
+    110,
+    1,
+    117
+   ],
+   "link": "?box=-3.5,110,1,117&months=8,9&a=2019&b=2025#explorer",
+   "verdict": "modis",
+   "verdict_label": "The older MODIS record is off here",
+   "sentence": "Fire activity fell about 69% (2019–2025, Aug–Sep). Burning hours look unchanged, but a record built from the older MODIS satellites would be off here because their pass times drifted.",
+   "late": "No sign",
+   "modis": "Yes",
+   "viirs": "down 67.4%",
+   "aqua": "down 78.4%"
+  },
+  {
+   "id": "cerrado",
+   "preset": "cerrado",
+   "title": "Cerrado / MATOPIBA, Brazil",
+   "season": "Dry-season clearing fires",
+   "months": [
+    8,
+    9
+   ],
+   "a": 2019,
+   "b": 2025,
+   "question": "Did savanna clearing fires fall between 2019 and 2025?",
+   "do": "After 2020, use the combined record rather than MODIS, and look at the whole series, not two years.",
+   "lesson": "Satellite drift can bend a MODIS record even when burning hours haven’t changed.",
+   "box": [
+    -13,
+    -50,
+    -5,
+    -42
+   ],
+   "link": "?box=-13,-50,-5,-42&months=8,9&a=2019&b=2025#explorer",
+   "verdict": "modis",
+   "verdict_label": "The older MODIS record is off here",
+   "sentence": "Fire activity changed −21% (2019–2025, Aug–Sep), but the range includes no change. Burning hours look unchanged, but a record built from the older MODIS satellites would be off here because their pass times drifted.",
+   "late": "No sign",
+   "modis": "Yes",
+   "viirs": "down 20.5%",
+   "aqua": "down 19.6%"
+  },
+  {
+   "id": "california",
+   "preset": "california",
+   "title": "California, USA",
+   "season": "Wildfire season",
+   "months": [
+    7,
+    8,
+    9
+   ],
+   "a": 2019,
+   "b": 2025,
+   "question": "Were California’s 2025 wildfires worse than 2019’s?",
+   "do": "Compare the whole series, not two years: wildfire years swing too much for a two-year headline.",
+   "lesson": "Sometimes satellite timing isn’t the issue at all, and Burn Clock says so.",
+   "box": [
+    34,
+    -124,
+    42,
+    -117
+   ],
+   "link": "?box=34,-124,42,-117&months=7,8,9&a=2019&b=2025#explorer",
+   "verdict": "clear",
+   "verdict_label": "Satellite timing doesn’t explain this",
+   "sentence": "No clear change between 2019 and 2025: the range runs from −75% to +507%. Satellite timing isn’t the issue here.",
+   "late": "No sign",
+   "modis": "No",
+   "viirs": "up 10.6%",
+   "aqua": "up 74.1%"
+  },
+  {
+   "id": "parana",
+   "preset": "parana",
+   "title": "Paraná Delta, Argentina",
+   "season": "Wetland burning season",
+   "months": [
+    7,
+    8,
+    9
+   ],
+   "a": 2019,
+   "b": 2025,
+   "question": "Did burning in the delta wetlands change between 2019 and 2025?",
+   "do": "Treat any two-year change here as unverified; there are too few fires for a timing verdict.",
+   "lesson": "When the data can’t support a verdict, Burn Clock says “can’t tell”.",
+   "box": [
+    -34.5,
+    -60.8,
+    -32,
+    -58.3
+   ],
+   "link": "?box=-34.5,-60.8,-32,-58.3&months=7,8,9&a=2019&b=2025#explorer",
+   "verdict": "unknown",
+   "verdict_label": "Can’t tell yet",
+   "sentence": "Fire activity changed +14% (2019–2025, Jul–Sep), but the range includes no change. There are too few fires here to test whether satellite timing matters.",
+   "late": "No sign",
+   "modis": "Can’t tell",
+   "viirs": "up 11.5%",
+   "aqua": "up 36.2%"
+  }
+ ]
+}

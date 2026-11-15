@@ -6,4 +6,5 @@ import './plain.css';
 import './mock.css';
 import './brand.css';
 import './timeline.css';
+import './verdict.css';
 ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><App/></React.StrictMode>);
