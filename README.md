@@ -11,6 +11,7 @@
 | **Satellite timing doesn't explain this** | Punjab wheat season (Apr–May) and California: same check, no timing problem. |
 | **Can't tell yet** | Paraná Delta: too few fires for a verdict. |
 
+- **Live site:** https://burn-clock.vercel.app (public, no login). The live API is at `/api/check` and `/api/punjab`.
 - **Punjab action planner (`#act`):** for each of Punjab's 22 districts, it shows when the burning happens (hourly GK2A data, 2019–2025) and how much further the ~1:40 pm satellite count fell than the whole afternoon. It is built for four kinds of user:
   - **Field teams:** a ranked list of districts and a check window.
   - **Air-quality forecasters:** a sensitivity factor and hourly profiles (CSV).
