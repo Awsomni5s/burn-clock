@@ -2,7 +2,13 @@
 
 [![Integrity](https://github.com/Awsomni5s/burn-clock/actions/workflows/integrity.yml/badge.svg)](https://github.com/Awsomni5s/burn-clock/actions/workflows/integrity.yml)
 
-**Can you trust the fire count for your area?** Fire satellites look at each place only a few fixed times a day, and two of them (Terra and Aqua) have drifted to new times. When burning moves to other hours, the fire count changes even if the fires don't. Burn Clock joins NASA's MODIS and VIIRS records into one 2001–2025 fire record, built from 548,501,203 FIRMS detections. For any place and season it then gives a **verdict**: can you trust this trend, or is it an artifact of when satellites look? It also tells you what to do about it, depending on your job.
+**The burning activity calendar that knows what time it is.** Burn Clock does what the challenge asks: it merges NASA's MODIS and VIIRS fire records (548,501,203 FIRMS detections) into one harmonized burning activity calendar for any area, every month since 2001. It shows the critical period, each month against the multi-year usual, a CSV export, and a raw view by satellite. That calendar is the home page.
+
+Fire satellites look at each place only at a few fixed times a day, and two of them (Terra and Aqua) have drifted. When burning moves to other hours, the count changes even if the fires don't. So every calendar also carries:
+- **a Clock check column**, marking each year since 2021 as trustworthy or distorted by satellite timing;
+- **a verdict** for the chosen season;
+- **a live check** of this week's NASA data;
+- **actions for your role.**
 
 | Verdict | Example (computed by the app) |
 |---|---|
