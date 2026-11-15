@@ -137,13 +137,17 @@ try {
   const [icsFile] = await Promise.all([page.waitForEvent('download'), page.getByTestId('nm-ics').click()]);
   const seasonIcs = readFileSync(await icsFile.path(), 'utf8');
   check('next move: .ics has two seasons with reminders', () => { assert.equal((seasonIcs.match(/BEGIN:VEVENT/g) || []).length, 2); assert.match(seasonIcs, /DTSTART;VALUE=DATE:\d{4}1001/); assert.match(seasonIcs, /TRIGGER:-P14D/); });
-  // 11b. Home is an app: one tab at a time; the next-move links switch tabs.
-  await page.goto(`${base}/?role=policy#home`); await page.getByTestId('next-move').waitFor({timeout: 90000});
-  const onlyOverview = await page.locator('#answer').count();
+  // 11b. Home is one dashboard: next move, calendar and the detail panel side by side; tabs swap only the detail panel.
+  await page.goto(`${base}/?role=policy#home`); await page.getByTestId('next-move').waitFor({timeout: 90000}); await page.locator('#answer').waitFor({timeout: 60000});
+  const together = await page.evaluate(() => { const a = document.querySelector('[data-testid=next-move]').getBoundingClientRect(), c = document.querySelector('.calendar-core').getBoundingClientRect(), d = document.querySelector('[data-testid=dash-detail]').getBoundingClientRect(); return {sameRow: Math.abs(a.top - c.top) < 40 && Math.abs(c.top - d.top) < 40, fits: document.documentElement.scrollHeight <= innerHeight + 2}; });
+  check('dashboard: next move, calendar and detail panel side by side, no page scroll', () => { assert.ok(together.sameRow); assert.ok(together.fits); });
+  await page.getByTestId('tab-week').click(); await page.getByTestId('live-check').waitFor({timeout: 60000});
+  const afterWeek = {answer: await page.locator('#answer').count(), nm: await page.getByTestId('next-move').count()};
+  check('dashboard: the This week tab swaps only the detail panel', () => { assert.equal(afterWeek.answer, 0); assert.equal(afterWeek.nm, 1); });
   await page.getByTestId('nm-trend').getByRole('button', {name: /See the two checks/}).click(); await page.locator('#answer').waitFor({timeout: 30000});
-  check('home tabs: the trend check is its own tab, opened from the next-move card', () => { assert.equal(onlyOverview, 0); assert.match(page.url(), /view=trend/); });
-  const nmOnTrend = await page.getByTestId('next-move').count();
-  check('home tabs: next move hidden on the trend tab', () => assert.equal(nmOnTrend, 0));
+  check('dashboard: the next-move card opens the trend check', () => assert.match(page.url(), /view=trend/));
+  await page.getByTestId('calendar-facts').getByRole('link', {name: /trust that trend/}).click();
+  check('dashboard: the calendar trust link stays on the page', () => assert.match(page.url(), /#home$/));
   // 12. Area shapes: a circle and a province count only the cells inside them.
   const cells = async url => { await page.goto(`${base}/${url}`); await page.locator('.area-name').filter({hasText: /grid cells/}).waitFor({timeout: 90000}); return page.locator('.area-name').innerText(); };
   const boxText = await cells('?box=29.6,74.46,31.4,76.54&choose=true#explorer'), circleText = await cells('?box=29.6,74.46,31.4,76.54&shape=c:30.5,75.5,100&choose=true#explorer');
