@@ -1,13 +1,18 @@
 cff-version: 1.2.0
 message: >-
   Please cite Burn Clock and the upstream datasets when using this software.
-  The collective author is provisional; no Burn Clock DOI has been assigned.
+  No Burn Clock DOI has been assigned.
   Code is MIT licensed. The derived data compilation is CC BY 4.0, subject to
   the source rights and attribution described in DATA_LICENSE.md.
 type: software
 title: "Burn Clock: satellite timing and fire activity"
 authors:
-  - name: "Burn Clock contributors"
+  - given-names: "Otto"
+    family-names: "Skibeli"
+  - given-names: "Xavier"
+    family-names: "Goff"
+  - given-names: "Harshiv"
+    family-names: "Puri"
 version: "1.0.0"
 date-released: "2026-11-14"
 url: "https://burn-clock.vercel.app/"

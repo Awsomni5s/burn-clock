@@ -8,7 +8,7 @@ from PIL import Image
 R = pathlib.Path(".")
 IMG = R / ".deck/img"; OUT = R / ".deck/out"; OUT.mkdir(parents=True, exist_ok=True)
 TEAM = json.loads((R / ".deck/team.json").read_text()) if (R / ".deck/team.json").exists() else {}
-team_name = TEAM.get("team") or "[TEAM NAME]"
+team_name = TEAM.get("team") or "[TEAM NAME: to be confirmed]"
 members = TEAM.get("members") or "[Member 1] · [Member 2] · [Member 3]"
 site = TEAM.get("site") or "[live site link]"
 repo = TEAM.get("repo") or "github.com/Awsomni5s/burn-clock"
@@ -61,7 +61,7 @@ table{border-collapse:collapse;width:100%;font-size:17px}td,th{border-bottom:1px
 mark{background:#ffdd00;padding:0 4px}ul{margin:6px 0 0;padding-left:22px}li{font-size:19px;line-height:1.4;margin:0 0 7px}
 .logo{height:44px}"""
 
-foot = lambda n: f'<div class="foot"><span>Burn Clock · {ph(team_name)} · NASA Space Apps 2026 · Harmonization of MODIS and VIIRS Hot Spots</span><span>Prepared with AI assistance · {n}/7</span></div>'
+foot = lambda n: f'<div class="foot"><span>Burn Clock · {(ph(team_name)+" · ") if TEAM.get("team") else ""}NASA Space Apps 2026 · Harmonization of MODIS and VIIRS Hot Spots</span><span>Prepared with AI assistance · {n}/7</span></div>'
 
 def vcard(c, big=False):
     e, bg, ink = VC[c['verdict']]
