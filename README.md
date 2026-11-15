@@ -18,6 +18,21 @@
   - **Researchers:** data files.
 
   Built by [`pipeline/analysis/punjab_districts.py`](pipeline/analysis/punjab_districts.py) with geoBoundaries ADM2. The browser checks recompute the planner's window, count-gap and ranking numbers from the shipped file.
+- **Live check on every place report, anywhere on Earth:** the verdict's "has burning moved later?" question is also asked of NASA's latest seven-day data for the selected area, against the same month in 2013–19 (`scripts/fetch_live_cells.py`, `src/liveCheck.ts`). With the 8–15 Nov 2026 data:
+  - Punjab + Haryana: **Yes, likely**. Aqua recorded 1.14 cells per NOAA-20 cell, against a normal 0.28–0.37.
+  - Central African savanna and California: **No**. Aqua sees less, as a later pass would when burning peaks earlier.
+  - Kalimantan: **No sign**.
+  - Paraná: **Can't tell**, because there are too few fires.
+- **Live JSON API** (server functions on Vercel, running the same code as the site):
+  - `/api/check?box=27.6,73.8,32.6,77.6&months=10,11&a=2021&b=2025` gives the verdict, the checks, the change and range, and this week's live check for any box. You can pass `lat=&lon=` instead of `box`.
+  - `/api/punjab?district=Sangrur` gives a district's check window, busiest weeks, count gap, wording and this week's fires. Add `&format=text` for a message-length version.
+- **Telegram bot** (optional, like Mee's alerts but with timing). It answers `/district Sangrur`, `/week`, `/check lat lon` and a shared location, and `/subscribe` sends a weekly update (Vercel Cron, Mondays at 17:00 India time). To switch it on:
+  1. Create a bot with @BotFather.
+  2. In Vercel, set `TELEGRAM_BOT_TOKEN`, `TELEGRAM_WEBHOOK_SECRET` (any long random string), `VITE_TELEGRAM_BOT` (the bot's username) and `CRON_SECRET`.
+  3. For subscriptions, add a free Upstash Redis and set `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`.
+  4. Redeploy, then open `/api/telegram-setup?key=<TELEGRAM_WEBHOOK_SECRET>` once.
+  - Code is in `src/server/`, bundled by `scripts/build_api.mjs` and tested with a fake Telegram and Redis in `scripts/api_checks.mjs`.
+- **Always current, no server:** `.github/workflows/live-data.yml` refreshes all live files every six hours and commits them, so a host that deploys on push (Vercel) serves fresh data.
 - **Right now, this week:** the planner also compares NASA's latest seven-day fire files with the same calendar days in 2013–2025.
   - Aqua now crosses Punjab at about 4 pm. In the week of 8–15 Nov 2026 it recorded about 2.0 detections for every NOAA-20 detection at about 1:50 pm, against about 0.2 in 2013–2021.
   - The "Where to send teams this week" table pairs this week's fires with each district's check window.
