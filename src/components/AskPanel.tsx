@@ -13,12 +13,12 @@ const EXAMPLES:Record<string,string[]>={
 const linkify=(t:string)=>t.split(/(https?:\/\/\S+)/g).map((p,i)=>/^https?:\/\//.test(p)?<a key={i} href={p.replace(/[).,]+$/,'')}>{decodeURIComponent(p.replace(/^https?:\/\/[^/]+/,'').replace(/[).,]+$/,''))||'open'}</a>:p);
 
 /** “Ask what to do”: a role-aware advisor. Shown only when the server says it is switched on. */
-export default function AskPanel({compact=false}:{compact?:boolean}){
+export default function AskPanel({compact=false,offText}:{compact?:boolean;offText?:string}){
   const [on,setOn]=useState(false),[q,setQ]=useState(''),[role,setRole]=useState('policy'),[busy,setBusy]=useState(false),[turns,setTurns]=useState<Turn[]>([]),[err,setErr]=useState('');
   const end=useRef<HTMLDivElement>(null);
   useEffect(()=>{fetch('/api/ask').then(r=>r.ok?r.json():null).then(d=>setOn(!!d?.configured)).catch(()=>setOn(false));},[]);
   useEffect(()=>{if(turns.length)end.current?.scrollIntoView({block:'nearest'});},[turns]);
-  if(!on)return null;
+  if(!on)return offText?<p className="ask-off" role="status">{offText}</p>:null;
   const send=async(text:string)=>{if(!text.trim()||busy)return;setBusy(true);setErr('');const history=turns.map(t=>({role:t.role,content:t.content}));setTurns(t=>[...t,{role:'user',content:text}]);setQ('');
     try{const r=await fetch('/api/ask',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({question:text,history,role})});const j=await r.json();if(!r.ok)throw Error(j.message||'The assistant could not answer.');setTurns(t=>[...t,{role:'assistant',content:j.answer,meta:j}]);}
     catch(e){setErr(e instanceof Error?e.message:'The assistant could not answer.');setTurns(t=>t.slice(0,-1));setQ(text);}finally{setBusy(false);}};

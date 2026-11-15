@@ -18,7 +18,8 @@ const weekClass=(a:import('../liveCheck').AmountStatus|undefined,t:LiveStatus|un
 const scrollTo=(id:string)=>()=>{const el=document.getElementById(id)??document.querySelector(`[data-testid="${id}"]`);el?.scrollIntoView({behavior:'smooth',block:'start'});};
 
 /** The first answer after choosing a place: when to be ready, whether the trend is real, what this week looks like, and what to do in your job. */
-export default function NextMove({area,name,months,a,b,manifest,preset,ask=false}:{area:AreaResult;name:string;months:number[];a:number;b:number;manifest:Manifest;preset?:string;ask?:boolean}){
+export default function NextMove({area,name,months,a,b,manifest,preset,ask=false,onGo}:{area:AreaResult;name:string;months:number[];a:number;b:number;manifest:Manifest;preset?:string;ask?:boolean;onGo?:(v:'trend'|'week'|'ask')=>void}){
+  const go=(v:'trend'|'week'|'ask',id:string)=>onGo?()=>onGo(v):scrollTo(id);
   const [role,setRole]=useURLState<Role>('role',preset==='punjab'?'policy':'research',choice(['policy','air','journalist','research'] as const));
   const [doc,setDoc]=useState<LiveCells|null>(null),[liveError,setLiveError]=useState(false);
   useEffect(()=>{fetchData<LiveCells>('live/week_cells.json').then(setDoc).catch(()=>setLiveError(true));},[]);
@@ -58,13 +59,13 @@ export default function NextMove({area,name,months,a,b,manifest,preset,ask=false
       <article className={'nm-card verdict-'+verdict} data-testid="nm-trend"><p className="nm-q">2 · Is the trend real?</p><p className="nm-big"><span className={'v-chip verdict-'+verdict}>{VERDICT_SHORT[verdict]}</span></p>
         <p className="nm-sub">{VERDICT_TRUST[verdict]}.{change!=null&&<> Combined record {da}→{db}, {dm.map(m=>MONTH_NAMES[m-1].slice(0,3)).join('–')}: <strong>{change>0?'+':'−'}{number(Math.abs(change),0)}%</strong>.</>}</p>
         <p className="nm-do"><span>Do:</span> {ACTIONS[verdict][role][verdict==='timing'?{policy:2,air:1,journalist:0,research:0}[role]:0]}</p>
-        <button className="nm-link" onClick={scrollTo('answer')}>Why? See the two checks ↓</button></article>
+        <button className="nm-link" onClick={go('trend','answer')}>Why? See the two checks ↓</button></article>
       <article className={'nm-card verdict-'+weekClass(amount?.status,live?.status)} data-testid="nm-week"><p className="nm-q">3 · This week{doc?.window.first_date&&doc.window.last_date?<> ({shortDay(doc.window.first_date).split(' ')[1]===shortDay(doc.window.last_date).split(' ')[1]?shortDay(doc.window.first_date).split(' ')[0]:shortDay(doc.window.first_date)}–{shortDay(doc.window.last_date)})</>:''}</p>
         <p className="nm-big"><span className={'v-chip verdict-'+weekClass(amount?.status,live?.status)} data-testid="nm-amount">{amount?AMOUNT_LABEL[amount.status]:liveError?'Live data unavailable':'Loading…'}</span></p>
         <p className="nm-sub">{amount&&live?<>{amount.median!=null?<>{number(amount.week,0)} NOAA-20 active cell-days this week; an average {MONTH_NAMES[amount.month-1]} week in 2019–2025: {number(amount.median,0)} (range {number(amount.min!,0)}–{number(amount.max!,0)}). </>:<>{number(amount.week,0)} NOAA-20 active cell-days this week; too few past {MONTH_NAMES[amount.month-1]} records here to compare. </>}Timing: <strong>{LIVE_INLINE[live.status]}</strong>.</>:liveError?'NASA’s near-real-time files could not be read.':'Reading NASA’s last seven days…'}</p>
         <p className="nm-do"><span>Do:</span> {thisWeekAction(role,amount?.status??'unknown',live?.status??'unknown')}</p>
-        <button className="nm-link" onClick={scrollTo('live-title')}>This week in detail ↓</button></article>
+        <button className="nm-link" onClick={go('week','live-title')}>This week in detail ↓</button></article>
     </div>
-    <p className="nm-more"><a className="nm-share" href={`https://wa.me/?text=${encodeURIComponent(summary())}`} target="_blank" rel="noopener noreferrer" data-testid="nm-whatsapp">Send this to WhatsApp</a><button className="nm-link" onClick={copy} data-testid="nm-copy">{copied?'Copied':'Copy summary and link'}</button><button className="nm-link" onClick={scrollTo('answer')}>All actions for your job and a one-page brief ↓</button>{preset==='punjab'&&<a href="#act" data-testid="nm-act">Punjab district planner, by district →</a>}{ask&&<button className="nm-link" onClick={scrollTo('ask-panel')}>Ask the advisor about this place ↓</button>}</p>
+    <p className="nm-more"><a className="nm-share" href={`https://wa.me/?text=${encodeURIComponent(summary())}`} target="_blank" rel="noopener noreferrer" data-testid="nm-whatsapp">Send this to WhatsApp</a><button className="nm-link" onClick={copy} data-testid="nm-copy">{copied?'Copied':'Copy summary and link'}</button><button className="nm-link" onClick={go('trend','answer')}>All actions for your job and a one-page brief ↓</button>{preset==='punjab'&&<a href="#act" data-testid="nm-act">Punjab district planner, by district →</a>}{ask&&<button className="nm-link" onClick={go('ask','ask-panel')}>Ask the advisor about this place ↓</button>}</p>
   </section>;
 }

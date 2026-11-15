@@ -1,5 +1,5 @@
 {
-  "tested_at": "2026-11-15T21:35:00.029Z",
+  "tested_at": "2026-11-15T22:06:50.400Z",
   "status": "passed",
   "checks": [
     {
@@ -140,6 +140,14 @@
     },
     {
       "name": "next move: .ics has two seasons with reminders",
+      "ok": true
+    },
+    {
+      "name": "home tabs: the trend check is its own tab, opened from the next-move card",
+      "ok": true
+    },
+    {
+      "name": "home tabs: next move hidden on the trend tab",
       "ok": true
     },
     {
