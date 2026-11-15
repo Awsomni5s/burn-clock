@@ -1,0 +1,19 @@
+{
+  "source_archive": "burnclock_logo_chosen.zip",
+  "source_archive_sha256": "0cf471e6b4a3a638fc728be391ddbafacaeccd783d3d0f9f6a7faa7840723771",
+  "original_vectors": [
+    "burnclock_lockup_mono_light.svg",
+    "burnclock_mark_black.svg",
+    "favicon_black.svg"
+  ],
+  "generated_icons": {
+    "favicon-32.png": "Chromium rendering of favicon_black.svg at 32 \u00d7 32, white background",
+    "apple-touch-icon.png": "Chromium rendering of burnclock_mark_black.svg at 180 \u00d7 180, white background"
+  },
+  "note": "The supplied PNGs contained broken-image placeholders. Original SVG artwork is used unchanged; icons were rendered from those vectors.",
+  "button_palette": {
+    "primary": "#9A3412",
+    "hover": "#3A1A0E",
+    "focus": "#D9481C"
+  }
+}

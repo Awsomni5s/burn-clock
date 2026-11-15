@@ -1,0 +1,193 @@
+{
+  "tested_at": "2026-11-15T05:46:30.294Z",
+  "scans": [
+    {
+      "width": 1440,
+      "route": "home",
+      "violations": 0
+    },
+    {
+      "width": 1440,
+      "route": "explorer",
+      "violations": 0
+    },
+    {
+      "width": 1440,
+      "route": "claim",
+      "violations": 0
+    },
+    {
+      "width": 1440,
+      "route": "receipt",
+      "violations": 0
+    },
+    {
+      "width": 1440,
+      "route": "clock",
+      "violations": 0
+    },
+    {
+      "width": 1440,
+      "route": "validation",
+      "violations": 0
+    },
+    {
+      "width": 1440,
+      "route": "brief",
+      "violations": 0
+    },
+    {
+      "width": 1440,
+      "route": "api",
+      "violations": 0
+    },
+    {
+      "width": 1440,
+      "route": "methods",
+      "violations": 0
+    },
+    {
+      "width": 768,
+      "route": "home",
+      "violations": 0
+    },
+    {
+      "width": 768,
+      "route": "explorer",
+      "violations": 0
+    },
+    {
+      "width": 768,
+      "route": "claim",
+      "violations": 0
+    },
+    {
+      "width": 768,
+      "route": "receipt",
+      "violations": 0
+    },
+    {
+      "width": 768,
+      "route": "clock",
+      "violations": 0
+    },
+    {
+      "width": 768,
+      "route": "validation",
+      "violations": 0
+    },
+    {
+      "width": 768,
+      "route": "brief",
+      "violations": 0
+    },
+    {
+      "width": 768,
+      "route": "api",
+      "violations": 0
+    },
+    {
+      "width": 768,
+      "route": "methods",
+      "violations": 0
+    },
+    {
+      "width": 375,
+      "route": "home",
+      "violations": 0
+    },
+    {
+      "width": 375,
+      "route": "explorer",
+      "violations": 0
+    },
+    {
+      "width": 375,
+      "route": "claim",
+      "violations": 0
+    },
+    {
+      "width": 375,
+      "route": "receipt",
+      "violations": 0
+    },
+    {
+      "width": 375,
+      "route": "clock",
+      "violations": 0
+    },
+    {
+      "width": 375,
+      "route": "validation",
+      "violations": 0
+    },
+    {
+      "width": 375,
+      "route": "brief",
+      "violations": 0
+    },
+    {
+      "width": 375,
+      "route": "api",
+      "violations": 0
+    },
+    {
+      "width": 375,
+      "route": "methods",
+      "violations": 0
+    },
+    {
+      "width": 320,
+      "route": "home",
+      "violations": 0
+    },
+    {
+      "width": 320,
+      "route": "explorer",
+      "violations": 0
+    },
+    {
+      "width": 320,
+      "route": "claim",
+      "violations": 0
+    },
+    {
+      "width": 320,
+      "route": "receipt",
+      "violations": 0
+    },
+    {
+      "width": 320,
+      "route": "clock",
+      "violations": 0
+    },
+    {
+      "width": 320,
+      "route": "validation",
+      "violations": 0
+    },
+    {
+      "width": 320,
+      "route": "brief",
+      "violations": 0
+    },
+    {
+      "width": 320,
+      "route": "api",
+      "violations": 0
+    },
+    {
+      "width": 320,
+      "route": "methods",
+      "violations": 0
+    }
+  ],
+  "buttonStates": [
+    "default",
+    "hover",
+    "focus"
+  ],
+  "assets": 4,
+  "homeNavigation": true,
+  "mobileMenu": true
+}

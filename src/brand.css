@@ -1,0 +1,101 @@
+/* Colors sampled from the chosen wordmark; scientific chart palettes stay stable. */
+.mock-app {
+  --brand-brown: #3a1a0e;
+  --brand-rust: #9a3412;
+  --brand-orange: #d9481c;
+  --brand-tint: #fff4ee;
+}
+
+.mock-app .plain-brand { display: block; flex: 0 0 auto; line-height: 0; }
+.mock-app .plain-brand img { display: block; width: 236px; max-width: 100%; height: auto; }
+.mock-app .plain-header { gap: 28px; }
+
+.mock-app .button,
+.mock-app .area-actions button,
+.mock-app .preset-buttons button {
+  color: var(--brand-rust);
+  border-color: var(--brand-rust);
+  background: white;
+}
+/* Change text and fill together so a role switch never fades white text over white. */
+.mock-app .button { transition: none; }
+.mock-app .button.secondary {
+  background: var(--brand-tint);
+  color: var(--brand-brown);
+  border-color: var(--brand-rust);
+  box-shadow: 0 2px var(--brand-brown);
+}
+.mock-app .button:hover,
+.mock-app .area-actions button:hover,
+.mock-app .preset-buttons button:hover {
+  color: var(--brand-brown);
+  background: var(--brand-tint);
+  border-color: var(--brand-brown);
+}
+.mock-app .button.primary,
+.mock-app .site-tools > button.primary,
+.mock-app .segmented button[aria-pressed=true],
+.mock-app .preset-buttons button[aria-pressed=true] {
+  background: var(--brand-rust);
+  color: white;
+  border-color: var(--brand-rust);
+}
+.mock-app .button.primary { box-shadow: 0 2px var(--brand-brown); }
+.mock-app .button.primary:hover,
+.mock-app .site-tools > button.primary:hover,
+.mock-app .segmented button[aria-pressed=true]:hover,
+.mock-app .preset-buttons button[aria-pressed=true]:hover {
+  background: var(--brand-brown);
+  color: white;
+  border-color: var(--brand-brown);
+}
+.mock-app .text-button,
+.mock-app .site-tools > button:not(.primary),
+.mock-app .share-view > button,
+.mock-app .cite-dataset > button,
+.mock-app .preset-links button,
+.mock-app .report-toolbar button,
+.mock-app .menu-toggle,
+.mock-app .segmented button,
+.mock-app .judge-tour button,
+.mock-app .answer-actions > button:not(.button),
+.mock-app .policy-brief > .no-print > button,
+.mock-app .gis-downloads > button,
+.mock-app .dialog-close {
+  color: var(--brand-rust);
+}
+.mock-app .text-button:hover,
+.mock-app .site-tools > button:not(.primary):hover,
+.mock-app .share-view > button:hover,
+.mock-app .cite-dataset > button:hover,
+.mock-app .preset-links button:hover,
+.mock-app .report-toolbar button:hover,
+.mock-app .menu-toggle:hover,
+.mock-app .judge-tour button:hover { color: var(--brand-brown); }
+.mock-app .map-btn { background: var(--brand-brown); color: white; }
+.mock-app .map-btn:hover,
+.mock-app .map-btn.active { background: var(--brand-rust); color: white; }
+.mock-app .role-tabs button { color: var(--brand-brown); background: var(--brand-tint); }
+.mock-app .role-tabs button[aria-pressed=true] {
+  color: var(--brand-rust);
+  background: white;
+  border-color: var(--brand-rust);
+  border-bottom-color: white;
+}
+.mock-app input[type=checkbox],
+.mock-app input[type=range] { accent-color: var(--brand-rust); }
+.mock-app button:focus-visible,
+.mock-app a.button:focus-visible {
+  outline: 3px solid var(--brand-orange);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 2px white;
+}
+@media (max-width: 850px) {
+  .mock-app .plain-brand img { width: 205px; }
+  .mock-app .plain-header { gap: 20px; }
+}
+@media (max-width: 600px) {
+  .mock-app .plain-brand { width: max-content; max-width: 100%; }
+  .mock-app .plain-brand img { width: 210px; }
+  .mock-app .plain-header { gap: 10px; }
+}

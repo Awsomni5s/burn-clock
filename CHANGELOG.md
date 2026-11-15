@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-15 — Chosen logo and button palette
+
+Added the supplied satellite-and-wordmark SVG to the responsive header, with SVG favicon and freshly rendered PNG browser/home-screen icons. The supplied PNG files contained broken-image placeholders; the original SVG artwork is intact. Buttons now use the logo's rust, dark brown and orange, including hover, selected and keyboard-focus states. Scientific satellite/chart colors remain consistent with their existing legends.
+
+Local verification: 36 accessibility scans (nine pages at 1440, 768, 375 and 320 pixels), zero reported violations or page overflow; verified primary default/hover/focus colors, four asset URLs, logo home navigation and mobile menu. Removed a background fade after an automated scan detected transient low contrast on a changing claim-card button. These are automated/developer checks, not participant tests. See `public/qa/branding-checks.json` and `public/brand/SOURCES.json`.
+
 ## 2026-11-15 — Latest mock screens and selected-month timing
 
 Implemented the uploaded 11-screen design: task-led home, distinct place and claim pages, four role-specific panels, annual charts with bounds, map-first Punjab evidence, global exploration, reliability summary, About and phone menu. Retained NASA links, provenance, exports, tour, citation and the one-page brief. Replaced stale mock values with source-derived values and used only the two supplied years of hourly shares.
