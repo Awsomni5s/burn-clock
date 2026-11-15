@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-15T00:57:53.189Z",
+  "generated_at": "2026-11-15T18:46:28.307Z",
   "feeds": {
     "MODIS": {
-      "rows": 82587,
-      "first_observation_date": "2026-11-07",
-      "last_observation_date": "2026-11-14",
+      "rows": 76769,
+      "first_observation_date": "2026-11-08",
+      "last_observation_date": "2026-11-15",
       "platforms": {
         "T": {
           "name": "Terra",
-          "detections": 28823,
+          "detections": 26746,
           "presets": {
             "punjab": {
               "name": "Punjab + Haryana",
@@ -19,8 +19,8 @@
                 32.6,
                 77.6
               ],
-              "detections": 16,
-              "median_local_solar_hour": 20.10720633333333,
+              "detections": 17,
+              "median_local_solar_hour": 20.10689933333333,
               "daytime_detections": 5,
               "median_daytime_local_solar_hour": 9.157549333333336
             },
@@ -32,10 +32,10 @@
                 -32,
                 -58.3
               ],
-              "detections": 7,
-              "median_local_solar_hour": 8.368977999999998,
-              "daytime_detections": 6,
-              "median_daytime_local_solar_hour": 8.367992333333333
+              "detections": 8,
+              "median_local_solar_hour": 8.369369666666664,
+              "daytime_detections": 7,
+              "median_daytime_local_solar_hour": 8.368977999999998
             },
             "cerrado": {
               "name": "Cerrado / MATOPIBA",
@@ -45,10 +45,10 @@
                 -5,
                 -42
               ],
-              "detections": 343,
-              "median_local_solar_hour": 20.4717,
-              "daytime_detections": 67,
-              "median_daytime_local_solar_hour": 8.8356
+              "detections": 374,
+              "median_local_solar_hour": 20.483662,
+              "daytime_detections": 59,
+              "median_daytime_local_solar_hour": 8.808853333333332
             },
             "africa": {
               "name": "Central African savanna",
@@ -58,10 +58,10 @@
                 10,
                 30
               ],
-              "detections": 2039,
-              "median_local_solar_hour": 8.881623333333337,
-              "daytime_detections": 1385,
-              "median_daytime_local_solar_hour": 8.661127333333333
+              "detections": 2062,
+              "median_local_solar_hour": 8.917202666666668,
+              "daytime_detections": 1412,
+              "median_daytime_local_solar_hour": 8.679515666666667
             },
             "kalimantan": {
               "name": "Kalimantan",
@@ -71,10 +71,10 @@
                 1,
                 117
               ],
-              "detections": 104,
-              "median_local_solar_hour": 20.369599,
-              "daytime_detections": 23,
-              "median_daytime_local_solar_hour": 8.367927333333334
+              "detections": 88,
+              "median_local_solar_hour": 20.359465999999998,
+              "daytime_detections": 20,
+              "median_daytime_local_solar_hour": 8.626752333333332
             },
             "california": {
               "name": "California",
@@ -84,19 +84,19 @@
                 42,
                 -117
               ],
-              "detections": 47,
-              "median_local_solar_hour": 9.577861999999996,
-              "daytime_detections": 26,
-              "median_daytime_local_solar_hour": 9.078557
+              "detections": 52,
+              "median_local_solar_hour": 9.643270666666666,
+              "daytime_detections": 27,
+              "median_daytime_local_solar_hour": 9.186121999999997
             }
           },
-          "median_local_solar_hour": 20.022427333333333,
-          "daytime_detections": 13849,
-          "median_daytime_local_solar_hour": 8.622496666666663
+          "median_local_solar_hour": 20.082723,
+          "daytime_detections": 12391,
+          "median_daytime_local_solar_hour": 8.64873466666667
         },
         "A": {
           "name": "Aqua",
-          "detections": 53764,
+          "detections": 50023,
           "presets": {
             "punjab": {
               "name": "Punjab + Haryana",
@@ -106,10 +106,10 @@
                 32.6,
                 77.6
               ],
-              "detections": 3041,
-              "median_local_solar_hour": 15.531170666666668,
-              "daytime_detections": 3041,
-              "median_daytime_local_solar_hour": 15.531170666666668
+              "detections": 3035,
+              "median_local_solar_hour": 15.531374,
+              "daytime_detections": 3035,
+              "median_daytime_local_solar_hour": 15.531374
             },
             "parana": {
               "name": "Paraná Delta",
@@ -132,10 +132,10 @@
                 -5,
                 -42
               ],
-              "detections": 864,
-              "median_local_solar_hour": 15.820194333333333,
-              "daytime_detections": 812,
-              "median_daytime_local_solar_hour": 15.839128333333335
+              "detections": 852,
+              "median_local_solar_hour": 15.819899333333336,
+              "daytime_detections": 805,
+              "median_daytime_local_solar_hour": 15.836522666666667
             },
             "africa": {
               "name": "Central African savanna",
@@ -145,10 +145,10 @@
                 10,
                 30
               ],
-              "detections": 6322,
-              "median_local_solar_hour": 15.702892666666664,
-              "daytime_detections": 6166,
-              "median_daytime_local_solar_hour": 15.714015666666665
+              "detections": 6610,
+              "median_local_solar_hour": 15.694046,
+              "daytime_detections": 6436,
+              "median_daytime_local_solar_hour": 15.709745999999999
             },
             "kalimantan": {
               "name": "Kalimantan",
@@ -158,10 +158,10 @@
                 1,
                 117
               ],
-              "detections": 192,
-              "median_local_solar_hour": 15.716948666666667,
-              "daytime_detections": 163,
-              "median_daytime_local_solar_hour": 15.731490666666666
+              "detections": 88,
+              "median_local_solar_hour": 15.623420333333332,
+              "daytime_detections": 77,
+              "median_daytime_local_solar_hour": 15.657263999999998
             },
             "california": {
               "name": "California",
@@ -171,22 +171,22 @@
                 42,
                 -117
               ],
-              "detections": 104,
-              "median_local_solar_hour": 15.147241666666666,
-              "daytime_detections": 101,
-              "median_daytime_local_solar_hour": 15.147763999999995
+              "detections": 102,
+              "median_local_solar_hour": 15.147809666666664,
+              "daytime_detections": 96,
+              "median_daytime_local_solar_hour": 15.150907666666665
             }
           },
-          "median_local_solar_hour": 15.713884999999998,
-          "daytime_detections": 48907,
-          "median_daytime_local_solar_hour": 15.750760666666665
+          "median_local_solar_hour": 15.697839333333334,
+          "daytime_detections": 45869,
+          "median_daytime_local_solar_hour": 15.733277333333334
         }
       },
       "url": "https://firms.modaps.eosdis.nasa.gov/data/active_fire/modis-c6.1/csv/MODIS_C6_1_Global_7d.csv",
       "status": "ok",
-      "fetched_at": "2026-11-15T00:57:53.189Z",
-      "last_attempt_at": "2026-11-15T00:57:53.189Z",
-      "sha256": "88cb0f09b78d38ab19269eb199a1a39432a24f251d4cd9c38b982f81940eca14",
+      "fetched_at": "2026-11-15T18:46:28.307Z",
+      "last_attempt_at": "2026-11-15T18:46:28.307Z",
+      "sha256": "9f29a974d7d6106f06a7d40b0eca7a63b13ebd1886a2ff655b0002d3b496345b",
       "error": null
     },
     "N": {
@@ -284,19 +284,19 @@
       },
       "url": "https://firms.modaps.eosdis.nasa.gov/data/active_fire/suomi-npp-viirs-c2/csv/SUOMI_VIIRS_C2_Global_7d.csv",
       "status": "header_only",
-      "fetched_at": "2026-11-15T00:57:53.189Z",
-      "last_attempt_at": "2026-11-15T00:57:53.189Z",
+      "fetched_at": "2026-11-15T18:46:28.307Z",
+      "last_attempt_at": "2026-11-15T18:46:28.307Z",
       "sha256": "fe0401e40606fd90dd4cf24dff508a93539089a4aecf701e2a3c85851fe9bf40",
       "error": null
     },
     "J1": {
-      "rows": 431187,
-      "first_observation_date": "2026-11-07",
-      "last_observation_date": "2026-11-14",
+      "rows": 413808,
+      "first_observation_date": "2026-11-08",
+      "last_observation_date": "2026-11-15",
       "platforms": {
         "J1": {
           "name": "NOAA-20",
-          "detections": 431187,
+          "detections": 413808,
           "presets": {
             "punjab": {
               "name": "Punjab + Haryana",
@@ -306,10 +306,10 @@
                 32.6,
                 77.6
               ],
-              "detections": 2296,
-              "median_local_solar_hour": 13.376093999999998,
-              "daytime_detections": 2160,
-              "median_daytime_local_solar_hour": 13.40512266666667
+              "detections": 2349,
+              "median_local_solar_hour": 13.218641333333338,
+              "daytime_detections": 2230,
+              "median_daytime_local_solar_hour": 13.306212333333335
             },
             "parana": {
               "name": "Paraná Delta",
@@ -319,10 +319,10 @@
                 -32,
                 -58.3
               ],
-              "detections": 100,
-              "median_local_solar_hour": 1.8229346666666686,
-              "daytime_detections": 31,
-              "median_daytime_local_solar_hour": 14.220916666666668
+              "detections": 109,
+              "median_local_solar_hour": 1.8140926666666672,
+              "daytime_detections": 29,
+              "median_daytime_local_solar_hour": 14.206040666666667
             },
             "cerrado": {
               "name": "Cerrado / MATOPIBA",
@@ -332,10 +332,10 @@
                 -5,
                 -42
               ],
-              "detections": 3521,
-              "median_local_solar_hour": 13.654204,
-              "daytime_detections": 2159,
-              "median_daytime_local_solar_hour": 13.987636666666667
+              "detections": 2571,
+              "median_local_solar_hour": 13.602024,
+              "daytime_detections": 1573,
+              "median_daytime_local_solar_hour": 13.81831666666666
             },
             "africa": {
               "name": "Central African savanna",
@@ -345,10 +345,10 @@
                 10,
                 30
               ],
-              "detections": 48650,
-              "median_local_solar_hour": 13.341554333333335,
-              "daytime_detections": 42922,
-              "median_daytime_local_solar_hour": 13.428018666666667
+              "detections": 54965,
+              "median_local_solar_hour": 13.281948,
+              "daytime_detections": 48749,
+              "median_daytime_local_solar_hour": 13.341503333333335
             },
             "kalimantan": {
               "name": "Kalimantan",
@@ -358,10 +358,10 @@
                 1,
                 117
               ],
-              "detections": 1333,
-              "median_local_solar_hour": 2.0071286666666666,
-              "daytime_detections": 625,
-              "median_daytime_local_solar_hour": 13.632862666666668
+              "detections": 952,
+              "median_local_solar_hour": 13.365217000000001,
+              "daytime_detections": 569,
+              "median_daytime_local_solar_hour": 13.679147333333333
             },
             "california": {
               "name": "California",
@@ -371,32 +371,32 @@
                 42,
                 -117
               ],
-              "detections": 1128,
-              "median_local_solar_hour": 12.795554333333335,
-              "daytime_detections": 752,
-              "median_daytime_local_solar_hour": 13.124308666666668
+              "detections": 1120,
+              "median_local_solar_hour": 12.727469333333332,
+              "daytime_detections": 731,
+              "median_daytime_local_solar_hour": 13.164880666666662
             }
           },
-          "median_local_solar_hour": 13.290417333333338,
-          "daytime_detections": 324654,
-          "median_daytime_local_solar_hour": 13.529881000000003
+          "median_local_solar_hour": 13.283059000000002,
+          "daytime_detections": 316771,
+          "median_daytime_local_solar_hour": 13.495632
         }
       },
       "url": "https://firms.modaps.eosdis.nasa.gov/data/active_fire/noaa-20-viirs-c2/csv/J1_VIIRS_C2_Global_7d.csv",
       "status": "ok",
-      "fetched_at": "2026-11-15T00:57:53.189Z",
-      "last_attempt_at": "2026-11-15T00:57:53.189Z",
-      "sha256": "8455470734cb03b84d174cf46d266b2fd0ad90dde35b0303cb85dbc8fa33e7c7",
+      "fetched_at": "2026-11-15T18:46:28.307Z",
+      "last_attempt_at": "2026-11-15T18:46:28.307Z",
+      "sha256": "ba51190563cd3f8208072bfed353665ab434250b0567d5cc6bed73d3408958e1",
       "error": null
     },
     "J2": {
-      "rows": 422848,
-      "first_observation_date": "2026-11-07",
-      "last_observation_date": "2026-11-14",
+      "rows": 393244,
+      "first_observation_date": "2026-11-08",
+      "last_observation_date": "2026-11-15",
       "platforms": {
         "J2": {
           "name": "NOAA-21",
-          "detections": 422848,
+          "detections": 393244,
           "presets": {
             "punjab": {
               "name": "Punjab + Haryana",
@@ -406,10 +406,10 @@
                 32.6,
                 77.6
               ],
-              "detections": 2260,
-              "median_local_solar_hour": 13.045243666666668,
-              "daytime_detections": 2122,
-              "median_daytime_local_solar_hour": 13.058037000000002
+              "detections": 1888,
+              "median_local_solar_hour": 12.894963000000004,
+              "daytime_detections": 1772,
+              "median_daytime_local_solar_hour": 13.101416
             },
             "parana": {
               "name": "Paraná Delta",
@@ -419,10 +419,10 @@
                 -32,
                 -58.3
               ],
-              "detections": 85,
-              "median_local_solar_hour": 1.2908066666666684,
-              "daytime_detections": 30,
-              "median_daytime_local_solar_hour": 13.976343999999997
+              "detections": 96,
+              "median_local_solar_hour": 1.267529333333334,
+              "daytime_detections": 29,
+              "median_daytime_local_solar_hour": 13.981139333333331
             },
             "cerrado": {
               "name": "Cerrado / MATOPIBA",
@@ -432,10 +432,10 @@
                 -5,
                 -42
               ],
-              "detections": 2349,
-              "median_local_solar_hour": 13.148186666666668,
-              "daytime_detections": 1520,
-              "median_daytime_local_solar_hour": 13.445035666666666
+              "detections": 1816,
+              "median_local_solar_hour": 13.122326333333334,
+              "daytime_detections": 1149,
+              "median_daytime_local_solar_hour": 13.512591333333333
             },
             "africa": {
               "name": "Central African savanna",
@@ -445,10 +445,10 @@
                 10,
                 30
               ],
-              "detections": 44059,
-              "median_local_solar_hour": 13.307006666666666,
-              "daytime_detections": 38626,
-              "median_daytime_local_solar_hour": 13.392898666666667
+              "detections": 49552,
+              "median_local_solar_hour": 13.425040000000003,
+              "daytime_detections": 43944,
+              "median_daytime_local_solar_hour": 13.493905666666667
             },
             "kalimantan": {
               "name": "Kalimantan",
@@ -458,10 +458,10 @@
                 1,
                 117
               ],
-              "detections": 1231,
-              "median_local_solar_hour": 13.287918000000005,
-              "daytime_detections": 753,
-              "median_daytime_local_solar_hour": 13.422628000000003
+              "detections": 1029,
+              "median_local_solar_hour": 13.226869333333333,
+              "daytime_detections": 713,
+              "median_daytime_local_solar_hour": 13.353006666666666
             },
             "california": {
               "name": "California",
@@ -471,22 +471,22 @@
                 42,
                 -117
               ],
-              "detections": 1127,
-              "median_local_solar_hour": 12.277839999999998,
-              "daytime_detections": 707,
-              "median_daytime_local_solar_hour": 12.837007333333332
+              "detections": 1112,
+              "median_local_solar_hour": 12.256041,
+              "daytime_detections": 691,
+              "median_daytime_local_solar_hour": 12.836886666666665
             }
           },
-          "median_local_solar_hour": 13.168823,
-          "daytime_detections": 310031,
-          "median_daytime_local_solar_hour": 13.46042
+          "median_local_solar_hour": 13.168929999999996,
+          "daytime_detections": 291258,
+          "median_daytime_local_solar_hour": 13.452226000000003
         }
       },
       "url": "https://firms.modaps.eosdis.nasa.gov/data/active_fire/noaa-21-viirs-c2/csv/J2_VIIRS_C2_Global_7d.csv",
       "status": "ok",
-      "fetched_at": "2026-11-15T00:57:53.189Z",
-      "last_attempt_at": "2026-11-15T00:57:53.189Z",
-      "sha256": "975b3e98458c564df5ec6f41966c75f8df893e9b8952967b711f9c2f263921b6",
+      "fetched_at": "2026-11-15T18:46:28.307Z",
+      "last_attempt_at": "2026-11-15T18:46:28.307Z",
+      "sha256": "93d4dd800e6f70e9dcdaccf55bc32500bb10d8f759e35b43d02d355d04c26a10",
       "error": null
     }
   },

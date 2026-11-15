@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-11-15T17:48:02Z",
+ "generated_utc": "2026-11-15T18:46:40Z",
  "window": {
   "first_date": "2026-11-08",
   "last_date": "2026-11-15"
@@ -8,7 +8,7 @@
   "MODIS": {
    "url": "https://firms.modaps.eosdis.nasa.gov/data/active_fire/modis-c6.1/csv/MODIS_C6_1_South_Asia_7d.csv",
    "http_status": 200,
-   "rows": 5517,
+   "rows": 5522,
    "first_date": "2026-11-08",
    "last_date": "2026-11-15"
   },
