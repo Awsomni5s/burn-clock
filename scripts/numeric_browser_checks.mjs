@@ -146,7 +146,7 @@ try{
        year:el.querySelector('.year-chip')?.textContent,
        late:el.querySelector('[data-testid=timing-late]')?.textContent,
        relationship:el.querySelector('[data-testid=timing-relationship]')?.textContent,
-       times:[...el.querySelectorAll('.clock-time')].map(row=>({name:row.querySelectorAll('span')[1]?.textContent,time:row.querySelector('strong')?.textContent,change:row.querySelector('small')?.textContent})),
+       times:[...el.querySelectorAll('.timeline-pass-row[data-available=true]')].map(row=>({name:row.querySelector('th')?.textContent,time:row.querySelectorAll('td')[0]?.textContent,change:row.querySelectorAll('td')[2]?.textContent,baseline:row.querySelectorAll('td')[1]?.textContent})),
        tests:[...el.querySelectorAll('.timing-detail tbody tr')].map(row=>[...row.querySelectorAll('th,td')].map(cell=>cell.textContent))
      }));
      const p=`${id}/clock/${clock.year}`;
@@ -155,8 +155,10 @@ try{
      check(state.times.length,available.length,p+'/look row count');
      for(const [i,platform] of available.entries()){
        const now=state.times[i];check(now?.name,platforms[platform],p+'/'+platform+'/name');
-       check(now?.time,clockTime(civilReference(clock.look[platform],preset.box,clock.year,id)),p+'/'+platform+'/look');
-       check(now?.change,clock.baselineLook[platform]===null?'—':signed(lookChangeMinutes(clock.look[platform],clock.baselineLook[platform]),0)+' min',p+'/'+platform+'/look change');
+       const displayTime=value=>{if(value===null)return 'Unavailable';const [h,m]=clockTime(value).split(':').map(Number);return `${h%12||12}${m?':'+String(m).padStart(2,'0'):''} ${h>=12?'pm':'am'}`;};
+       check(now?.time,displayTime(civilReference(clock.look[platform],preset.box,clock.year,id)),p+'/'+platform+'/look');
+       check(now?.baseline,displayTime(clock.baselineLook[platform]===null?null:civilReference(clock.baselineLook[platform],preset.box,clock.year,id)),p+'/'+platform+'/baseline');
+       check(now?.change,clock.baselineLook[platform]===null?'Unavailable':signed(lookChangeMinutes(clock.look[platform],clock.baselineLook[platform]),0)+' min',p+'/'+platform+'/look change');
      }
      check(state.tests.length,2,p+'/test count');
      for(const [i,test] of t.tests.entries()){

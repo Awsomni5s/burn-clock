@@ -1,0 +1,58 @@
+{
+  "tested_at": "2026-11-15T06:11:28.489Z",
+  "status": "passed",
+  "checks": [
+    "Both hourly distributions and late share match original integer counts; 2019 is explicitly unavailable",
+    "Comparison toggle survives reload and browser Back restores the overlay",
+    "Changing the observed year updates bars and peak, with no fabricated 2019 shares",
+    "Africa and California use their own pass times and civil zones, without Punjab bars",
+    "Timeline and accessible source tables fit four widths in both data-availability states",
+    "Keyboard chart sources and individual pass-time provenance are usable"
+  ],
+  "scans": [
+    {
+      "width": 1360,
+      "area": "punjab",
+      "violations": 0
+    },
+    {
+      "width": 1360,
+      "area": "africa",
+      "violations": 0
+    },
+    {
+      "width": 768,
+      "area": "punjab",
+      "violations": 0
+    },
+    {
+      "width": 768,
+      "area": "africa",
+      "violations": 0
+    },
+    {
+      "width": 375,
+      "area": "punjab",
+      "violations": 0
+    },
+    {
+      "width": 375,
+      "area": "africa",
+      "violations": 0
+    },
+    {
+      "width": 320,
+      "area": "punjab",
+      "violations": 0
+    },
+    {
+      "width": 320,
+      "area": "africa",
+      "violations": 0
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Automated checks only; no human usability study was conducted."
+  ]
+}

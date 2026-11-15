@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-15T05:32:59.462Z",
+  "generatedAt": "2026-11-15T06:12:21.421Z",
   "automated": [
     {
       "name": "Calculations and fixed rules",
       "status": "Passed",
-      "detail": "94 unit tests and four live-parser tests. Selected-month timing is checked against 1,909 independent Python cases, with explicit Punjab, Africa, missing-data and negative-Aqua regressions."
+      "detail": "98 unit tests and four live-parser tests. Selected-month timing is checked against 1,909 independent Python cases, with explicit Punjab, Africa, missing-data and negative-Aqua regressions."
     },
     {
       "name": "Supplied calendar integrity",
@@ -14,7 +14,7 @@
     {
       "name": "Rendered numbers and CSV",
       "status": "Passed",
-      "detail": "127,653 assertions across six presets, all calendar modes, monthly values, CSV fields, pass times, selected-month timing checks, 72 country rows, validation and Methods."
+      "detail": "127,935 assertions across six presets, all calendar modes, monthly values, CSV fields, pass times, selected-month timing checks, 72 country rows, validation and Methods."
     },
     {
       "name": "Comparisons, baselines and illustration",
@@ -32,9 +32,14 @@
       "detail": "12 workflow groups cover the home/search, four roles, Africa, annual bars, claim wording/export, mobile menu, source failures and speed. 28 desktop/phone scans reported zero automated WCAG A/AA violations and no page overflow. This does not certify screen-reader or real-person usability."
     },
     {
+      "name": "Satellite and afternoon timeline",
+      "status": "Passed automated checks; human review pending",
+      "detail": "6 scenario groups verify shares against original hourly counts, unavailable 2019 data, observation-year changes, geography/time zones, history and provenance. 8 additional scans cover Punjab and Africa at desktop, tablet and two phone widths; zero automated violations or page overflow."
+    },
+    {
       "name": "First view and interaction speed",
       "status": "Passed local production sample",
-      "detail": "Fresh-context home view: 87 ms. Three year changes: 14, 14, 16 ms. Local production Chromium, no network throttling; not field percentiles or a guarantee for remote devices. The complete map/area preparation is separate."
+      "detail": "Fresh-context home view: 98 ms. Three year changes: 16, 16, 16 ms. Local production Chromium, no network throttling; not field percentiles or a guarantee for remote devices. The complete map/area preparation is separate."
     },
     {
       "name": "Original release downloads",
@@ -48,6 +53,7 @@
     "retest": null
   },
   "evidence": {
+    "timeline": "/qa/timeline-checks.json",
     "unit": "/qa/unit-checks.json",
     "numeric": "/qa/numeric-checks.json",
     "claims": "/qa/addendum-numeric-checks.json",

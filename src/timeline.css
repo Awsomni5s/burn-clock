@@ -1,0 +1,28 @@
+.mock-app .satellite-timeline { min-width: 0; margin: 26px 0; border-top: 1px solid #b1b4b6; padding-top: 24px; }
+.mock-app .satellite-timeline h2 { font-size: 1.6rem; margin: 0 0 10px; }
+.timeline-scope, .timeline-note { color: #505a5f; font-size: .85rem; }
+.timeline-toolbar { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; margin: 20px 0 8px; }
+.timeline-key { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: .85rem; }
+.timeline-key i { display: inline-block; width: 18px; height: 12px; vertical-align: -1px; margin-right: 7px; }
+.timeline-key-outline { border: 1.5px dashed #0b0c0c; }
+.timeline-toggle { border: 0; padding: 0; margin: 0; display: flex; }
+.timeline-toggle legend { font-size: .85rem; margin-bottom: 4px; }
+.mock-app .timeline-toggle button { border: 1px solid #9a3412; padding: 5px 14px; color: #9a3412; background: white; margin-right: -1px; }
+.mock-app .timeline-toggle button[aria-pressed=true] { color: white; background: #9a3412; }
+.mock-app .timeline-toggle button:hover:enabled { color: white; background: #3a1a0e; }
+.timeline-scroll { overflow-x: auto; max-width: 100%; padding: 5px; }
+.timeline-chart { display: block; width: 100%; font-family: Arial, Helvetica, sans-serif; fill: #0b0c0c; cursor: pointer; }
+.timeline-chart:focus-visible, .timeline-scroll:focus-visible { outline: 3px solid #d9481c; outline-offset: -3px; }
+.timeline-values { margin: 16px 0; font-size: .9rem; }
+.timeline-values summary { color: #1d70b8; }
+.timeline-satellite-dot { display: inline-block; width: 10px; height: 10px; margin-right: 8px; }
+.timeline-mobile-hint { display: none; }
+.mock-app .clock-explainer { display: block; }
+.mock-app .clock-explainer .timing-checks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media(max-width: 850px) { .timeline-mobile-hint { display: block; } }
+@media(max-width: 600px) {
+  .mock-app .clock-explainer .timing-checks { grid-template-columns: 1fr; }
+  .mock-app .satellite-timeline h2 { font-size: 1.35rem; }
+  .timeline-toggle { flex-wrap: wrap; }
+}
+@media print { .timeline-chart { min-width: 0; } .timeline-scroll { overflow: visible; } .timeline-toggle, .timeline-mobile-hint { display: none; } }

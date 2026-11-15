@@ -1,6 +1,7 @@
 /** Exact supplied producers. A source link does not imply that all upstream inputs shipped. */
 export interface ProvenanceEntry {label:string;file:string;line:number;source:string;note?:string}
 export const PROVENANCE = {
+  timelineShares:{label:'Hourly share calculation',file:'src/timeline.ts',line:2,source:'punjab_receipt.json → gk2a_by_hour.pixel_hours_2021, pixel_hours_2025',note:'Each hour divided by the same year’s complete noon–6 pm total. No distribution inferred from contour maps.'},
   civilTimes:{label:'Local civil-time conversion',file:'src/civilTime.ts',line:6,source:'clock/<tile>.json → look; annual medians converted using midpoint and reference-date IANA offset',note:'Approximate civil time. Scientific source day assignment remains unchanged.'},
   contourCell:{label:'Original annual cell value',file:'src/contours.ts',line:1,source:'tiles/<tile>.json → harm; sum of available months within the selected year'},
   archiveTotals:{label:'Archive totals',file:'pipeline/build_public.py',line:278,source:'manifest.json → totals'},

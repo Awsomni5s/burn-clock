@@ -1,12 +1,12 @@
 # Actual test record
 
-Recorded 2026-11-15T05:32:59.462Z. Current scope: latest uploaded mock screens and selected-month timing update.
+Recorded 2026-11-15T06:12:21.421Z. Current scope: latest mock screens, selected-month timing and the satellite/hourly timeline.
 
-- **Calculations and fixed rules: Passed.** 94 unit tests and four live-parser tests. Selected-month timing is checked against 1,909 independent Python cases, with explicit Punjab, Africa, missing-data and negative-Aqua regressions.
+- **Calculations and fixed rules: Passed.** 98 unit tests and four live-parser tests. Selected-month timing is checked against 1,909 independent Python cases, with explicit Punjab, Africa, missing-data and negative-Aqua regressions.
 
 - **Supplied calendar integrity: Passed.** 1,237 tiles, 191,187 cells and 57,738,474 cell-months checked for shape, missingness, interval ordering and source flags. The locked configuration fingerprint matches.
 
-- **Rendered numbers and CSV: Passed.** 127,653 assertions across six presets, all calendar modes, monthly values, CSV fields, pass times, selected-month timing checks, 72 country rows, validation and Methods.
+- **Rendered numbers and CSV: Passed.** 127,935 assertions across six presets, all calendar modes, monthly values, CSV fields, pass times, selected-month timing checks, 72 country rows, validation and Methods.
 
 - **Comparisons, baselines and illustration: Passed.** 2,348 assertions against independent Python references: claim ratios, bounds, trends, geographic/missing-data edges, receipt baseline/mask combinations, hourly shifts, PNG export and permalink.
 
@@ -14,7 +14,9 @@ Recorded 2026-11-15T05:32:59.462Z. Current scope: latest uploaded mock screens a
 
 - **Latest mock screens and accessibility: Passed automated checks; human review pending.** 12 workflow groups cover the home/search, four roles, Africa, annual bars, claim wording/export, mobile menu, source failures and speed. 28 desktop/phone scans reported zero automated WCAG A/AA violations and no page overflow. This does not certify screen-reader or real-person usability.
 
-- **First view and interaction speed: Passed local production sample.** Fresh-context home view: 87 ms. Three year changes: 14, 14, 16 ms. Local production Chromium, no network throttling; not field percentiles or a guarantee for remote devices. The complete map/area preparation is separate.
+- **Satellite and afternoon timeline: Passed automated checks; human review pending.** 6 scenario groups verify shares against original hourly counts, unavailable 2019 data, observation-year changes, geography/time zones, history and provenance. 8 additional scans cover Punjab and Africa at desktop, tablet and two phone widths; zero automated violations or page overflow.
+
+- **First view and interaction speed: Passed local production sample.** Fresh-context home view: 98 ms. Three year changes: 16, 16, 16 ms. Local production Chromium, no network throttling; not field percentiles or a guarantee for remote devices. The complete map/area preparation is separate.
 
 - **Original release downloads: Previously verified; original archives unchanged.** The earlier recorded check reconstructed all three original archives and verified SHA-256. The current UI update does not modify those archives. The original contour generator and full upstream intermediates remain absent.
 
@@ -22,7 +24,7 @@ Real-person testing: **pending, not run**. The Sunday protocol and blank results
 
 ## Evidence and limits
 
-Current reports: [unit](/qa/unit-checks.json), [numeric](/qa/numeric-checks.json), [claims](/qa/addendum-numeric-checks.json), [sharing](/qa/polish-checks.json), [mock](/qa/mock-product-checks.json), [bundle](/qa/bundle-checks.json), [originalReleases](/qa/release-checks.json). Earlier product/speed reports remain dated historical records, not verification of these new screens.
+Current reports: [timeline](/qa/timeline-checks.json), [unit](/qa/unit-checks.json), [numeric](/qa/numeric-checks.json), [claims](/qa/addendum-numeric-checks.json), [sharing](/qa/polish-checks.json), [mock](/qa/mock-product-checks.json), [bundle](/qa/bundle-checks.json), [originalReleases](/qa/release-checks.json). Earlier product/speed reports remain dated historical records, not verification of these new screens.
 
 - No real participants tested. Five-second comprehension, misuse/cropping interpretation, task success and real before/after results remain pending.
 - Automated accessibility does not replace assistive-technology testing.

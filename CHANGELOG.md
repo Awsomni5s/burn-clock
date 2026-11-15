@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-15 — Satellite and afternoon timeline
+
+Replaced the circular clock with the uploaded timeline design and added it to place/claim reports. Each area has its own named satellite markers and baseline shifts in approximate local civil time. Punjab's observed 2021/2025 hourly shares sit on the same axis, with explicit Punjab-state/October–November scope. The comparison is shareable and supports browser Back. The unsupplied 2019 distribution is unavailable; other regions show only their pass times. Phone layouts keep the full afternoon visible and provide an exact-value source table.
+
+The complete reproduction checks passed, including new original-count/URL/geography/provenance tests and eight additional responsive accessibility scans. Numeric checks now also compare every available baseline pass-time label against independent references. Initial automated/visual inspection led to a compact phone chart instead of a wide, partially hidden chart. These are developer findings, not human-study results. See [timeline implementation](public/docs/TIMELINE_IMPLEMENTATION.md) and the updated Methods test record.
+
 ## 2026-11-15 — Chosen logo and button palette
 
 Added the supplied satellite-and-wordmark SVG to the responsive header, with SVG favicon and freshly rendered PNG browser/home-screen icons. The supplied PNG files contained broken-image placeholders; the original SVG artwork is intact. Buttons now use the logo's rust, dark brown and orange, including hover, selected and keyboard-focus states. Scientific satellite/chart colors remain consistent with their existing legends.
