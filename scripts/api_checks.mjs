@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import {readFileSync, writeFileSync} from 'node:fs';
 import {GET as check} from '../api/check.js';
 import {GET as punjab} from '../api/punjab.js';
-import {handleTelegram, handleDigest, handleSetup} from '../api/_lib/server.mjs';
+import {handleTelegram, handleDigest, handleSetup, handleAsk} from '../api/_lib/server.mjs';
 const base = process.env.BURN_CLOCK_URL || 'http://127.0.0.1:4173';
 const checks = [], errors = [];
 const t = async (name, fn) => { try { await fn(); checks.push({name, ok: true}); console.log('PASS', name); } catch (e) { errors.push(name + ': ' + e.stack); console.log('FAIL', name, e.message); } };
@@ -58,6 +58,52 @@ try {
     assert.equal((await handleTelegram(new Request(`${base}/api/telegram`, {method: 'POST'}), {}, undefined, fake)).status, 503);
     const s = await handleSetup(new Request(`${base}/api/telegram-setup?key=s3cret`), env, fake); assert.equal(s.status, 200); assert.equal(sent.find(x => x.url.endsWith('/setWebhook')).body.url, 'https://burn-clock.vercel.app/api/telegram');
     assert.equal((await handleSetup(new Request(`${base}/api/telegram-setup?key=wrong`), env, fake)).status, 403);
+  });
+  // Assistant: a fake Claude API that asks for a tool, then answers. The server runs the real tool and checks the numbers.
+  const claudeCalls = [];
+  const fakeClaude = (script) => async (url, init = {}) => {
+    if (String(url) === 'https://api.anthropic.com/v1/messages') {
+      const body = JSON.parse(init.body); claudeCalls.push(body); assert.equal(init.headers['x-api-key'], 'sk-test');
+      const step = script[Math.min(claudeCalls.length - 1, script.length - 1)];
+      return new Response(JSON.stringify(typeof step === 'function' ? step(body) : step), {status: 200});
+    }
+    return fake(url, init);
+  };
+  const aenv = {...env, ANTHROPIC_API_KEY: 'sk-test'};
+  const askReq = (question, ip = '1.2.3.4') => new Request(`${base}/api/ask`, {method: 'POST', headers: {'content-type': 'application/json', 'x-forwarded-for': ip}, body: JSON.stringify({question})});
+  await t('Assistant answers from a real tool result and passes the number check', async () => {
+    claudeCalls.length = 0;
+    const script = [
+      {stop_reason: 'tool_use', content: [{type: 'tool_use', id: 'tu1', name: 'check_place', input: {box: [27.6, 73.8, 32.6, 77.6], months: [10, 11], a: 2021, b: 2025}}]},
+      (body) => { const result = JSON.parse(body.messages.at(-1).content[0].content); return {stop_reason: 'end_turn', content: [{type: 'text', text: `${result.verdict.label}: activity fell about ${Math.round(-result.combined_record.change_pct)}% from 2021 to 2025. ${result.link}`}]}; },
+    ];
+    const r = await handleAsk(askReq('Can I trust the Punjab fire drop?'), aenv, undefined, fakeClaude(script)); const j = await r.json();
+    assert.equal(j.status, 'ok', JSON.stringify(j)); assert.match(j.answer, /^Timing matters here: activity fell about 80%/); assert.deepEqual(j.tools.map(x => x.name), ['check_place']);
+    assert.equal(claudeCalls[0].tools.length, 3); assert.match(claudeCalls[0].system, /Answer ONLY from the tool results/);
+  });
+  await t('Assistant flags a number that is not in the data, after one retry', async () => {
+    claudeCalls.length = 0;
+    const script = [
+      {stop_reason: 'tool_use', content: [{type: 'tool_use', id: 'tu1', name: 'punjab_district', input: {district: 'Sangrur'}}]},
+      {stop_reason: 'end_turn', content: [{type: 'text', text: 'Burning in Sangrur fell 61.7% thanks to enforcement.'}]},
+      {stop_reason: 'end_turn', content: [{type: 'text', text: 'Burning in Sangrur fell 61.7%.'}]},
+    ];
+    const j = await (await handleAsk(askReq('Did burning fall in Sangrur?', '5.6.7.8'), aenv, undefined, fakeClaude(script))).json();
+    assert.equal(j.status, 'unverified'); assert.deepEqual(j.unverified, [61.7]); assert.equal(claudeCalls.length, 3); assert.match(claudeCalls[2].messages.at(-1).content, /do not appear in any tool result: 61.7/);
+  });
+  await t('Assistant is off without a key, validates input and rate-limits', async () => {
+    assert.deepEqual(await (await handleAsk(new Request(`${base}/api/ask`), {}, undefined, fake)).json(), {configured: false, model: null});
+    assert.equal((await handleAsk(askReq('x'), {}, undefined, fake)).status, 503);
+    assert.equal((await handleAsk(askReq(''), aenv, undefined, fake)).status, 400);
+    const one = {stop_reason: 'end_turn', content: [{type: 'text', text: 'I can only answer from Burn Clock data.'}]};
+    let last; for (let i = 0; i < 21; i++) last = await handleAsk(askReq('hi', '9.9.9.9'), aenv, undefined, fakeClaude([one]));
+    assert.equal(last.status, 429);
+  });
+  await t('Telegram free text goes to the assistant when it is on', async () => {
+    claudeCalls.length = 0; const before = sent.length;
+    const script = [{stop_reason: 'tool_use', content: [{type: 'tool_use', id: 'w', name: 'punjab_week', input: {}}]}, (body) => { const r = JSON.parse(body.messages.at(-1).content[0].content); return {stop_reason: 'end_turn', content: [{type: 'text', text: `This week Aqua saw ${r.aqua_per_noaa20.toFixed(1)} detections per NOAA-20 detection.`}]}; }];
+    await handleTelegram(new Request(`${base}/api/telegram`, {method: 'POST', headers: {'x-telegram-bot-api-secret-token': 's3cret'}, body: JSON.stringify({message: {chat: {id: 77}, text: 'what is happening in punjab this week'}})}), aenv, undefined, fakeClaude(script));
+    assert.equal(sent.length, before + 1); assert.match(sent.at(-1).body.text, /This week Aqua saw \d+\.\d detections[\s\S]*✓ Numbers checked/);
   });
 } finally {
   writeFileSync('api-checks.json', JSON.stringify({tested_at: new Date().toISOString(), status: errors.length ? 'failed' : 'passed', checks, errors, limitations: ['Telegram and Redis are faked; no message was sent to a real chat.']}, null, 2) + '\n');

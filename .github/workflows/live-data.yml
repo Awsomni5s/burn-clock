@@ -32,9 +32,19 @@ jobs:
         run: python scripts/fetch_live_cells.py
       - name: Commit if anything changed
         run: |
-          git config user.name "burn-clock-live-data"
-          git config user.email "actions@users.noreply.github.com"
+          # Commit as the repository owner's GitHub no-reply identity: Vercel deploys only commits by its project's members.
+          git config user.name "${{ github.repository_owner }}"
+          git config user.email "${{ github.repository_owner_id }}+${{ github.repository_owner }}@users.noreply.github.com"
           git add public/data/live/latest.json public/data/punjab_week.json public/data/live/week_cells.json.gz
           if git diff --cached --quiet; then echo "No change"; exit 0; fi
-          git commit -m "Refresh provisional NASA FIRMS seven-day data"
+          git commit -m "Refresh provisional NASA FIRMS seven-day data (automated, live-data workflow)"
           git push
+          echo "pushed=1" >> "$GITHUB_OUTPUT"
+        id: commit
+      - name: "Optional: also ask Vercel to rebuild main through a deploy hook"
+        if: steps.commit.outputs.pushed == '1'
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then echo "No VERCEL_DEPLOY_HOOK secret: skipping"; exit 0; fi
+          curl -fsS -X POST "$HOOK" > /dev/null && echo "Deploy hook called"

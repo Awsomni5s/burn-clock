@@ -100,7 +100,21 @@ try {
   check('live check explains itself', () => assert.ok(/active cells|Too few|incomplete/.test(liveText)));
   const liveAxe = await new AxeBuilder({page}).include('[data-testid=live-check]').withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
   check('live check axe', () => assert.deepEqual(liveAxe.violations.map(v => v.id), []));
-  // 8. Mobile layout: no horizontal scroll on the planner.
+  // 8. Ask panel: hidden when the assistant is off (no /api/ask here); shown and rendering an answer when the API says it is on.
+  await page.goto(`${base}/#home`); await page.waitForTimeout(1500);
+  check('ask panel hidden when assistant is off', async () => {});
+  assert.equal(await page.getByTestId('ask-panel').count(), 0);
+  const actx = await browser.newContext({viewport: {width: 1280, height: 900}}), ap = await actx.newPage();
+  await ap.route('**/api/ask', route => route.request().method() === 'GET' ? route.fulfill({json: {configured: true, model: 'claude-haiku-5-5'}}) : route.fulfill({json: {status: 'ok', answer: 'Timing matters here: activity fell about 80%. https://burn-clock.vercel.app/?box=27.6,73.8,32.6,77.6#explorer', tools: [{name: 'check_place', input: {lat: 30.9, lon: 75.8}}], unverified: [], model: 'claude-haiku-5-5'}}));
+  await ap.goto(`${base}/#home`); await ap.getByTestId('ask-panel').waitFor({timeout: 30000});
+  await ap.getByLabel('Your question').fill('Can I trust the Punjab drop?'); await ap.getByRole('button', {name: 'Ask', exact: true}).click();
+  await ap.getByTestId('ask-answer').waitFor();
+  check('ask answer shows the number check', async () => {});
+  assert.match(await ap.getByTestId('ask-answer').innerText(), /Every number above was checked/);
+  const askAxe = await new AxeBuilder({page: ap}).include('[data-testid=ask-panel]').withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
+  check('ask panel axe', () => assert.deepEqual(askAxe.violations.map(v => v.id), []));
+  await actx.close();
+  // 9. Mobile layout: no horizontal scroll on the planner.
   const mobile = await browser.newPage({viewport: {width: 390, height: 844}});
   await mobile.goto(`${base}/?district=Fazilka#act`); await mobile.getByTestId('act-window').waitFor();
   const overflow = await mobile.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);

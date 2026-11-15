@@ -3,6 +3,7 @@ import {gunzipSync} from 'node:zlib';
 import {checkPlace,parseQuery,type Loader} from './place';
 import {punjabSummary,summaryText} from './punjab';
 import {answer,type Store,type Update} from './telegram';
+import {ask,DEFAULT_MODEL} from './ask';
 
 type Env=Record<string,string|undefined>;
 const cache=new Map<string,Promise<any>>();
@@ -10,7 +11,7 @@ const cache=new Map<string,Promise<any>>();
 export function originLoader(origin:string,fetchImpl:typeof fetch=fetch):Loader{
   return path=>{const key=origin+path;if(!cache.has(key))cache.set(key,(async()=>{const r=await fetchImpl(`${origin}/data/${path}`);if(!r.ok)throw Error(`${path}: HTTP ${r.status}`);const b=Buffer.from(await r.arrayBuffer());return JSON.parse((b[0]===0x1f&&b[1]===0x8b?gunzipSync(b):b).toString('utf8'));})().catch(e=>{cache.delete(key);throw e;}));return cache.get(key)!;};
 }
-const json=(body:unknown,status=200,maxAge=900)=>new Response(JSON.stringify(body,null,1),{status,headers:{'content-type':'application/json; charset=utf-8','access-control-allow-origin':'*','cache-control':status===200?`public, s-maxage=${maxAge}, stale-while-revalidate=86400`:'no-store'}});
+const json=(body:unknown,status=200,maxAge=900)=>new Response(JSON.stringify(body,null,1),{status,headers:{'content-type':'application/json; charset=utf-8','access-control-allow-origin':'*','cache-control':status===200&&maxAge>0?`public, s-maxage=${maxAge}, stale-while-revalidate=86400`:'no-store'}});
 const site=(request:Request,env:Env)=>env.PUBLIC_SITE_URL||new URL(request.url).origin;
 
 export async function handleCheck(request:Request,env:Env={},loader?:Loader){
@@ -40,7 +41,10 @@ export async function handleTelegram(request:Request,env:Env,loader?:Loader,fetc
   if(request.method!=='POST')return json({status:'method_not_allowed'},405);
   if(request.headers.get('x-telegram-bot-api-secret-token')!==env.TELEGRAM_WEBHOOK_SECRET)return json({status:'forbidden'},403);
   const update=await request.json() as Update,u=new URL(request.url);
-  try{const a=await answer(update,loader??originLoader(u.origin,fetchImpl),site(request,env),upstashStore(env,fetchImpl));if(a)await send(env,a.chat,a.text,fetchImpl);}
+  try{const load=loader??originLoader(u.origin,fetchImpl),text=update.message?.text?.trim()??'';
+    if(env.ANTHROPIC_API_KEY&&text&&!text.startsWith('/')&&update.message){const chat=update.message.chat.id,limit=await allowed('tg:'+chat,env,fetchImpl);if(limit){await send(env,chat,limit,fetchImpl);return json({ok:true});}
+      const r=await ask(text.slice(0,500),env,load,site(request,env),fetchImpl);await send(env,chat,r.answer+(r.status==='unverified'?`\n\n⚠️ Some numbers above could not be checked against Burn Clock data: ${r.unverified.join(', ')}. Treat them with care.`:'\n\n✓ Numbers checked against Burn Clock data.'),fetchImpl);return json({ok:true});}
+    const a=await answer(update,load,site(request,env),upstashStore(env,fetchImpl));if(a)await send(env,a.chat,a.text,fetchImpl);}
   catch(e){const chat=update.message?.chat.id;if(chat)await send(env,chat,'Sorry, that failed. Please try again later.',fetchImpl);}
   return json({ok:true});
 }
@@ -60,4 +64,24 @@ export async function handleSetup(request:Request,env:Env,fetchImpl:typeof fetch
   const hook=await (await fetchImpl(`${base}/setWebhook`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({url:`${site(request,env)}/api/telegram`,secret_token:env.TELEGRAM_WEBHOOK_SECRET,allowed_updates:['message']})})).json();
   await fetchImpl(`${base}/setMyCommands`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({commands:[{command:'district',description:'Check window and this week for a Punjab district'},{command:'week',description:'This week across Punjab'},{command:'check',description:'Verdict for any place: /check lat lon'},{command:'subscribe',description:'Weekly message for a district'},{command:'unsubscribe',description:'Stop weekly messages'},{command:'help',description:'How to use the bot'}]})});
   return json({status:'ok',webhook:hook});
+}
+
+const hits=new Map<string,number[]>();
+/** Per-instance limit (20 questions an hour per address) plus an optional daily cap kept in Upstash (ASK_DAILY_LIMIT, default 500). */
+async function allowed(ip:string,env:Env,fetchImpl:typeof fetch):Promise<string|null>{
+  const now=Date.now(),list=(hits.get(ip)??[]).filter(t=>now-t<3600e3);if(list.length>=20)return 'Too many questions from this address this hour. Please try again later.';list.push(now);hits.set(ip,list);
+  if(env.UPSTASH_REDIS_REST_URL&&env.UPSTASH_REDIS_REST_TOKEN){try{const day=new Date().toISOString().slice(0,10);const r=await fetchImpl(env.UPSTASH_REDIS_REST_URL,{method:'POST',headers:{authorization:`Bearer ${env.UPSTASH_REDIS_REST_TOKEN}`,'content-type':'application/json'},body:JSON.stringify(['INCR',`burnclock:ask:${day}`])});const n=(await r.json()).result;if(n>Number(env.ASK_DAILY_LIMIT||500))return 'The assistant has reached today’s question limit. The site’s pages answer the same questions.';}catch{/* no cap if the store is down */}}
+  return null;
+}
+/** GET → whether the assistant is switched on. POST {question} → an answer built only from Burn Clock tools, numbers checked. */
+export async function handleAsk(request:Request,env:Env,loader?:Loader,fetchImpl:typeof fetch=fetch){
+  const on=!!env.ANTHROPIC_API_KEY;
+  if(request.method==='GET')return json({configured:on,model:on?(env.ANTHROPIC_MODEL||DEFAULT_MODEL):null},200,60);
+  if(!on)return json({status:'not_configured',message:'The assistant is not switched on (ANTHROPIC_API_KEY is not set).'},503);
+  if(request.method!=='POST')return json({status:'method_not_allowed'},405);
+  let question='';try{question=String((await request.json()).question??'').trim();}catch{return json({status:'bad_request',message:'Send JSON: {"question": "…"}'},400);}
+  if(!question||question.length>500)return json({status:'bad_request',message:'Ask a question of up to 500 characters.'},400);
+  const limit=await allowed(request.headers.get('x-forwarded-for')?.split(',')[0].trim()||'unknown',env,fetchImpl);if(limit)return json({status:'rate_limited',message:limit},429);
+  const u=new URL(request.url);
+  try{return json(await ask(question,env,loader??originLoader(u.origin,fetchImpl),site(request,env),fetchImpl),200,0);}catch(e){return json({status:'error',message:'The assistant could not answer right now.'},502);}
 }

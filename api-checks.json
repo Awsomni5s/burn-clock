@@ -1,5 +1,5 @@
 {
-  "tested_at": "2026-11-15T18:41:01.992Z",
+  "tested_at": "2026-11-15T18:55:27.269Z",
   "status": "passed",
   "checks": [
     {
@@ -36,6 +36,22 @@
     },
     {
       "name": "Unconfigured bot and setup are explicit",
+      "ok": true
+    },
+    {
+      "name": "Assistant answers from a real tool result and passes the number check",
+      "ok": true
+    },
+    {
+      "name": "Assistant flags a number that is not in the data, after one retry",
+      "ok": true
+    },
+    {
+      "name": "Assistant is off without a key, validates input and rate-limits",
+      "ok": true
+    },
+    {
+      "name": "Telegram free text goes to the assistant when it is on",
       "ok": true
     }
   ],
