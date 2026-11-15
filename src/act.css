@@ -127,3 +127,11 @@
 .nm-more>*{margin:0!important}
 .nm-more{align-items:center}.nm-more>*{flex:0 0 auto;width:auto!important;padding:0!important;line-height:1.4;min-height:0!important}
 .nm-more>*{flex:0 1 auto!important;white-space:normal;text-align:left;max-width:100%}.nm-link{white-space:normal;text-align:left;max-width:100%}
+/* Sticky place bar with jump links */
+.report-toolbar{position:sticky;top:0;z-index:30;flex-wrap:wrap}
+.jump-links{display:flex;flex-wrap:nowrap;gap:4px;margin-left:auto;overflow-x:auto;max-width:100%}
+.jump-links button{flex:0 0 auto;margin:0;padding:4px 10px;border:1px solid #b1b4b6;background:#fff;color:#0b0c0c;font-size:.85rem;border-radius:999px;cursor:pointer}
+.jump-links button:hover{border-color:#0b0c0c}
+@media(max-width:600px){.jump-links{margin-left:0;width:100%}}
+.report-toolbar .jump-links button{padding:3px 10px!important;min-height:0!important;font-size:.85rem!important;text-decoration:none!important;border-radius:999px!important;background:#fff!important;color:#0b0c0c!important;border:1px solid #b1b4b6!important}
+@media(max-width:600px){.report-toolbar{position:static}}
