@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-15T01:10:30.598Z",
-  "base": "http://127.0.0.1:5173",
+  "generatedAt": "2026-11-15T01:15:35.691Z",
+  "base": "http://127.0.0.1:4173",
   "scope": "Integrated application workflows and six-route desktop/mobile accessibility",
   "checks": [
     {
@@ -8,7 +8,8 @@
       "status": "passed",
       "details": {
         "baselineBottomPx": 466,
-        "viewportHeight": 1000
+        "viewportHeight": 1000,
+        "foldThresholdPx": 768
       }
     },
     {
@@ -27,15 +28,15 @@
           "filename": "burn-clock-punjab.png",
           "width": 1200,
           "height": 816,
-          "bytes": 200009,
-          "localExportMs": 126
+          "bytes": 199932,
+          "localExportMs": 138
         },
         {
           "filename": "burn-clock-punjab-2021-2025.png",
           "width": 1000,
           "height": 831,
-          "bytes": 212029,
-          "localExportMs": 61
+          "bytes": 211946,
+          "localExportMs": 50
         }
       ]
     },
@@ -54,6 +55,52 @@
     {
       "name": "Six screens fit desktop and 375px mobile and meet automated WCAG 2.1 AA rules",
       "status": "passed"
+    },
+    {
+      "name": "Clock text meets minimum contrast on its known light backgrounds",
+      "status": "passed",
+      "details": [
+        {
+          "text": "00",
+          "minimumContrast": 5.94
+        },
+        {
+          "text": "03",
+          "minimumContrast": 5.94
+        },
+        {
+          "text": "06",
+          "minimumContrast": 5.94
+        },
+        {
+          "text": "09",
+          "minimumContrast": 5.94
+        },
+        {
+          "text": "12",
+          "minimumContrast": 5.94
+        },
+        {
+          "text": "15",
+          "minimumContrast": 5.94
+        },
+        {
+          "text": "18",
+          "minimumContrast": 5.94
+        },
+        {
+          "text": "21",
+          "minimumContrast": 5.94
+        },
+        {
+          "text": "2025",
+          "minimumContrast": 9.86
+        },
+        {
+          "text": "SOLAR TIME",
+          "minimumContrast": 5.94
+        }
+      ]
     },
     {
       "name": "Methods keeps real participant results pending and provides blank study materials",
@@ -94,17 +141,6 @@
       "viewport": "desktop",
       "violations": [],
       "incomplete": [
-        {
-          "id": "aria-prohibited-attr",
-          "nodes": [
-            {
-              "target": [
-                ".segmented"
-              ],
-              "summary": "Fix all of the following:\n  aria-label attribute is not well supported on \"div\" elements with no valid role attribute."
-            }
-          ]
-        },
         {
           "id": "color-contrast",
           "nodes": [
@@ -375,17 +411,6 @@
       "viewport": "mobile",
       "violations": [],
       "incomplete": [
-        {
-          "id": "aria-prohibited-attr",
-          "nodes": [
-            {
-              "target": [
-                ".segmented"
-              ],
-              "summary": "Fix all of the following:\n  aria-label attribute is not well supported on \"div\" elements with no valid role attribute."
-            }
-          ]
-        },
         {
           "id": "color-contrast",
           "nodes": [
@@ -757,42 +782,49 @@
   "overflow": [
     {
       "route": "explorer",
+      "viewportName": "desktop",
       "viewport": 1440,
       "document": 1440,
       "offenders": []
     },
     {
       "route": "receipt",
+      "viewportName": "desktop",
       "viewport": 1440,
       "document": 1440,
       "offenders": []
     },
     {
       "route": "clock",
+      "viewportName": "desktop",
       "viewport": 1440,
       "document": 1440,
       "offenders": []
     },
     {
       "route": "validation",
+      "viewportName": "desktop",
       "viewport": 1440,
       "document": 1440,
       "offenders": []
     },
     {
       "route": "methods",
+      "viewportName": "desktop",
       "viewport": 1440,
       "document": 1440,
       "offenders": []
     },
     {
       "route": "about",
+      "viewportName": "desktop",
       "viewport": 1440,
       "document": 1440,
       "offenders": []
     },
     {
       "route": "explorer",
+      "viewportName": "mobile",
       "viewport": 375,
       "document": 375,
       "offenders": [
@@ -807,18 +839,21 @@
     },
     {
       "route": "receipt",
+      "viewportName": "mobile",
       "viewport": 375,
       "document": 375,
       "offenders": []
     },
     {
       "route": "clock",
+      "viewportName": "mobile",
       "viewport": 375,
       "document": 375,
       "offenders": []
     },
     {
       "route": "validation",
+      "viewportName": "mobile",
       "viewport": 375,
       "document": 375,
       "offenders": [
@@ -910,12 +945,14 @@
     },
     {
       "route": "methods",
+      "viewportName": "mobile",
       "viewport": 375,
       "document": 375,
       "offenders": []
     },
     {
       "route": "about",
+      "viewportName": "mobile",
       "viewport": 375,
       "document": 375,
       "offenders": []
@@ -927,21 +964,100 @@
       "filename": "burn-clock-punjab.png",
       "width": 1200,
       "height": 816,
-      "bytes": 200009,
-      "localExportMs": 126
+      "bytes": 199932,
+      "localExportMs": 138
     },
     {
       "filename": "burn-clock-punjab-2021-2025.png",
       "width": 1000,
       "height": 831,
-      "bytes": 212029,
-      "localExportMs": 61
+      "bytes": 211946,
+      "localExportMs": 50
     }
   ],
   "limitations": [
     "Automated checks do not replace human comprehension, usability, crop interpretation, keyboard-only exploration or screen-reader sessions.",
     "PNG timings measure one automated local export, not a real participant task time.",
     "No human participants or before/after study results are claimed.",
+    "SVG/chart contrast checks marked incomplete still require manual review; zero automated violations is not a complete accessibility certification.",
     "Browser performance measured separately on a stable production build."
-  ]
+  ],
+  "targetedFollowUps": [
+    {
+      "name": "Mobile Calendar mode labels remain fully visible and keyboard-operable after wrap fix",
+      "status": "passed",
+      "testedAt": "2026-11-15T01:18:15.674Z",
+      "base": "http://127.0.0.1:4173",
+      "viewport": {
+        "width": 375,
+        "height": 844
+      },
+      "geometry": {
+        "flexWrap": "wrap",
+        "group": {
+          "left": 29,
+          "right": 346,
+          "top": 379.703125,
+          "bottom": 463.828125
+        },
+        "card": {
+          "left": 16,
+          "right": 359
+        },
+        "buttons": [
+          {
+            "text": "Combined record",
+            "left": 33,
+            "right": 175.3125,
+            "top": 383.703125,
+            "bottom": 421.765625,
+            "width": 142.3125,
+            "scrollWidth": 142,
+            "clientWidth": 142
+          },
+          {
+            "text": "By satellite",
+            "left": 175.3125,
+            "right": 268.140625,
+            "top": 383.703125,
+            "bottom": 421.765625,
+            "width": 92.828125,
+            "scrollWidth": 93,
+            "clientWidth": 93
+          },
+          {
+            "text": "Compared with usual",
+            "left": 33,
+            "right": 195.71875,
+            "top": 421.765625,
+            "bottom": 459.828125,
+            "width": 162.71875,
+            "scrollWidth": 163,
+            "clientWidth": 163
+          }
+        ]
+      },
+      "keyboardActions": [
+        {
+          "control": "Compared with usual",
+          "key": "Enter",
+          "selected": true
+        },
+        {
+          "control": "By satellite",
+          "key": "Enter",
+          "selected": true
+        },
+        {
+          "control": "Combined record",
+          "key": "Enter",
+          "selected": true
+        }
+      ],
+      "pageErrors": [],
+      "screenshot": "tmp/addendum-product-qa-production/calendar-controls-mobile-fixed.png",
+      "scope": "Targeted check after Calendar CSS wrapping change. The full 17-group suite was not rerun."
+    }
+  ],
+  "lastUpdatedAt": "2026-11-15T01:18:15.696Z"
 }
