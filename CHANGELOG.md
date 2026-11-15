@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-11-15 — Ask what to do: a role-aware Claude advisor
+
+- **Context layer** (`src/server/briefing.ts`), built from the site's published files so every number is traceable:
+  - the official claim, GK2A shares by year, the 5 pm ratio and Aqua's crossing times;
+  - the verdict rules, validation errors and case-study findings;
+  - the verdict × role actions (now shared in `src/roleActions.ts`);
+  - site pages and limits.
+- **Advisor behaviour:** it asks one question if the role or place is unclear. Answers come as a direct answer, then "What to do" steps for the role, then "Why", then a link. It follows the conversation (last 8 turns), declines off-topic requests, and points to emergency services for live emergencies.
+- **Model:** default `claude-sonnet-5-5`, with prompt caching of the instructions, briefing and tools. A per-instance hourly cap is added.
+- **UI:** a chat panel with role choices, example questions per role, a conversation thread, per-answer number-check badges and "What it looked up".
+
 ## 2026-11-15 — Ask Burn Clock (Claude, with checked numbers)
 
 - **`/api/ask`:** Claude answers plain-language questions using only Burn Clock's tools (`check_place`, `punjab_district`, `punjab_week`, the same code as the site).

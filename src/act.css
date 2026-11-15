@@ -58,3 +58,11 @@
 .ask-answer{border-left:6px solid #00703c;background:#f6faf7;padding:10px 14px;margin-top:12px}.ask-answer.ask-unverified{border-left-color:#c2410c;background:#fff8f1}
 .ask-answer p{margin:0 0 8px;white-space:pre-line}.ask-check{font-size:.88rem;font-weight:700}
 .visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.ask-roles{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.mock-app .ask-roles button{border:2px solid #b1b4b6;background:#fff;padding:6px 10px;font-size:.9rem;cursor:pointer;color:#0b0c0c}
+.mock-app .ask-roles button.on{border-color:#0b0c0c;background:#0b0c0c;color:#fff}
+.ask-thread{display:flex;flex-direction:column;gap:8px;max-height:520px;overflow-y:auto;margin:0 0 12px}
+.ask-turn.user p{margin:0;color:#383f43}
+.ask-turn.assistant{border-left:6px solid #00703c;background:#f6faf7;padding:10px 14px}.ask-turn.assistant.ask-unverified{border-left-color:#c2410c;background:#fff8f1}
+.ask-turn.assistant p{margin:0 0 8px;white-space:pre-line}
+.ask-reset{margin-top:8px;font-size:.9rem}

@@ -69,8 +69,8 @@ export async function handleSetup(request:Request,env:Env,fetchImpl:typeof fetch
 const hits=new Map<string,number[]>();
 /** Per-instance limit (20 questions an hour per address) plus an optional daily cap kept in Upstash (ASK_DAILY_LIMIT, default 500). */
 async function allowed(ip:string,env:Env,fetchImpl:typeof fetch):Promise<string|null>{
-  const now=Date.now(),list=(hits.get(ip)??[]).filter(t=>now-t<3600e3);if(list.length>=20)return 'Too many questions from this address this hour. Please try again later.';list.push(now);hits.set(ip,list);
-  if(env.UPSTASH_REDIS_REST_URL&&env.UPSTASH_REDIS_REST_TOKEN){try{const day=new Date().toISOString().slice(0,10);const r=await fetchImpl(env.UPSTASH_REDIS_REST_URL,{method:'POST',headers:{authorization:`Bearer ${env.UPSTASH_REDIS_REST_TOKEN}`,'content-type':'application/json'},body:JSON.stringify(['INCR',`burnclock:ask:${day}`])});const n=(await r.json()).result;if(n>Number(env.ASK_DAILY_LIMIT||500))return 'The assistant has reached today’s question limit. The site’s pages answer the same questions.';}catch{/* no cap if the store is down */}}
+  const now=Date.now(),list=(hits.get(ip)??[]).filter(t=>now-t<3600e3),all=(hits.get('*')??[]).filter(t=>now-t<3600e3);if(list.length>=20)return 'Too many questions from this address this hour. Please try again later.';if(all.length>=Number(env.ASK_HOURLY_LIMIT||150))return 'The assistant is busy. Please try again in a while.';list.push(now);all.push(now);hits.set(ip,list);hits.set('*',all);
+  if(env.UPSTASH_REDIS_REST_URL&&env.UPSTASH_REDIS_REST_TOKEN){try{const day=new Date().toISOString().slice(0,10);const r=await fetchImpl(env.UPSTASH_REDIS_REST_URL,{method:'POST',headers:{authorization:`Bearer ${env.UPSTASH_REDIS_REST_TOKEN}`,'content-type':'application/json'},body:JSON.stringify(['INCR',`burnclock:ask:${day}`])});const n=(await r.json()).result;if(n>Number(env.ASK_DAILY_LIMIT||300))return 'The assistant has reached today’s question limit. The site’s pages answer the same questions.';}catch{/* no cap if the store is down */}}
   return null;
 }
 /** GET → whether the assistant is switched on. POST {question} → an answer built only from Burn Clock tools, numbers checked. */
@@ -79,9 +79,9 @@ export async function handleAsk(request:Request,env:Env,loader?:Loader,fetchImpl
   if(request.method==='GET')return json({configured:on,model:on?(env.ANTHROPIC_MODEL||DEFAULT_MODEL):null},200,60);
   if(!on)return json({status:'not_configured',message:'The assistant is not switched on (ANTHROPIC_API_KEY is not set).'},503);
   if(request.method!=='POST')return json({status:'method_not_allowed'},405);
-  let question='';try{question=String((await request.json()).question??'').trim();}catch{return json({status:'bad_request',message:'Send JSON: {"question": "…"}'},400);}
+  let question='',history:any[]=[],role='';try{const b=await request.json();question=String(b.question??'').trim();history=Array.isArray(b.history)?b.history:[];role=typeof b.role==='string'?b.role:'';}catch{return json({status:'bad_request',message:'Send JSON: {"question": "…", "history"?: [...], "role"?: "policy"|"air"|"journalist"|"research"|"public"}'},400);}
   if(!question||question.length>500)return json({status:'bad_request',message:'Ask a question of up to 500 characters.'},400);
   const limit=await allowed(request.headers.get('x-forwarded-for')?.split(',')[0].trim()||'unknown',env,fetchImpl);if(limit)return json({status:'rate_limited',message:limit},429);
   const u=new URL(request.url);
-  try{return json(await ask(question,env,loader??originLoader(u.origin,fetchImpl),site(request,env),fetchImpl),200,0);}catch(e){return json({status:'error',message:'The assistant could not answer right now.'},502);}
+  try{return json(await ask(question,env,loader??originLoader(u.origin,fetchImpl),site(request,env),fetchImpl,{history,role}),200,0);}catch(e){return json({status:'error',message:'The assistant could not answer right now.'},502);}
 }
