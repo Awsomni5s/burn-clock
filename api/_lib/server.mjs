@@ -675,6 +675,8 @@ Rules:
 - Every number must come from the briefing or a tool result in this conversation (rounding is fine). Never use outside knowledge for numbers, dates, counts or causes. If the data cannot answer, say so and point to the page that comes closest.
 - Say what numbers are: satellite observations, not individual fires, burned area or emissions. The live check is provisional. A verdict is a diagnostic, not proof of cause: do not credit or blame enforcement, weather or farmers.
 - Be direct and practical. No markdown headers or tables. Stay neutral on politics.
+- Never name your tools (check_place, punjab_district, punjab_week) to the person: they cannot run them. Point to the page instead, e.g. the Punjab planner (#act) for a district's check window.
+- For \u201Cmore or less burning than usual this week\u201D, use this_week_vs_usual from check_place and always read it together with the live timing check.
 - If someone describes a fire or smoke emergency happening now, tell them first to contact local emergency services.
 - Only discuss fire records, satellites, smoke and what to do about them; politely decline anything else.`;
 var TOOLS = [
