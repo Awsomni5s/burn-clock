@@ -36,6 +36,14 @@ function timingChecks(rows, months, year) {
 
 // src/types.ts
 var PLATFORMS = ["T", "A", "N", "J1", "J2"];
+var PRESETS = [
+  { id: "punjab", name: "Punjab + Haryana", country: "India", box: [27.6, 73.8, 32.6, 77.6] },
+  { id: "parana", name: "Paran\xE1 Delta", country: "Argentina", box: [-34.5, -60.8, -32, -58.3] },
+  { id: "cerrado", name: "Cerrado / MATOPIBA", country: "Brazil", box: [-13, -50, -5, -42] },
+  { id: "africa", name: "Central African savanna", country: "Central Africa", box: [5, 18, 10, 30] },
+  { id: "kalimantan", name: "Kalimantan", country: "Indonesia", box: [-3.5, 110, 1, 117] },
+  { id: "california", name: "California", country: "United States", box: [34, -124, 42, -117] }
+];
 
 // src/data.ts
 function quantile(values, q) {
@@ -764,6 +772,41 @@ ${briefing}
   return { status: bad.length ? "unverified" : "ok", answer: final, tools, unverified: bad, model };
 }
 
+// src/server/liveWorld.ts
+async function computeLiveWorld(load) {
+  const manifest = await load("manifest.json.gz"), cells = await load("live/week_cells.json.gz"), ranked = (await load("world_drift_ranked.json")).countries;
+  const tileCache = /* @__PURE__ */ new Map(), tile = async (n) => {
+    let t = tileCache.get(n);
+    if (t) {
+      tileCache.delete(n);
+      tileCache.set(n, t);
+      return t;
+    }
+    t = await load(`tiles/${n}.json.gz`);
+    tileCache.set(n, t);
+    if (tileCache.size > 40) tileCache.delete(tileCache.keys().next().value);
+    return t;
+  };
+  const areas = [...PRESETS.map((p) => ({ id: p.id, name: p.name, kind: "preset", box: p.box })), ...ranked.filter((c) => c.reliable).map((c) => ({ id: c.iso3, name: c.country, kind: "country", box: c.box }))];
+  const out = [];
+  for (const a of areas) {
+    const acc = createAccumulator(manifest);
+    for (const n of areaTiles(manifest.tiles, a.box)) acc.add(await tile(n), a.box);
+    const months = acc.finish().months, r = liveTiming(cells, a.box, months);
+    out.push({ id: a.id, name: a.name, kind: a.kind, box: a.box, status: r.status, ratio: r.ratio, low: r.low, high: r.high, aqua: r.aqua, noaa20: r.noaa20, reason: r.reason || null });
+  }
+  const order = { signal: 0, below: 2, within: 1, unknown: 3 };
+  out.sort((x, y) => order[x.status] - order[y.status] || (y.ratio && y.high ? y.ratio / y.high : 0) - (x.ratio && x.high ? x.ratio / x.high : 0));
+  return {
+    generated_utc: (/* @__PURE__ */ new Date()).toISOString(),
+    window: cells.window,
+    month: Number((cells.window.last_date ?? "").slice(5, 7)),
+    areas: out,
+    definition: "Same rule as the live check on place reports: this week\u2019s Aqua \xF7 NOAA-20 daytime cell-days vs Aqua \xF7 S-NPP in the same month of 2013\u201319. Country areas are bounding rectangles and can include neighbours.",
+    script: "scripts/build_live_world.mjs"
+  };
+}
+
 // src/server/handlers.ts
 var cache = /* @__PURE__ */ new Map();
 function originLoader(origin, fetchImpl = fetch) {
@@ -918,6 +961,7 @@ async function handleAsk(request, env, loader, fetchImpl = fetch) {
   }
 }
 export {
+  computeLiveWorld,
   handleAsk,
   handleCheck,
   handleDigest,

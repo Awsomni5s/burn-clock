@@ -66,3 +66,15 @@
 .ask-turn.assistant{border-left:6px solid #00703c;background:#f6faf7;padding:10px 14px}.ask-turn.assistant.ask-unverified{border-left-color:#c2410c;background:#fff8f1}
 .ask-turn.assistant p{margin:0 0 8px;white-space:pre-line}
 .ask-reset{margin-top:8px;font-size:.9rem}
+.hero-evidence{margin:18px 0 26px}
+.mock-app .hero-evidence h2{font-size:1.15rem;margin:0 0 10px}
+.hero-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.hero-tile{border-top:5px solid #9e1638;background:#faf8f6;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.hero-tile b{font-size:clamp(1.6rem,3vw,2.2rem);line-height:1.1;color:#0b0c0c}
+.hero-tile span{font-size:.9rem;color:#383f43;line-height:1.35}
+.hero-tile:nth-child(2){border-top-color:#1d70b8}.hero-tile.late{border-top-color:#b34b20}.hero-tile.live{border-top-color:#6f5aa8}
+.hero-links{margin:10px 0 0;font-size:.95rem}
+@media(max-width:860px){.hero-tiles{grid-template-columns:1fr 1fr}}
+.live-world{border:2px dashed #6f5aa8;background:#fbfaff;padding:14px 18px;margin:18px 0 26px}
+.mock-app .live-world h2{margin:2px 0 6px}.live-world p{max-width:72ch}
+.live-rest{columns:2;font-size:.9rem;padding-left:18px}@media(max-width:700px){.live-rest{columns:1}}

@@ -12,7 +12,16 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, Tabl
 
 APP = Path(__file__).resolve().parents[1]
 ROOT = APP.parent
-DATA = ROOT / 'public/data'
+DATA = APP / 'public/data'
+import gzip as _gz
+class _P:
+    def __init__(self,p): self.p=p
+    def read_text(self):
+        return self.p.read_text() if self.p.exists() else _gz.open(str(self.p)+'.gz','rt').read()
+_D=DATA
+class _Data:
+    def __truediv__(self,n): return _P(_D/n)
+DATA=_Data()
 OUT = APP / 'public/docs/Burn_Clock_Methods.pdf'
 M = json.loads((DATA/'manifest.json').read_text())
 V = json.loads((DATA/'validation.json').read_text())
@@ -124,9 +133,9 @@ h('What was independently checked')
 p(f"All {len(M['sources'])} local manifest entries reconcile with the detailed per-CSV processing manifest. One NASA archive, MODIS 2000, was downloaded afresh: bytes, SHA-256 and {M['sources'][0]['rows']:,} data rows matched. The other archives were not redownloaded. Intermediate Parquet inputs were not delivered, so this app build did not rerun the full scientific pipeline. The complete URL, byte, hash and row inventory is in DATA_PROVENANCE.md.")
 p('The supplied manifest and README describe an earlier build with empty harmonized arrays and a smaller byte count. Final delivered tiles contain harmonized arrays. This inconsistency is disclosed in SOURCE_AUDIT.md; original scientific inputs remain unchanged.')
 h('SI / AI disclosure')
-p('The app, documentation and artifact preparation used AI assistance (Codex). The supplied research pipeline and validation outputs were produced separately with AI assistance, as described in the build brief. Numerical claims come from the supplied JSON and cited sources; AI assistance does not certify scientific validity. Human scientific review is still needed before research or policy use. This independent project is not NASA-approved.')
+p('The app, documentation and artifact preparation used AI assistance (OpenAI Codex and Anthropic Claude). The supplied research pipeline and validation outputs were produced separately with AI assistance, as described in the build brief. Numerical claims come from the supplied JSON and cited sources; AI assistance does not certify scientific validity. Human scientific review is still needed before research or policy use. This independent project is not NASA-approved.')
 h('App and reproducible evidence')
-p(link('burn-clock.ottoskibeli.chatgpt.site','https://burn-clock.ottoskibeli.chatgpt.site')+'<br/>Initial deployment may require owner authentication; this link does not imply public access.','small')
+p(link('burn-clock.vercel.app','https://burn-clock.vercel.app')+'<br/>Public site; no login required.','small')
 p('Companion evidence: DATA_PROVENANCE.md, SOURCE_AUDIT.md, VALIDATION_REPORT.md and JUDGE_DEMO.md. Data: '+link('NASA FIRMS','https://firms.modaps.eosdis.nasa.gov/')+'; '+link('GK2A','https://zenodo.org/records/20084790')+' (CC BY 4.0).','small')
 
 def footer(canvas,doc):

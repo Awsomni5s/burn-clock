@@ -1,0 +1,1146 @@
+{
+ "generated_utc": "2026-11-15T19:34:50.711Z",
+ "window": {
+  "first_date": "2026-11-08",
+  "last_date": "2026-11-15"
+ },
+ "month": 11,
+ "areas": [
+  {
+   "id": "punjab",
+   "name": "Punjab + Haryana",
+   "kind": "preset",
+   "box": [
+    27.6,
+    73.8,
+    32.6,
+    77.6
+   ],
+   "status": "signal",
+   "ratio": 1.1369192207359946,
+   "low": 0.2765470698469424,
+   "high": 0.3732994979422313,
+   "aqua": 1833,
+   "noaa20": 1699,
+   "reason": null
+  },
+  {
+   "id": "cerrado",
+   "name": "Cerrado / MATOPIBA",
+   "kind": "preset",
+   "box": [
+    -13,
+    -50,
+    -5,
+    -42
+   ],
+   "status": "signal",
+   "ratio": 0.6009697624479721,
+   "low": 0.17134726202925957,
+   "high": 0.23708595011478753,
+   "aqua": 563,
+   "noaa20": 996,
+   "reason": null
+  },
+  {
+   "id": "PAK",
+   "name": "Pakistan",
+   "kind": "country",
+   "box": [
+    23.691965,
+    60.87424800000002,
+    37.133031,
+    77.83745099999999
+   ],
+   "status": "signal",
+   "ratio": 0.6981296056740176,
+   "low": 0.24627718496973175,
+   "high": 0.3324394272364168,
+   "aqua": 2367,
+   "noaa20": 3603,
+   "reason": null
+  },
+  {
+   "id": "COG",
+   "name": "Republic of the Congo",
+   "kind": "country",
+   "box": [
+    -5.037987,
+    11.093772999999999,
+    3.728197,
+    18.45306499999998
+   ],
+   "status": "signal",
+   "ratio": 0.4403867278938147,
+   "low": 0.12228871045873257,
+   "high": 0.29690760237187336,
+   "aqua": 124,
+   "noaa20": 293,
+   "reason": null
+  },
+  {
+   "id": "IND",
+   "name": "India",
+   "kind": "country",
+   "box": [
+    7.965535,
+    68.17664500000001,
+    35.49401,
+    97.40256099999999
+   ],
+   "status": "signal",
+   "ratio": 0.35075804881141726,
+   "low": 0.2028194353270601,
+   "high": 0.27377760112382354,
+   "aqua": 3112,
+   "noaa20": 9468,
+   "reason": null
+  },
+  {
+   "id": "BRA",
+   "name": "Brazil",
+   "kind": "country",
+   "box": [
+    -33.768378,
+    -73.987235,
+    5.244486,
+    -34.72999299999998
+   ],
+   "status": "signal",
+   "ratio": 0.37781609989001974,
+   "low": 0.22160042148656112,
+   "high": 0.29912928070618905,
+   "aqua": 5428,
+   "noaa20": 14565,
+   "reason": null
+  },
+  {
+   "id": "CHN",
+   "name": "China",
+   "kind": "country",
+   "box": [
+    18.197701,
+    73.67537900000002,
+    53.4588,
+    135.02631099999996
+   ],
+   "status": "signal",
+   "ratio": 0.3122711718057874,
+   "low": 0.2128138312309085,
+   "high": 0.28726862446103485,
+   "aqua": 3182,
+   "noaa20": 10948,
+   "reason": null
+  },
+  {
+   "id": "PRY",
+   "name": "Paraguay",
+   "kind": "country",
+   "box": [
+    -27.548499,
+    -62.68505700000003,
+    -19.342747,
+    -54.292959999999994
+   ],
+   "status": "signal",
+   "ratio": 0.3575617930143114,
+   "low": 0.2279932576193303,
+   "high": 0.33224795374011296,
+   "aqua": 550,
+   "noaa20": 1499,
+   "reason": null
+  },
+  {
+   "id": "AGO",
+   "name": "Angola",
+   "kind": "country",
+   "box": [
+    -17.930636,
+    11.640095999999971,
+    -4.438023,
+    24.079904999999997
+   ],
+   "status": "within",
+   "ratio": 0.17284128162235526,
+   "low": 0.09176222051961866,
+   "high": 0.17978053861803903,
+   "aqua": 214,
+   "noaa20": 1331,
+   "reason": null
+  },
+  {
+   "id": "MWI",
+   "name": "Malawi",
+   "kind": "country",
+   "box": [
+    -16.8013,
+    32.688165000000026,
+    -9.230599,
+    35.771905000000004
+   ],
+   "status": "within",
+   "ratio": 0.12889441485131264,
+   "low": 0.08208196844232629,
+   "high": 0.13663783757674297,
+   "aqua": 274,
+   "noaa20": 2244,
+   "reason": null
+  },
+  {
+   "id": "VEN",
+   "name": "Venezuela",
+   "kind": "country",
+   "box": [
+    0.724452,
+    -73.30495200000001,
+    12.162307,
+    -59.758285
+   ],
+   "status": "within",
+   "ratio": 0.2733007701256797,
+   "low": 0.20314490397915272,
+   "high": 0.29312964492034066,
+   "aqua": 517,
+   "noaa20": 2043,
+   "reason": null
+  },
+  {
+   "id": "TZA",
+   "name": "Tanzania",
+   "kind": "country",
+   "box": [
+    -11.720938,
+    29.33999799999998,
+    -0.95,
+    40.31659000000002
+   ],
+   "status": "within",
+   "ratio": 0.13949659233332157,
+   "low": 0.11125437756283622,
+   "high": 0.1501777014345805,
+   "aqua": 995,
+   "noaa20": 7450,
+   "reason": null
+  },
+  {
+   "id": "VNM",
+   "name": "Vietnam",
+   "kind": "country",
+   "box": [
+    8.59976,
+    102.170436,
+    23.352063,
+    109.33526999999998
+   ],
+   "status": "within",
+   "ratio": 0.2120273811951356,
+   "low": 0.1640556861848496,
+   "high": 0.228530901801123,
+   "aqua": 53,
+   "noaa20": 257,
+   "reason": null
+  },
+  {
+   "id": "ARG",
+   "name": "Argentina",
+   "kind": "country",
+   "box": [
+    -55.25,
+    -73.415436,
+    -21.83231,
+    -53.628349000000014
+   ],
+   "status": "within",
+   "ratio": 0.31576707437444373,
+   "low": 0.21376302677946596,
+   "high": 0.3403516496004035,
+   "aqua": 768,
+   "noaa20": 2416,
+   "reason": null
+  },
+  {
+   "id": "ZAF",
+   "name": "South Africa",
+   "kind": "country",
+   "box": [
+    -34.819166,
+    16.34497699999997,
+    -22.091313,
+    32.83012000000002
+   ],
+   "status": "within",
+   "ratio": 0.2778991458493639,
+   "low": 0.22826472838771592,
+   "high": 0.30812515407310237,
+   "aqua": 448,
+   "noaa20": 1715,
+   "reason": null
+  },
+  {
+   "id": "MOZ",
+   "name": "Mozambique",
+   "kind": "country",
+   "box": [
+    -26.742192,
+    30.17948100000001,
+    -10.317096,
+    40.77547500000003
+   ],
+   "status": "within",
+   "ratio": 0.1237465121789077,
+   "low": 0.11045078846715728,
+   "high": 0.14909296961610624,
+   "aqua": 1274,
+   "noaa20": 10734,
+   "reason": null
+  },
+  {
+   "id": "SDN",
+   "name": "Sudan",
+   "kind": "country",
+   "box": [
+    8.229188,
+    21.93680999999998,
+    22,
+    38.41008999999997
+   ],
+   "status": "within",
+   "ratio": 0.2941308012739051,
+   "low": 0.2714990265766086,
+   "high": 0.3664853522727465,
+   "aqua": 4123,
+   "noaa20": 14513,
+   "reason": null
+  },
+  {
+   "id": "IDN",
+   "name": "Indonesia",
+   "kind": "country",
+   "box": [
+    -10.359987,
+    95.293026,
+    5.479821,
+    141.03385200000002
+   ],
+   "status": "within",
+   "ratio": 0.1857462923643414,
+   "low": 0.13486365469600226,
+   "high": 0.23329091371164215,
+   "aqua": 535,
+   "noaa20": 3044,
+   "reason": null
+  },
+  {
+   "id": "CMR",
+   "name": "Cameroon",
+   "kind": "country",
+   "box": [
+    1.727673,
+    8.488815999999986,
+    12.859396,
+    16.01285200000001
+   ],
+   "status": "within",
+   "ratio": 0.23059724563877482,
+   "low": 0.21226899784873451,
+   "high": 0.2927893668325876,
+   "aqua": 539,
+   "noaa20": 2397,
+   "reason": null
+  },
+  {
+   "id": "ETH",
+   "name": "Ethiopia",
+   "kind": "country",
+   "box": [
+    3.42206,
+    32.95418000000001,
+    14.95943,
+    47.78942000000001
+   ],
+   "status": "within",
+   "ratio": 0.2625719321081204,
+   "low": 0.24905245608511797,
+   "high": 0.3361856513949322,
+   "aqua": 1005,
+   "noaa20": 3952,
+   "reason": null
+  },
+  {
+   "id": "MEX",
+   "name": "Mexico",
+   "kind": "country",
+   "box": [
+    14.538829,
+    -117.12775999999997,
+    32.72083,
+    -86.811982
+   ],
+   "status": "within",
+   "ratio": 0.2562149550154426,
+   "low": 0.19106756070635178,
+   "high": 0.34162375501349046,
+   "aqua": 228,
+   "noaa20": 971,
+   "reason": null
+  },
+  {
+   "id": "SSD",
+   "name": "South Sudan",
+   "kind": "country",
+   "box": [
+    3.509172,
+    23.886979999999994,
+    12.248008,
+    35.298006999999984
+   ],
+   "status": "within",
+   "ratio": 0.29010329259268347,
+   "low": 0.28732535131028175,
+   "high": 0.3878486561060531,
+   "aqua": 5176,
+   "noaa20": 18431,
+   "reason": null
+  },
+  {
+   "id": "BOL",
+   "name": "Bolivia",
+   "kind": "country",
+   "box": [
+    -22.872919,
+    -69.59042399999998,
+    -9.761988,
+    -57.49837100000002
+   ],
+   "status": "within",
+   "ratio": 0.21096632987538727,
+   "low": 0.20124913234201086,
+   "high": 0.2929987461729138,
+   "aqua": 465,
+   "noaa20": 2180,
+   "reason": null
+  },
+  {
+   "id": "ZMB",
+   "name": "Zambia",
+   "kind": "country",
+   "box": [
+    -17.961229,
+    21.887842999999975,
+    -8.238257,
+    33.48568799999998
+   ],
+   "status": "within",
+   "ratio": 0.08767614655393285,
+   "low": 0.06644336344727428,
+   "high": 0.124428663013533,
+   "aqua": 365,
+   "noaa20": 4380,
+   "reason": null
+  },
+  {
+   "id": "COL",
+   "name": "Colombia",
+   "kind": "country",
+   "box": [
+    -4.298187,
+    -78.99093499999998,
+    12.437303,
+    -66.876326
+   ],
+   "status": "within",
+   "ratio": 0.21045787130295562,
+   "low": 0.19337530127038907,
+   "high": 0.32332313430804194,
+   "aqua": 192,
+   "noaa20": 979,
+   "reason": null
+  },
+  {
+   "id": "ZWE",
+   "name": "Zimbabwe",
+   "kind": "country",
+   "box": [
+    -22.271612,
+    25.264226000000008,
+    -15.507787,
+    32.849860999999976
+   ],
+   "status": "within",
+   "ratio": 0.1266611716173577,
+   "low": 0.06067467688630344,
+   "high": 0.1994511031808434,
+   "aqua": 196,
+   "noaa20": 1565,
+   "reason": null
+  },
+  {
+   "id": "PER",
+   "name": "Peru",
+   "kind": "country",
+   "box": [
+    -18.347975,
+    -81.41094299999997,
+    -0.057205,
+    -68.66507999999999
+   ],
+   "status": "within",
+   "ratio": 0.13612854991696924,
+   "low": 0.13345381576589183,
+   "high": 0.24427206893309628,
+   "aqua": 101,
+   "noaa20": 800,
+   "reason": null
+  },
+  {
+   "id": "kalimantan",
+   "name": "Kalimantan",
+   "kind": "preset",
+   "box": [
+    -3.5,
+    110,
+    1,
+    117
+   ],
+   "status": "within",
+   "ratio": 0.18119452558908594,
+   "low": 0.1510155800207487,
+   "high": 0.4037939940691669,
+   "aqua": 58,
+   "noaa20": 314,
+   "reason": null
+  },
+  {
+   "id": "AUS",
+   "name": "Australia",
+   "kind": "country",
+   "box": [
+    -43.634597,
+    113.338953,
+    -10.668186,
+    153.56946900000003
+   ],
+   "status": "below",
+   "ratio": 0.31890243562988313,
+   "low": 0.32042983278574466,
+   "high": 0.43253503199594334,
+   "aqua": 2252,
+   "noaa20": 7559,
+   "reason": null
+  },
+  {
+   "id": "SEN",
+   "name": "Senegal",
+   "kind": "country",
+   "box": [
+    12.33209,
+    -17.625043000000005,
+    16.598264,
+    -11.467898999999989
+   ],
+   "status": "below",
+   "ratio": 0.2558218966682985,
+   "low": 0.266821586431105,
+   "high": 0.36017146849542875,
+   "aqua": 695,
+   "noaa20": 2914,
+   "reason": null
+  },
+  {
+   "id": "NGA",
+   "name": "Nigeria",
+   "kind": "country",
+   "box": [
+    4.240594,
+    2.6917020000000207,
+    13.865924,
+    14.577178000000004
+   ],
+   "status": "below",
+   "ratio": 0.20277428811156753,
+   "low": 0.21617783010310637,
+   "high": 0.2918095479673469,
+   "aqua": 897,
+   "noaa20": 4499,
+   "reason": null
+  },
+  {
+   "id": "GIN",
+   "name": "Guinea",
+   "kind": "country",
+   "box": [
+    7.309037,
+    -15.130311000000006,
+    12.586183,
+    -7.832100000000082
+   ],
+   "status": "below",
+   "ratio": 0.1755390583868284,
+   "low": 0.1922041309862161,
+   "high": 0.25944843906423554,
+   "aqua": 421,
+   "noaa20": 2559,
+   "reason": null
+  },
+  {
+   "id": "TCD",
+   "name": "Chad",
+   "kind": "country",
+   "box": [
+    7.421925,
+    13.540393999999992,
+    23.40972,
+    23.886889999999994
+   ],
+   "status": "below",
+   "ratio": 0.2576610635381652,
+   "low": 0.28212354398944006,
+   "high": 0.38082695067870154,
+   "aqua": 2449,
+   "noaa20": 9819,
+   "reason": null
+  },
+  {
+   "id": "africa",
+   "name": "Central African savanna",
+   "kind": "preset",
+   "box": [
+    5,
+    18,
+    10,
+    30
+   ],
+   "status": "below",
+   "ratio": 0.263991030913873,
+   "low": 0.30377865878112703,
+   "high": 0.4100582981093296,
+   "aqua": 3958,
+   "noaa20": 15510,
+   "reason": null
+  },
+  {
+   "id": "BEN",
+   "name": "Benin",
+   "kind": "country",
+   "box": [
+    6.142158,
+    0.7723359999999957,
+    12.235636,
+    3.797112000000027
+   ],
+   "status": "below",
+   "ratio": 0.21710856868384903,
+   "low": 0.24404578582495054,
+   "high": 0.34110941476639345,
+   "aqua": 222,
+   "noaa20": 1069,
+   "reason": null
+  },
+  {
+   "id": "MLI",
+   "name": "Mali",
+   "kind": "country",
+   "box": [
+    10.096361,
+    -12.170749999999998,
+    24.974574,
+    4.27021000000002
+   ],
+   "status": "below",
+   "ratio": 0.19126267854969226,
+   "low": 0.2236797504803011,
+   "high": 0.3019360812622371,
+   "aqua": 1862,
+   "noaa20": 10256,
+   "reason": null
+  },
+  {
+   "id": "CAF",
+   "name": "Central African Republic",
+   "kind": "country",
+   "box": [
+    2.26764,
+    14.459406999999999,
+    11.142395,
+    27.37422600000002
+   ],
+   "status": "below",
+   "ratio": 0.23453917239021613,
+   "low": 0.2811289526846782,
+   "high": 0.3794843928460303,
+   "aqua": 3982,
+   "noaa20": 17617,
+   "reason": null
+  },
+  {
+   "id": "USA",
+   "name": "United States",
+   "kind": "country",
+   "box": [
+    18.91619,
+    -171.791111,
+    71.357764,
+    -66.96465999999998
+   ],
+   "status": "below",
+   "ratio": 0.2519600141407455,
+   "low": 0.31654070063699996,
+   "high": 0.42728525271113327,
+   "aqua": 779,
+   "noaa20": 3306,
+   "reason": null
+  },
+  {
+   "id": "BFA",
+   "name": "Burkina Faso",
+   "kind": "country",
+   "box": [
+    9.610835,
+    -5.470565000000079,
+    15.116158,
+    2.1771079999999756
+   ],
+   "status": "below",
+   "ratio": 0.18440903712290752,
+   "low": 0.23253452361884072,
+   "high": 0.3138887747723822,
+   "aqua": 593,
+   "noaa20": 3325,
+   "reason": null
+  },
+  {
+   "id": "CIV",
+   "name": "Côte d'Ivoire",
+   "kind": "country",
+   "box": [
+    4.338288,
+    -8.602880000000027,
+    10.524061,
+    -2.562189999999987
+   ],
+   "status": "below",
+   "ratio": 0.16124716655504606,
+   "low": 0.18799605918823845,
+   "high": 0.27917540570129756,
+   "aqua": 37,
+   "noaa20": 236,
+   "reason": null
+  },
+  {
+   "id": "MDG",
+   "name": "Madagascar",
+   "kind": "country",
+   "box": [
+    -25.601434,
+    43.254187,
+    -12.040557,
+    50.47653700000001
+   ],
+   "status": "below",
+   "ratio": 0.1230487788405585,
+   "low": 0.13179398904839115,
+   "high": 0.21568693876182257,
+   "aqua": 526,
+   "noaa20": 4474,
+   "reason": null
+  },
+  {
+   "id": "RUS",
+   "name": "Russia",
+   "kind": "country",
+   "box": [
+    41.151416,
+    19.66064,
+    81.2504,
+    -169.89958000000001
+   ],
+   "status": "below",
+   "ratio": 0.1875663740104182,
+   "low": 0.21076391140388973,
+   "high": 0.32922797634370093,
+   "aqua": 437,
+   "noaa20": 2521,
+   "reason": null
+  },
+  {
+   "id": "COD",
+   "name": "DR Congo",
+   "kind": "country",
+   "box": [
+    -13.257227,
+    12.182337000000018,
+    5.256088,
+    31.174149
+   ],
+   "status": "below",
+   "ratio": 0.14501065277737557,
+   "low": 0.16315813275565433,
+   "high": 0.2934036921796749,
+   "aqua": 702,
+   "noaa20": 5143,
+   "reason": null
+  },
+  {
+   "id": "KAZ",
+   "name": "Kazakhstan",
+   "kind": "country",
+   "box": [
+    40.662325,
+    46.46644600000002,
+    55.38525,
+    87.35996999999998
+   ],
+   "status": "below",
+   "ratio": 0.1693197028816097,
+   "low": 0.25987431893629154,
+   "high": 0.3507936382789683,
+   "aqua": 37,
+   "noaa20": 233,
+   "reason": null
+  },
+  {
+   "id": "PNG",
+   "name": "Papua New Guinea",
+   "kind": "country",
+   "box": [
+    -10.652476,
+    141.00021000000004,
+    -2.500002,
+    156.01996499999996
+   ],
+   "status": "below",
+   "ratio": 0.1163757066002953,
+   "low": 0.1423397921998563,
+   "high": 0.24458347555929466,
+   "aqua": 130,
+   "noaa20": 1171,
+   "reason": null
+  },
+  {
+   "id": "GHA",
+   "name": "Ghana",
+   "kind": "country",
+   "box": [
+    4.710462,
+    -3.2443700000000035,
+    11.098341,
+    1.0601219999999785
+   ],
+   "status": "below",
+   "ratio": 0.1477354003989958,
+   "low": 0.2249478704062527,
+   "high": 0.31346257625126717,
+   "aqua": 211,
+   "noaa20": 1447,
+   "reason": null
+  },
+  {
+   "id": "MMR",
+   "name": "Myanmar",
+   "kind": "country",
+   "box": [
+    9.93296,
+    92.30323399999997,
+    28.335945,
+    101.180005
+   ],
+   "status": "below",
+   "ratio": 0.06450933091427792,
+   "low": 0.099548957662681,
+   "high": 0.14248886367849753,
+   "aqua": 31,
+   "noaa20": 529,
+   "reason": null
+  },
+  {
+   "id": "california",
+   "name": "California",
+   "kind": "preset",
+   "box": [
+    34,
+    -124,
+    42,
+    -117
+   ],
+   "status": "below",
+   "ratio": 0.2191401648998822,
+   "low": 0.348558057674422,
+   "high": 0.5623893300025717,
+   "aqua": 61,
+   "noaa20": 290,
+   "reason": null
+  },
+  {
+   "id": "parana",
+   "name": "Paraná Delta",
+   "kind": "preset",
+   "box": [
+    -34.5,
+    -60.8,
+    -32,
+    -58.3
+   ],
+   "status": "unknown",
+   "ratio": null,
+   "low": null,
+   "high": null,
+   "aqua": 1,
+   "noaa20": 21,
+   "reason": "Too few fires this week (21 NOAA-20 cell-days; needs 100)."
+  },
+  {
+   "id": "ECU",
+   "name": "Ecuador",
+   "kind": "country",
+   "box": [
+    -4.959129,
+    -80.96776499999999,
+    1.380924,
+    -75.233723
+   ],
+   "status": "unknown",
+   "ratio": null,
+   "low": null,
+   "high": null,
+   "aqua": 7,
+   "noaa20": 82,
+   "reason": "Too few fires this week (82 NOAA-20 cell-days; needs 100)."
+  },
+  {
+   "id": "SLE",
+   "name": "Sierra Leone",
+   "kind": "country",
+   "box": [
+    6.785917,
+    -13.24655000000007,
+    10.046984,
+    -10.230094000000008
+   ],
+   "status": "unknown",
+   "ratio": null,
+   "low": null,
+   "high": null,
+   "aqua": 9,
+   "noaa20": 40,
+   "reason": "Too few fires this week (40 NOAA-20 cell-days; needs 100)."
+  },
+  {
+   "id": "NIC",
+   "name": "Nicaragua",
+   "kind": "country",
+   "box": [
+    10.726839,
+    -87.66849300000001,
+    15.016267,
+    -83.147219
+   ],
+   "status": "unknown",
+   "ratio": null,
+   "low": null,
+   "high": null,
+   "aqua": 4,
+   "noaa20": 84,
+   "reason": "Too few fires this week (84 NOAA-20 cell-days; needs 100)."
+  },
+  {
+   "id": "LAO",
+   "name": "Lao PDR",
+   "kind": "country",
+   "box": [
+    13.881091,
+    100.11598800000002,
+    22.464753,
+    107.564525
+   ],
+   "status": "unknown",
+   "ratio": null,
+   "low": null,
+   "high": null,
+   "aqua": 26,
+   "noaa20": 242,
+   "reason": "Too few Aqua cell-days this week (26; needs 30). Aqua may not have passed over much of this area."
+  },
+  {
+   "id": "UGA",
+   "name": "Uganda",
+   "kind": "country",
+   "box": [
+    -1.443322,
+    29.579466000000025,
+    4.249885,
+    35.03598999999997
+   ],
+   "status": "unknown",
+   "ratio": null,
+   "low": null,
+   "high": null,
+   "aqua": 9,
+   "noaa20": 188,
+   "reason": "Too few Aqua cell-days this week (9; needs 30). Aqua may not have passed over much of this area."
+  },
+  {
+   "id": "PHL",
+   "name": "Philippines",
+   "kind": "country",
+   "box": [
+    5.581003,
+    117.17427499999997,
+    18.505227,
+    126.53742399999999
+   ],
+   "status": "unknown",
+   "ratio": null,
+   "low": null,
+   "high": null,
+   "aqua": 10,
+   "noaa20": 89,
+   "reason": "Too few fires this week (89 NOAA-20 cell-days; needs 100)."
+  },
+  {
+   "id": "THA",
+   "name": "Thailand",
+   "kind": "country",
+   "box": [
+    5.691384,
+    97.37589600000001,
+    20.41785,
+    105.58903900000001
+   ],
+   "status": "unknown",
+   "ratio": null,
+   "low": null,
+   "high": null,
+   "aqua": 25,
+   "noaa20": 278,
+   "reason": "Too few Aqua cell-days this week (25; needs 30). Aqua may not have passed over much of this area."
+  },
+  {
+   "id": "UKR",
+   "name": "Ukraine",
+   "kind": "country",
+   "box": [
+    45.293308,
+    22.08560799999998,
+    52.335075,
+    40.08078899999998
+   ],
+   "status": "unknown",
+   "ratio": null,
+   "low": null,
+   "high": null,
+   "aqua": 7,
+   "noaa20": 31,
+   "reason": "Too few fires this week (31 NOAA-20 cell-days; needs 100)."
+  },
+  {
+   "id": "HND",
+   "name": "Honduras",
+   "kind": "country",
+   "box": [
+    12.984686,
+    -89.35332599999998,
+    16.005406,
+    -83.147219
+   ],
+   "status": "unknown",
+   "ratio": null,
+   "low": null,
+   "high": null,
+   "aqua": 3,
+   "noaa20": 82,
+   "reason": "Too few fires this week (82 NOAA-20 cell-days; needs 100)."
+  },
+  {
+   "id": "LBR",
+   "name": "Liberia",
+   "kind": "country",
+   "box": [
+    4.355755,
+    -11.438779000000068,
+    8.541055,
+    -7.539715000000001
+   ],
+   "status": "unknown",
+   "ratio": null,
+   "low": null,
+   "high": null,
+   "aqua": 2,
+   "noaa20": 21,
+   "reason": "Too few fires this week (21 NOAA-20 cell-days; needs 100)."
+  },
+  {
+   "id": "KHM",
+   "name": "Cambodia",
+   "kind": "country",
+   "box": [
+    10.486544,
+    102.34809899999999,
+    14.570584,
+    107.61454800000001
+   ],
+   "status": "unknown",
+   "ratio": null,
+   "low": null,
+   "high": null,
+   "aqua": 14,
+   "noaa20": 66,
+   "reason": "Too few fires this week (66 NOAA-20 cell-days; needs 100)."
+  },
+  {
+   "id": "CUB",
+   "name": "Cuba",
+   "kind": "country",
+   "box": [
+    19.855481,
+    -84.97491100000002,
+    23.188611,
+    -74.17802499999999
+   ],
+   "status": "unknown",
+   "ratio": null,
+   "low": null,
+   "high": null,
+   "aqua": 1,
+   "noaa20": 17,
+   "reason": "Too few fires this week (17 NOAA-20 cell-days; needs 100)."
+  },
+  {
+   "id": "CHL",
+   "name": "Chile",
+   "kind": "country",
+   "box": [
+    -55.61183,
+    -75.64439500000003,
+    -17.580012,
+    -66.95992000000001
+   ],
+   "status": "unknown",
+   "ratio": null,
+   "low": null,
+   "high": null,
+   "aqua": 29,
+   "noaa20": 193,
+   "reason": "Too few Aqua cell-days this week (29; needs 30). Aqua may not have passed over much of this area."
+  },
+  {
+   "id": "GTM",
+   "name": "Guatemala",
+   "kind": "country",
+   "box": [
+    13.735338,
+    -92.22924899999998,
+    17.819326,
+    -88.22502299999996
+   ],
+   "status": "unknown",
+   "ratio": null,
+   "low": null,
+   "high": null,
+   "aqua": 7,
+   "noaa20": 48,
+   "reason": "Too few fires this week (48 NOAA-20 cell-days; needs 100)."
+  }
+ ],
+ "definition": "Same rule as the live check on place reports: this week’s Aqua ÷ NOAA-20 daytime cell-days vs Aqua ÷ S-NPP in the same month of 2013–19. Country areas are bounding rectangles and can include neighbours.",
+ "script": "scripts/build_live_world.mjs"
+}

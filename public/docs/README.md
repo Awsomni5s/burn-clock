@@ -2,7 +2,7 @@
 
 [![Integrity](https://github.com/Awsomni5s/burn-clock/actions/workflows/integrity.yml/badge.svg)](https://github.com/Awsomni5s/burn-clock/actions/workflows/integrity.yml)
 
-Check a fire trend, see when satellites observed it, and carry the source and limitations into a shareable receipt. [Open Burn Clock](https://burn-clock.ottoskibeli.chatgpt.site/) (currently owner-private).
+Check a fire trend, see when satellites observed it, and carry the source and limitations into a shareable receipt. [Open Burn Clock](https://burn-clock.vercel.app/) (public, no login).
 
 Punjab’s reported count fell 93% (71,304 → 5,114). In the supplied preliminary GK2A record, whole-afternoon unique pixel-days fell about a third from the 2021 peak; 2025 was 2.14× 2019. At 5 pm, 2025 pixel-hours were 1.40× 2021, and the share at 4 pm or later rose from about 52% to 96%. These are different instruments, units and seasonal windows—not a corrected count of all fires.
 
@@ -48,7 +48,7 @@ The supplied release is dated 2026-11-14. Its scientific configuration fingerpri
 - [CITATION.cff](CITATION.cff): provisional collective author; **no Burn Clock DOI has been issued**.
 - `python3 scripts/prepare_zenodo.py`: prepares an upload package, metadata, original archive checksums and reproduction limits. A teammate must finalize authors, upload to Zenodo and insert the actual DOI.
 - [Data contract](public/docs/DATA_CONTRACT.md), [source provenance](public/docs/DATA_PROVENANCE.md), [supplied validation report](public/docs/VALIDATION_REPORT.md).
-- The app’s `#api` page documents static JSON URLs, gzip decoding, an iframe badge, CSV and GeoJSON downloads. Hosting access controls still apply; an owner-private site is not a public API or publicly embeddable service.
+- The app’s `#api` page documents static JSON URLs, gzip decoding, an iframe badge, CSV and GeoJSON downloads. The site is public; the live JSON API is documented on the same page.
 - GIS contours use WGS84 and retain the supplied levels/palette. They are smoothed visualizations, not original measurements. NetCDF/GeoTIFF await the original grid.
 
 ## Live observations
@@ -65,7 +65,7 @@ The supplied release is dated 2026-11-14. Its scientific configuration fingerpri
 - Summed bounds are approximate, not a calibrated regional confidence interval. Missing coverage is never interpreted as zero burning.
 - Annual detection-conditioned pass medians are converted to approximate civil time using a midpoint time zone and an explicit reference date. Large boxes can cross zones; the timezone lookup is approximate near borders. Source day assignment remains local-solar in the scientific archive.
 - Automated accessibility, finite numeric checks and local speed measurements do not establish real-device percentiles, screen-reader usability or participant comprehension. Map/data loading can exceed the first-answer budget.
-- External embedding depends on site sharing and host frame policy. The current audience remains owner-private.
+- External embedding depends on the host frame policy. The site is public.
 
 ## Licenses, credits and AI/SI disclosure
 

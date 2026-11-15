@@ -30,12 +30,14 @@ jobs:
         run: python scripts/fetch_punjab_week.py
       - name: Live timing check grid (any place)
         run: python scripts/fetch_live_cells.py
+      - name: Live check for every supported country
+        run: node --max-old-space-size=4096 scripts/build_live_world.mjs
       - name: Commit if anything changed
         run: |
           # Commit as the repository owner's GitHub no-reply identity: Vercel deploys only commits by its project's members.
           git config user.name "${{ github.repository_owner }}"
           git config user.email "${{ github.repository_owner_id }}+${{ github.repository_owner }}@users.noreply.github.com"
-          git add public/data/live/latest.json public/data/punjab_week.json public/data/live/week_cells.json.gz
+          git add public/data/live/latest.json public/data/punjab_week.json public/data/live/week_cells.json.gz public/data/live/world_live.json
           if git diff --cached --quiet; then echo "No change"; exit 0; fi
           git commit -m "Refresh provisional NASA FIRMS seven-day data (automated, live-data workflow)"
           git push

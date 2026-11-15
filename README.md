@@ -39,6 +39,7 @@
   3. For subscriptions, add a free Upstash Redis and set `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`.
   4. Redeploy, then open `/api/telegram-setup?key=<TELEGRAM_WEBHOOK_SECRET>` once.
   - Code is in `src/server/`, bundled by `scripts/build_api.mjs` and tested with a fake Telegram and Redis in `scripts/api_checks.mjs`.
+- **Live, worldwide:** the "Where it matters" page lists the areas where this week's NASA data shows burning later than usual. `scripts/build_live_world.mjs` runs the live check for the 6 presets and 57 supported countries every refresh, writing `public/data/live/world_live.json`. On 8–15 Nov 2026, 8 of the 48 testable areas showed later burning: Punjab + Haryana, Cerrado, Pakistan, the Republic of the Congo, India, Brazil, China and Paraguay.
 - **Always current, no server:** `.github/workflows/live-data.yml` refreshes all live files every six hours and commits them, so a host that deploys on push (Vercel) serves fresh data.
 - **Right now, this week:** the planner also compares NASA's latest seven-day fire files with the same calendar days in 2013–2025.
   - Aqua now crosses Punjab at about 4 pm. In the week of 8–15 Nov 2026 it recorded about 2.0 detections for every NOAA-20 detection at about 1:50 pm, against about 0.2 in 2013–2021.
@@ -101,7 +102,7 @@ The supplied release is dated 2026-11-14. Its scientific configuration fingerpri
 - [CITATION.cff](CITATION.cff): provisional collective author; **no Burn Clock DOI has been issued**.
 - `python3 scripts/prepare_zenodo.py`: prepares an upload package, metadata, original archive checksums and reproduction limits. A teammate must finalize authors, upload to Zenodo and insert the actual DOI.
 - [Data contract](public/docs/DATA_CONTRACT.md), [source provenance](public/docs/DATA_PROVENANCE.md), [supplied validation report](public/docs/VALIDATION_REPORT.md).
-- The app’s `#api` page documents static JSON URLs, gzip decoding, an iframe badge, CSV and GeoJSON downloads. Hosting access controls still apply; an owner-private site is not a public API or publicly embeddable service.
+- The app’s `#api` page documents static JSON URLs, gzip decoding, an iframe badge, CSV and GeoJSON downloads. The site is public, and a live JSON API (`/api/check`, `/api/punjab`) is documented on the same page.
 - GIS contours use WGS84 and retain the supplied levels/palette. They are smoothed visualizations, not original measurements. NetCDF/GeoTIFF await the original grid.
 
 ## Live observations
