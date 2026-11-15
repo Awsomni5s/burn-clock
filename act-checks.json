@@ -1,5 +1,5 @@
 {
-  "tested_at": "2026-11-15T22:38:09.553Z",
+  "tested_at": "2026-11-15T22:55:44.743Z",
   "status": "passed",
   "checks": [
     {
@@ -127,6 +127,10 @@
       "ok": true
     },
     {
+      "name": "playbook: districts ranked with a check window for field teams",
+      "ok": true
+    },
+    {
       "name": "next move: switching job changes the action",
       "ok": true
     },
@@ -143,19 +147,23 @@
       "ok": true
     },
     {
-      "name": "dashboard: next move, calendar and detail panel side by side, no page scroll",
+      "name": "onboarding asks the job first, then the place",
       "ok": true
     },
     {
-      "name": "dashboard: the This week tab swaps only the detail panel",
+      "name": "six example places",
       "ok": true
     },
     {
-      "name": "dashboard: the next-move card opens the trend check",
+      "name": "map view: the map sits beside its calendar, joined by a line",
       "ok": true
     },
     {
-      "name": "dashboard: the calendar trust link stays on the page",
+      "name": "the calendar trust link opens the act view",
+      "ok": true
+    },
+    {
+      "name": "act view has the plan and the trend check",
       "ok": true
     },
     {
