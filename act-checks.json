@@ -1,5 +1,5 @@
 {
-  "tested_at": "2026-11-15T20:55:56.540Z",
+  "tested_at": "2026-11-15T21:00:17.689Z",
   "status": "passed",
   "checks": [
     {
@@ -135,6 +135,10 @@
       "ok": true
     },
     {
+      "name": "next move: WhatsApp summary has the three answers, actions and the link",
+      "ok": true
+    },
+    {
       "name": "next move: .ics has two seasons with reminders",
       "ok": true
     },
@@ -148,6 +152,10 @@
     },
     {
       "name": "hand-drawn outline becomes the area",
+      "ok": true
+    },
+    {
+      "name": "clicking the map picks the province under the cursor",
       "ok": true
     },
     {

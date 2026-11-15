@@ -132,8 +132,8 @@ try {
   const airDo = await page.getByTestId('nm-when').locator('.nm-do').innerText();
   check('next move: switching job changes the action', () => { assert.notEqual(policyDo, airDo); assert.match(airDo, /emissions/); });
   check('next move: role is kept in the URL', () => assert.match(page.url(), /role=air/));
-  const wa = decodeURIComponent((await page.getByTestId('nm-whatsapp').getAttribute('href')).split('text=')[1]);
-  check('next move: WhatsApp summary has the three answers, actions and the link', () => { assert.match(wa, /for smoke & air quality/); assert.equal((wa.match(/Do:/g) || []).length, 3); assert.match(wa, /role=air/); });
+  const nmWa = decodeURIComponent((await page.getByTestId('nm-whatsapp').getAttribute('href')).split('text=')[1]);
+  check('next move: WhatsApp summary has the three answers, actions and the link', () => { assert.match(nmWa, /for smoke & air quality/); assert.equal((nmWa.match(/Do:/g) || []).length, 3); assert.match(nmWa, /role=air/); });
   const [icsFile] = await Promise.all([page.waitForEvent('download'), page.getByTestId('nm-ics').click()]);
   const seasonIcs = readFileSync(await icsFile.path(), 'utf8');
   check('next move: .ics has two seasons with reminders', () => { assert.equal((seasonIcs.match(/BEGIN:VEVENT/g) || []).length, 2); assert.match(seasonIcs, /DTSTART;VALUE=DATE:\d{4}1001/); assert.match(seasonIcs, /TRIGGER:-P14D/); });
@@ -150,6 +150,10 @@ try {
   for (let i = 1; i < 50; i++) { const t = i / 49 * 2 * Math.PI; await page.mouse.move(cx + 80 * Math.cos(t), cy + 60 * Math.sin(t), {steps: 2}); }
   await page.mouse.up(); await page.waitForURL(/shape=p%3A/, {timeout: 30000});
   check('hand-drawn outline becomes the area', () => assert.match(page.url(), /place=Hand-drawn\+area/));
+  await page.goto(`${base}/?choose=true#explorer`); await page.getByTestId('shape-province').click();
+  const pc = page.locator('.maplibregl-canvas').first(); await pc.scrollIntoViewIfNeeded(); const pb = await pc.boundingBox();
+  await page.mouse.click(pb.x + pb.width / 2, pb.y + pb.height / 2); await page.waitForURL(/shape=a%3A/, {timeout: 30000});
+  check('clicking the map picks the province under the cursor', () => assert.match(page.url(), /place=Punjab%2C\+India/));
   await page.goto(`${base}/#home`); await page.locator('#place-search').fill('Punjab, India'); await page.locator('#place-search').press('Enter');
   await page.waitForURL(/shape=a%3AIND%3AIND-3249|shape=a:IND:IND-3249/, {timeout: 30000});
   await page.getByTestId('next-move').waitFor({timeout: 90000});
