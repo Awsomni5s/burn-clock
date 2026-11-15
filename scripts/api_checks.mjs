@@ -14,7 +14,7 @@ try {
   await t('/api/check gives the same verdict as the app for Punjab + Haryana', async () => {
     const r = await check(new Request(`${base}/api/check?box=27.6,73.8,32.6,77.6&months=10,11&a=2021&b=2025`)); assert.equal(r.status, 200);
     const j = await r.json(); assert.equal(j.verdict.label, 'Timing matters here'); assert.equal(j.checks.burning_moved_later, 'Yes, likely');
-    assert.ok(j.link.includes('box=27.6%2C73.8%2C32.6%2C77.6')); assert.ok(['signal', 'within', 'below', 'unknown'].includes(j.live.status)); assert.equal(r.headers.get('access-control-allow-origin'), '*');
+    assert.ok(j.link.includes('box=27.6%2C73.8%2C32.6%2C77.6')); assert.ok(['signal', 'within', 'below', 'unknown'].includes(j.live.status)); assert.ok(['record', 'above', 'below', 'lowest', 'quiet', 'unknown'].includes(j.live.this_week_vs_usual.status)); assert.equal(r.headers.get('access-control-allow-origin'), '*');
   });
   await t('/api/check accepts lat/lon and the wheat season control', async () => {
     const j = await (await check(new Request(`${base}/api/check?box=27.6,73.8,32.6,77.6&months=4,5&a=2019&b=2025`))).json(); assert.equal(j.verdict.label, 'Satellite timing doesn’t explain this');

@@ -34,6 +34,20 @@ function timingChecks(rows, months, year) {
   return { year, months: selected, tests, drivers, late: !aqua.testable ? "unknown" : aqua.delta > aqua.threshold ? "signal" : "within", relationship: drivers.length ? "signal" : tests.every((t) => t.testable) ? "within" : "unknown" };
 }
 
+// src/shape.ts
+function inRing(x, y, r) {
+  let ins = false;
+  for (let i = 0, j = r.length - 1; i < r.length; j = i++) {
+    const [xi, yi] = r[i], [xj, yj] = r[j];
+    if (yi > y !== yj > y && x < (xj - xi) * (y - yi) / (yj - yi) + xi) ins = !ins;
+  }
+  return ins;
+}
+function inPolys(lat, lon, polys) {
+  for (const p of polys) if (inRing(lon, lat, p[0]) && !p.slice(1).some((h) => inRing(lon, lat, h))) return true;
+  return false;
+}
+
 // src/types.ts
 var PLATFORMS = ["T", "A", "N", "J1", "J2"];
 var PRESETS = [
@@ -72,9 +86,10 @@ function validBox(b) {
 function createAccumulator(manifest) {
   let cells = 0;
   const rows = manifest.months.map((month) => ({ month, raw: Object.fromEntries(PLATFORMS.map((p) => [p, 0])), rawMissing: Object.fromEntries(PLATFORMS.map((p) => [p, 0])), harm: 0, lo: 0, hi: 0, harmMissing: 0, src: /* @__PURE__ */ new Set() }));
-  function add(tile, box) {
+  function add(tile, box, polys) {
     tile.cells.forEach(([lat, lon], ci) => {
       if (!inside(lat + 0.125, lon + 0.125, box)) return;
+      if (polys && !inPolys(lat + 0.125, lon + 0.125, polys)) return;
       cells++;
       rows.forEach((r, mi) => {
         for (const p of PLATFORMS) {
@@ -282,6 +297,22 @@ function liveTiming(doc, box, months) {
   return { ...empty, ratio: Math.exp(rho), baseline: Math.exp(mu), low: Math.exp(mu - thr), high: Math.exp(mu + thr), delta, threshold: thr, status, reason: "" };
 }
 var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+function liveAmount(doc, box, months) {
+  const last = doc.window.last_date, first = doc.window.first_date ?? last;
+  const m = Number((last ?? "2026-11-01").slice(5, 7)), days = last && first ? Math.round((Date.parse(last) - Date.parse(first)) / 864e5) + 1 : 7;
+  const week = liveSums(doc, box).J1 * 7 / Math.max(1, days);
+  const dim = (y) => new Date(Date.UTC(y, m, 0)).getUTCDate();
+  const hist = [];
+  for (let y = 2019; y <= 2025; y++) {
+    const r = months.find((x) => x.month === `${y}-${String(m).padStart(2, "0")}`)?.raw?.J1;
+    if (r != null) hist.push(r * 7 / dim(y));
+  }
+  const base = { month: m, week, days, years: hist.length, median: null, min: null, max: null };
+  if (!last || hist.length < 4) return { ...base, status: "unknown" };
+  const s = [...hist].sort((a, b) => a - b), median = s.length % 2 ? s[(s.length - 1) / 2] : (s[s.length / 2 - 1] + s[s.length / 2]) / 2, min = s[0], max = s.at(-1);
+  const status = week < 5 && median < 5 ? "quiet" : week > max ? "record" : week > median ? "above" : week < min ? "lowest" : "below";
+  return { ...base, median, min, max, status };
+}
 
 // src/server/place.ts
 var MONTHS2 = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -312,10 +343,11 @@ async function checkPlace(q, load, appUrl) {
   const { area, manifest } = await buildArea(q.box, load);
   if (!area.cellCount) return { status: "no_data", message: "No archived fire cells in this box. Empty coverage is no data, not proof of no burning.", box: q.box };
   const r = computeClaim(area, q.months, q.a, q.b, manifest), v = verdictFor(r.checks), label = q.months.length > 1 && q.months.every((m, i) => i === 0 || m === q.months[i - 1] + 1) ? `${MONTHS2[q.months[0] - 1]}\u2013${MONTHS2[q.months.at(-1) - 1]}` : q.months.map((m) => MONTHS2[m - 1]).join(", ");
-  let live = null, liveWindow = null;
+  let live = null, amount = null, liveWindow = null;
   try {
     const cells = await load("live/week_cells.json.gz");
     live = liveTiming(cells, q.box, area.months);
+    amount = liveAmount(cells, q.box, area.months);
     liveWindow = cells.window;
   } catch {
     live = null;
@@ -337,6 +369,7 @@ async function checkPlace(q, load, appUrl) {
     checks: { burning_moved_later: lateLabel(r.checks.late), older_modis_record_off: modisLabel(r.checks.relationship), late: r.checks.late, relationship: r.checks.relationship, drivers: r.checks.drivers },
     combined_record: { status: r.harmonized.status, change_pct: r.harmonized.changePct, range_pct: r.harmonized.rangePct, unit: "daytime active 0.05\xB0 cell-days, S-NPP VIIRS scale" },
     live: live && { window: liveWindow, status: live.status, aqua_per_noaa20: live.ratio, normal_range: live.low != null ? [live.low, live.high] : null, reason: live.reason || null },
+    this_week_vs_usual: amount && { status: amount.status, noaa20_cell_days_per_week: Math.round(amount.week), usual_week_same_month_2019_2025: amount.median != null ? { median: Math.round(amount.median), min: Math.round(amount.min), max: Math.round(amount.max) } : null, definition: "NOAA-20 daytime active cell-days in NASA FIRMS seven-day file, scaled to 7 days, against the archive NOAA-20 month total \xD77/days for 2019\u20132025. record = above every year; above/below = vs median; lowest = below every year. Provisional; read together with live.status (a low count with burning moved later is not less burning)." },
     link: link.toString(),
     limits: "Counts are satellite observations, not individual fires, burned area or emissions. Timing checks are diagnostics, not proof of cause. The live check is provisional (NASA FIRMS seven-day files).",
     source: "Burn Clock, NASA FIRMS MODIS C6.1 and VIIRS 375 m"
@@ -416,7 +449,7 @@ function busiestDays(d, doc, year, len = 14) {
   const fmt = (mmdd) => `${Number(mmdd.slice(3))} ${mmdd.startsWith("10") ? "Oct" : "Nov"}`;
   return { from: fmt(doc.days_mmdd[at]), to: fmt(doc.days_mmdd[at + len - 1]), share: t ? 100 * best / t : null, total: t };
 }
-function inRing(x, y, r) {
+function inRing2(x, y, r) {
   let ins = false;
   for (let i = 0, j = r.length - 1; i < r.length; j = i++) {
     const [xi, yi] = r[i], [xj, yj] = r[j];
@@ -429,7 +462,7 @@ function districtAt(doc, lat, lon) {
     const g = d.geometry;
     if (!g) continue;
     const polys = g.type === "Polygon" ? [g.coordinates] : g.coordinates;
-    for (const p of polys) if (inRing(lon, lat, p[0]) && !p.slice(1).some((h) => inRing(lon, lat, h))) return d.name;
+    for (const p of polys) if (inRing2(lon, lat, p[0]) && !p.slice(1).some((h) => inRing2(lon, lat, h))) return d.name;
   }
   return null;
 }
@@ -647,7 +680,7 @@ Rules:
 var TOOLS = [
   {
     name: "check_place",
-    description: "Verdict for any place on Earth: can you trust its fire trend, the two timing checks, the combined-record change and range, and this week\u2019s live check. Give lat/lon (with optional radius_deg 0.25\u20135) or box.",
+    description: "Verdict for any place on Earth: can you trust its fire trend, the two timing checks, the combined-record change and range, this week\u2019s live timing check, and whether this week has more or less burning than an average week of the same month (this_week_vs_usual). Give lat/lon (with optional radius_deg 0.25\u20135) or box.",
     input_schema: { type: "object", properties: { lat: { type: "number" }, lon: { type: "number" }, radius_deg: { type: "number" }, box: { type: "array", items: { type: "number" }, description: "[south, west, north, east]" }, months: { type: "array", items: { type: "integer" }, description: "Calendar months 1\u201312" }, a: { type: "integer", description: "First year (2001\u20132024)" }, b: { type: "integer", description: "Second year (2002\u20132025)" } } }
   },
   {
