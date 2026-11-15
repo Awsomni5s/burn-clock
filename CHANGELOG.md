@@ -1,5 +1,23 @@
 # Changelog
 
+## 2026-11-15 — Act on it, audited against rival tools
+
+- **Right now (live).**
+  - `scripts/fetch_punjab_week.py` puts NASA FIRMS seven-day South Asia files (MODIS, NOAA-20, NOAA-21, S-NPP) into Punjab districts, writing `public/data/punjab_week.json`.
+  - `pipeline/analysis/punjab_aqua_daily.py` gives the same calendar days for 2013–2025, writing `public/data/punjab_aqua_daily.json`.
+  - The page shows this week's Aqua ÷ NOAA-20 ratio against every past year, with Aqua's crossing time, plus a "Where to send teams this week" table with each district's check window.
+- **For field teams:**
+  - "Use my location" (point-in-polygon in the browser);
+  - a field card saved as an image;
+  - a calendar file (.ics) of daily check windows;
+  - a season-timing table (10/50/90% dates and the 4 pm+ share by year);
+  - a copyable link per district.
+- **For forecasters:**
+  - a 90% range for the count gap from resampling days (seeded, reproducible);
+  - a check of whether the 1–2 pm GK2A images and the satellite count agree at the hour the satellites pass.
+  - The ranking table gains a "count fell vs afternoon" column.
+- **Tests:** new unit tests (bootstrap, season dates, location, live ratio, calendar file). The browser checks now also recompute the live ratio, drive geolocation, and validate the PNG, the .ics file and the range text.
+
 ## 2026-11-15 — Act on it: Punjab, district by district, and a brief for every role
 
 - **Punjab action planner (`#act`, new menu item "Act on it: Punjab").** Built from `public/data/punjab_districts.json`, which is made by `pipeline/analysis/punjab_districts.py`.

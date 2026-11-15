@@ -1,0 +1,339 @@
+{
+ "generated_utc": "2026-11-15T17:48:02Z",
+ "window": {
+  "first_date": "2026-11-08",
+  "last_date": "2026-11-15"
+ },
+ "feeds": {
+  "MODIS": {
+   "url": "https://firms.modaps.eosdis.nasa.gov/data/active_fire/modis-c6.1/csv/MODIS_C6_1_South_Asia_7d.csv",
+   "http_status": 200,
+   "rows": 5517,
+   "first_date": "2026-11-08",
+   "last_date": "2026-11-15"
+  },
+  "J1": {
+   "url": "https://firms.modaps.eosdis.nasa.gov/data/active_fire/noaa-20-viirs-c2/csv/J1_VIIRS_C2_South_Asia_7d.csv",
+   "http_status": 200,
+   "rows": 20254,
+   "first_date": "2026-11-08",
+   "last_date": "2026-11-15"
+  },
+  "J2": {
+   "url": "https://firms.modaps.eosdis.nasa.gov/data/active_fire/noaa-21-viirs-c2/csv/J2_VIIRS_C2_South_Asia_7d.csv",
+   "http_status": 200,
+   "rows": 17338,
+   "first_date": "2026-11-08",
+   "last_date": "2026-11-15"
+  },
+  "N": {
+   "url": "https://firms.modaps.eosdis.nasa.gov/data/active_fire/suomi-npp-viirs-c2/csv/SUOMI_VIIRS_C2_South_Asia_7d.csv",
+   "http_status": 200,
+   "rows": 0,
+   "first_date": null,
+   "last_date": null
+  }
+ },
+ "platform_names": {
+  "T": "Terra MODIS",
+  "A": "Aqua MODIS",
+  "J1": "NOAA-20 VIIRS",
+  "J2": "NOAA-21 VIIRS",
+  "N": "S-NPP VIIRS"
+ },
+ "median_pass_ist": {
+  "A": 16.0,
+  "J1": 13.87,
+  "J2": 13.65
+ },
+ "days_with_detections": {
+  "T": [],
+  "A": [
+   "2026-11-08",
+   "2026-11-09",
+   "2026-11-10",
+   "2026-11-11",
+   "2026-11-13",
+   "2026-11-14",
+   "2026-11-15"
+  ],
+  "J1": [
+   "2026-11-08",
+   "2026-11-09",
+   "2026-11-10",
+   "2026-11-11",
+   "2026-11-12",
+   "2026-11-13",
+   "2026-11-14",
+   "2026-11-15"
+  ],
+  "J2": [
+   "2026-11-08",
+   "2026-11-09",
+   "2026-11-10",
+   "2026-11-11",
+   "2026-11-12",
+   "2026-11-13",
+   "2026-11-14",
+   "2026-11-15"
+  ],
+  "N": []
+ },
+ "districts": [
+  {
+   "name": "Pathankot",
+   "daytime": {
+    "T": 0,
+    "A": 2,
+    "J1": 2,
+    "J2": 5,
+    "N": 0
+   }
+  },
+  {
+   "name": "Gurdaspur",
+   "daytime": {
+    "T": 0,
+    "A": 4,
+    "J1": 15,
+    "J2": 7,
+    "N": 0
+   }
+  },
+  {
+   "name": "Patiala",
+   "daytime": {
+    "T": 0,
+    "A": 199,
+    "J1": 116,
+    "J2": 104,
+    "N": 0
+   }
+  },
+  {
+   "name": "Tarn Taran",
+   "daytime": {
+    "T": 0,
+    "A": 61,
+    "J1": 52,
+    "J2": 26,
+    "N": 0
+   }
+  },
+  {
+   "name": "Kapurthala",
+   "daytime": {
+    "T": 0,
+    "A": 18,
+    "J1": 22,
+    "J2": 19,
+    "N": 0
+   }
+  },
+  {
+   "name": "Fatehgarh Sahib",
+   "daytime": {
+    "T": 0,
+    "A": 18,
+    "J1": 26,
+    "J2": 26,
+    "N": 0
+   }
+  },
+  {
+   "name": "Sangrur",
+   "daytime": {
+    "T": 0,
+    "A": 465,
+    "J1": 204,
+    "J2": 170,
+    "N": 0
+   }
+  },
+  {
+   "name": "Mansa",
+   "daytime": {
+    "T": 0,
+    "A": 178,
+    "J1": 74,
+    "J2": 52,
+    "N": 0
+   }
+  },
+  {
+   "name": "Amritsar",
+   "daytime": {
+    "T": 0,
+    "A": 23,
+    "J1": 37,
+    "J2": 18,
+    "N": 0
+   }
+  },
+  {
+   "name": "Faridkot",
+   "daytime": {
+    "T": 0,
+    "A": 133,
+    "J1": 30,
+    "J2": 36,
+    "N": 0
+   }
+  },
+  {
+   "name": "Ludhiana",
+   "daytime": {
+    "T": 0,
+    "A": 135,
+    "J1": 185,
+    "J2": 133,
+    "N": 0
+   }
+  },
+  {
+   "name": "Bathinda",
+   "daytime": {
+    "T": 0,
+    "A": 347,
+    "J1": 86,
+    "J2": 98,
+    "N": 0
+   }
+  },
+  {
+   "name": "Jalandhar",
+   "daytime": {
+    "T": 0,
+    "A": 12,
+    "J1": 19,
+    "J2": 16,
+    "N": 0
+   }
+  },
+  {
+   "name": "Muktsar",
+   "daytime": {
+    "T": 0,
+    "A": 164,
+    "J1": 96,
+    "J2": 84,
+    "N": 0
+   }
+  },
+  {
+   "name": "Moga",
+   "daytime": {
+    "T": 0,
+    "A": 195,
+    "J1": 71,
+    "J2": 99,
+    "N": 0
+   }
+  },
+  {
+   "name": "Hoshiarpur",
+   "daytime": {
+    "T": 0,
+    "A": 4,
+    "J1": 10,
+    "J2": 21,
+    "N": 0
+   }
+  },
+  {
+   "name": "Rupnagar",
+   "daytime": {
+    "T": 0,
+    "A": 1,
+    "J1": 10,
+    "J2": 6,
+    "N": 0
+   }
+  },
+  {
+   "name": "Firozpur",
+   "daytime": {
+    "T": 0,
+    "A": 311,
+    "J1": 139,
+    "J2": 117,
+    "N": 0
+   }
+  },
+  {
+   "name": "Fazilka",
+   "daytime": {
+    "T": 0,
+    "A": 256,
+    "J1": 205,
+    "J2": 114,
+    "N": 0
+   }
+  },
+  {
+   "name": "Barnala",
+   "daytime": {
+    "T": 0,
+    "A": 239,
+    "J1": 75,
+    "J2": 44,
+    "N": 0
+   }
+  },
+  {
+   "name": "Sahibzada Ajit Singh Nagar",
+   "daytime": {
+    "T": 0,
+    "A": 0,
+    "J1": 8,
+    "J2": 5,
+    "N": 0
+   }
+  },
+  {
+   "name": "Shahid Bhagat Singh Nagar",
+   "daytime": {
+    "T": 0,
+    "A": 9,
+    "J1": 11,
+    "J2": 7,
+    "N": 0
+   }
+  }
+ ],
+ "by_date": {
+  "T": {},
+  "A": {
+   "2026-11-08": 1489,
+   "2026-11-09": 27,
+   "2026-11-10": 238,
+   "2026-11-11": 700,
+   "2026-11-13": 269,
+   "2026-11-14": 34,
+   "2026-11-15": 17
+  },
+  "J1": {
+   "2026-11-08": 366,
+   "2026-11-09": 305,
+   "2026-11-10": 298,
+   "2026-11-11": 115,
+   "2026-11-12": 89,
+   "2026-11-13": 54,
+   "2026-11-14": 45,
+   "2026-11-15": 221
+  },
+  "J2": {
+   "2026-11-08": 255,
+   "2026-11-09": 128,
+   "2026-11-10": 197,
+   "2026-11-11": 174,
+   "2026-11-12": 179,
+   "2026-11-13": 99,
+   "2026-11-14": 10,
+   "2026-11-15": 165
+  },
+  "N": {}
+ },
+ "definition": "Daytime FIRMS near-real-time detections in the last seven days, all confidence levels, placed in Punjab districts by point in polygon (simplified boundaries). Raw detections, provisional, not unique fires.",
+ "script": "scripts/fetch_punjab_week.py"
+}

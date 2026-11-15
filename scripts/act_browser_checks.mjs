@@ -36,7 +36,7 @@ try {
   const rows = await page.locator('[data-testid=act-priority] tbody tr th button').allInnerTexts();
   const expected = [...doc.districts].sort((a, b) => sum(b.gk2a_pixel_hours['2025'].slice(4)) - sum(a.gk2a_pixel_hours['2025'].slice(4)) || a.name.localeCompare(b.name)).map(d => d.name);
   check('priority order', () => assert.deepEqual(rows, expected));
-  await page.getByRole('button', {name: 'Sangrur'}).click();
+  await page.getByTestId('act-priority').getByRole('button', {name: 'Sangrur'}).click();
   await page.waitForFunction(() => new URL(location.href).searchParams.get('district') === 'Sangrur');
   check('select from table writes URL', () => true);
   // 3. Thin district: no window, no wording.
@@ -63,7 +63,36 @@ try {
   const html = readFileSync(await bd.path(), 'utf8');
   const verdict = await page.getByTestId('verdict').innerText();
   check('brief carries verdict and actions', () => { assert.ok(html.includes(verdict.trim())); assert.match(html, /What to do/); assert.match(html, /Limits/); });
-  // 6. Mobile layout: no horizontal scroll on the planner.
+  // 6. Right now: live ratio recomputed from the shipped snapshot; location, field card, season table, range.
+  const week = JSON.parse(readFileSync('public/data/punjab_week.json'));
+  const A = week.by_date.A || {}, J = week.by_date.J1 || {}, both = Object.keys(J).filter(k => (A[k] || 0) > 0 && J[k] > 0);
+  const liveRatio = sum(both.map(k => A[k])) / sum(both.map(k => J[k]));
+  const geo = await browser.newContext({viewport: {width: 1360, height: 1000}, acceptDownloads: true, geolocation: {latitude: 30.9, longitude: 75.85}, permissions: ['geolocation']});
+  const gp = await geo.newPage(); gp.on('pageerror', e => errors.push(e.message));
+  await gp.goto(`${base}/#act`); await gp.getByTestId('act-now').waitFor({timeout: 60000});
+  const nowText = await gp.getByTestId('act-now').innerText();
+  check('live ratio', () => assert.match(nowText, new RegExp(`recorded ${liveRatio.toFixed(1)} fire detections for every one NOAA-20`)));
+  check('live table rows', async () => {});
+  assert.ok(await gp.locator('[data-testid=act-week-table] tbody tr').count() > 0);
+  await gp.getByTestId('act-locate').click();
+  await gp.waitForFunction(() => new URL(location.href).searchParams.get('district') === 'Ludhiana', null, {timeout: 15000});
+  check('use my location selects Ludhiana', () => true);
+  check('season table has seven seasons', async () => {});
+  assert.equal(await gp.locator('[data-testid=act-seasons] tbody tr').count(), 7);
+  await gp.goto(`${base}/?district=Fazilka#act`); await gp.getByTestId('act-window').waitFor();
+  const [card] = await Promise.all([gp.waitForEvent('download'), gp.getByTestId('act-card').click()]);
+  const png = readFileSync(await card.path());
+  check('field card is a PNG', () => assert.deepEqual([...png.subarray(0, 4)], [0x89, 0x50, 0x4e, 0x47]));
+  await gp.getByTestId('act-calendar').locator('summary').click();
+  const [ics] = await Promise.all([gp.waitForEvent('download'), gp.getByRole('button', {name: 'Download calendar file (.ics)'}).click()]);
+  const icsText = readFileSync(await ics.path(), 'utf8');
+  check('calendar file has 14 India-time events', () => { assert.equal((icsText.match(/BEGIN:VEVENT/g) || []).length, 14); assert.match(icsText, /DTSTART;TZID=Asia\/Kolkata:2027\d{4}T160000/); });
+  const gapFull = await gp.getByTestId('act-gap').innerText();
+  check('bootstrap range shown', () => assert.match(gapFull, /90% range from resampling days: \d+(\.\d)?×–\d+(\.\d)?×/));
+  check('consistency check', async () => {});
+  assert.match(await gp.getByTestId('act-consistency').innerText(), /Consistency check:/);
+  await geo.close();
+  // 7. Mobile layout: no horizontal scroll on the planner.
   const mobile = await browser.newPage({viewport: {width: 390, height: 844}});
   await mobile.goto(`${base}/?district=Fazilka#act`); await mobile.getByTestId('act-window').waitFor();
   const overflow = await mobile.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);

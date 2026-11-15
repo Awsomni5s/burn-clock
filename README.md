@@ -18,6 +18,16 @@
   - **Researchers:** data files.
 
   Built by [`pipeline/analysis/punjab_districts.py`](pipeline/analysis/punjab_districts.py) with geoBoundaries ADM2. The browser checks recompute the planner's window, count-gap and ranking numbers from the shipped file.
+- **Right now, this week:** the planner also compares NASA's latest seven-day fire files with the same calendar days in 2013–2025.
+  - Aqua now crosses Punjab at about 4 pm. In the week of 8–15 Nov 2026 it recorded about 2.0 detections for every NOAA-20 detection at about 1:50 pm, against about 0.2 in 2013–2021.
+  - The "Where to send teams this week" table pairs this week's fires with each district's check window.
+  - Refresh with `python3 scripts/fetch_punjab_week.py`. It needs no API key.
+- **For field teams, also:**
+  - "Use my location" works out your district in the browser, so your location isn't sent anywhere;
+  - a field card can be saved as an image for WhatsApp;
+  - a calendar file (.ics) schedules the check windows;
+  - season start, halfway and end dates by year;
+  - a 90% day-resampling range on the count gap, plus a check that the two records agree at the hour the satellites pass.
 - **One-page brief for your role:** every place report can download a printable brief (verdict, then actions, then numbers, then limits) or copy it as text.
 - **Demo (7 slides):** [`public/docs/Burn_Clock_Demo_7_Slides.pdf`](public/docs/Burn_Clock_Demo_7_Slides.pdf)
 - **Case studies:** `#cases` in the app, built by [`scripts/build_case_studies.mjs`](scripts/build_case_studies.mjs) from the app's own verdicts.

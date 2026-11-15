@@ -35,6 +35,8 @@ These are implementation priorities, not verified claims that a rival lacks them
 | When should field teams check? | BlindSpot: best hours from gaps between satellite passes (Pakistan) | Best window from when fire was actually observed burning (hourly GK2A), per Punjab district, plus the busiest two weeks |
 | How far to trust the count for emissions inputs? | Described qualitatively by several projects | Count change vs whole-afternoon change per district and base year, shown as a sensitivity range |
 | What can a reporter safely write? | — | "You can say / Don't say / Why", generated per district, withheld for thin data |
+| Live season | FireClock: archive to 13 Nov 2026 | This week's NASA files by district, compared with the same days in every year since 2013 (Aqua ÷ NOAA-20) |
+| Find my area, share it | Mee: use my location; BlindSpot: district share images | Use my location (computed in the browser), a field card image, a per-district link, a calendar file of check windows |
 | Alerts | Mee (Telegram), BlindSpot | Not offered: needs a live server; listed as future work |
 
 Overlap remains real. FireClock reports the same Aqua-drift finding for Punjab, with a wheat-season placebo and a second continent. Burn Clock's distinct contribution is turning that evidence into district-level, role-specific actions. This review does not establish that no other team does this.
