@@ -12,6 +12,10 @@ async def main():
         await pg.locator(".trend-verdict").screenshot(path=O+"verdict_punjab.png")
         await pg.locator(".decision-actions").screenshot(path=O+"actions_punjab.png")
         await pg.locator(".annual-chart").screenshot(path=O+"annual_punjab.png")
+        await pg.add_style_tag(content=".skip-link{display:none!important}")
+        await pg.locator(".calendar-card").screenshot(path=O+"calendar_punjab.png")
+        from PIL import Image as _I
+        _im=_I.open(O+"calendar_punjab.png");_im.crop((0,0,_im.size[0],int(_im.size[0]*0.52))).save(O+"calendar_punjab_top.png")
         await pg.goto(B+"/?box=-3.5,110,1,117&months=8,9&a=2019&b=2025#explorer"); await pg.get_by_test_id("verdict").wait_for(timeout=60000); await pg.wait_for_timeout(800)
         await pg.locator(".trend-verdict").screenshot(path=O+"verdict_kalimantan.png")
         await pg.goto(B+"/#cases"); await pg.wait_for_timeout(2000)

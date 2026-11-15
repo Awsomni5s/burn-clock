@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-11-15 — The calendar is the home page
+
+- **The home page is now the challenge's core deliverable:** the harmonized burning activity calendar for the chosen area (Punjab + Haryana by default), opening directly under a short header and the place search.
+  - The verdict, live check, role actions, annual chart, satellite timeline and Punjab evidence follow it as layers.
+  - The rest of the old home page (the evidence tiles, Ask panel, case strip, Punjab planner callout and tasks) follows after them.
+- **Calendar additions:**
+  - the critical period: the fewest consecutive months holding half of a typical 2003–2022 year;
+  - the latest complete year against the 2003–2022 average, and the busiest year;
+  - a **Clock check** column: the verdict for the selected season in each year 2021–2025, linked to the full check;
+  - a header and subtitle that name MODIS + VIIRS harmonization.
+- **Place reports:** the calendar now sits open at the top instead of behind a collapsed "Show every month" box.
+- **Deck:** slide 3 is now "The core: a harmonized burning activity calendar", with a calendar screenshot showing the Clock check column.
+- **Tests:** `src/calendarFacts.test.ts`; the home product check now asserts the calendar facts and five Clock check chips.
+
 ## 2026-11-15 — Polish pass: first screen, live world table, stale links
 
 - **Home:** the finding is now on the first screen in four numbers, each traced to its source file:
