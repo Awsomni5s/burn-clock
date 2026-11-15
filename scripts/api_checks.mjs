@@ -79,7 +79,7 @@ try {
     ];
     const r = await handleAsk(askReq('Can I trust the Punjab fire drop?'), aenv, undefined, fakeClaude(script)); const j = await r.json();
     assert.equal(j.status, 'ok', JSON.stringify(j)); assert.match(j.answer, /^Timing matters here: activity fell about 80%/); assert.deepEqual(j.tools.map(x => x.name), ['check_place']);
-    assert.equal(claudeCalls[0].tools.length, 3); assert.match(claudeCalls[0].system, /Answer ONLY from the tool results/);
+    assert.equal(claudeCalls[0].tools.length, 3); assert.match(JSON.stringify(claudeCalls[0].system), /Every number must come from the briefing/); assert.match(JSON.stringify(claudeCalls[0].system), /burn_clock_briefing.*official_claim/); assert.equal(claudeCalls[0].model, 'claude-sonnet-5-5');
   });
   await t('Assistant flags a number that is not in the data, after one retry', async () => {
     claudeCalls.length = 0;
@@ -89,7 +89,14 @@ try {
       {stop_reason: 'end_turn', content: [{type: 'text', text: 'Burning in Sangrur fell 61.7%.'}]},
     ];
     const j = await (await handleAsk(askReq('Did burning fall in Sangrur?', '5.6.7.8'), aenv, undefined, fakeClaude(script))).json();
-    assert.equal(j.status, 'unverified'); assert.deepEqual(j.unverified, [61.7]); assert.equal(claudeCalls.length, 3); assert.match(claudeCalls[2].messages.at(-1).content, /do not appear in any tool result: 61.7/);
+    assert.equal(j.status, 'unverified'); assert.deepEqual(j.unverified, [61.7]); assert.equal(claudeCalls.length, 3); assert.match(claudeCalls[2].messages.at(-1).content, /do not appear in the briefing or any tool result: 61.7/);
+  });
+  await t('Assistant uses the role and the conversation so far, and allows numbers from the briefing', async () => {
+    claudeCalls.length = 0;
+    const script = [(body) => ({stop_reason: 'end_turn', content: [{type: 'text', text: 'The official claim is a 93% fall from 2021 to 2025. What to do: 1. Say counts fell, not burning.'}]})];
+    const r = await handleAsk(new Request(`${base}/api/ask`, {method: 'POST', headers: {'content-type': 'application/json', 'x-forwarded-for': '7.7.7.7'}, body: JSON.stringify({question: 'And what should I write?', role: 'journalist', history: [{role: 'user', content: 'Punjab fires fell?'}, {role: 'assistant', content: 'Counts fell; burning moved later.'}]})}), aenv, undefined, fakeClaude(script));
+    const j = await r.json(); assert.equal(j.status, 'ok', JSON.stringify(j));
+    const msgs = claudeCalls[0].messages; assert.equal(msgs.length, 3); assert.equal(msgs[0].content, 'Punjab fires fell?'); assert.match(msgs[2].content, /^\(My role: someone who reports news or checks claims\.\) And what should I write\?/);
   });
   await t('Assistant is off without a key, validates input and rate-limits', async () => {
     assert.deepEqual(await (await handleAsk(new Request(`${base}/api/ask`), {}, undefined, fake)).json(), {configured: false, model: null});

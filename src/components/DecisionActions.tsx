@@ -4,33 +4,10 @@ import type {AreaResult,Manifest} from '../types';
 import {csvForArea,download} from '../data';
 import {verdictFor,VERDICT_LABEL,type Verdict} from '../verdict';
 import {briefHtml,briefText,type BriefInput} from '../roleBrief';
+import {ACTIONS} from '../roleActions';
 import {useState} from 'react';
 const guidance:Record<Role,{title:string;actions:string[]}>={policy:{title:'What to do if you monitor or enforce burning rules',actions:['Review coverage through the late afternoon, including after 3 pm. Plan observation hours from evidence of timing, not just the polar satellite passes.','Report each satellite separately, with the same season, baseline and coverage flags.','Combine these observations with independent local evidence before evaluating compliance or deploying enforcement.']},air:{title:'What to do if you forecast or model smoke',actions:['Compare the hours in your emissions inputs with observed burning hours. A daily satellite count does not describe the daily timing profile.','Use the monthly series and supplied uncertainty as observational inputs, with regional validation limits.','Test sensitivity to the timing profile. Do not multiply emissions by this app’s satellite-ratio diagnostic; it is not an emissions correction.']},journalist:{title:'What to do if you report or check a claim',actions:['Name the satellite, place, dates and baseline in the headline or its immediate context.','Keep the reported decline and the whole-afternoon comparison distinct. Both can fall by different amounts.','Make a claim card with the units, uncertainty and limitations attached; review any crop before sharing it.']},research:{title:'What to do if you study fire trends',actions:['Export the monthly record with its source codes, missing values and approximate bounds. Use original values for analysis, not smoothed map contours.','Check regional held-out failures and the 2012 sensor transition before estimating a trend.','Cite the version and configuration fingerprint. Run the supplied reproduction workflow and report any sensitivity to the baseline.']}};
 
-/** What to do depends on BOTH the verdict and the user's job. */
-const GEO='an every-10–15-minute geostationary feed (INSAT-3D/3DR or GK2A over India, GOES over the Americas, Meteosat over Africa and Europe, Himawari over East Asia and Australia)';
-const ACTIONS:Record<Verdict,Record<Role,string[]>>={
- timing:{
-  policy:['Watch the late afternoon. Check for fires after 3–4 pm, not only around the satellite passes (about 10 am and 1:30 pm).',`Add ${GEO} to your fire alerts.`,'Don’t judge progress by the early-afternoon count alone. Report it next to the timing shift and burned area.'],
-  air:['Move your fire timing later. Counts from the ~1:30 pm satellites now miss much of the burning.','Don’t scale emissions year on year with VIIRS counts here: the count fell more than the burning.','Re-check any fire climatology built before 2021; it predates the shift.'],
-  journalist:['Don’t report the drop in the count as the drop in burning.','Say when the satellites look, and that burning has moved later.','Share the claim card: it carries the verdict and its caveats.'],
-  research:['Treat post-2021 changes here as partly a timing effect.','Use the combined record or VIIRS, and report the timing check with any trend.','Add an hourly (geostationary) source where you can.']},
- modis:{
-  policy:['Track change since 2020 with the combined record or VIIRS, not Terra or Aqua (MODIS) counts.','Burning hours look stable, so the satellite passes still sample the same part of the day.','Name the satellite and years next to any number you report.'],
-  air:['Use VIIRS-based activity data for 2021 onward; MODIS-only inputs drift with the satellites’ pass times.','Your diurnal fire profile doesn’t need to change on this evidence.','Keep the uncertainty range with the inputs.'],
-  journalist:['If a source quotes a MODIS-based trend since 2020, ask whether it allows for the satellites’ drift.','Quote the combined record with its range.','Share the claim card so the caveat travels with the number.'],
-  research:['Don’t use Terra-only or Terra + Aqua trends after 2020 here without a drift correction.','Use the combined record (VIIRS scale) for 2003–2025.','Report which satellites and years sit under any trend.']},
- clear:{
-  policy:['Satellite timing isn’t distorting this record, so you can use it to track change, with its range.','If the range includes no change, don’t claim progress or worsening from these two years.','Compare more years to see the trend.'],
-  air:['Satellite timing isn’t biasing activity data here for these months.','Use the combined series with its range as an input.','Keep the regional validation limits in view.'],
-  journalist:['The trend isn’t a satellite-timing artifact. Report it with the range.','If the range includes no change, write “no clear change”.','Name the satellite, place and years.'],
-  research:['Use the combined record with its range.','Look at the whole series, not just two years.','Cite the validation results for this region.']},
- unknown:{
-  policy:['There are too few fires to test satellite timing, so treat year-on-year changes as unverified.','Widen the area or add months to get a verdict.','Use local reports alongside satellite counts.'],
-  air:['Timing can’t be tested here; treat satellite activity data as uncertain.','Widen the area or add months, then check again.','Prefer the combined record’s range over a single number.'],
-  journalist:['Don’t headline a change here: Burn Clock can’t test it.','Widen the area or months to get a verdict.','If you publish, say the trend is unverified.'],
-  research:['Too few fires for a timing verdict: widen the area or months.','Report the range, not the central value alone.','Treat this region as untested in any comparison.']}
-};
 export default function DecisionActions({role,onRole,result,area,manifest,preset,onSave,onCopy,name='This area',monthLabel='',link=''}:{role:Role;onRole:(r:Role)=>void;result:ClaimResult;area:AreaResult;manifest:Manifest;preset?:string;onSave:()=>void;onCopy:()=>void;name?:string;monthLabel?:string;link?:string}){
  const [briefStatus,setBriefStatus]=useState('');
  const [S,W,N,E]=area.box,inPunjab=preset==='punjab'||(S<32.6&&N>29.5&&W<77&&E>73.8&&W<=E);

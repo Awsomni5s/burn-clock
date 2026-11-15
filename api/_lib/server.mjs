@@ -546,14 +546,96 @@ Provisional NASA FIRMS data.` };
   return null;
 }
 
+// src/insights.ts
+var ROLES = { air: "Air quality / emissions", policy: "Policy / enforcement", journalist: "Journalism / fact-checking", research: "Fire research" };
+function receiptFacts(data) {
+  const h = data.gk2a_by_hour;
+  const sum3 = (a) => a.reduce((s, v) => s + v, 0);
+  const late = (a) => sum3(a.filter((_, i) => h.hours[i] >= 16)) / sum3(a) * 100;
+  const seventeen = h.hours.indexOf(17), days = data.gk2a_unique_pixel_days;
+  return { officialDecline: 100 * (1 - data.claim_source.value_2025 / data.claim_source.value_2021), late2021: late(h.pixel_hours_2021), late2025: late(h.pixel_hours_2025), at17: h.pixel_hours_2025[seventeen] / h.pixel_hours_2021[seventeen], afternoonDecline: 100 * (1 - days["2025"] / days["2021"]), versus2019: days["2025"] / days["2019"], peakYear: Object.entries(days).sort((a, b) => Number(b[1]) - Number(a[1]))[0][0] };
+}
+
+// src/roleActions.ts
+var GEO = "an every-10\u201315-minute geostationary feed (INSAT-3D/3DR or GK2A over India, GOES over the Americas, Meteosat over Africa and Europe, Himawari over East Asia and Australia)";
+var ACTIONS = {
+  timing: {
+    policy: ["Watch the late afternoon. Check for fires after 3\u20134 pm, not only around the satellite passes (about 10 am and 1:30 pm).", `Add ${GEO} to your fire alerts.`, "Don\u2019t judge progress by the early-afternoon count alone. Report it next to the timing shift and burned area."],
+    air: ["Move your fire timing later. Counts from the ~1:30 pm satellites now miss much of the burning.", "Don\u2019t scale emissions year on year with VIIRS counts here: the count fell more than the burning.", "Re-check any fire climatology built before 2021; it predates the shift."],
+    journalist: ["Don\u2019t report the drop in the count as the drop in burning.", "Say when the satellites look, and that burning has moved later.", "Share the claim card: it carries the verdict and its caveats."],
+    research: ["Treat post-2021 changes here as partly a timing effect.", "Use the combined record or VIIRS, and report the timing check with any trend.", "Add an hourly (geostationary) source where you can."]
+  },
+  modis: {
+    policy: ["Track change since 2020 with the combined record or VIIRS, not Terra or Aqua (MODIS) counts.", "Burning hours look stable, so the satellite passes still sample the same part of the day.", "Name the satellite and years next to any number you report."],
+    air: ["Use VIIRS-based activity data for 2021 onward; MODIS-only inputs drift with the satellites\u2019 pass times.", "Your diurnal fire profile doesn\u2019t need to change on this evidence.", "Keep the uncertainty range with the inputs."],
+    journalist: ["If a source quotes a MODIS-based trend since 2020, ask whether it allows for the satellites\u2019 drift.", "Quote the combined record with its range.", "Share the claim card so the caveat travels with the number."],
+    research: ["Don\u2019t use Terra-only or Terra + Aqua trends after 2020 here without a drift correction.", "Use the combined record (VIIRS scale) for 2003\u20132025.", "Report which satellites and years sit under any trend."]
+  },
+  clear: {
+    policy: ["Satellite timing isn\u2019t distorting this record, so you can use it to track change, with its range.", "If the range includes no change, don\u2019t claim progress or worsening from these two years.", "Compare more years to see the trend."],
+    air: ["Satellite timing isn\u2019t biasing activity data here for these months.", "Use the combined series with its range as an input.", "Keep the regional validation limits in view."],
+    journalist: ["The trend isn\u2019t a satellite-timing artifact. Report it with the range.", "If the range includes no change, write \u201Cno clear change\u201D.", "Name the satellite, place and years."],
+    research: ["Use the combined record with its range.", "Look at the whole series, not just two years.", "Cite the validation results for this region."]
+  },
+  unknown: {
+    policy: ["There are too few fires to test satellite timing, so treat year-on-year changes as unverified.", "Widen the area or add months to get a verdict.", "Use local reports alongside satellite counts."],
+    air: ["Timing can\u2019t be tested here; treat satellite activity data as uncertain.", "Widen the area or add months, then check again.", "Prefer the combined record\u2019s range over a single number."],
+    journalist: ["Don\u2019t headline a change here: Burn Clock can\u2019t test it.", "Widen the area or months to get a verdict.", "If you publish, say the trend is unverified."],
+    research: ["Too few fires for a timing verdict: widen the area or months.", "Report the range, not the central value alone.", "Treat this region as untested in any comparison."]
+  }
+};
+
+// src/server/briefing.ts
+var r1 = (x) => Math.round(x * 10) / 10;
+async function buildBriefing(load, appUrl) {
+  const site2 = appUrl.replace(/\/$/, "");
+  const [receipt, validation, byYear, cases, aqua] = await Promise.all([load("punjab_receipt.json.gz"), load("validation.json.gz"), load("gk2a_hourly_by_year.json"), load("case_studies.json"), load("punjab_aqua_daily.json").catch(() => null)]);
+  const f = receiptFacts(receipt), hours = byYear.hours_ist, share = (v, hs) => r1(100 * v.reduce((s, x, i) => s + (hs.includes(hours[i]) ? x : 0), 0) / v.reduce((s, x) => s + x, 0));
+  const years = Object.keys(byYear.pixel_hours).sort();
+  const loyo = validation.loyo ?? {};
+  return {
+    what_burn_clock_is: "Burn Clock joins NASA\u2019s MODIS (Terra, Aqua) and VIIRS (S-NPP, NOAA-20, NOAA-21) fire records into one 2001\u20132025 series on the S-NPP VIIRS scale, and tells you for any place and season whether a fire trend can be trusted or is partly an artifact of when the satellites look.",
+    why_timing_matters: { polar_satellites: "Each polar satellite sees a place only at fixed times of day. VIIRS satellites cross in the early afternoon (about 1:30\u20131:50 pm local).", drift: "Terra has drifted to pass about an hour earlier and Aqua about an hour later than in 2013\u201319.", consequence: "If burning moves to hours the satellites do not see, the satellite count falls even if burning does not.", snpp: "S-NPP has delivered no data since 2 November 2026; NOAA-20 and NOAA-21 continue." },
+    verdict_rules: { order: "First rule that applies wins.", timing: `${VERDICT_LABEL.timing}: Aqua (now passing later) catches relatively more fire than in 2013\u201319, beyond twice the normal swing (at least 0.15 on a log scale): burning has probably moved later.`, modis: `${VERDICT_LABEL.modis}: no later-burning signal, but Terra or Aqua moved away from VIIRS: a MODIS-only trend would mislead.`, clear: `${VERDICT_LABEL.clear}: both comparisons stay inside their normal 2013\u201319 swing.`, unknown: `${VERDICT_LABEL.unknown}: too few fires (under 200 VIIRS or 50 Terra/Aqua cell-days), a missing month, an incomplete baseline, or a year before 2021.`, caveat: "A diagnostic, not proof of cause and not a corrected fire count." },
+    punjab: {
+      official_claim: { text: receipt.claim, count_2021: receipt.claim_source.value_2021, count_2025: receipt.claim_source.value_2025, decline_pct: r1(f.officialDecline), window: receipt.claim_source.window },
+      gk2a_whole_afternoon_change_2021_to_2025_pct: -r1(f.afternoonDecline),
+      gk2a_2025_vs_2019_ratio: Math.round(f.versus2019 * 100) / 100,
+      gk2a_5pm_2025_vs_2021_ratio: Math.round(f.at17 * 100) / 100,
+      share_of_noon_to_6pm_signal_at_4pm_or_later_pct: Object.fromEntries(years.map((y) => [y, share(byYear.pixel_hours[y], [16, 17, 18])])),
+      share_at_1_to_2pm_when_satellites_pass_pct: Object.fromEntries(years.map((y) => [y, share(byYear.pixel_hours[y], [13, 14])])),
+      aqua_median_crossing_hour_ist_november: aqua?.aqua_median_pass_ist_november ?? null,
+      gk2a_source: "Korean geostationary GK2A hourly fire data for Punjab state (Jethva 2026, Zenodo 20084790): ~4 km pixels, can flag hot smoke, misses small fires, noon\u20136 pm images only.",
+      first_reported_by: "The later-burning shift was first reported by NASA (Jethva 2026), ISRO\u2019s Space Applications Centre and iFOREST; Burn Clock makes the check available everywhere and turns it into actions."
+    },
+    validation: { global_held_out_median_annual_error_pct: loyo.global?.median_annual_err_pct, punjab_held_out_median_annual_error_pct: loyo.punjab?.median_annual_err_pct, parana_held_out_median_annual_error_pct: loyo.parana?.median_annual_err_pct, note: "Errors from leave-one-year-out tests on 2013\u201319. Paran\xE1 (Argentina) is the weakest region; conversion factors do not carry well between continents." },
+    case_studies: cases.cases.map((c) => ({ place: c.title, season: c.season, years: `${c.a} vs ${c.b}`, verdict: c.verdict_label, finding: c.sentence, lesson: c.lesson, link: site2 + "/" + c.link })),
+    roles: ROLES,
+    actions_by_verdict_and_role: ACTIONS,
+    pages: { check_a_place: site2 + "/#home", punjab_action_planner: site2 + "/#act", case_studies: site2 + "/#cases", punjab_evidence: site2 + "/#receipt", monitoring_brief: site2 + "/#brief", methods: site2 + "/#methods", data_and_api: site2 + "/#api" },
+    tools_on_the_site: ["A verdict and role-specific actions for any place (draw a box or search)", "A one-page brief for your role (download or copy)", "Punjab planner: field-check window per district, busiest two weeks, calendar file, field card image, WhatsApp plan, use-my-location", "Count gap for forecasters with a 90% range; hourly profile CSV", "Say / Don\u2019t say wording for reporters", "A live check of this week\u2019s NASA data for any place", "A JSON API (/api/check, /api/punjab)"],
+    limits: ["Counts are satellite observations (daytime active 0.05\xB0 cell-days or detections), not individual fires, burned area or emissions.", "The verdict is a diagnostic, not proof of why burning changed (it cannot attribute changes to enforcement, weather or crop choices).", "Hourly evidence exists only for Punjab; elsewhere only polar-satellite timing checks are available.", "Near-real-time data are provisional."]
+  };
+}
+
 // src/server/ask.ts
-var DEFAULT_MODEL = "claude-haiku-5-5";
-var SYSTEM = `You are Burn Clock's assistant. Burn Clock checks whether a satellite fire trend can be trusted, given that fire satellites look at fixed times of day and burning can move to other hours.
-Answer ONLY from the tool results in this conversation. Never use outside knowledge for numbers, dates, places' fire counts or causes.
-Every number you write must appear in a tool result (you may round it). If the tools cannot answer, say so and suggest what the user can try on the site.
-Keep answers short (under 120 words), plain English, no markdown tables. Say what the numbers are: satellite observations, not individual fires or emissions. The live check is provisional.
-For places, call check_place with a latitude and longitude (or a box) and the months and years the user asks about (defaults: October\u2013November, 2021 vs 2025).
-For Punjab districts (India), call punjab_district. For "this week in Punjab", call punjab_week. End with the most useful link from the tool result.`;
+var DEFAULT_MODEL = "claude-sonnet-5-5";
+var INSTRUCTIONS = `You are Burn Clock's advisor. People come to you to decide what to do about a fire trend: field officers planning checks, air-quality forecasters setting fire inputs, reporters checking a claim, researchers choosing data, officials judging progress, and residents worried about smoke.
+
+How to answer:
+1. Work out the person's goal and role (a role may be given). If the place or role is unclear and it changes the advice, ask one short question instead of guessing.
+2. Get facts from the briefing below and from the tools. Call check_place for any place on Earth (lat/lon or a box; default months October\u2013November and years 2021 vs 2025 unless the person says otherwise). Call punjab_district for a district of Punjab, India, and punjab_week for what is happening this week.
+3. Reply in this shape, under 180 words, plain text:
+   - One or two sentences that answer the question directly.
+   - "What to do:" then 2\u20134 numbered, concrete steps for this person's role (times of day, which record or satellite to use, exact wording to publish, which page or download on the site).
+   - "Why:" one line with the key numbers.
+   - The single most useful link from the briefing or a tool result.
+Rules:
+- Every number must come from the briefing or a tool result in this conversation (rounding is fine). Never use outside knowledge for numbers, dates, counts or causes. If the data cannot answer, say so and point to the page that comes closest.
+- Say what numbers are: satellite observations, not individual fires, burned area or emissions. The live check is provisional. A verdict is a diagnostic, not proof of cause: do not credit or blame enforcement, weather or farmers.
+- Be direct and practical. No markdown headers or tables. Stay neutral on politics.
+- If someone describes a fire or smoke emergency happening now, tell them first to contact local emergency services.
+- Only discuss fire records, satellites, smoke and what to do about them; politely decline anything else.`;
 var TOOLS = [
   {
     name: "check_place",
@@ -615,14 +697,35 @@ function unverified(answer2, sources, question) {
   };
   return numbersIn(answer2.replace(/https?:\/\/\S+/g, "")).filter((n) => !ok(n));
 }
-async function ask(question, env, load, appUrl, fetchImpl = fetch) {
+var ROLE_NAMES = { policy: "monitors or enforces burning rules (field teams, district officials)", air: "forecasts air quality or models smoke emissions", journalist: "reports news or checks claims", research: "studies fire trends", public: "is a resident or member of the public worried about smoke" };
+async function ask(question, env, load, appUrl, fetchImpl = fetch, opts = {}) {
   const model = env.ANTHROPIC_MODEL || DEFAULT_MODEL, tools = [], sources = [];
+  let briefing = "{}";
+  try {
+    briefing = JSON.stringify(await buildBriefing(load, appUrl));
+  } catch {
+  }
+  sources.push(briefing);
+  const system = [{ type: "text", text: INSTRUCTIONS }, { type: "text", text: `<burn_clock_briefing>
+${briefing}
+</burn_clock_briefing>`, cache_control: { type: "ephemeral" } }];
+  const toolDefs = TOOLS.map((t, i) => i === TOOLS.length - 1 ? { ...t, cache_control: { type: "ephemeral" } } : t);
   const call = async (messages2) => {
-    const r = await fetchImpl("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "x-api-key": env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json" }, body: JSON.stringify({ model, max_tokens: 600, system: SYSTEM, tools: TOOLS, messages: messages2 }) });
+    const r = await fetchImpl("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "x-api-key": env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json" }, body: JSON.stringify({ model, max_tokens: 900, system, tools: toolDefs, messages: messages2 }) });
     if (!r.ok) throw Error(`Claude API ${r.status}`);
     return r.json();
   };
-  const messages = [{ role: "user", content: question }];
+  const history = (opts.history ?? []).filter((m) => (m.role === "user" || m.role === "assistant") && typeof m.content === "string" && m.content.trim()).slice(-8).map((m) => ({ role: m.role, content: m.content.slice(0, 1500) }));
+  while (history.length && history[0].role !== "user") history.shift();
+  const fixed = [];
+  for (const m of history) {
+    if (fixed.length && fixed[fixed.length - 1].role === m.role) fixed[fixed.length - 1] = { role: m.role, content: fixed[fixed.length - 1].content + "\n" + m.content };
+    else fixed.push(m);
+  }
+  if (fixed.length && fixed[fixed.length - 1].role === "user") fixed.pop();
+  const role = opts.role && ROLE_NAMES[opts.role] ? `(My role: someone who ${ROLE_NAMES[opts.role]}.) ` : "";
+  const messages = [...fixed, { role: "user", content: role + question }];
+  const asked = [question, ...history.filter((m) => m.role === "user").map((m) => m.content)].join(" ");
   let final = "";
   for (let round = 0; round < 5; round++) {
     const res = await call(messages);
@@ -648,14 +751,14 @@ async function ask(question, env, load, appUrl, fetchImpl = fetch) {
     messages.push({ role: "user", content: results });
   }
   if (!final) return { status: "error", answer: "No answer could be produced. Try the place search on the site.", tools, unverified: [], model };
-  let bad = unverified(final, sources, question);
+  let bad = unverified(final, sources, asked);
   if (bad.length) {
-    messages.push({ role: "user", content: `These numbers in your answer do not appear in any tool result: ${bad.join(", ")}. Rewrite the answer using only numbers from the tool results.` });
+    messages.push({ role: "user", content: `These numbers in your answer do not appear in the briefing or any tool result: ${bad.join(", ")}. Rewrite the answer using only numbers from the briefing or the tool results.` });
     const res = await call(messages);
     const retry = res.content.filter((c) => c.type === "text").map((c) => c.text).join("\n").trim();
     if (retry) {
       final = retry;
-      bad = unverified(final, sources, question);
+      bad = unverified(final, sources, asked);
     }
   }
   return { status: bad.length ? "unverified" : "ok", answer: final, tools, unverified: bad, model };
@@ -772,16 +875,19 @@ async function handleSetup(request, env, fetchImpl = fetch) {
 }
 var hits = /* @__PURE__ */ new Map();
 async function allowed(ip, env, fetchImpl) {
-  const now = Date.now(), list = (hits.get(ip) ?? []).filter((t) => now - t < 36e5);
+  const now = Date.now(), list = (hits.get(ip) ?? []).filter((t) => now - t < 36e5), all = (hits.get("*") ?? []).filter((t) => now - t < 36e5);
   if (list.length >= 20) return "Too many questions from this address this hour. Please try again later.";
+  if (all.length >= Number(env.ASK_HOURLY_LIMIT || 150)) return "The assistant is busy. Please try again in a while.";
   list.push(now);
+  all.push(now);
   hits.set(ip, list);
+  hits.set("*", all);
   if (env.UPSTASH_REDIS_REST_URL && env.UPSTASH_REDIS_REST_TOKEN) {
     try {
       const day = (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
       const r = await fetchImpl(env.UPSTASH_REDIS_REST_URL, { method: "POST", headers: { authorization: `Bearer ${env.UPSTASH_REDIS_REST_TOKEN}`, "content-type": "application/json" }, body: JSON.stringify(["INCR", `burnclock:ask:${day}`]) });
       const n = (await r.json()).result;
-      if (n > Number(env.ASK_DAILY_LIMIT || 500)) return "The assistant has reached today\u2019s question limit. The site\u2019s pages answer the same questions.";
+      if (n > Number(env.ASK_DAILY_LIMIT || 300)) return "The assistant has reached today\u2019s question limit. The site\u2019s pages answer the same questions.";
     } catch {
     }
   }
@@ -792,18 +898,21 @@ async function handleAsk(request, env, loader, fetchImpl = fetch) {
   if (request.method === "GET") return json({ configured: on, model: on ? env.ANTHROPIC_MODEL || DEFAULT_MODEL : null }, 200, 60);
   if (!on) return json({ status: "not_configured", message: "The assistant is not switched on (ANTHROPIC_API_KEY is not set)." }, 503);
   if (request.method !== "POST") return json({ status: "method_not_allowed" }, 405);
-  let question = "";
+  let question = "", history = [], role = "";
   try {
-    question = String((await request.json()).question ?? "").trim();
+    const b = await request.json();
+    question = String(b.question ?? "").trim();
+    history = Array.isArray(b.history) ? b.history : [];
+    role = typeof b.role === "string" ? b.role : "";
   } catch {
-    return json({ status: "bad_request", message: 'Send JSON: {"question": "\u2026"}' }, 400);
+    return json({ status: "bad_request", message: 'Send JSON: {"question": "\u2026", "history"?: [...], "role"?: "policy"|"air"|"journalist"|"research"|"public"}' }, 400);
   }
   if (!question || question.length > 500) return json({ status: "bad_request", message: "Ask a question of up to 500 characters." }, 400);
   const limit = await allowed(request.headers.get("x-forwarded-for")?.split(",")[0].trim() || "unknown", env, fetchImpl);
   if (limit) return json({ status: "rate_limited", message: limit }, 429);
   const u = new URL(request.url);
   try {
-    return json(await ask(question, env, loader ?? originLoader(u.origin, fetchImpl), site(request, env), fetchImpl), 200, 0);
+    return json(await ask(question, env, loader ?? originLoader(u.origin, fetchImpl), site(request, env), fetchImpl, { history, role }), 200, 0);
   } catch (e) {
     return json({ status: "error", message: "The assistant could not answer right now." }, 502);
   }

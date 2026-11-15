@@ -27,11 +27,12 @@
 - **Live JSON API** (server functions on Vercel, running the same code as the site):
   - `/api/check?box=27.6,73.8,32.6,77.6&months=10,11&a=2021&b=2025` gives the verdict, the checks, the change and range, and this week's live check for any box. You can pass `lat=&lon=` instead of `box`.
   - `/api/punjab?district=Sangrur` gives a district's check window, busiest weeks, count gap, wording and this week's fires. Add `&format=text` for a message-length version.
+- **Ask what to do (Claude advisor):** a role-aware, multi-turn advisor. It's given a context layer built from the site's own files (`src/server/briefing.ts`): the official Punjab claim, the hourly shares by year, the verdict rules, validation errors, case-study findings, the verdict × role action table, site tools and limits. It answers as a direct answer, then "What to do" steps for the reader's role, then "Why" with numbers, then a link. It defaults to `claude-sonnet-5-5`, with prompt caching.
 - **Ask Burn Clock** (Claude, optional): on the home page, the Punjab planner and in the Telegram bot, people can ask in plain words.
   - `/api/ask` gives Claude only three tools: Burn Clock's own `check_place`, `punjab_district` and `punjab_week`. It is told to answer only from their results.
   - Before an answer is shown, the server checks every number in it against the tool results. A number that fails gets one retry, and is then flagged to the reader.
   - Rate limits: 20 questions an hour per address, plus an optional daily cap (`ASK_DAILY_LIMIT`, default 500, kept in Upstash).
-  - To switch it on, set `ANTHROPIC_API_KEY` in Vercel. `ANTHROPIC_MODEL` is optional and defaults to `claude-haiku-5-5`. The panel stays hidden until the key is set.
+  - To switch it on, set `ANTHROPIC_API_KEY` in Vercel. `ANTHROPIC_MODEL` is optional and defaults to `claude-sonnet-5-5`. There's also a per-instance hourly cap, `ASK_HOURLY_LIMIT`, default 150. The panel stays hidden until the key is set.
 - **Telegram bot** (optional, like Mee's alerts but with timing). It answers `/district Sangrur`, `/week`, `/check lat lon` and a shared location, and `/subscribe` sends a weekly update (Vercel Cron, Mondays at 17:00 India time). To switch it on:
   1. Create a bot with @BotFather.
   2. In Vercel, set `TELEGRAM_BOT_TOKEN`, `TELEGRAM_WEBHOOK_SECRET` (any long random string), `VITE_TELEGRAM_BOT` (the bot's username) and `CRON_SECRET`.
