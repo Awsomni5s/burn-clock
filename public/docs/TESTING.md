@@ -42,7 +42,7 @@ Current reports: [timeline](/qa/timeline-checks.json), [unit](/qa/unit-checks.js
 - Contour generator and some global-atlas inputs are absent from the supplied source.
 - GitHub snapshot workflow produces an artifact; it does not automatically deploy it to Sites.
 - GOES receipt, global NetCDF/GeoTIFF grid and Burn Clock DOI are pending actual delivery/publication.
-- Iframe and static-file access inherit the owner-private site audience.
+- The site and its static files are public (https://burn-clock.vercel.app).
 - Provenance covers scientific readouts; controls, axis scales and literal explanatory examples are not independent measurements.
 - Earlier addendum/product/speed reports are historical; current-screen coverage is in mock-product-checks.json.
 - The referenced revised addendum §1b is missing. Exact selected-month rules are documented implementation interpretations, not an unavailable formula claimed as supplied.

@@ -2,7 +2,7 @@
 
 **Status: prepared, not run. No testers, quotes, scores, bookings or before/after results are recorded here.** Automated checks and AI reviews do not count as participant evidence. The team runs these tests Sunday afternoon, 15 November 2026, in US Eastern time; record actual session times and build. This file replaces the earlier task set with addendum section 8.
 
-The hosted site is owner-private. Use an owner-supervised signed-in device, or have the owner arrange participant access. Do not share credentials. No invitations or calendar events have been sent.
+The hosted site is public: https://burn-clock.vercel.app. Do not share credentials. No invitations or calendar events have been sent.
 
 ## Setup and sequence
 

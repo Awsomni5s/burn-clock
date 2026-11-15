@@ -4,6 +4,7 @@ import {checkPlace,parseQuery,type Loader} from './place';
 import {punjabSummary,summaryText} from './punjab';
 import {answer,type Store,type Update} from './telegram';
 import {ask,DEFAULT_MODEL} from './ask';
+export {computeLiveWorld} from './liveWorld';
 
 type Env=Record<string,string|undefined>;
 const cache=new Map<string,Promise<any>>();

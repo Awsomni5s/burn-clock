@@ -76,7 +76,7 @@ export async function buildSnapshot({presets,previous=null,fetchText=fetchWithRe
   return {schema_version:1,generated_at:now,feeds,presets,provisional:true,archive_mixed:false,
     definition:'All rows returned by NASA FIRMS public seven-day near-real-time CSVs, including day and night and all published confidence levels. Raw detections, not unique fires. Bounding boxes use inclusive south/west and exclusive north/east edges.',
     time_definition:'Median of (UTC acquisition hour + longitude/15) modulo 24 for observed detections. All-observation and daytime-only medians are separate; neither describes every overpass, cloud, or nondetection.',
-    freshness_note:'Snapshot refreshes only when fetch_live.mjs is run and the site is deployed. GitHub workflow is a supplied template; the current Sites remote does not execute GitHub Actions.'};
+    freshness_note:'Refreshed every six hours by .github/workflows/live-data.yml, which commits the files and triggers a redeploy.'};
 }
 export async function main(){
   const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');const path=resolve(root,'public/data/live/latest.json');

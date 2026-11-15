@@ -114,7 +114,12 @@ try {
   const askAxe = await new AxeBuilder({page: ap}).include('[data-testid=ask-panel]').withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
   check('ask panel axe', () => assert.deepEqual(askAxe.violations.map(v => v.id), []));
   await actx.close();
-  // 9. Mobile layout: no horizontal scroll on the planner.
+  // 9. Live worldwide table lists exactly the areas the shipped file marks as later than usual.
+  const worldLive = JSON.parse(readFileSync('public/data/live/world_live.json'));
+  await page.goto(`${base}/#clock`); await page.getByTestId('live-world').waitFor({timeout: 60000});
+  const liveRows = await page.locator('[data-testid=live-world] tbody tr th a').allInnerTexts();
+  check('live world rows match file', () => assert.deepEqual(liveRows, worldLive.areas.filter(a => a.status === 'signal').map(a => a.name)));
+  // 10. Mobile layout: no horizontal scroll on the planner.
   const mobile = await browser.newPage({viewport: {width: 390, height: 844}});
   await mobile.goto(`${base}/?district=Fazilka#act`); await mobile.getByTestId('act-window').waitFor();
   const overflow = await mobile.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);

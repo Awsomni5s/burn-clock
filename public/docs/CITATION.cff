@@ -10,7 +10,7 @@ authors:
   - name: "Burn Clock contributors"
 version: "1.0.0"
 date-released: "2026-11-14"
-url: "https://burn-clock.ottoskibeli.chatgpt.site/"
+url: "https://burn-clock.vercel.app/"
 license: MIT
 repository-code: "https://github.com/Awsomni5s/burn-clock"
 abstract: >-

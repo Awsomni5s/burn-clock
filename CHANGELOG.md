@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-11-15 — Polish pass: first screen, live world table, stale links
+
+- **Home:** the finding is now on the first screen in four numbers, each traced to its source file:
+  - the 93% official fall;
+  - the whole-afternoon fall, with its baseline caveat;
+  - 96% of burning now after 4 pm;
+  - this week's live ratio against the normal.
+- **Where it matters:** a live "Where burning is later than usual this week" table for every preset and supported country (`scripts/build_live_world.mjs`, run by the six-hourly refresh). It is browser-checked against the file.
+- **Fixed stale links and wording:**
+  - The retired hosting domain is replaced with https://burn-clock.vercel.app in the policy brief (page and PDF), the Methods PDF, `CITATION.cff` and the docs.
+  - "owner-private" and "access required" wording is removed now that the site is public.
+  - The live snapshot's freshness note now describes the refresh workflow.
+  - The Methods PDF AI disclosure now names both assistants (OpenAI Codex and Anthropic Claude).
+
 ## 2026-11-15 — Ask what to do: a role-aware Claude advisor
 
 - **Context layer** (`src/server/briefing.ts`), built from the site's published files so every number is traceable:
