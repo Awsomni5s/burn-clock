@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-11-15T18:56:45Z",
+ "generated_utc": "2026-11-15T22:51:12Z",
  "window": {
   "first_date": "2026-11-08",
   "last_date": "2026-11-15"
@@ -15,14 +15,14 @@
   "J1": {
    "url": "https://firms.modaps.eosdis.nasa.gov/data/active_fire/noaa-20-viirs-c2/csv/J1_VIIRS_C2_South_Asia_7d.csv",
    "http_status": 200,
-   "rows": 20254,
+   "rows": 20297,
    "first_date": "2026-11-08",
    "last_date": "2026-11-15"
   },
   "J2": {
    "url": "https://firms.modaps.eosdis.nasa.gov/data/active_fire/noaa-21-viirs-c2/csv/J2_VIIRS_C2_South_Asia_7d.csv",
    "http_status": 200,
-   "rows": 17338,
+   "rows": 17612,
    "first_date": "2026-11-08",
    "last_date": "2026-11-15"
   },
