@@ -13,7 +13,7 @@ Fire satellites look at each place only at a few fixed times a day, and two of t
 **Your next move.** Right after you pick a place, before the calendar, three cards turn it into decisions for your job (enforcement & policy, smoke & air quality, news & fact-checks, research):
 1. **When to be ready:** the place's own critical period, the busiest day (Punjab + Haryana day view), how soon the next season starts, and an `.ics` file that puts the season in your calendar with a reminder two weeks ahead.
 2. **Is the trend real?** The verdict for the selected season and the combined-record change.
-3. **This week:** NASA's last seven days against an average week of the same month in 2019–2025 (same satellite, NOAA-20), read together with the live timing check. A low count with burning moved later is never called progress.
+3. **This week:** NASA's last seven days against an average week of the same month in 2019–2025 (same satellite, NOAA-20), read together with the live timing check. A low count with burning moved later is never called progress. One tap sends the three answers and their actions to WhatsApp, or copies them with the link.
 
 **Choose any area:** search 176 countries and about 4,600 states and provinces (real Natural Earth outlines), or on the map draw a rectangle, a circle, a shape by hand, or click a province. Only grid cells whose centre lies inside the outline count. Custom areas get their own critical period as the season. **Days:** for Punjab + Haryana the calendar switches between months and a year × day view that adds up to the monthly values.
 
@@ -141,3 +141,7 @@ The supplied release is dated 2026-11-14. Its scientific configuration fingerpri
 Original project code: [MIT](LICENSE). Derived data compilation: [CC BY 4.0](DATA_LICENSE.md), with upstream rights and attribution preserved. NASA FIRMS supplies MODIS/VIIRS observations; acknowledge the original missions/products. GK2A: Jethva, [Zenodo 20084790](https://zenodo.org/records/20084790), CC BY 4.0. Natural Earth basemap: public domain. MapLibre: BSD-3-Clause; React: MIT; timezone lookup: CC0-1.0; bundled fonts retain their license files.
 
 Codex AI assistance was used to implement the application, documentation and automated checks. The supplied scientific pipeline was prepared separately with AI assistance according to the build brief. No human testing, independent raw-data rerun, NASA endorsement, DOI or competition submission is implied. See [CHANGELOG.md](CHANGELOG.md) for recorded iteration.
+
+## Team
+
+Otto Skibeli, Xavier Goff and Harshiv Puri, for NASA Space Apps 2026. Built with AI assistance (Anthropic Claude, OpenAI Codex); the in-app advisor uses Claude.
