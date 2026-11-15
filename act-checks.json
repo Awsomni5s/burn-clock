@@ -1,5 +1,5 @@
 {
-  "tested_at": "2026-11-15T17:42:42.344Z",
+  "tested_at": "2026-11-15T18:00:06.953Z",
   "status": "passed",
   "checks": [
     {
@@ -56,6 +56,38 @@
     },
     {
       "name": "brief carries verdict and actions",
+      "ok": true
+    },
+    {
+      "name": "live ratio",
+      "ok": true
+    },
+    {
+      "name": "live table rows",
+      "ok": true
+    },
+    {
+      "name": "use my location selects Ludhiana",
+      "ok": true
+    },
+    {
+      "name": "season table has seven seasons",
+      "ok": true
+    },
+    {
+      "name": "field card is a PNG",
+      "ok": true
+    },
+    {
+      "name": "calendar file has 14 India-time events",
+      "ok": true
+    },
+    {
+      "name": "bootstrap range shown",
+      "ok": true
+    },
+    {
+      "name": "consistency check",
       "ok": true
     },
     {

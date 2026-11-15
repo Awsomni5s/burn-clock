@@ -15,6 +15,7 @@ Open the deployed app and choose **Start here**. The five-step tour follows the 
 
 "For Punjab we have hourly geostationary data, so we turn the verdict into a plan."
 
+- **Right now:** this week Aqua, now crossing at about 4 pm, recorded about 2 fire detections for every one NOAA-20 recorded at about 1:50 pm. On the same days in 2013–2021 it was about 0.2. The bars rise with Aqua's crossing time year by year. "Where to send teams this week" lists the districts with this week's fires and their check windows.
 - The districts are ranked by burning at 4 pm or later.
 - Click the darkest district on the map (Fazilka in 2025):
   - **Field teams:** 4–6 pm covered almost all of the afternoon fire signal, while the 1–2 pm satellite-pass images held almost none. The busiest two weeks are named. Copy or WhatsApp the plan.

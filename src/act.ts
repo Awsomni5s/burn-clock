@@ -85,3 +85,59 @@ export function busiestDays(d:District,doc:Pick<DistrictDoc,'days_mmdd'>,year:nu
   const fmt=(mmdd:string)=>`${Number(mmdd.slice(3))} ${mmdd.startsWith('10')?'Oct':'Nov'}`;
   return {from:fmt(doc.days_mmdd[at]),to:fmt(doc.days_mmdd[at+len-1]),share:t?100*best/t:null,total:t};
 }
+
+/** Deterministic PRNG so the bootstrap range is the same on every load and in tests. */
+function mulberry32(seed:number){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+/** 90% range of the count-gap factor from resampling days (with replacement) within each year. */
+export function gapRange(d:District,doc:Pick<DistrictDoc,'outage_mmdd'|'days_mmdd'>,base:number,year=2025,reps=1000,seed=20261115):[number,number]|null{
+  const g=countGap(d,doc,base,year);if(!g.ok)return null;
+  const mask=pairMask(doc,base,year),keep=doc.days_mmdd.map((m,i)=>mask.includes(m)?-1:i).filter(i=>i>=0);
+  const sa=d.snpp_celldays[base],sb=d.snpp_celldays[year],ga=d.gk2a_pixel_days[base],gb=d.gk2a_pixel_days[year],rnd=mulberry32(seed),out:number[]=[];
+  for(let r=0;r<reps;r++){let SA=0,GA=0,SB=0,GB=0;for(let k=0;k<keep.length;k++){const i=keep[Math.floor(rnd()*keep.length)],j=keep[Math.floor(rnd()*keep.length)];SA+=sa[i];GA+=ga[i];SB+=sb[j];GB+=gb[j];}if(SA&&GA&&SB&&GB)out.push((GB/GA)/(SB/SA));}
+  if(out.length<reps*0.9)return null;out.sort((a,b)=>a-b);
+  return [out[Math.floor(0.05*(out.length-1))],out[Math.ceil(0.95*(out.length-1))]];
+}
+
+/** Season timing from daily geostationary pixel-days: dates by which 10%, 50% and 90% of the season's signal had appeared. */
+export function seasonDates(d:District,doc:Pick<DistrictDoc,'days_mmdd'>,year:number){
+  const v=d.gk2a_pixel_days[year]??[],t=sum(v);if(t<MIN_GK2A)return null;
+  const at=(q:number)=>{let c=0;for(let i=0;i<v.length;i++){c+=v[i];if(c>=q*t)return doc.days_mmdd[i];}return doc.days_mmdd[v.length-1];};
+  const fmt=(m:string)=>`${Number(m.slice(3))} ${m.startsWith('10')?'Oct':'Nov'}`;
+  return {start:fmt(at(.1)),mid:fmt(at(.5)),end:fmt(at(.9)),total:t};
+}
+
+/** Point-in-polygon (ray casting) so “Use my location” runs in the browser and sends nothing anywhere. */
+function inRing(x:number,y:number,r:number[][]){let ins=false;for(let i=0,j=r.length-1;i<r.length;j=i++){const [xi,yi]=r[i],[xj,yj]=r[j];if((yi>y)!==(yj>y)&&x<(xj-xi)*(y-yi)/(yj-yi)+xi)ins=!ins;}return ins;}
+export function districtAt(doc:DistrictDoc,lat:number,lon:number):string|null{
+  for(const d of doc.districts){const g=d.geometry;if(!g)continue;const polys=g.type==='Polygon'?[g.coordinates]:g.coordinates;
+    for(const p of polys as number[][][][])if(inRing(lon,lat,p[0])&&!p.slice(1).some(h=>inRing(lon,lat,h)))return d.name;}
+  return null;
+}
+
+/** This week (FIRMS 7-day) against the same calendar days in the archive: Aqua ÷ VIIRS on days both recorded fire. */
+export interface WeekDoc{generated_utc:string;window:{first_date:string|null;last_date:string|null};median_pass_ist:Record<string,number>;by_date:Record<string,Record<string,number>>;districts:{name:string;daytime:Record<string,number>}[];feeds:Record<string,{url:string;rows:number;first_date:string|null;last_date:string|null}>;definition:string;script:string}
+export interface AquaDailyDoc{days_mmdd:string[];aqua:Record<string,number[]>;snpp:Record<string,number[]>;noaa20:Record<string,number[]>;aqua_median_pass_ist_november:Record<string,number>;definition:string;script:string}
+export function weekRatio(week:WeekDoc){
+  const A=week.by_date.A??{},J=week.by_date.J1??{},days=Object.keys(J).filter(d=>(A[d]??0)>0&&J[d]>0).sort();
+  const a=sum(days.map(d=>A[d])),j=sum(days.map(d=>J[d]));
+  return {days,aqua:a,viirs:j,ratio:j?a/j:null};
+}
+export function historyRatios(hist:AquaDailyDoc,mmdd:string[]){
+  return Object.keys(hist.aqua).map(Number).sort().map(y=>{
+    const ref=y>=2018&&hist.noaa20[y]?hist.noaa20[y]:hist.snpp[y],A=hist.aqua[y];
+    const idx=mmdd.map(m=>hist.days_mmdd.indexOf(m)).filter(i=>i>=0&&A[i]>0&&ref[i]>0);
+    const a=sum(idx.map(i=>A[i])),v=sum(idx.map(i=>ref[i]));
+    return {year:y,ratio:v?a/v:null,aqua:a,viirs:v,days:idx.length,ref:y>=2018?'NOAA-20':'S-NPP',pass:hist.aqua_median_pass_ist_november[y]};
+  });
+}
+
+/** A calendar file (RFC 5545) with one field-check event per day, in India time. Nothing is sent anywhere. */
+export function fieldCheckIcs(place:string,startISO:string,days:number,startHour:number,endHour:number,note:string,url:string,stamp=new Date()){
+  const pad=(n:number)=>String(n).padStart(2,'0'),esc=(t:string)=>t.replace(/\\/g,'\\\\').replace(/[,;]/g,m=>'\\'+m).replace(/\n/g,'\\n');
+  const fold=(line:string)=>line.length<=74?line:line.match(/.{1,73}/g)!.join('\r\n ');
+  const st=`${stamp.getUTCFullYear()}${pad(stamp.getUTCMonth()+1)}${pad(stamp.getUTCDate())}T${pad(stamp.getUTCHours())}${pad(stamp.getUTCMinutes())}00Z`;
+  const [y,m,d]=startISO.split('-').map(Number),ev:string[]=[];
+  for(let i=0;i<days;i++){const t=new Date(Date.UTC(y,m-1,d+i)),day=`${t.getUTCFullYear()}${pad(t.getUTCMonth()+1)}${pad(t.getUTCDate())}`;
+    ev.push('BEGIN:VEVENT',`UID:burn-clock-${place.toLowerCase().replace(/[^a-z0-9]+/g,'-')}-${day}@burn-clock`,`DTSTAMP:${st}`,`DTSTART;TZID=Asia/Kolkata:${day}T${pad(startHour)}0000`,`DTEND;TZID=Asia/Kolkata:${day}T${pad(endHour)}0000`,fold(`SUMMARY:${esc(`Field check: ${place} (late-afternoon burning)`)}`),fold(`DESCRIPTION:${esc(note+' '+url)}`),'END:VEVENT');}
+  return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Burn Clock//Field check plan//EN','CALSCALE:GREGORIAN','BEGIN:VTIMEZONE','TZID:Asia/Kolkata','BEGIN:STANDARD','DTSTART:19700101T000000','TZOFFSETFROM:+0530','TZOFFSETTO:+0530','TZNAME:IST','END:STANDARD','END:VTIMEZONE',...ev,'END:VCALENDAR'].join('\r\n')+'\r\n';
+}
