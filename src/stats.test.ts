@@ -52,7 +52,7 @@ describe('claim checker safeguards and defined math',()=>{
     const input=area([row(2021,100,{month:'2021-11'}),row(2024,80,{month:'2024-11'})]);
     const claim=computeClaim(input,[11],2021,2024,withOutages);
     expect(claim.harmonized.status).toBe('ok');expect(claim.outages).toHaveLength(1);
-    expect(claim.warnings.find(w=>w.code==='outage')?.message).toContain('2024-11');
+    expect(claim.warnings.find(w=>w.code==='outage')?.message).toContain('November 2024');
     expect(claim.timingStatus).toBe('missing');
     expect(computeClaim(input,[10],2021,2024,withOutages).outages).toHaveLength(0);
   });

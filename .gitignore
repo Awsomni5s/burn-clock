@@ -11,3 +11,4 @@ tsconfig.tsbuildinfo
 __pycache__/
 # Finder/iCloud duplicates of disposable build output.
 dist */
+.deck/

@@ -8,7 +8,10 @@ import {useURLState, choice} from '../urlState';
 import {PLATFORMS, PLATFORM_NAMES, PLATFORM_COLORS, GK2A_COLOR, type ClockYear, type BBox} from '../types';
 
 type Props = {clock?: ClockYear; year: number; box: BBox; name: string; receipt?: Record<string, any>};
-export default function SatelliteTimeline({clock, year, box, name, receipt}: Props) {
+export default function SatelliteTimeline({clock, year, box, name, receipt: suppliedReceipt}: Props) {
+  const [byYear, setByYear] = useState<Record<string, number[]> | null>(null);
+  useEffect(() => { if (!suppliedReceipt) return; fetch('/data/gk2a_hourly_by_year.json').then(r => r.ok ? r.json() : null).then(d => d && setByYear(d.pixel_hours)).catch(() => {}); }, [suppliedReceipt]);
+  const receipt = suppliedReceipt && byYear ? {...suppliedReceipt, gk2a_by_hour: {...suppliedReceipt.gk2a_by_hour, ...Object.fromEntries(Object.entries(byYear).map(([y, v]) => ['pixel_hours_' + y, v]))}} : suppliedReceipt;
   const id = useId().replaceAll(':', ''), openSource = useEvidence();
   const container = useRef<HTMLDivElement>(null), [chartWidth, setChartWidth] = useState(1060);
   useEffect(() => {
@@ -18,9 +21,9 @@ export default function SatelliteTimeline({clock, year, box, name, receipt}: Pro
     return () => observer.disconnect();
   }, []);
   const compact = chartWidth < 850;
-  const [comparison, setComparison] = useURLState('timelineCompare', 'previous', choice(['previous', 'none'] as const));
+  const [comparison, setComparison] = useURLState('timelineCompare', 'previous', choice(['previous', 'early', 'none'] as const));
   const referenceDate = `${year}-11-15`, zone = areaZone(box), local = zoneLabel(zone);
-  const current = hourlyShares(receipt, year), otherYear = year === 2021 ? 2025 : 2021;
+  const current = hourlyShares(receipt, year), defaultOther = year === 2021 ? 2025 : 2021, otherYear = comparison === 'early' ? 2019 : defaultOther;
   const previous = current && comparison !== 'none' ? hourlyShares(receipt, otherYear) : null;
   const passes = PLATFORMS.flatMap(platform => {
     const raw = clock?.look[platform];
@@ -49,13 +52,13 @@ export default function SatelliteTimeline({clock, year, box, name, receipt}: Pro
     link: '/reproduce/pipeline/build_public.py.html#L159'});
   return <section className="satellite-timeline" aria-labelledby={id + '-title'} data-testid="satellite-timeline">
     <h2 id={id + '-title'}>{current ? <>Burning peaks around <Evidence value={timelineTime(current.peakHour)} expression={`gk2a_by_hour.pixel_hours_${year}; hour of maximum`} source="punjab_receipt.json → gk2a_by_hour" producer="src/timeline.ts"/> in the Punjab hourly record.</> : 'When the satellites look here'}</h2>
-    {current ? <p>In October–November {year}, <strong><Evidence value={number(current.lateShare, 1) + '%'} expression={`gk2a_by_hour.pixel_hours_${year}; sum(hours ≥16) / sum(hours 12–18) × 100`} source="punjab_receipt.json → gk2a_by_hour" producer="src/timeline.ts"/></strong> of afternoon fire pixel-hours came at 4 pm or later. The bars describe Punjab state; pass markers describe the selected {name} box.</p> : <p>{receipt ? `No usable hourly shares are supplied for ${year}. The Punjab receipt provides 2021 and 2025; choose either observation year to see those bars.` : 'Burn Clock has no hourly fire data matched to this area, so it cannot show when burning happens here.'} Use the timing checks to assess whether satellite timing changes the answer.</p>}
+    {current ? <p>In October–November {year}, <strong><Evidence value={number(current.lateShare, 1) + '%'} expression={`gk2a_by_hour.pixel_hours_${year}; sum(hours ≥16) / sum(hours 12–18) × 100`} source="punjab_receipt.json → gk2a_by_hour" producer="src/timeline.ts"/></strong> of afternoon fire pixel-hours came at 4 pm or later. The bars describe Punjab state; pass markers describe the selected {name} box.</p> : <p>{receipt ? `No hourly shares exist for ${year}. Hourly data covers 2019–2025; choose one of those years.` : 'Burn Clock has no hourly fire data matched to this area, so it cannot show when burning happens here.'} Use the timing checks to assess whether satellite timing changes the answer.</p>}
     <p className="timeline-scope">Pass times: {year} fire-season medians, approximate {local}. They do not change with the selected months. Open circles mark the available 2013–19 baseline.</p>
     <div className="timeline-toolbar">
       <div className="timeline-key">{current && <><span><i style={{background: GK2A_COLOR}}/>{year} share of afternoon fire pixel-hours</span>{previous && <span><i className="timeline-key-outline"/>{otherYear} share</span>}</>}<span>│ Current satellite pass · ○ → baseline to current</span></div>
-      {current && <fieldset className="timeline-toggle"><legend>Compare hourly shares with</legend><button aria-pressed={comparison === 'previous'} onClick={() => setComparison('previous')}>{otherYear}</button><button disabled aria-describedby={id + '-missing'}>2019</button><button aria-pressed={comparison === 'none'} onClick={() => setComparison('none')}>None</button></fieldset>}
+      {current && <fieldset className="timeline-toggle"><legend>Compare hourly shares with</legend><button aria-pressed={comparison === 'previous'} onClick={() => setComparison('previous')}>{defaultOther}</button><button aria-pressed={comparison === 'early'} disabled={!byYear} onClick={() => setComparison('early')}>2019</button><button aria-pressed={comparison === 'none'} onClick={() => setComparison('none')}>None</button></fieldset>}
     </div>
-    {current && <p className="timeline-note" id={id + '-missing'}>2019 hourly totals were not supplied. Contour maps alone do not provide these shares.</p>}
+    
     {!passes.length && <p role="status">{clock ? `No daytime pass-time medians are available for this area in ${year}.` : `No pass-time record is available yet for this area in ${year}.`}</p>}
     <div ref={container} className="timeline-scroll" role="region" aria-label="Satellite and burning timeline">
       <svg viewBox={`0 0 ${chartWidth} ${height}`} className="timeline-chart" role="button" tabIndex={0} aria-label={`${name}, ${year}. Satellite passes in ${local}${current ? '; Punjab state hourly shares from noon to 6 pm India time' : '; hourly fire activity unavailable'}. Open chart sources.`} onClick={chartSource} onKeyDown={e => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault(); chartSource();}}}>
