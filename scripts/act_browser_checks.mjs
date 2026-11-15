@@ -1,0 +1,78 @@
+/** Verify the Punjab action planner and the role brief against the shipped district file. */
+import {chromium} from 'playwright';
+import AxeBuilder from '@axe-core/playwright';
+import assert from 'node:assert/strict';
+import {readFileSync, writeFileSync, mkdirSync} from 'node:fs';
+const base = process.env.BURN_CLOCK_URL || 'http://127.0.0.1:5173';
+const doc = JSON.parse(readFileSync('public/data/punjab_districts.json'));
+const sum = v => v.reduce((s, x) => s + x, 0);
+const browser = await chromium.launch({headless: true, args: ['--enable-unsafe-swiftshader']});
+const context = await browser.newContext({viewport: {width: 1360, height: 1000}, acceptDownloads: true}), page = await context.newPage();
+const checks = [], scans = [], errors = [];
+page.on('pageerror', e => errors.push(e.message));
+mkdirSync('test-results/act', {recursive: true});
+const check = (name, fn) => checks.push({name, ok: (fn(), true)});
+try {
+  // 1. Fazilka 2025: the window sentence and the gap sentence equal values recomputed from the file.
+  await page.goto(`${base}/?district=Fazilka&dyear=2025&dbase=2021#act`);
+  await page.getByTestId('act-window').waitFor({timeout: 60000});
+  const fz = doc.districts.find(d => d.name === 'Fazilka'), v = fz.gk2a_pixel_hours['2025'], t = sum(v);
+  const w3 = Math.max(...[0, 1, 2, 3, 4].map(i => sum(v.slice(i, i + 3)))), pass = 100 * (v[1] + v[2]) / t;
+  const windowText = await page.getByTestId('act-window').innerText();
+  check('window share', () => assert.match(windowText, new RegExp(`covered ${Math.round(100 * w3 / t)}% of the afternoon`)));
+  check('pass share', () => assert.match(windowText, new RegExp(`held ${Math.round(pass)}%`)));
+  const mask = [...new Set([...doc.outage_mmdd['2021'], ...doc.outage_mmdd['2025']])];
+  const ms = (arr) => arr.reduce((s, x, i) => s + (mask.includes(doc.days_mmdd[i]) ? 0 : x), 0);
+  const sn = ms(fz.snpp_celldays['2025']) / ms(fz.snpp_celldays['2021']), gk = ms(fz.gk2a_pixel_days['2025']) / ms(fz.gk2a_pixel_days['2021']);
+  const gapText = await page.getByTestId('act-gap').innerText();
+  check('gap satellite change', () => assert.match(gapText, new RegExp(`satellite count fell ${Math.round(100 * (1 - sn))}%`)));
+  check('gap afternoon change', () => assert.match(gapText, new RegExp(`signal fell ${Math.round(100 * (1 - gk))}%`)));
+  check('gap factor', () => assert.match(gapText, new RegExp(`about ${(gk / sn).toFixed(1)}×`)));
+  const say = await page.getByTestId('act-say').innerText();
+  check('wording', () => { assert.match(say, /You can say[\s\S]*Satellite fire counts for Fazilka, taken at about 1:40 pm/); assert.match(say, /Don’t say[\s\S]*Burning in Fazilka fell/); });
+  const wa = await page.getByTestId('act-whatsapp').getAttribute('href');
+  check('WhatsApp plan link', () => { assert.ok(wa.startsWith('https://wa.me/?text=')); const text = decodeURIComponent(wa.split('text=')[1]); assert.match(text, /Burn Clock field-check plan · Fazilka/); assert.match(text, /Busiest two weeks: \d+ (Oct|Nov)/); });
+  // 2. Ranking order equals late pixel-hours order; map click selects a district.
+  const rows = await page.locator('[data-testid=act-priority] tbody tr th button').allInnerTexts();
+  const expected = [...doc.districts].sort((a, b) => sum(b.gk2a_pixel_hours['2025'].slice(4)) - sum(a.gk2a_pixel_hours['2025'].slice(4)) || a.name.localeCompare(b.name)).map(d => d.name);
+  check('priority order', () => assert.deepEqual(rows, expected));
+  await page.getByRole('button', {name: 'Sangrur'}).click();
+  await page.waitForFunction(() => new URL(location.href).searchParams.get('district') === 'Sangrur');
+  check('select from table writes URL', () => true);
+  // 3. Thin district: no window, no wording.
+  await page.goto(`${base}/?district=Pathankot&dyear=2025#act`);
+  await page.getByTestId('act-window').waitFor();
+  check('thin district refused', async () => {});
+  assert.match(await page.getByTestId('act-window').innerText(), /Too little geostationary fire signal/);
+  assert.match(await page.getByTestId('act-say').innerText(), /No wording is offered/);
+  // 4. Downloads.
+  await page.goto(`${base}/#act`); await page.getByTestId('act-window').waitFor();
+  const [dl] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', {name: /Download hourly profiles/}).click()]);
+  const csv = readFileSync(await dl.path(), 'utf8').trim().split('\n');
+  check('profile CSV rows', () => assert.equal(csv.length, 1 + 23 * 7 * 7));
+  await page.screenshot({path: 'test-results/act/act-all.png', fullPage: true});
+  const axe = await new AxeBuilder({page}).include('.act-page').withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
+  scans.push({page: 'act', violations: axe.violations.map(v => v.id)});
+  check('act page axe', () => assert.deepEqual(axe.violations.map(v => v.id), []));
+  // 5. Role brief from a place report, and the planner link for Punjab.
+  await page.goto(`${base}/?box=29.5,73.8,32.6,77&months=10,11&a=2021&b=2025&role=policy#explorer`);
+  await page.getByTestId('role-brief').waitFor({timeout: 90000});
+  check('planner link shown for Punjab', async () => {});
+  assert.equal(await page.getByTestId('act-link').count(), 1);
+  const [bd] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', {name: 'Download one-page brief'}).click()]);
+  const html = readFileSync(await bd.path(), 'utf8');
+  const verdict = await page.getByTestId('verdict').innerText();
+  check('brief carries verdict and actions', () => { assert.ok(html.includes(verdict.trim())); assert.match(html, /What to do/); assert.match(html, /Limits/); });
+  // 6. Mobile layout: no horizontal scroll on the planner.
+  const mobile = await browser.newPage({viewport: {width: 390, height: 844}});
+  await mobile.goto(`${base}/?district=Fazilka#act`); await mobile.getByTestId('act-window').waitFor();
+  const overflow = await mobile.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+  check('mobile no horizontal scroll', () => assert.ok(overflow <= 1, 'overflow ' + overflow));
+  await mobile.screenshot({path: 'test-results/act/act-mobile.png', fullPage: true});
+  await mobile.close();
+} catch (error) { errors.push(String(error.stack)); process.exitCode = 1; console.error(error); }
+finally {
+  await browser.close();
+  writeFileSync('act-checks.json', JSON.stringify({tested_at: new Date().toISOString(), status: errors.length ? 'failed' : 'passed', checks, scans, errors, limitations: ['Automated checks only; no human usability study was conducted.']}, null, 2) + '\n');
+  console.log(errors.length ? 'Act checks failed' : `Act checks passed (${checks.length})`);
+}

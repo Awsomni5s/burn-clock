@@ -11,6 +11,14 @@
 | **Satellite timing doesn't explain this** | Punjab wheat season (Apr–May) and California: same check, no timing problem. |
 | **Can't tell yet** | Paraná Delta: too few fires for a verdict. |
 
+- **Punjab action planner (`#act`):** for each of Punjab's 22 districts, it shows when the burning happens (hourly GK2A data, 2019–2025) and how much further the ~1:40 pm satellite count fell than the whole afternoon. It is built for four kinds of user:
+  - **Field teams:** a ranked list of districts and a check window.
+  - **Air-quality forecasters:** a sensitivity factor and hourly profiles (CSV).
+  - **Reporters and officials:** "You can say / Don't say" wording.
+  - **Researchers:** data files.
+
+  Built by [`pipeline/analysis/punjab_districts.py`](pipeline/analysis/punjab_districts.py) with geoBoundaries ADM2. The browser checks recompute the planner's window, count-gap and ranking numbers from the shipped file.
+- **One-page brief for your role:** every place report can download a printable brief (verdict, then actions, then numbers, then limits) or copy it as text.
 - **Demo (7 slides):** [`public/docs/Burn_Clock_Demo_7_Slides.pdf`](public/docs/Burn_Clock_Demo_7_Slides.pdf)
 - **Case studies:** `#cases` in the app, built by [`scripts/build_case_studies.mjs`](scripts/build_case_studies.mjs) from the app's own verdicts.
 - **AI use:** built with AI assistants (Anthropic Claude, OpenAI Codex). Every number is produced by code in this repository and checked by the tests below.
@@ -29,7 +37,7 @@ npm run dev
 
 The latest uploaded design is implemented across `#home`, `#explorer`, `#claim`, `#receipt`, `#clock`, `#validation`, `#about` and `#brief`. See the [screen-by-screen mapping and scientific differences](public/docs/MOCK_IMPLEMENTATION.md).
 
-Choose **Start here** for the four-step judge tour. Use the source pop-ups on numerical results, NASA verification links, shareable area/year/month/slider states, the policy brief, and API & reuse page.
+Choose **Start here** for the five-step judge tour. Use the source pop-ups on numerical results, NASA verification links, shareable area/year/month/slider states, the policy brief, and API & reuse page.
 
 ## Reproduce and test
 

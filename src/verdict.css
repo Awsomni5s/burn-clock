@@ -47,3 +47,7 @@
 .strip-card:hover{background:#f3f2f1}.strip-card .v-chip{align-self:flex-start}
 .strip-card strong{font-size:1.05rem;margin-top:4px}.strip-season{font-size:.82rem;color:#505a5f}.strip-lesson{font-size:.9rem}
 @media(max-width:860px){.strip-grid{grid-template-columns:1fr 1fr}}@media(max-width:520px){.strip-grid{grid-template-columns:1fr}}
+.role-brief{border:2px solid #0b0c0c;padding:14px 18px;margin:18px 0}
+.mock-app .role-brief h3{margin:0 0 4px}
+.role-brief>p{margin:0 0 8px}
+.brief-status{font-size:.9rem;color:#005a30;margin:6px 0 0}

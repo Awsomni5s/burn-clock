@@ -1,0 +1,42 @@
+/* Act on it: Punjab action planner */
+.act-page h1{max-width:30ch}
+.act-jump{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 8px}
+.mock-app .act-jump a{display:inline-block;padding:9px 14px;border:2px solid #1d70b8;font-weight:700;text-decoration:none}
+.mock-app .act-jump a:hover{background:#1d70b8;color:#fff}
+.act-controls{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:flex-end;background:#f3f2f1;padding:14px 18px;margin:18px 0 8px;position:sticky;top:0;z-index:5;border-bottom:2px solid #b1b4b6}
+.act-controls label{display:flex;flex-direction:column;gap:4px;font-weight:700;font-size:.9rem}
+.act-controls select{min-width:180px}
+.act-section{border-top:4px solid #0b0c0c;padding-top:10px;margin-top:34px}
+.mock-app .act-section h2{margin:6px 0 12px}
+.mock-app .act-section h3{margin:22px 0 8px}
+.act-answer{font-size:1.15rem;line-height:1.45;max-width:62ch;border-left:8px solid #b34b20;padding:6px 0 6px 14px;margin:6px 0 14px}
+.act-two{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:28px;align-items:start}
+.act-len{display:inline-flex;gap:8px;align-items:center;font-weight:700;margin:0 0 6px}
+.act-bars{width:100%;max-width:560px;height:auto;display:block}
+.act-map{margin:0}.act-map svg{width:100%;height:auto;display:block}
+.act-map path:hover{opacity:.85}
+.act-map figcaption{font-size:.85rem;color:#505a5f;margin-top:6px}
+.act-ramp{display:flex;margin-top:6px}.act-ramp i{display:block;width:36px;height:12px;border:1px solid #b1b4b6}
+.act-buttons{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:14px 0}
+.mock-app .act-buttons .button{display:inline-block;padding:9px 14px;font-weight:700;text-decoration:none}
+.act-table{width:100%;border-collapse:collapse;font-size:.93rem}
+.act-table th,.act-table td{text-align:left;padding:7px 9px;border-bottom:1px solid #d4d8db;vertical-align:top}
+.act-table thead th{font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;color:#505a5f;border-bottom:2px solid #0b0c0c}
+.act-table tr[aria-current]{background:#fff1e0}
+.act-table.compact{max-width:640px;margin:8px 0 12px}
+.mock-app .link-button{background:none;border:0;padding:0;color:#1d70b8;text-decoration:underline;font-weight:700;cursor:pointer;text-align:left;font-size:inherit}
+.act-list{max-width:70ch}.act-list li{margin-bottom:6px}
+.say-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.say-grid>div{border:2px solid #b1b4b6;padding:14px 16px}
+.say-grid .say-yes{border-color:#00703c;background:#e7f4ec}.say-grid .say-no{border-color:#c2410c;background:#fff1e0}
+.mock-app .say-grid h3{margin:0 0 6px;font-size:1rem}
+.say-grid p{margin:0 0 8px}
+.act-elsewhere{margin-top:30px;font-weight:700}
+@media(max-width:860px){.act-two,.say-grid{grid-template-columns:1fr}.act-controls{position:static}}
+@media print{.act-controls{position:static}.act-jump,.act-map path{cursor:default}.act-jump{display:none}.act-section{break-inside:avoid-page}}
+.mock-app .act-table .link-button{min-height:0;padding:0;margin:0;line-height:1.3;width:auto}
+.act-table td,.act-table th{white-space:normal}
+.act-callout{border:2px solid #0b0c0c;border-left:10px solid #b34b20;padding:16px 20px;margin:0 0 30px}
+.mock-app .act-callout h2{margin:0 0 6px}.act-callout p{max-width:70ch;margin:0 0 12px}
+.mock-app .act-callout .button{display:inline-block;padding:10px 16px;font-weight:700;text-decoration:none}
+.act-list code{overflow-wrap:anywhere;word-break:break-word}

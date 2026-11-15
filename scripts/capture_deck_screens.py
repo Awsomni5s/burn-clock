@@ -21,5 +21,8 @@ async def main():
         await pg.goto(B+"/#receipt"); await pg.wait_for_timeout(2500)
         await pg.locator(".burning-panel").scroll_into_view_if_needed(); await pg.wait_for_timeout(3500)
         await pg.locator(".burning-panel").screenshot(path=O+"maps.png")
+        await pg.goto(B+"/?district=Fazilka&dyear=2025&dbase=2021#act"); await pg.get_by_test_id("act-window").wait_for(timeout=60000); await pg.wait_for_timeout(800)
+        await pg.locator(".act-two").screenshot(path=O+"act_field.png")
+        await pg.locator(".say-grid").screenshot(path=O+"act_say.png")
         await b.close()
 asyncio.run(main())

@@ -16,7 +16,7 @@
    "question": "India reported that farm fires fell 93% between 2021 and 2025. Is that the whole story?",
    "do": "Monitor after 4 pm, add a geostationary feed to fire alerts, and report the early-afternoon count alongside the timing shift.",
    "lesson": "A drop in satellite counts can partly be burning moving to hours the satellites don’t see.",
-   "deep": "#receipt",
+   "deep": "#receipt","plan":"#act",
    "box": [
     27.6,
     73.8,
