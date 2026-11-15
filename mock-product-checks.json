@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-15T22:28:32.600Z",
-  "status": "failed",
+  "generatedAt": "2026-11-15T22:37:13.553Z",
+  "status": "passed",
   "checks": [
     {
       "name": "Home has a working search, explicit Check button, six presets and four task entrances",
@@ -26,7 +26,7 @@
       "name": "Claim page preserves the submitted text without pretending to verify arbitrary prose",
       "status": "passed",
       "detail": {
-        "localExportMs": 189,
+        "localExportMs": 146,
         "width": 650,
         "height": 1162
       }
@@ -45,8 +45,16 @@
     },
     {
       "name": "Local first view and year-change interaction meet the stated speed budget",
-      "status": "failed",
-      "error": "AssertionError [ERR_ASSERTION]: Year changes: 168,166,158ms\n    at file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:25:1136\n    at async check (file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:12:47)\n    at async file:///home/claude/burn-clock/scripts/mock_product_checks.mjs:25:2"
+      "status": "passed",
+      "detail": {
+        "firstViewMs": 237,
+        "yearChangeMs": [
+          39,
+          39,
+          32
+        ],
+        "environment": "Fresh browser context for first view; local Chromium, production build when run through make reproduce; no network throttling"
+      }
     },
     {
       "name": "Human-study results and missing scientific specification remain honest",
@@ -265,11 +273,11 @@
   ],
   "performance": [
     {
-      "firstViewMs": 486,
+      "firstViewMs": 237,
       "yearChangeMs": [
-        168,
-        166,
-        158
+        39,
+        39,
+        32
       ],
       "environment": "Fresh browser context for first view; local Chromium, production build when run through make reproduce; no network throttling"
     }
