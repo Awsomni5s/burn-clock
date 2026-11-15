@@ -2,13 +2,20 @@
 
 [![Integrity](https://github.com/Awsomni5s/burn-clock/actions/workflows/integrity.yml/badge.svg)](https://github.com/Awsomni5s/burn-clock/actions/workflows/integrity.yml)
 
-**The burning activity calendar that knows what time it is.** Burn Clock does what the challenge asks: it merges NASA's MODIS and VIIRS fire records (548,501,203 FIRMS detections) into one harmonized burning activity calendar for any area, every month since 2001. It shows the critical period, each month against the multi-year usual, a CSV export, and a raw view by satellite. That calendar is the home page.
+**A fire calendar you can act on.** Burn Clock does what the challenge asks: it merges NASA's MODIS and VIIRS fire records (548,501,203 FIRMS detections) into one harmonized burning activity calendar for any area, every month since 2001. It shows the critical period, each month against the multi-year usual, a CSV export, and a raw view by satellite. That calendar is the home page.
 
 Fire satellites look at each place only at a few fixed times a day, and two of them (Terra and Aqua) have drifted. When burning moves to other hours, the count changes even if the fires don't. So every calendar also carries:
 - **a Clock check column**, marking each year since 2021 as trustworthy or distorted by satellite timing;
 - **a verdict** for the chosen season;
 - **a live check** of this week's NASA data;
 - **actions for your role.**
+
+**Your next move.** Right after you pick a place, before the calendar, three cards turn it into decisions for your job (enforcement & policy, smoke & air quality, news & fact-checks, research):
+1. **When to be ready:** the place's own critical period, the busiest day (Punjab + Haryana day view), how soon the next season starts, and an `.ics` file that puts the season in your calendar with a reminder two weeks ahead.
+2. **Is the trend real?** The verdict for the selected season and the combined-record change.
+3. **This week:** NASA's last seven days against an average week of the same month in 2019–2025 (same satellite, NOAA-20), read together with the live timing check. A low count with burning moved later is never called progress.
+
+**Choose any area:** search 176 countries and about 4,600 states and provinces (real Natural Earth outlines), or on the map draw a rectangle, a circle, a shape by hand, or click a province. Only grid cells whose centre lies inside the outline count. Custom areas get their own critical period as the season. **Days:** for Punjab + Haryana the calendar switches between months and a year × day view that adds up to the monthly values.
 
 | Verdict | Example (computed by the app) |
 |---|---|

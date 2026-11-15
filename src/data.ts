@@ -1,5 +1,4 @@
-import {inPolys,type Polys} from './shape';
-import {timingChecks} from './timing';
+import {timingChecks} from './timing';import {inPolys,type Polys} from './shape';
 import {PLATFORMS, type Platform,type BBox,type Manifest,type CalendarTile,type ClockTile,type Month,type ClockYear,type ClockTest} from './types';
 
 export async function fetchData<T>(path:string, signal?:AbortSignal):Promise<T> {

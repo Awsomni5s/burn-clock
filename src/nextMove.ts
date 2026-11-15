@@ -1,7 +1,7 @@
 /** "Your next move": the calendar, the trend check and this week's live check turned into what to do, by job. Pure helpers. */
 import type {Role} from './insights';
 import type {Verdict} from './verdict';
-import type {LiveStatus} from './liveCheck';
+import type {LiveStatus,AmountStatus} from './liveCheck';
 
 export const MONTH_NAMES=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const SHORT=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -66,3 +66,23 @@ export function weekAction(role:Role,status:LiveStatus){
   return 'Use the monthly calendar for now; the live check refreshes every six hours.';
 }
 export const VERDICT_TRUST:Record<Verdict,string>={timing:'Partly a timing effect',modis:'Real, but not in MODIS counts',clear:'Yes, within its range',unknown:'Can’t tell yet'};
+
+export const AMOUNT_LABEL:Record<AmountStatus,string>={record:'Busiest for the time of year',above:'More than usual',below:'Less than usual',lowest:'Quietest for the time of year',quiet:'Little or no burning',unknown:'Can’t compare yet'};
+export const AMOUNT_CLASS:Record<AmountStatus,string>={record:'timing',above:'timing',below:'clear',lowest:'clear',quiet:'unknown',unknown:'unknown'};
+/** What to do this week: the amount compared with usual, read together with this week's timing check. */
+export function thisWeekAction(role:Role,amount:AmountStatus,timing:LiveStatus){
+  const later=timing==='signal';
+  if(amount==='record'||amount==='above')return {policy:'More burning than a usual week right now: get field teams out this week, and keep them out into the late afternoon.',
+    air:'Raise this week’s fire emissions above a typical week in your smoke forecast'+(later?', and move them later in the day.':'.'),
+    journalist:'This week is busier than usual for the time of year. Say the NASA data is provisional (near real time).',
+    research:'Log this week as an anomaly and re-check it when standard-quality data replaces the near-real-time files.'}[role];
+  if(amount==='below'||amount==='lowest')return later?{policy:'The count is low, but burning has moved later than the satellites look. Don’t call it progress: check fields after 3–4 pm.',
+    air:'Don’t cut emissions just because the count is low: burning moved later, past the ~1:30 pm passes.',
+    journalist:'Don’t report “fewer fires” from this week’s count: burning moved later than the satellites look.',
+    research:'This week’s low count is confounded by a timing shift; don’t read it as less burning.'}[role]
+    :{policy:'Less burning than a usual week, and no timing shift: a fair sign of fewer fires. Confirm on the ground before you report it.',
+    air:'Lower fire emissions than a typical week are justified this week.',
+    journalist:'Fewer detections than usual, with no timing shift: you can say less burning was detected (provisional).',
+    research:'A low week without a timing shift; keep it, flagged as provisional.'}[role];
+  return weekAction(role,timing);
+}

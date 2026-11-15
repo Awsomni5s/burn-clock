@@ -47,3 +47,23 @@ describe('area shapes',()=>{
     const r=simplify(pts,0.001,160);expect(r.length).toBeLessThanOrEqual(160);expect(r.length).toBeGreaterThan(10);
   });
 });
+
+import {liveAmount,type LiveCells} from './liveCheck';
+import {thisWeekAction} from './nextMove';
+describe('this week compared with usual',()=>{
+  const months=Array.from({length:7},(_,i)=>({month:`${2019+i}-11`,raw:{T:null,A:null,N:null,J1:300*(i+1),J2:null},harm:null,lo:null,hi:null,src:'V',satellites:[],anomaly:'normal',median:null} as any));
+  const doc=(j1:number):LiveCells=>({generated_utc:'',window:{first_date:'2026-11-08',last_date:'2026-11-14'},columns:[],bin_deg:0.25,rows:[[30,75,0,0,j1,0]],median_daytime_local_solar_hour:{} as any} as any);
+  it('scales the archive month to a week of the same satellite and ranks this week',()=>{
+    const r=liveAmount(doc(100),[29,74,32,77],months);
+    expect(r.days).toBe(7);expect(r.median).toBeCloseTo(1200*7/30,6);expect(r.min).toBeCloseTo(300*7/30,6);expect(r.status).toBe('below');
+    expect(liveAmount(doc(1000),[29,74,32,77],months).status).toBe('record');
+    expect(liveAmount(doc(10),[29,74,32,77],months).status).toBe('lowest');
+    expect(liveAmount(doc(10),[0,0,1,1],months).status).toBe('lowest');
+    expect(liveAmount(doc(10),[29,74,32,77],months.slice(0,3)).status).toBe('unknown');
+  });
+  it('never calls a low count progress when burning moved later',()=>{
+    expect(thisWeekAction('policy','below','signal')).toMatch(/Don’t call it progress/);
+    expect(thisWeekAction('journalist','lowest','signal')).toMatch(/Don’t report “fewer fires”/);
+    expect(thisWeekAction('journalist','below','within')).toMatch(/less burning was detected/);
+  });
+});

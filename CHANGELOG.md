@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-11-15 — Your next move, any outline, days
+
+- **Your next move** (above the calendar): when to be ready, is the trend real, this week; one action per card for the chosen job; `.ics` season export with reminders.
+- **This week vs usual:** NOAA-20 seven-day cell-days against an average week of the same month, 2019–2025 (archive NOAA-20, same unit). Read together with the live timing check (`src/liveCheck.ts:liveAmount`, `src/nextMove.ts`).
+- **Area shapes:** rectangle, circle, draw by hand, click a province; search returns real outlines for countries and admin-1 areas (`scripts/build_provinces.py`, `scripts/build_search.py`, `src/shape.ts`). Live check, satellite clock and API still use the outline's bounding rectangle.
+- **Auto season:** searched or drawn areas default to their own critical period instead of October–November.
+- **Day view** for Punjab + Haryana (`pipeline/analysis/daily_calendar.py`, `public/data/daily/punjab.json`).
+- **Headline** changed to "A fire calendar you can act on".
+- **Tests:** `src/nextMove.test.ts`; 11 new browser checks in `scripts/act_browser_checks.mjs`.
+
 ## 2026-11-15 — The calendar is the home page
 
 - **The home page is now the challenge's core deliverable:** the harmonized burning activity calendar for the chosen area (Punjab + Haryana by default), opening directly under a short header and the place search.

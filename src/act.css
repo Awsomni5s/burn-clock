@@ -125,3 +125,4 @@
 @media(max-width:860px){.next-move-grid{grid-template-columns:1fr}.next-move{padding:16px}.nm-big{font-size:1.35rem}}
 .role-chips button{margin:0;border-radius:999px!important}
 .nm-more>*{margin:0!important}
+.nm-more{align-items:center}.nm-more>*{flex:0 0 auto;width:auto!important;padding:0!important;line-height:1.4;min-height:0!important}
