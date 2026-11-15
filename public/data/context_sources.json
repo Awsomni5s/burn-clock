@@ -1,0 +1,32 @@
+{
+  "verified_at": "2026-11-15T00:57:40.232906Z",
+  "iforest": {
+    "verified": true,
+    "publisher": "iFOREST",
+    "title": "Stubble Burning Status Report 2025",
+    "publication_date": "2025-12-08",
+    "region": "Punjab",
+    "season": "Kharif",
+    "year_a": 2022,
+    "year_b": 2025,
+    "burnt_area_km2_a": 31447,
+    "burnt_area_km2_b_approx": 20000,
+    "reported_decline_pct": 37,
+    "analysis_cutoff": "2025-11-27",
+    "source": "https://iforest.global/wp-content/uploads/2025/12/PRESS-RELEASE-English-Stubble-burning-.pdf",
+    "report": "https://iforest.global/wp-content/uploads/2025/12/StubbleBurning_StatusReport_2025_Website.pdf",
+    "source_page": 2,
+    "report_page": 29,
+    "summary": "iFOREST reports approximately 37% less Punjab Kharif burnt area in 2025 than its 2022 peak, using Sentinel-2 mapping. This is an independent area-based estimate with a different baseline and unit from official fire counts or GK2A pixel-days.",
+    "caveat": "The report says 2025 analysis uses data through 27 November and may rise. Its slide 25 headline says 35%, while its final summary and press release say 37%. Attribute the approximate 37% to the published summary; do not treat it as a recalibration of the official 2021 comparison."
+  },
+  "snpp_cessation": {
+    "verified": true,
+    "publisher": "NOAA NESDIS",
+    "title": "Update #4 — S-NPP Data Delivery Cessation & Decommissioning Status",
+    "publication_date": "2026-11-02",
+    "effective_at": "2026-11-02T15:40:00Z",
+    "source": "https://www.nesdis.noaa.gov/news/update-4-cessation-of-suomi-national-polar-orbiting-partnership-s-npp-data-users-november-02-2026-1540-utc-and-decommissioning-issued-november-2-2026-1800-utc",
+    "summary": "NOAA confirms that S-NPP science-data distribution ceased at 15:40 UTC on 2 November 2026. This is supported by the NOAA status notice, separately from whether a seven-day FIRMS CSV is empty."
+  }
+}

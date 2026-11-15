@@ -1,0 +1,28 @@
+name: Refresh provisional FIRMS snapshot
+# Template: the current Sites source remote does not run GitHub Actions.
+# A future GitHub installation can run this every six hours. It produces an
+# artifact for review/deployment; it never silently edits the historical archive.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */6 * * *'
+permissions:
+  contents: read
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Fetch the four public seven-day feeds
+        run: node scripts/fetch_live.mjs
+      - name: Retain snapshot even if a feed is stale
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: provisional-firms-snapshot
+          path: public/data/live/latest.json
+          if-no-files-found: error

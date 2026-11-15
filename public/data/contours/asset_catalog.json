@@ -1,0 +1,636 @@
+{
+  "source_archive": "burnclock_contours_2026-11-14.tar.gz",
+  "source_sha256": "a67a2036e5e97eb9773b3d1c5709ebedbdc43f85313702c1fce2d7147d8f34cb",
+  "geojson_files": 88,
+  "files": [
+    {
+      "file": "contours_meta.json",
+      "bytes": 2534,
+      "served_bytes": 2534,
+      "sha256": "d8d6bc97ae32520b41143ad94bdf9783b76408ce7ffacaf9537126a821133d69",
+      "features": null
+    },
+    {
+      "file": "punjab_gk2a_2019_12.geojson",
+      "bytes": 37717,
+      "served_bytes": 7976,
+      "sha256": "f182336d87d46e3a3002486fa61002037ffd2207203373ec27925767c78792c6",
+      "features": 4
+    },
+    {
+      "file": "punjab_gk2a_2019_13.geojson",
+      "bytes": 58016,
+      "served_bytes": 12325,
+      "sha256": "cea848dbaa35957e5a8b3f46ed884c215e15d93c5c0fcea471a7188390d222ee",
+      "features": 6
+    },
+    {
+      "file": "punjab_gk2a_2019_14.geojson",
+      "bytes": 52047,
+      "served_bytes": 11194,
+      "sha256": "f2e0a5864e07cc9d65e451d00a2dec15b6376ebe0190eb9229e996672cd5cb1d",
+      "features": 6
+    },
+    {
+      "file": "punjab_gk2a_2019_15.geojson",
+      "bytes": 68839,
+      "served_bytes": 14495,
+      "sha256": "20d3cb070d08ac5e82ffa449e26049ae186b1ad0f616004a23dc7bbf220842a7",
+      "features": 6
+    },
+    {
+      "file": "punjab_gk2a_2019_16.geojson",
+      "bytes": 78326,
+      "served_bytes": 16855,
+      "sha256": "e82a0ea873c02468e663354322176e943c1c92cd81f2f1a7c37141c2f96f38ea",
+      "features": 6
+    },
+    {
+      "file": "punjab_gk2a_2019_17.geojson",
+      "bytes": 72874,
+      "served_bytes": 15724,
+      "sha256": "0285a61a3e64cf5d5f964a0bd209aa5a0f87398f06eb57d5eb4d1cd7a9c86fa0",
+      "features": 5
+    },
+    {
+      "file": "punjab_gk2a_2019_18.geojson",
+      "bytes": 33964,
+      "served_bytes": 7305,
+      "sha256": "48cef75b503581144fc11e974b62754fd35ef34ae9118318ee7304a661d1c3ad",
+      "features": 5
+    },
+    {
+      "file": "punjab_gk2a_2020_12.geojson",
+      "bytes": 32206,
+      "served_bytes": 6762,
+      "sha256": "600081d72a370b4246977b8c57fac7c7dde9ce257ff36434b6bde397e5d81a69",
+      "features": 3
+    },
+    {
+      "file": "punjab_gk2a_2020_13.geojson",
+      "bytes": 52302,
+      "served_bytes": 11102,
+      "sha256": "f85dc1fbdd8206cd0192867191b5f716fe8b908c365f826170345e1c92246a5f",
+      "features": 6
+    },
+    {
+      "file": "punjab_gk2a_2020_14.geojson",
+      "bytes": 49720,
+      "served_bytes": 10617,
+      "sha256": "076c32d2d8aae2b9aba7cb2ab3150e28056a14a4e0578f450fb574d08e1981d1",
+      "features": 7
+    },
+    {
+      "file": "punjab_gk2a_2020_15.geojson",
+      "bytes": 61856,
+      "served_bytes": 13210,
+      "sha256": "99a8a7e2e09e9450e1a14ee7562583dcfbac318535ec0db777dfaab1d603452e",
+      "features": 7
+    },
+    {
+      "file": "punjab_gk2a_2020_16.geojson",
+      "bytes": 62211,
+      "served_bytes": 13349,
+      "sha256": "8d24c63123283f79d914d6e03f088fc070af45f4306eb926b633369998aaed2d",
+      "features": 7
+    },
+    {
+      "file": "punjab_gk2a_2020_17.geojson",
+      "bytes": 69881,
+      "served_bytes": 15017,
+      "sha256": "1bf56af4e15d693cc8b19d58d7b6adcebeba1f74784c97583cc5bd3a8903cd47",
+      "features": 6
+    },
+    {
+      "file": "punjab_gk2a_2020_18.geojson",
+      "bytes": 37273,
+      "served_bytes": 8030,
+      "sha256": "891bffdb4e82ead77f28a1b8cf61e89150f186ef38022f58749e453aefb08b5c",
+      "features": 6
+    },
+    {
+      "file": "punjab_gk2a_2021_12.geojson",
+      "bytes": 42653,
+      "served_bytes": 9164,
+      "sha256": "d8601538523ebe75dbefe2b6b5e2ad76d16db78264f612a7d641763f19a74825",
+      "features": 4
+    },
+    {
+      "file": "punjab_gk2a_2021_13.geojson",
+      "bytes": 66055,
+      "served_bytes": 14184,
+      "sha256": "61814901aad33110ae38c577e89bf1117ad5a02e841b0d68a4793b02af675f5c",
+      "features": 6
+    },
+    {
+      "file": "punjab_gk2a_2021_14.geojson",
+      "bytes": 57247,
+      "served_bytes": 12177,
+      "sha256": "dafdcd424a308bc9bb77f742949f98ee1388050685b9c891015b161a543efbf3",
+      "features": 7
+    },
+    {
+      "file": "punjab_gk2a_2021_15.geojson",
+      "bytes": 72392,
+      "served_bytes": 15449,
+      "sha256": "379c10ce06e6879399c0fda5096f6a065e2292892b7a3dbc74573aca6b166d6a",
+      "features": 8
+    },
+    {
+      "file": "punjab_gk2a_2021_16.geojson",
+      "bytes": 86087,
+      "served_bytes": 18921,
+      "sha256": "264e68dd386c856dc163207bacff228b61257b2c571e4a707f2f9146733911be",
+      "features": 8
+    },
+    {
+      "file": "punjab_gk2a_2021_17.geojson",
+      "bytes": 89255,
+      "served_bytes": 19550,
+      "sha256": "1e13da413ad582f633de0f3f3b073f6d21ffb8959317ffce652e9bc9b13040f8",
+      "features": 7
+    },
+    {
+      "file": "punjab_gk2a_2021_18.geojson",
+      "bytes": 47391,
+      "served_bytes": 10153,
+      "sha256": "767ef69bf566081f9b82ab1497ad4cf704a85a79570b877c89ea1db14ba7d724",
+      "features": 6
+    },
+    {
+      "file": "punjab_gk2a_2022_12.geojson",
+      "bytes": 27329,
+      "served_bytes": 5534,
+      "sha256": "a883be9914c730c5bea499e44d4fdc866e54a6fcaf06f6d3446155e7871eacb3",
+      "features": 3
+    },
+    {
+      "file": "punjab_gk2a_2022_13.geojson",
+      "bytes": 47247,
+      "served_bytes": 10088,
+      "sha256": "9f19b69f24281a0d9a76903446ff691b8d93a4729111a1656b709dcde04be0ea",
+      "features": 6
+    },
+    {
+      "file": "punjab_gk2a_2022_14.geojson",
+      "bytes": 54079,
+      "served_bytes": 11603,
+      "sha256": "3656a6ddf738f8e9176d2dab070f194b0ba3339244f20038991bc6db1f25d986",
+      "features": 6
+    },
+    {
+      "file": "punjab_gk2a_2022_15.geojson",
+      "bytes": 67458,
+      "served_bytes": 14481,
+      "sha256": "0765cb90ca7ede60317f3e6c337ea2954728c07cecc0fa48c0a39cc7e5cb2e9a",
+      "features": 7
+    },
+    {
+      "file": "punjab_gk2a_2022_16.geojson",
+      "bytes": 70920,
+      "served_bytes": 15270,
+      "sha256": "910fc02711fb6981b973600413a3d4aa622562f799352fc7e780bcf961c3d951",
+      "features": 7
+    },
+    {
+      "file": "punjab_gk2a_2022_17.geojson",
+      "bytes": 76420,
+      "served_bytes": 16695,
+      "sha256": "3905a0274d13a44c7d58aefa0a5fffef11509e39009bd0775c644bf5fbb18e61",
+      "features": 7
+    },
+    {
+      "file": "punjab_gk2a_2022_18.geojson",
+      "bytes": 49587,
+      "served_bytes": 10877,
+      "sha256": "114b266b708ff00563442ea1cb241c47116a0954cc3d9b010e3b943f1dddc66c",
+      "features": 7
+    },
+    {
+      "file": "punjab_gk2a_2023_12.geojson",
+      "bytes": 15479,
+      "served_bytes": 3227,
+      "sha256": "86e1589a11785b2f74a68d21df024dd836714d91c6d2b543d4f04578206a96b1",
+      "features": 3
+    },
+    {
+      "file": "punjab_gk2a_2023_13.geojson",
+      "bytes": 44225,
+      "served_bytes": 9270,
+      "sha256": "18bade1e3f81ba3f29cd0022bf9707f0751b4863414efbc7322aaf8b983301b8",
+      "features": 5
+    },
+    {
+      "file": "punjab_gk2a_2023_14.geojson",
+      "bytes": 59621,
+      "served_bytes": 12640,
+      "sha256": "b7d1136d33c52846efbbebb112c2bc22370b93f677705ed8b376cb8b4fec90e7",
+      "features": 5
+    },
+    {
+      "file": "punjab_gk2a_2023_15.geojson",
+      "bytes": 77883,
+      "served_bytes": 16858,
+      "sha256": "d804465b2320abed19ff99768988304449b2ee17c69494da4e33b85bbce5bfd8",
+      "features": 6
+    },
+    {
+      "file": "punjab_gk2a_2023_16.geojson",
+      "bytes": 88877,
+      "served_bytes": 19410,
+      "sha256": "90dcd12ade86e25b30d88eed41b535f456fe6715f46c9f146a66341e3172a650",
+      "features": 7
+    },
+    {
+      "file": "punjab_gk2a_2023_17.geojson",
+      "bytes": 82873,
+      "served_bytes": 18358,
+      "sha256": "8d26d3edaad9f239e6b3217b2223454139477b1e6be676b4b25d32a3504999d5",
+      "features": 8
+    },
+    {
+      "file": "punjab_gk2a_2023_18.geojson",
+      "bytes": 41305,
+      "served_bytes": 8997,
+      "sha256": "8c946ec6ca5484b7e037dffac9fca9f2ffbf9423e25025da4d8681f8ea162c89",
+      "features": 7
+    },
+    {
+      "file": "punjab_gk2a_2024_12.geojson",
+      "bytes": 39186,
+      "served_bytes": 8315,
+      "sha256": "31a5c0cc75a0355c9d2e79f9fc271af42d4f34fc1fae51ffea5f4a4d4f1e10be",
+      "features": 4
+    },
+    {
+      "file": "punjab_gk2a_2024_13.geojson",
+      "bytes": 41632,
+      "served_bytes": 8912,
+      "sha256": "e162841bf663dd127ed48a89e11cff725126ca134f8a45c02df5395e90a2de59",
+      "features": 5
+    },
+    {
+      "file": "punjab_gk2a_2024_14.geojson",
+      "bytes": 45228,
+      "served_bytes": 9460,
+      "sha256": "a6f46f711547d148f3230cbcd2653826b1531758dc3cb28dc691b975d6b6cc4a",
+      "features": 4
+    },
+    {
+      "file": "punjab_gk2a_2024_15.geojson",
+      "bytes": 77209,
+      "served_bytes": 16964,
+      "sha256": "6f71d068f8c4073b83d5f5824149241e2e48ca2efcff9d216ede11d696fb4b47",
+      "features": 5
+    },
+    {
+      "file": "punjab_gk2a_2024_16.geojson",
+      "bytes": 94703,
+      "served_bytes": 21297,
+      "sha256": "6e9bc902b367326790406936ca5fc1cd088302e96f66f436fcd037f61c847fdb",
+      "features": 7
+    },
+    {
+      "file": "punjab_gk2a_2024_17.geojson",
+      "bytes": 103288,
+      "served_bytes": 23102,
+      "sha256": "402fe2124e6fd0a27d3ec058626e8be74618fa6d28e0db88404cfe1e537e7cfa",
+      "features": 8
+    },
+    {
+      "file": "punjab_gk2a_2024_18.geojson",
+      "bytes": 74364,
+      "served_bytes": 16401,
+      "sha256": "5778a7ee026ec4680e088054076e4942d8f8929ee940faf4054827b0c7e8996c",
+      "features": 7
+    },
+    {
+      "file": "punjab_gk2a_2025_12.geojson",
+      "bytes": 21959,
+      "served_bytes": 4613,
+      "sha256": "0a328da047c5ec17220f8ba2ba48a4dc5a90f216cab5d4dbec982b90a6c1acae",
+      "features": 4
+    },
+    {
+      "file": "punjab_gk2a_2025_13.geojson",
+      "bytes": 29283,
+      "served_bytes": 6170,
+      "sha256": "ca3e2f43f088dbfdd78df1762e0a75d1a0373138ff26f18dfcdc18adb75a659c",
+      "features": 3
+    },
+    {
+      "file": "punjab_gk2a_2025_14.geojson",
+      "bytes": 24380,
+      "served_bytes": 4989,
+      "sha256": "0f0026d212e013616be09f57087a84c99f11ceef4fc58d53f76bc406d8932fb7",
+      "features": 3
+    },
+    {
+      "file": "punjab_gk2a_2025_15.geojson",
+      "bytes": 67762,
+      "served_bytes": 14706,
+      "sha256": "5eeedd049aa34818cd1eb4107a5a6d83dee34902fbd476fa4227e706a220cf66",
+      "features": 4
+    },
+    {
+      "file": "punjab_gk2a_2025_16.geojson",
+      "bytes": 90627,
+      "served_bytes": 19774,
+      "sha256": "f767595b826a1d427b13b66c863e135debf9cd1928c958087e3339e29ad5f823",
+      "features": 7
+    },
+    {
+      "file": "punjab_gk2a_2025_17.geojson",
+      "bytes": 86395,
+      "served_bytes": 19092,
+      "sha256": "11628713b093e75b1077f8fcb14b8e00447ebc85b9d7b027a02e75e9c625ad8d",
+      "features": 8
+    },
+    {
+      "file": "punjab_gk2a_2025_18.geojson",
+      "bytes": 45383,
+      "served_bytes": 9872,
+      "sha256": "db76466df3877d25336e9e5e5b7be729e567d147c9f6c723c748d274d42e1849",
+      "features": 6
+    },
+    {
+      "file": "punjab_viirs_2012.geojson",
+      "bytes": 46722,
+      "served_bytes": 10267,
+      "sha256": "3ec05bdf4745ede974f58dd84366def59c8cd8b13f00c177cc5e2500a3d6f68e",
+      "features": 8
+    },
+    {
+      "file": "punjab_viirs_2013.geojson",
+      "bytes": 49977,
+      "served_bytes": 10997,
+      "sha256": "2942b924843df60ef0c028c7211ee96b31f3a20eaede4b754128e323dcede17b",
+      "features": 8
+    },
+    {
+      "file": "punjab_viirs_2014.geojson",
+      "bytes": 47507,
+      "served_bytes": 10414,
+      "sha256": "1919cebb104873c1f6b5d88d1e3afb9a6cfd8a7840122e091aa89e7aa74e4bff",
+      "features": 8
+    },
+    {
+      "file": "punjab_viirs_2015.geojson",
+      "bytes": 47271,
+      "served_bytes": 10516,
+      "sha256": "2870d5508c8469b78029607c4e420e49f34469836b9031531faed637cb5ac702",
+      "features": 7
+    },
+    {
+      "file": "punjab_viirs_2016.geojson",
+      "bytes": 50750,
+      "served_bytes": 11174,
+      "sha256": "469eecc5ec776f2e7f04c524043b1c9f50e12160cfabc9b08f91864cfeb57b8f",
+      "features": 8
+    },
+    {
+      "file": "punjab_viirs_2017.geojson",
+      "bytes": 48033,
+      "served_bytes": 10679,
+      "sha256": "010837e4faa744361b521657f5f0b6d5fa9762bd5a0af28a6f07f313eb49fa7e",
+      "features": 7
+    },
+    {
+      "file": "punjab_viirs_2018.geojson",
+      "bytes": 45279,
+      "served_bytes": 10003,
+      "sha256": "f623f26d7c51f026346db3cf1de8561e94c8e3221dc79db8b78b57eac29b3c19",
+      "features": 8
+    },
+    {
+      "file": "punjab_viirs_2019.geojson",
+      "bytes": 40082,
+      "served_bytes": 8843,
+      "sha256": "beb7a63c9aa29d91d0093609126aa284b4051f52bcbad56dd16d86586d3956aa",
+      "features": 7
+    },
+    {
+      "file": "punjab_viirs_2020.geojson",
+      "bytes": 46780,
+      "served_bytes": 10349,
+      "sha256": "882043e84ffd5800b934eb17864de95ac45fa0faaa8c8b9165b1dcfef3571443",
+      "features": 8
+    },
+    {
+      "file": "punjab_viirs_2021.geojson",
+      "bytes": 44797,
+      "served_bytes": 9923,
+      "sha256": "3db48d751ef92b62c3b2d1ab0bb12e5d11bb15b425d8f104b114c56bce9197be",
+      "features": 7
+    },
+    {
+      "file": "punjab_viirs_2022.geojson",
+      "bytes": 43984,
+      "served_bytes": 9798,
+      "sha256": "937539578956839c8fa03be8a6e3166ad832b091094e616db64957e6f0f7368e",
+      "features": 7
+    },
+    {
+      "file": "punjab_viirs_2023.geojson",
+      "bytes": 42168,
+      "served_bytes": 9324,
+      "sha256": "f30883e7e1ef296af5ec3572d7c0cfa4387dfcb1d946346acecf6f5af6634f6b",
+      "features": 7
+    },
+    {
+      "file": "punjab_viirs_2024.geojson",
+      "bytes": 40234,
+      "served_bytes": 8944,
+      "sha256": "a54537441f7cc64077a5b94179c44b20b88dbba2f3f3fb06472d2763820df136",
+      "features": 5
+    },
+    {
+      "file": "punjab_viirs_2025.geojson",
+      "bytes": 37275,
+      "served_bytes": 8234,
+      "sha256": "59c915feeca96b3e6e81629ee0518b034e5efd75350631ba424c6a8d21e1ae51",
+      "features": 5
+    },
+    {
+      "file": "world_2001.geojson",
+      "bytes": 2657937,
+      "served_bytes": 738619,
+      "sha256": "fbb1ca5b660a9b368d1105255edbdd16d7429d7e14002118f09ff890e5ef62bb",
+      "features": 8
+    },
+    {
+      "file": "world_2002.geojson",
+      "bytes": 2666521,
+      "served_bytes": 747404,
+      "sha256": "db62cf321ba1b49c2215142624f86de1bd5b73d69491cb7b877b8f5aaff2d7fe",
+      "features": 8
+    },
+    {
+      "file": "world_2003.geojson",
+      "bytes": 2525630,
+      "served_bytes": 714879,
+      "sha256": "e604fdb62d4d283d3e654daa6d01f1dec8084ff29e1c3de4a055c00acb4ba899",
+      "features": 8
+    },
+    {
+      "file": "world_2004.geojson",
+      "bytes": 2366138,
+      "served_bytes": 670694,
+      "sha256": "20341ae9d7b7cc444bc6d809a3fd8646622e8286f07295de64f90ae036c8a4df",
+      "features": 8
+    },
+    {
+      "file": "world_2005.geojson",
+      "bytes": 2446882,
+      "served_bytes": 692548,
+      "sha256": "251fcacb46624d1332580b7e0e29ef1d4c4c938756f317f129305c63adf7050b",
+      "features": 8
+    },
+    {
+      "file": "world_2006.geojson",
+      "bytes": 2412194,
+      "served_bytes": 682709,
+      "sha256": "38563cf0a388513ad9a7bd9b5f4e98bcf695a599431920838025517b61f1d5f9",
+      "features": 8
+    },
+    {
+      "file": "world_2007.geojson",
+      "bytes": 2351811,
+      "served_bytes": 666672,
+      "sha256": "ea21c63e5e81d7ed2e4efbb511ffce5e6bdb4e7853cc3b65408dbb65e5940cee",
+      "features": 8
+    },
+    {
+      "file": "world_2008.geojson",
+      "bytes": 2342168,
+      "served_bytes": 663023,
+      "sha256": "d32629cf5d673d94b30ce31dfd1f4bb60806016ad61ebb9e64e42b28cc53ec1c",
+      "features": 8
+    },
+    {
+      "file": "world_2009.geojson",
+      "bytes": 2326449,
+      "served_bytes": 659714,
+      "sha256": "26c757eb4a6f0895cc0d50a2a91a394e7ec447bdbd69d4589a13cd5c27c51d79",
+      "features": 8
+    },
+    {
+      "file": "world_2010.geojson",
+      "bytes": 2330872,
+      "served_bytes": 660157,
+      "sha256": "2d36896b1f5ebd78b955feb77811c19e8639f09680cb7249fbc10f5e867f0f11",
+      "features": 8
+    },
+    {
+      "file": "world_2011.geojson",
+      "bytes": 2398935,
+      "served_bytes": 679426,
+      "sha256": "a326eff80bab0d7cb812f8a71e25612ba18a898cd274acec4b3e88e426db5a7e",
+      "features": 8
+    },
+    {
+      "file": "world_2012.geojson",
+      "bytes": 2231825,
+      "served_bytes": 638296,
+      "sha256": "75b8eb8e91e3e7f47317cede0f326341358fb4c79062712fcc9c5388d3817361",
+      "features": 8
+    },
+    {
+      "file": "world_2013.geojson",
+      "bytes": 2195627,
+      "served_bytes": 627100,
+      "sha256": "4cf2b5c280cc71de7da36410257e8059ffcbfd288ebf1cb0e7704ab0f50ba9f6",
+      "features": 8
+    },
+    {
+      "file": "world_2014.geojson",
+      "bytes": 2159557,
+      "served_bytes": 618799,
+      "sha256": "9217fb720c5ed983134f27a5bce326033603479b4e7daeb668c907cba154d843",
+      "features": 8
+    },
+    {
+      "file": "world_2015.geojson",
+      "bytes": 2208317,
+      "served_bytes": 631198,
+      "sha256": "1cfeeefcd07619ee5ff5b20d684803eff089e905807246c0a391067aba96af57",
+      "features": 8
+    },
+    {
+      "file": "world_2016.geojson",
+      "bytes": 2150913,
+      "served_bytes": 615947,
+      "sha256": "65a838f223327b1c3ac54ec31d10e37bf9dc7bbfbbd2534e7462aa20413b5e34",
+      "features": 8
+    },
+    {
+      "file": "world_2017.geojson",
+      "bytes": 2171967,
+      "served_bytes": 620880,
+      "sha256": "336824c50b2089f9a1f68f119c85398678d1c35df2a143784edf5aac93238ed8",
+      "features": 8
+    },
+    {
+      "file": "world_2018.geojson",
+      "bytes": 2135633,
+      "served_bytes": 609835,
+      "sha256": "f4d239b7702b5e74d28039275eba95e69671182fba544c752ba3f12316ff8209",
+      "features": 8
+    },
+    {
+      "file": "world_2019.geojson",
+      "bytes": 2196344,
+      "served_bytes": 627776,
+      "sha256": "ef5ac188d7e4bbd87ead546d6c1d3ff09dfebc015a7c6d3c0cdde7cc313a105c",
+      "features": 8
+    },
+    {
+      "file": "world_2020.geojson",
+      "bytes": 2147582,
+      "served_bytes": 615539,
+      "sha256": "ed450fffdcbbd1e0455b492d6a804f8ce49a30d69ed46acc0f6cf6c0533078bb",
+      "features": 8
+    },
+    {
+      "file": "world_2021.geojson",
+      "bytes": 2108560,
+      "served_bytes": 603161,
+      "sha256": "40d7b82977706114caa8788722762d857d228963ce78740cf8ab45a4b723cf8c",
+      "features": 8
+    },
+    {
+      "file": "world_2022.geojson",
+      "bytes": 2072106,
+      "served_bytes": 592607,
+      "sha256": "2ea7aa2e7e1bae28e8538f03903bf8cf8e0bcb1b8a2e72b66367a948cb43ebb9",
+      "features": 8
+    },
+    {
+      "file": "world_2023.geojson",
+      "bytes": 2206889,
+      "served_bytes": 628934,
+      "sha256": "7296e4384278efa716eba30c052146b19d438a31d707cefa3fac38fe0dec142e",
+      "features": 8
+    },
+    {
+      "file": "world_2024.geojson",
+      "bytes": 2134695,
+      "served_bytes": 608672,
+      "sha256": "b716b21fcebb545852eddc78f20c380e422d2fcb4bbf25e7113305927d3215dc",
+      "features": 8
+    },
+    {
+      "file": "world_2025.geojson",
+      "bytes": 2037976,
+      "served_bytes": 582814,
+      "sha256": "e7fa9a8115fd4e8fcbb7343aac6202ad6596f346a138ca2085c0b82563f1bb3b",
+      "features": 8
+    }
+  ],
+  "notes": [
+    "Original GeoJSON copied byte-for-byte to sibling public/data/contours.",
+    "Serving GeoJSON uses deterministic gzip; metadata is plain JSON.",
+    "All feature colors and band bounds match supplied metadata exactly.",
+    "This packaging script does not regenerate the contours; the supplier's named contour generator was absent from the supplied pipeline archive."
+  ]
+}

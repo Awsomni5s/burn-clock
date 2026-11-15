@@ -16,7 +16,7 @@ const catalog=JSON.parse(readFileSync(new URL('public/data/catalog.json',root),'
 const platforms={T:'Terra',A:'Aqua',N:'S-NPP',J1:'NOAA-20',J2:'NOAA-21'};
 const monthNames=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const statuses={above:'Above typical',normal:'Within typical range',below:'Below typical',missing:'No baseline'};
-const badgeNames={robust:'Within clock threshold',clock_sensitive:'Clock-sensitive',not_identifiable:'Not identifiable',not_evaluated:'Before diagnostic window'};
+const badgeNames={robust:'Timing check: OK',clock_sensitive:'Timing check: the answer depends on when satellites look',not_identifiable:'Timing check: not enough fires to tell',not_evaluated:'Timing check starts in 2021'};
 const fmt=(v,d=0)=>typeof v==='number'&&Number.isFinite(v)?new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}).format(Object.is(v,-0)?0:v):'—';
 const signed=(v,d=1)=>typeof v==='number'&&Number.isFinite(v)?(v>0?'+':'')+fmt(v,d):'—';
 // Clock tiles store hundredths of an hour; a median can add one decimal.
@@ -52,28 +52,24 @@ try{
  page.on('pageerror',e=>runtimeErrors.push(e.message));
  await page.goto(base,{waitUntil:'domcontentloaded'});
  await page.locator('.heat-cell').first().waitFor({timeout:60000});
- const archive=await text(page.locator('.archive-strip'));
- includes(archive,fmt(manifest.totals.detections_processed),'Explorer processed detections');
- includes(archive,`${manifest.months[0].slice(0,4)}–${manifest.months.at(-1).slice(0,4)}`,'Explorer archive span');
- includes(archive,String(Object.keys(manifest.platforms).length),'Explorer platform count');
  for(const [id,preset] of Object.entries(expected.presets)){
    if(!page.url().endsWith('#explorer'))await page.locator('nav a[href="#explorer"]').click();
    await page.getByLabel('Region preset').selectOption(id);
-   await page.waitForFunction(n=>document.querySelector('.map-bottom')?.textContent.includes(n+' active grid cells'),fmt(preset.cellCount),{timeout:60000});
+   await page.waitForFunction(n=>document.querySelector('.area-name')?.textContent.includes(n+' archived grid cells'),fmt(preset.cellCount),{timeout:60000});
    await page.locator('#month-2025-11').waitFor({timeout:60000});
    await page.getByLabel('Include early archive').check();
    const months=new Map(preset.months.map(m=>[m.month,m]));
    for(const mode of ['harm','T','A','N','J1','J2','anomaly']){
-     if(mode==='harm')await page.getByRole('button',{name:'Harmonized',exact:true}).click();
-     else if(mode==='anomaly')await page.getByRole('button',{name:'Anomaly',exact:true}).click();
-     else{await page.getByRole('button',{name:'Raw observations',exact:true}).click();await page.getByLabel('Raw satellite').selectOption(mode);}
+     if(mode==='harm')await page.getByRole('button',{name:'Combined record',exact:true}).click();
+     else if(mode==='anomaly')await page.getByRole('button',{name:'Compared with usual',exact:true}).click();
+     else{await page.getByRole('button',{name:'By satellite',exact:true}).click();await page.getByLabel('Raw satellite').selectOption(mode);}
      const cells=await page.locator('button.heat-cell').evaluateAll(elements=>elements.map(el=>({month:el.id.replace('month-',''),title:el.title,aria:el.getAttribute('aria-label'),missing:el.classList.contains('missing'),color:el.style.backgroundColor})));
      check(cells.length,preset.months.length,`${id}/${mode}: month count`);
      for(const cell of cells){
        const m=months.get(cell.month);if(!m)throw new Error(`Unexpected month ${id}/${cell.month}`);
        const value=mode==='harm'||mode==='anomaly'?m.harm:m.raw[mode];
-       const start=`${label(m.month)}: ${value===null?'No data':fmt(value,1)+' active cell-days'}.`;
-       check(cell.title.match(/^.*?: (?:No data|[\d,]+(?:\.\d+)? active cell-days)\./)?.[0],start,`${id}/${mode}/${m.month}: numeric tooltip`);
+       const start=`${label(m.month)}: ${value===null?'No data':fmt(value,1)+' activity units'}.`;
+       check(cell.title.match(/^.*?: (?:No data|[\d,]+(?:\.\d+)? activity units)\./)?.[0],start,`${id}/${mode}/${m.month}: numeric tooltip`);
        check(cell.aria,cell.title,`${id}/${mode}/${m.month}: accessible numeric tooltip`);
        check(cell.missing,value===null,`${id}/${mode}/${m.month}: null marker`);
        includes(cell.title,statuses[m.anomaly],`${id}/${mode}/${m.month}: anomaly`);
@@ -93,7 +89,8 @@ try{
        }
      }
    }
-   await page.getByRole('button',{name:'Harmonized',exact:true}).click();
+   await page.getByRole('button',{name:'Combined record',exact:true}).click();
+   await page.locator('.month-detail details').evaluate(el=>{el.open=true;});
    // One animation frame after each native click allows React to commit before reading.
    const detailRows=await page.evaluate(async monthIds=>{
      const rows=[];
@@ -130,9 +127,11 @@ try{
      const clock=preset.clock.find(c=>c.year===Number(m.month.slice(0,4)));
      check(row.clock_badge_annual,clock?.badge??'not_identifiable',`${id}/CSV/${m.month}/badge`);
      check(row.clock_drivers,clock?.drivers.join('+')??'',`${id}/CSV/${m.month}/drivers`);
-     close(row.signed_bend_pct,clock?.bend??null,`${id}/CSV/${m.month}/bend`);coverage.csvRows++;
+     close(row.signed_bend_pct,clock?.bend??null,`${id}/CSV/${m.month}/bend`);
+     check(row.outage_flags,manifest.outage_months.filter(o=>o.month===m.month).map(o=>`${o.platform}:${o.missing_days.join('|')}`).join(';'),`${id}/CSV/${m.month}/outage flags`);coverage.csvRows++;
    }
    await page.locator('nav a[href="#clock"]').click();
+   await page.locator('.clock-tests').waitFor({timeout:60000});
    for(const clock of preset.clock){
      await page.getByLabel('Observation year').fill(String(clock.year));
      const state=await page.locator('.clock-explainer').evaluate(el=>({
@@ -255,6 +254,10 @@ try{
    const period=manifest.platforms[platform];mcheck(platformRows[i][2],period?`${period.first} → ${period.last}`:'Absent from supplied archive',platform+'/coverage');
  }
  const observationText=await text(observations);
+ // The former home archive strip now lives in this Methods table. Keep its checks.
+ includes(observationText,fmt(manifest.totals.detections_processed),'Archive processed detections');
+ check(platformRows.find(row=>row[0]==='Terra')?.[2],`${manifest.months[0]} → ${manifest.months.at(-1)}`,'Archive span');
+ check(platformRows.filter(row=>row[2]!=='Absent from supplied archive').length,Object.keys(manifest.platforms).length,'Archive platform count');
  minc(observationText,fmt(manifest.totals.detections_processed),'total rows');
  minc(observationText,`${manifest.totals.archives} archives`,'archive count');
  minc(observationText,fmt(manifest.totals.type0_detections),'retained type0');

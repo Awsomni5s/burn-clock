@@ -100,10 +100,10 @@ export function computeClock(tiles:ClockTile[],box:BBox):ClockYear[]{
   });
 }
 
-export function csvForArea(months:Month[],clock:ClockYear[],box:BBox):string{
-  const header=['month','south','west','north','east','raw_terra','raw_aqua','raw_snpp','raw_noaa20','raw_noaa21','harmonized','approx_lo','approx_hi','anomaly','baseline_median','clock_badge_annual','clock_drivers','signed_bend_pct','source_code','source_satellites','unit','interval_note'];
+export function csvForArea(months:Month[],clock:ClockYear[],box:BBox,manifest?:Manifest):string{
+  const header=['month','south','west','north','east','raw_terra','raw_aqua','raw_snpp','raw_noaa20','raw_noaa21','harmonized','approx_lo','approx_hi','anomaly','baseline_median','clock_badge_annual','clock_drivers','signed_bend_pct','source_code','source_satellites','unit','interval_note','outage_flags'];
   const q=(v:unknown)=>{const s=v==null?'':String(v);return /[",\n]/.test(s)?`"${s.replaceAll('"','""')}"`:s;};
-  return [header,...months.map(m=>{const c=clock.find(x=>x.year===Number(m.month.slice(0,4)));return [m.month,...box,...PLATFORMS.map(p=>m.raw[p]),m.harm,m.lo,m.hi,m.anomaly,m.median,c?.badge??'not_identifiable',c?.drivers.join('+')??'',c?.bend,m.src,m.satellites.join('+'),'daytime 0.05-degree active cell-days (harm: S-NPP scale)','approximate sum of cell bounds; not a calibrated AOI 90% interval'];})].map(row=>row.map(q).join(',')).join('\r\n');
+  return [header,...months.map(m=>{const c=clock.find(x=>x.year===Number(m.month.slice(0,4)));return [m.month,...box,...PLATFORMS.map(p=>m.raw[p]),m.harm,m.lo,m.hi,m.anomaly,m.median,c?.badge??'not_identifiable',c?.drivers.join('+')??'',c?.bend,m.src,m.satellites.join('+'),'daytime 0.05-degree active cell-days (harm: S-NPP scale)','approximate sum of cell bounds; not a calibrated AOI 90% interval',manifest?.outage_months.filter(o=>o.month===m.month).map(o=>`${o.platform}:${o.missing_days.join('|')}`).join(';')??''];})].map(row=>row.map(q).join(',')).join('\r\n');
 }
 // Source look times have two decimal places; medians can add one. Subtract
 // integer millihours so an exact half-minute survives display rounding.

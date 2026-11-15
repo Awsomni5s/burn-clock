@@ -1,0 +1,47 @@
+{
+  "checks": [
+    "Initial map requests one world year; Punjab maps deferred",
+    "Year change requests only the selected year",
+    "Keyboard point inspector equals original annual tile sum",
+    "Absent cell explicitly remains unknown",
+    "Two-by-two maps load selected comparison with source-derived caption",
+    "Hour slider changes both GK2A maps only",
+    "Alternate baseline loads matching maps and refuses fabricated hourly ratio"
+  ],
+  "errors": [],
+  "requests": [
+    "world_2025.geojson.gz",
+    "world_2024.geojson.gz",
+    "punjab_viirs_2021.geojson.gz",
+    "punjab_viirs_2025.geojson.gz",
+    "punjab_gk2a_2021_17.geojson.gz",
+    "punjab_gk2a_2025_17.geojson.gz",
+    "punjab_gk2a_2021_14.geojson.gz",
+    "punjab_gk2a_2025_14.geojson.gz",
+    "punjab_viirs_2019.geojson.gz",
+    "punjab_gk2a_2019_14.geojson.gz",
+    "punjab_viirs_2021.geojson.gz",
+    "punjab_gk2a_2021_14.geojson.gz",
+    "punjab_gk2a_2021_17.geojson.gz",
+    "punjab_gk2a_2025_17.geojson.gz"
+  ],
+  "accessibility": [
+    {
+      "width": 1280,
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "width": 375,
+      "violations": [],
+      "incomplete": []
+    }
+  ],
+  "generatedAt": "2026-11-15T01:06:23.721562+00:00",
+  "scope": "Isolated AreaMap and BurningTimePanel harness; local Vite and headless Chromium, software WebGL",
+  "limits": [
+    "Automated checks do not establish human comprehension or usability.",
+    "No real participant sessions were conducted.",
+    "Full application navigation and final deployed build are outside this bounded component report."
+  ]
+}

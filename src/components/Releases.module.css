@@ -1,0 +1,15 @@
+.releases { font: inherit; color: inherit; max-width: 72ch; }
+.releases ul { list-style: none; padding: 0; }
+.releases ul > li { padding: 1.25rem 0; border-bottom: 1px solid #c9ced1; }
+.releases h3 { margin: 0 0 .5rem; font-size: 1.125rem; }
+.releases button { font: inherit; border: 1px solid #68747b; border-radius: 3px; background: #fff; color: #253039; padding: .6rem .85rem; cursor: pointer; }
+.releases button:disabled { opacity: .55; cursor: wait; }
+.releases button:focus-visible { outline: 3px solid #444; outline-offset: 3px; }
+.releases details { margin-top: .85rem; }
+.releases summary { cursor: pointer; }
+.releases ol { padding-left: 1.5rem; }
+.releases ol li { margin: .75rem 0; }
+.filename, .checksum { overflow-wrap: anywhere; word-break: break-word; }
+.checksum { display: block; font-family: ui-monospace, monospace; font-size: .875rem; line-height: 1.6; }
+.progress { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin-top: .7rem; }
+.progress progress { max-width: 100%; accent-color: #46545e; }

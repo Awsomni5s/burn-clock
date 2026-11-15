@@ -1,119 +1,87 @@
-# Burn Clock: human test protocol
+# Burn Clock: real-person test protocol
 
-**Status: prepared; no participant sessions or human results are recorded by this document.** The team must run the study with real people. Automated tests, AI reviews and team rehearsals are not participant evidence.
+**Status: prepared, not run. No testers, quotes, scores, bookings or before/after results are recorded here.** Automated checks and AI reviews do not count as participant evidence. The team runs these tests Sunday afternoon, 15 November 2026, in US Eastern time; record actual session times and build. This file replaces the earlier task set with addendum section 8.
 
-Run on **Sunday afternoon, 15 November 2026**, using the deployed build. Record the actual time zone, URL and build/commit for each round. This is a facilitator kit, not a scheduled event or a claim that recruitment has happened.
+The hosted site is owner-private. Use an owner-supervised signed-in device, or have the owner arrange participant access. Do not share credentials. No invitations or calendar events have been sent.
 
-The hosted site is currently owner-private. Use a supervised device already signed in as the owner, or have the owner explicitly arrange participant access. Do not circulate account credentials.
+## Setup and sequence
 
-## 1. Participants, setup and sequence
+Recruit 5–8 real people for the first round, ideally at least one air-quality/emissions modeller, policy/enforcement analyst, journalist/fact-checker and fire researcher. Record relevant experience and label proxies. Builders and team rehearsals do not count as target users. Use new people for the retest. Everyone attempts T1–T4; always run T1 first. Do not include answers in recruitment material.
 
-Recruit **5–8 people for round 1**, spanning the four roles below, then **5–8 different people for the retest**. Aim for at least one person with relevant experience in each role per round. Record actual experience; label convenience participants as proxies. Do not count the builders as target users. If fewer people or roles are available, report that limitation and leave the corresponding gate unmet.
+Obtain consent for notes, optional recordings and separately for publishing anonymous verbatim quotes. Use participant IDs, not names, in the results CSV. Explain: “We are testing the website, not you. Please think aloud. I will observe rather than explain the interface.” Allow about 10 minutes for the four tasks, plus setup, recall and debrief. Record actual overruns.
 
-Everyone attempts all four tasks. The Punjab task comes first, before any explanation of the science. Alternate the order of the remaining three tasks between sessions. Keep task wording, home-page starting state, device class and scoring consistent between rounds. Avoid showing people the headline in recruitment material. Do not share answers between participants.
+Run in order:
 
-Use one facilitator and a separate observer when possible. Obtain consent for notes, optional screen/audio recording, and separately for publishing anonymized quotes. Use IDs such as P01; keep names and contact details out of the results file. Verify that each participant can access the deployed URL before the timed session, without exposing the home page or teaching the navigation.
+1. Automated integrity against supplied files and the independent Python reference: every enumerated assertion must pass. Preserve actual coverage and denominator; no blanket claim about untested rectangles or scientific causation.
+2. Automated edge cases: empty box, one cell, equator and antimeridian, 2012 sensor transition, S-NPP 3–6 November 2024 outage, Terra-only 2000–02, live-feed failure. Missing is never zero.
+3. Five-second home-page test.
+4. T1–T4 with 5–8 people thinking aloud.
+5. Two-team-member misuse test, separate from spontaneous participant interpretations.
+6. Keyboard, colour-blind simulation, screen-reader checks, 375-pixel phone and throttled-4G speed checks.
 
-Suggested working plan with two facilitators: baseline sessions 13:00–14:40; identify and fix the top three confusions 14:40–15:30; new-participant sessions 15:30–17:10; scoring and Methods update 17:10–17:45. These are proposed local times, not bookings. Allow about 25 minutes per session. If the team cannot complete a retest, publish “retest not yet run”; do not present the same people's second attempts as independent confirmation.
+A proposed afternoon schedule is first round 13:00–15:00, rank the three main confusions and implement fixes, then retest with new people before 19:00 where feasible. These are planning windows, not sessions that happened. If a new-participant retest cannot happen, report it pending.
 
-Complete checks in this order:
+## Five-second test
 
-1. **Automated number audit:** reconcile every displayed numeric claim and export field with its source or documented calculation, including units, baseline, rounding, mask state and unavailable values. Require 100% of the enumerated assertions to pass; publish the assertion count and tested coverage. A passing set of selected assertions does not prove every possible area has been independently checked.
-2. **Edge cases:** empty/tiny boxes; the 2012 MODIS-to-VIIRS transition; pre-coverage platforms; outage months, including S-NPP 3–6 November 2024; failed tile loads; low-count clock diagnostics; date-line boxes. Missing observations must not become zero. Save the actual run report.
-3. **Five-second home-page test**, before any task explanation.
-4. **Four decision tasks** with 5–8 real people, including the timed claim card.
-5. **Cropping/misuse test**, after the main comprehension answer is locked.
-6. **Accessibility and speed checks**, recorded separately from task comprehension.
+Expose the fully loaded home page for exactly five seconds, then hide it. Ask **“What is this site telling you?”** Record the first answer verbatim before reopening it or prompting. Pass if the participant independently explains that the measured decline depends on when satellites look. At least four of five must pass; if more are tested, report the actual numerator and denominator and require at least 80%. Do not select the most favourable five afterwards.
 
-## 2. Neutral session script and five-second test
+No science explanation or navigation hints before scoring. Neutral “What would you do next?” prompts are allowed during tasks but must be logged. If assistance is given, record an assisted attempt; never convert it into an unaided pass. Correct misconceptions only after scoring all tasks.
 
-Read: “We are testing this website, not you. Please use it as you normally would. You may say what you are thinking. I will mostly observe and will not explain the interface. You can stop at any time.”
+## Four tasks
 
-Load the same home page at the top, with Punjab + Haryana and November 2025 selected. Wait for the content to render before exposing it. Show it for **exactly five seconds**, then cover the entire page with a blank screen. Ask only: **“What was this page saying, and what do you think you could use it to do?”** Record the response verbatim before reopening the page. Do not ask whether they noticed satellites, timing or a percentage.
-
-Score recall separately: 2 = remembers both comparison of burning activity over time/areas and satellite observation timing; 1 = remembers one; 0 = neither or materially incorrect. Record wrong interpretations as well as the score. There is no invented recall pass bar; report the distribution and use it to identify confusion.
-
-During tasks, neutral prompts such as “What would you do next?” are allowed after a pause. Do not suggest a navigation label, interpretation, baseline or unit. Log all help. If rescue is needed, mark the task assisted or failed before helping; do not turn it into an unassisted pass. A clarification of what the participant meant is allowed only after capturing their original answer, without supplying facts. Correct misconceptions in the debrief after all scoring is complete.
-
-## 3. Four users and decisions
-
-The plan describes calendar, clock, world map, receipt and methods/validation experiences. In this build the world atlas is within **Satellite clock**; **Validation** and **Methods & sources** have separate destinations. Judge completion by the evidence found, not by following a prescribed click path.
-
-| Task / user | Read this prompt verbatim | Decision the app should change | Required handoff / success evidence |
-|---|---|---|---|
-| T1 — Journalist or fact-checker; always first | “Your editor asks: ‘Did Punjab burning fall 93% from 2021 to 2025?’ Use this website to write a two-sentence answer you would be willing to publish, and show the evidence.” | Qualify a real satellite-count decline rather than call it fake, or claim it measures the entire afternoon. | Written answer with its source, the role of observation time, qualified afternoon comparison and baseline caveat. Apply the Punjab rubric below. Then run the timed card instruction. |
-| T2 — Air-quality/emissions modeller | “A colleague proposes reducing Punjab's afternoon fire-emissions input by 93%, using the reported 2021–2025 change. Decide whether this website supports that change and write a short note describing your next step.” | Check time-of-day coverage before scaling smoke or emissions from a single satellite-count trend. | Does not treat hotspots, pixel-hours or pixel-days as measured emissions; identifies late-afternoon coverage and proposes obtaining or evaluating time-resolved emissions/observations. Uses the area’s ‘So what?’ guidance without treating a badge alone as a quantitative emissions correction. |
-| T3 — Policy or enforcement analyst | “You are updating Punjab's seasonal monitoring brief. Recommend one change, or explain why no change is needed. Include the evidence and one limitation.” | Review monitoring hours and retain satellite-specific reporting before declaring a whole-afternoon reduction. | Actionable monitoring proposal tied to the hourly evidence; retains the real official decline; acknowledges the comparison window or baseline. Does not infer farmer motive, evasion, or individual responsibility from the satellite signal. |
-| T4 — Fire researcher | “Prepare a comparison of Paraná's November burning activity in 2011 and 2013. Export what another researcher would need, and decide whether the two raw counts can be compared directly.” | Account for the sensor transition and regional uncertainty before accepting a raw trend. | Selects the same area/month across years; exports raw and harmonized series with units, bounds, source satellites and badge; explains the 2012 transition and finds Paraná’s documented validation weakness. Missing VIIRS values in 2011 remain missing. |
-
-For T2–T4, record **pass** only when the decision and required handoff are both correct without coaching; otherwise use **partial**, **fail**, or **not attempted** with the reason. Record time, errors, assistance and a verbatim decision. These tasks diagnose usefulness; report their actual rates without inventing extra acceptance thresholds.
-
-### Punjab rubric: facilitator-only answer key
-
-Do not show this section before the participant answers. Score the submitted T1 answer and evidence explanation, not whether they repeat our wording.
-
-A pass requires all of the following:
-
-- Treats **71,304 → 5,114, about 93%**, as a real reported satellite-count decline. Does not say 94%.
-- Explains that the reported decline does not measure the entire afternoon. Does not reduce the official protocol to one sensor at exactly 13:30; observation timing is a limitation of the comparison, not a single-clock definition of the official statistic. The official protocol combines MODIS and VIIRS and uses 15 September–30 November; the receipt uses Punjab state, October–November.
-- Describes a qualified decline of about one third in GK2A unique afternoon pixel-days versus 2021, while recognizing stronger late-afternoon activity. Does not turn this into the true number of fires or a measured emissions total.
-- Notices that 2021 is the busiest GK2A year in this supplied record and that the comparison with 2019 changes the story. Understands that unit, mask and baseline must travel with the claim.
-
-Evidence for scoring: the unmasked 12:00–18:00 IST, confidence ≥2 pixel-day series is 24,447 in 2021 and 16,096 in 2025 (about a 34% decline), and 7,527 in 2019 (2025 is about 2.14× 2019). The matched-calendar-day fan gives about a 36% decline versus 2021 and 1.73× 2019; either is acceptable when correctly labeled. The 17:00 ratio is about 1.40× 2021. Summing the 16:00–18:00 pixel-hours and dividing by all 12:00–18:00 pixel-hours gives about 96% in 2025 versus 52% in 2021. Pixel-hours measure repeated hourly observations, not unique fires. GK2A is a preliminary, coarse-pixel product that can detect hot smoke; it is not ground truth. Exact memorization of all these numbers is not required.
-
-**Automatic fail:** any participant concludes, in their own interpretation, that “burning did not fall” or “the data is fake,” including equivalent wording. Quoting and rejecting one of those claims is not an automatic fail. An automatic failure at any point in the unaided session blocks the round even if the participant later self-corrects; record both statements. Do not prompt these phrases during the main test.
-
-### Timed claim-card instruction
-
-After locking the T1 answer, read: **“Make a shareable claim card that answers your editor's question and keeps the context needed to interpret it.”** Start timing after the instruction; stop when the exported card is saved and the participant says it is ready. Include navigation, selections, generation and download time. Save the exact artifact and elapsed seconds. Do not subtract delays caused by the interface.
-
-Card success requires **less than 120 seconds**, unassisted, with the claim, place, comparison years, units/window, source and nearby qualification intact. Keep the official decline, whole-afternoon comparison and 2021-baseline caveat together. At exactly 120 seconds the speed criterion fails. Record every participant's result, the success numerator/denominator, median, range and timeouts. The round meets the card gate only if every participant who starts the card task produces an acceptable card in under 120 seconds; report non-starts and reasons separately. This explicit operational rule prevents a single fastest demonstration from standing in for user performance.
-
-## 4. Cropping and misuse
-
-After the main answer is recorded, ask: “Using an ordinary screenshot or crop, can you make this card support a misleading claim? Show what you changed and explain the new impression.” Do not publish the misleading version. Keep both original and attempted crop as research artifacts.
-
-Try a normal social preview crop, square crop and tight crop around each large statistic. Check whether a visible claim can lose its denominator, years, observation time, unit, mask, source, the real-decline qualification or the 2021 baseline caveat. Ask another observer to read the crop without seeing the original; record their interpretation verbatim. Test a card for an empty or not-identifiable area too: it must not manufacture a definitive finding.
-
-Log each successful misleading crop as a failure and fix the layout or wording. Rerun the same crop cases after the fix and add any new attack the team finds. Repeating context near each large number helps, but **no static card is immune to deliberate cropping or editing**. Report the actual crops tried and remaining weaknesses; do not claim “misuse-proof.” Keep these prompted adversarial statements separate from spontaneous comprehension failures.
-
-## 5. Accessibility and speed: separate evidence
-
-Automated accessibility scans and browser assertions support the audit; they do not demonstrate screen-reader usability or comprehension. Record tool/version, build, tested pages and actual failures. A test not run is “not tested,” never a pass.
-
-Manual checks, on all five navigation destinations:
-
-- Keyboard only: visible focus, logical order, no traps, region selection without drawing, calendar navigation, mode changes, clock year, receipt controls, exports and navigation menu. Confirm dialogs or expanded controls return focus sensibly.
-- With a real screen reader, record browser, OS and assistive-technology versions. Check page/region names, selected values, missingness, loading/error announcements, calendar cell labels and chart/table alternatives. Have a person who uses the technology attempt a task when possible; distinguish their session from a developer's technical check.
-- Check 200% zoom, 400% reflow and a narrow phone viewport; text and controls must remain usable. Check actual contrast and that color is not the only badge or data signal. Test reduced-motion preferences.
-- Measure cold and warm loads on named device/network settings: time until the home page is readable, default area is usable, a large area completes, and a claim card downloads. Record data-transfer size, errors and whether navigation remains responsive. Record the observed timings; do not substitute a desktop cache result for a phone or constrained-network result.
-
-The under-120-second card requirement is the explicit task-speed gate. Report other performance measurements and any blocking delay with their test conditions; do not quietly invent or change a target after observing the result.
-
-## 6. Scoring, fixes and honest reporting
-
-Use `USER_TEST_RESULTS_TEMPLATE.csv` as an event log: one row per participant for `five_second`, `T1`, `T1_card`, `T2`, `T3`, `T4` and each crop attempt; separate rows for manual accessibility/performance checks. `outcome` is `pass`, `partial`, `fail`, `not_attempted` or `not_tested`; five-second score uses `recall_score`. Leave unobserved fields blank. `help_given` records the actual intervention or `none`. The Punjab rubric columns accept `yes`/`no` only after review. Do not put participant contact information in the CSV.
-
-Lock the denominator before scoring: all eligible participants who start T1 in that round. A timeout, abandonment or technical interruption after starting does not disappear from the denominator; mark the reason and count it as not passed. Report accessibility problems or access failures that prevented a start separately. Two team members should score the recorded T1 answers independently using the rubric, resolve disagreements against the original evidence and preserve the initial scores in notes.
-
-The Punjab gate is **at least 80% pass AND zero automatic failures**. Minimum passing counts are 4/5, 5/6, 6/7 and 7/8, with zero automatic failures in every case. Report counts alongside percentages. A small convenience sample provides usability evidence, not a population-level validation claim.
-
-Rank confusions by harm to the decision, then recurrence, then delay. Automatic failures outrank cosmetic friction. For the **top three**, record: observed confusion and anonymous quote; participants affected/total; affected screen; change made; commit/build; new-participant retest result. Preserve a genuine “no change” or “not fixed” status if that is what happened. Rerun the numeric and edge-case checks after changing logic or displayed evidence.
-
-Publish this reporting block on Methods using actual results only:
-
-| Field | Round 1 | Retest with new people |
+| Task | Read verbatim | Unaided success |
 |---|---|---|
-| Actual date/time zone, build, URL | | |
-| Participants, role mix, proxies and devices | | |
-| Five-second recall: score 0 / 1 / 2 counts | | |
-| Punjab passes / T1 starters (%) | | |
-| Automatic failures / T1 starters | | |
-| Acceptable cards under 120 s / card starters; non-starts | | |
-| Card time median / range / timeouts | | |
-| T2, T3, T4 passes / task starters | | |
-| Misleading crops / crops attempted; remaining weaknesses | | |
-| Human accessibility checks actually completed | | |
-| Automated numeric assertions passed / total; coverage | | |
+| T1 — Punjab | “Did Punjab's stubble burning fall 93% between 2021 and 2025? Use the website to write the sentence you would report.” | Describes a real sharp decline in reported polar-satellite counts, a much smaller decline across GK2A afternoon observations, a rise at 17:00, and a baseline or uncertainty qualification. Apply the rubric below. |
+| T2 — California claim card | “Make a claim card for California, August–September, 2019 versus 2024, and share it.” | Selects the correct place, two months and years; makes a context-complete card and a matching permalink without help. Record time until saved/copied and ready to share. Use a test destination or show the artifact to the facilitator; no real publication is needed. |
+| T3 — Cerrado inventory | “You're building an emissions inventory for the Cerrado. Which years can you use as they are?” | Uses the timing check and source mix, identifies converted MODIS versus the VIIRS era, keeps the displayed uncertainty, and does not treat fire detections as direct emissions or a timing badge as proof that a trend is real. |
+| T4 — Paraná | “Is the Paraná Delta's trend real?” | Reads the selected years, approximate range and timing check correctly, finds the regional validation weakness, and avoids certifying a true trend from the badge. An uncertain answer is successful when the displayed evidence warrants it. |
 
-Follow the table with the three confusion→change→retest records, anonymized quotes with permission, and limitations. Before sessions, the Methods status must remain **“Human testing pending.”** After an incomplete round, state exactly what was done and what remains. Do not invent participants, quotes, before/after improvement, scientific validation or a passed gate.
+For every task record outcome (`pass`, `partial`, `fail`, `not_attempted`), elapsed seconds, help, wrong conclusions, confidence from 1–5, evidence found and the sentence the person would write. Capture the exact selections and exported artifacts. A task timer starts after the instruction and includes navigation and interface delays. Keep timeouts in the denominator.
+
+### T1 facilitator rubric
+
+A pass needs all four elements: (1) the official 71,304 → 5,114 decline is real and about 93%; (2) it does not measure all afternoon burning; (3) afternoon GK2A observations fell substantially less while the 17:00 observations rose; (4) the baseline or measurement uncertainty is acknowledged. Numbers need not be recalled verbatim if the interpretation is correct.
+
+Scientific key: official counts combine Terra/Aqua MODIS and S-NPP VIIRS, with a 15 September–30 November window; they are not literally one 13:30 pass. The receipt covers Punjab state, October–November. Unmasked GK2A confidence ≥2 observations at 12–18 IST have unique pixel-days 24,447 (2021), 16,096 (2025), and 7,527 (2019): about 34% lower than 2021 but 2.14× 2019. The separately masked fan is about 36% lower than 2021 and 1.73× 2019. At 17:00 the 2025/2021 ratio is 1.40×. Late-hour pixel-hour shares are about 96% versus 52%, including 16:00–18:00 in a 12:00–18:00 denominator. These units do not estimate true fire counts or emissions. GK2A can detect hot smoke and is not ground truth.
+
+**Hard failure:** the participant independently concludes “burning didn't fall” or “the data is fake,” or equivalent. A quote that they explicitly reject is not a hard failure. A spontaneous hard failure blocks the round even if they later self-correct; record both statements. Do not lead participants into those phrases. Prompted misuse statements belong in the misuse log, not the comprehension denominator.
+
+### T2 timing and submission gates
+
+Score correctness and speed separately. Each T2 attempt under 120 seconds, without help and with the correct complete artifact, passes that individual task. The submission gate uses the **median T2 time under 120 seconds**, as the addendum specifies, rather than requiring every participant to be under two minutes. Report all attempted-task times and successes, failures, non-starts and timeouts. If a timeout has no completed-card time, do not exclude it to claim a passing median: report the median as censored or the gate unmet unless the recorded lower bound already resolves it. Exactly 120 seconds does not meet “under.”
+
+Required gates: numeric integrity 100% of the enumerated checks; T1 at least 80% (4/5, 5/6, 6/7 or 7/8) with zero hard failures; T2 median under 120 seconds. Five-second recall has its separate four-of-five gate. Do not change thresholds after seeing results.
+
+## Misuse: two team members
+
+One person creates misleading crops of the Punjab and California cards and their share text; the other interprets each crop without seeing the original. Try normal social previews, square crops and tight crops around a number. Record original/crop, scenario, interpretation and whether the unit, area, base year, time/window, source and qualification survive. Include the base-year caveat inside the image and share text. Also try an unavailable or sparse area: it must not invent an answer.
+
+A successful misleading crop is a failed case; fix and rerun it. No static image is immune to deliberate cropping or editing. Report actual cases and remaining weaknesses, not “crop-proof.” Do not publish misleading test artifacts publicly.
+
+## Accessibility and speed
+
+A human checks keyboard-only navigation with visible focus/no traps, explicit labels and selected states, and a real screen reader (record versions). Test colour-blind simulations, non-colour cues, 200% zoom and 400% reflow, reduced motion and a 375-pixel-wide phone. Record what was actually tested and what remains. Automated accessibility scans do not establish screen-reader usability.
+
+Measure the first useful Punjab answer on a cold build with specified throttled-4G bandwidth, latency and CPU conditions; the required target is **under three seconds**. Record device/browser/network, cache state, timing definition, run count and actual observations. Desktop local-server measurements are lab results, not field performance. Also record card-generation time, map failures and responsive controls.
+
+## Before/after reporting
+
+Use `USER_TEST_RESULTS_TEMPLATE.csv` as an empty event log, one row per participant/task and per manual check. Keep unpublished quotes private unless permission is explicit. `five_second` and `T1`–`T4` are task IDs; manual checks use `crop`, `keyboard`, `screen_reader`, `colour_blind`, `phone_375`, `speed_4g`.
+
+Preserve all starters in task denominators. Record access failures separately. Two team members should independently score T1, resolve disagreements from the original response and retain notes. Rank the top three confusions by harm, recurrence and delay; record affected participants, exact anonymous evidence, screen, change, build and result with new people. Do not manufacture three problems if fewer were observed; state the actual count.
+
+Write actual results in `TESTING.md`, then summarise on Methods:
+
+| Evidence | Round 1 | Retest with new people |
+|---|---|---|
+| Date/time zone, URL, build | Not run | Not run |
+| Participants / roles / proxies / devices | Not recorded | Not recorded |
+| Five-second passes / starters | Not recorded | Not recorded |
+| T1 passes / starters; hard failures | Not recorded | Not recorded |
+| T2 successes / starters; median / range / timeouts | Not recorded | Not recorded |
+| T3 and T4 successes / starters | Not recorded | Not recorded |
+| Crops attempted / misleading crops | Not recorded | Not recorded |
+| Manual accessibility and speed | Not run | Not run |
+| Top-three observed confusions and changes | No observations yet | No observations yet |
+
+Only after real sessions, use “Tested with N people; X of N read the Punjab result correctly.” Before then, keep **Human testing pending**. Never invent participants, quotes, scores or improvement.

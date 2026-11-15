@@ -1,0 +1,4652 @@
+{
+  "presets": {
+    "punjab": {
+      "claims": [
+        {
+          "months": [
+            10,
+            11
+          ],
+          "a": 2021,
+          "b": 2025,
+          "platforms": [
+            {
+              "platform": "T",
+              "status": "too_few",
+              "sumA": 1526.0,
+              "sumB": 26.0,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "A",
+              "status": "ok",
+              "sumA": 12253.0,
+              "sumB": 3224.0,
+              "ratio": 0.2631192361054436,
+              "changePct": -73.68807638945565
+            },
+            {
+              "platform": "N",
+              "status": "ok",
+              "sumA": 36846.0,
+              "sumB": 7014.0,
+              "ratio": 0.19035987624165446,
+              "changePct": -80.96401237583454
+            },
+            {
+              "platform": "J1",
+              "status": "ok",
+              "sumA": 37392.0,
+              "sumB": 7423.0,
+              "ratio": 0.19851839965768078,
+              "changePct": -80.14816003423192
+            },
+            {
+              "platform": "J2",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            }
+          ],
+          "harmonized": {
+            "status": "ok",
+            "sumA": 36275.1,
+            "sumB": 7127.9,
+            "loA": 31265.0,
+            "hiA": 41542.0,
+            "loB": 4988.0,
+            "hiB": 9584.0,
+            "ratio": 0.19649566782724237,
+            "range": [
+              0.1200712531895431,
+              0.3065408603870142
+            ],
+            "changePct": -80.35043321727576,
+            "rangePct": [
+              -87.99287468104569,
+              -69.34591396129858
+            ]
+          },
+          "convertedMonths": 0,
+          "convertedShare": 0.0,
+          "selectedMonthCount": 4,
+          "timingStatus": "available",
+          "timing": {
+            "year": 2025,
+            "badge": "robust",
+            "drivers": [],
+            "bend": -10.466030541023752,
+            "tests": [
+              {
+                "platform": "T",
+                "testable": true,
+                "delta": 0.02392121280203785,
+                "sigma": 0.20241469418037833,
+                "threshold": 0.40482938836075666,
+                "count": 1199.0,
+                "reference": 19020.0,
+                "cells": 20,
+                "reason": "Enough observations"
+              },
+              {
+                "platform": "A",
+                "testable": true,
+                "delta": -0.13968375978225533,
+                "sigma": 0.04961756224741497,
+                "threshold": 0.15,
+                "count": 4202.0,
+                "reference": 19020.0,
+                "cells": 20,
+                "reason": "Enough observations"
+              }
+            ],
+            "look": {
+              "T": 9.64,
+              "A": 14.58,
+              "N": 13.175,
+              "J1": 13.08,
+              "J2": null
+            },
+            "baselineLook": {
+              "T": 10.85,
+              "A": 13.28,
+              "N": 13.13,
+              "J1": 13.11,
+              "J2": null
+            },
+            "clockCells": 20
+          },
+          "outages": [
+            {
+              "platform": "N",
+              "month": "2025-11",
+              "missing_days": [
+                "2025-11-12"
+              ],
+              "masked": false
+            }
+          ]
+        },
+        {
+          "months": [
+            10,
+            11
+          ],
+          "a": 2011,
+          "b": 2012,
+          "platforms": [
+            {
+              "platform": "T",
+              "status": "ok",
+              "sumA": 1873.0,
+              "sumB": 1378.0,
+              "ratio": 0.7357180993059264,
+              "changePct": -26.428190069407364
+            },
+            {
+              "platform": "A",
+              "status": "ok",
+              "sumA": 9733.0,
+              "sumB": 11266.0,
+              "ratio": 1.1575053940203432,
+              "changePct": 15.750539402034324
+            },
+            {
+              "platform": "N",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": 34912.0,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "J1",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "J2",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            }
+          ],
+          "harmonized": {
+            "status": "ok",
+            "sumA": 33637.63,
+            "sumB": 34912.0,
+            "loA": 28022.0,
+            "hiA": 39617.0,
+            "loB": 30205.0,
+            "hiB": 39859.0,
+            "ratio": 1.0378852493472341,
+            "range": [
+              0.7624252214958225,
+              1.4224181000642353
+            ],
+            "changePct": 3.788524934723414,
+            "rangePct": [
+              -23.75747785041775,
+              42.24181000642353
+            ]
+          },
+          "convertedMonths": 2,
+          "convertedShare": 0.5,
+          "selectedMonthCount": 4,
+          "timingStatus": "before_2021",
+          "timing": null,
+          "outages": []
+        },
+        {
+          "months": [
+            11
+          ],
+          "a": 2021,
+          "b": 2024,
+          "platforms": [
+            {
+              "platform": "T",
+              "status": "too_few",
+              "sumA": 1011.0,
+              "sumB": 15.0,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "A",
+              "status": "ok",
+              "sumA": 9039.0,
+              "sumB": 3043.0,
+              "ratio": 0.33665228454475055,
+              "changePct": -66.33477154552494
+            },
+            {
+              "platform": "N",
+              "status": "ok",
+              "sumA": 24644.0,
+              "sumB": 5945.0,
+              "ratio": 0.24123518909267977,
+              "changePct": -75.87648109073201
+            },
+            {
+              "platform": "J1",
+              "status": "ok",
+              "sumA": 25126.0,
+              "sumB": 7312.0,
+              "ratio": 0.29101329300326356,
+              "changePct": -70.89867069967364
+            },
+            {
+              "platform": "J2",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            }
+          ],
+          "harmonized": {
+            "status": "ok",
+            "sumA": 24291.11,
+            "sumB": 6919.08,
+            "loA": 21314.0,
+            "hiA": 27405.0,
+            "loB": 5322.0,
+            "hiB": 8671.0,
+            "ratio": 0.28484000936968296,
+            "range": [
+              0.19419813902572522,
+              0.40682180726283196
+            ],
+            "changePct": -71.5159990630317,
+            "rangePct": [
+              -80.58018609742747,
+              -59.3178192737168
+            ]
+          },
+          "convertedMonths": 0,
+          "convertedShare": 0.0,
+          "selectedMonthCount": 2,
+          "timingStatus": "available",
+          "timing": {
+            "year": 2024,
+            "badge": "clock_sensitive",
+            "drivers": [
+              "A"
+            ],
+            "bend": -19.074962025595,
+            "tests": [
+              {
+                "platform": "T",
+                "testable": true,
+                "delta": -0.05869911282973517,
+                "sigma": 0.20241469418037833,
+                "threshold": 0.40482938836075666,
+                "count": 1464.0,
+                "reference": 25224.0,
+                "cells": 20,
+                "reason": "Enough observations"
+              },
+              {
+                "platform": "A",
+                "testable": true,
+                "delta": -0.24611331223380595,
+                "sigma": 0.04961756224741497,
+                "threshold": 0.15,
+                "count": 5010.0,
+                "reference": 25224.0,
+                "cells": 20,
+                "reason": "Enough observations"
+              }
+            ],
+            "look": {
+              "T": 10.114999999999998,
+              "A": 13.92,
+              "N": 13.114999999999998,
+              "J1": 13.085,
+              "J2": null
+            },
+            "baselineLook": {
+              "T": 10.85,
+              "A": 13.28,
+              "N": 13.13,
+              "J1": 13.11,
+              "J2": null
+            },
+            "clockCells": 20
+          },
+          "outages": [
+            {
+              "platform": "N",
+              "month": "2024-11",
+              "missing_days": [
+                "2024-11-03",
+                "2024-11-04",
+                "2024-11-05",
+                "2024-11-06"
+              ],
+              "masked": false
+            }
+          ]
+        }
+      ],
+      "trends": [
+        {
+          "status": "ok",
+          "months": [
+            10,
+            11
+          ],
+          "start": 2012,
+          "end": 2025,
+          "years": [
+            {
+              "year": 2012,
+              "harm": 34912.0,
+              "lo": 30205.0,
+              "hi": 39859.0
+            },
+            {
+              "year": 2013,
+              "harm": 31445.0,
+              "lo": 26826.0,
+              "hi": 36324.0
+            },
+            {
+              "year": 2014,
+              "harm": 34785.0,
+              "lo": 29997.0,
+              "hi": 39829.0
+            },
+            {
+              "year": 2015,
+              "harm": 32234.0,
+              "lo": 27625.0,
+              "hi": 37100.0
+            },
+            {
+              "year": 2016,
+              "harm": 39886.0,
+              "lo": 34554.0,
+              "hi": 45517.0
+            },
+            {
+              "year": 2017,
+              "harm": 32376.0,
+              "lo": 27660.0,
+              "hi": 37342.0
+            },
+            {
+              "year": 2018,
+              "harm": 31076.25,
+              "lo": 26535.0,
+              "hi": 35865.0
+            },
+            {
+              "year": 2019,
+              "harm": 22367.48,
+              "lo": 18526.0,
+              "hi": 26460.0
+            },
+            {
+              "year": 2020,
+              "harm": 33348.28,
+              "lo": 28529.0,
+              "hi": 38461.0
+            },
+            {
+              "year": 2021,
+              "harm": 36275.1,
+              "lo": 31265.0,
+              "hi": 41542.0
+            },
+            {
+              "year": 2022,
+              "harm": 25207.24,
+              "lo": 21168.0,
+              "hi": 29512.0
+            },
+            {
+              "year": 2023,
+              "harm": 19593.63,
+              "lo": 16052.0,
+              "hi": 23412.0
+            },
+            {
+              "year": 2024,
+              "harm": 11627.46,
+              "lo": 8755.0,
+              "hi": 14794.0
+            },
+            {
+              "year": 2025,
+              "harm": 7127.9,
+              "lo": 4988.0,
+              "hi": 9584.0
+            }
+          ],
+          "excludedYears": [],
+          "median": 31839.5,
+          "slope": -1634.4300000000003,
+          "pctPerYear": -5.133340661756624,
+          "rangePct": [
+            -5.5402880070352865,
+            -4.730758962923413
+          ],
+          "verdict": "falling",
+          "modisSlope": null,
+          "modisOpposite": false
+        },
+        {
+          "status": "ok",
+          "months": [
+            10,
+            11
+          ],
+          "start": 2003,
+          "end": 2025,
+          "years": [
+            {
+              "year": 2003,
+              "harm": 25096.51,
+              "lo": 20891.0,
+              "hi": 29586.0
+            },
+            {
+              "year": 2004,
+              "harm": 21906.59,
+              "lo": 17979.0,
+              "hi": 26123.0
+            },
+            {
+              "year": 2005,
+              "harm": 38034.88,
+              "lo": 31876.0,
+              "hi": 44593.0
+            },
+            {
+              "year": 2006,
+              "harm": 24256.5,
+              "lo": 20116.0,
+              "hi": 28675.0
+            },
+            {
+              "year": 2007,
+              "harm": 33895.13,
+              "lo": 28503.0,
+              "hi": 39634.0
+            },
+            {
+              "year": 2008,
+              "harm": 32598.78,
+              "lo": 26951.0,
+              "hi": 38604.0
+            },
+            {
+              "year": 2009,
+              "harm": 33012.77,
+              "lo": 27459.0,
+              "hi": 38923.0
+            },
+            {
+              "year": 2010,
+              "harm": 31418.18,
+              "lo": 25992.0,
+              "hi": 37195.0
+            },
+            {
+              "year": 2011,
+              "harm": 33637.63,
+              "lo": 28022.0,
+              "hi": 39617.0
+            },
+            {
+              "year": 2012,
+              "harm": 34912.0,
+              "lo": 30205.0,
+              "hi": 39859.0
+            },
+            {
+              "year": 2013,
+              "harm": 31445.0,
+              "lo": 26826.0,
+              "hi": 36324.0
+            },
+            {
+              "year": 2014,
+              "harm": 34785.0,
+              "lo": 29997.0,
+              "hi": 39829.0
+            },
+            {
+              "year": 2015,
+              "harm": 32234.0,
+              "lo": 27625.0,
+              "hi": 37100.0
+            },
+            {
+              "year": 2016,
+              "harm": 39886.0,
+              "lo": 34554.0,
+              "hi": 45517.0
+            },
+            {
+              "year": 2017,
+              "harm": 32376.0,
+              "lo": 27660.0,
+              "hi": 37342.0
+            },
+            {
+              "year": 2018,
+              "harm": 31076.25,
+              "lo": 26535.0,
+              "hi": 35865.0
+            },
+            {
+              "year": 2019,
+              "harm": 22367.48,
+              "lo": 18526.0,
+              "hi": 26460.0
+            },
+            {
+              "year": 2020,
+              "harm": 33348.28,
+              "lo": 28529.0,
+              "hi": 38461.0
+            },
+            {
+              "year": 2021,
+              "harm": 36275.1,
+              "lo": 31265.0,
+              "hi": 41542.0
+            },
+            {
+              "year": 2022,
+              "harm": 25207.24,
+              "lo": 21168.0,
+              "hi": 29512.0
+            },
+            {
+              "year": 2023,
+              "harm": 19593.63,
+              "lo": 16052.0,
+              "hi": 23412.0
+            },
+            {
+              "year": 2024,
+              "harm": 11627.46,
+              "lo": 8755.0,
+              "hi": 14794.0
+            },
+            {
+              "year": 2025,
+              "harm": 7127.9,
+              "lo": 4988.0,
+              "hi": 9584.0
+            }
+          ],
+          "excludedYears": [],
+          "median": 32234.0,
+          "slope": -275.1439999999999,
+          "pctPerYear": -0.8535831730470927,
+          "rangePct": [
+            -1.1028727430663274,
+            -0.6499348513991438
+          ],
+          "verdict": "falling",
+          "modisSlope": null,
+          "modisOpposite": false
+        }
+      ]
+    },
+    "parana": {
+      "claims": [
+        {
+          "months": [
+            10,
+            11
+          ],
+          "a": 2021,
+          "b": 2025,
+          "platforms": [
+            {
+              "platform": "T",
+              "status": "too_few",
+              "sumA": 116.0,
+              "sumB": 32.0,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "A",
+              "status": "too_few",
+              "sumA": 141.0,
+              "sumB": 44.0,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "N",
+              "status": "ok",
+              "sumA": 479.0,
+              "sumB": 168.0,
+              "ratio": 0.35073068893528186,
+              "changePct": -64.92693110647181
+            },
+            {
+              "platform": "J1",
+              "status": "ok",
+              "sumA": 521.0,
+              "sumB": 150.0,
+              "ratio": 0.28790786948176583,
+              "changePct": -71.20921305182341
+            },
+            {
+              "platform": "J2",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            }
+          ],
+          "harmonized": {
+            "status": "ok",
+            "sumA": 496.61,
+            "sumB": 158.41,
+            "loA": 237.0,
+            "hiA": 845.0,
+            "loB": 35.0,
+            "hiB": 349.0,
+            "ratio": 0.3189827027244719,
+            "range": [
+              0.04142011834319527,
+              1.4725738396624473
+            ],
+            "changePct": -68.10172972755282,
+            "rangePct": [
+              -95.85798816568047,
+              47.257383966244724
+            ]
+          },
+          "convertedMonths": 0,
+          "convertedShare": 0.0,
+          "selectedMonthCount": 4,
+          "timingStatus": "available",
+          "timing": {
+            "year": 2025,
+            "badge": "clock_sensitive",
+            "drivers": [
+              "T"
+            ],
+            "bend": -24.08802338992988,
+            "tests": [
+              {
+                "platform": "T",
+                "testable": true,
+                "delta": -0.6295508563957524,
+                "sigma": 0.2726961149053123,
+                "threshold": 0.5453922298106246,
+                "count": 68.0,
+                "reference": 932.0,
+                "cells": 9,
+                "reason": "Enough observations"
+              },
+              {
+                "platform": "A",
+                "testable": true,
+                "delta": -0.12199572451011931,
+                "sigma": 0.10672829822748775,
+                "threshold": 0.2134565964549755,
+                "count": 237.0,
+                "reference": 932.0,
+                "cells": 9,
+                "reason": "Enough observations"
+              }
+            ],
+            "look": {
+              "T": 9.1,
+              "A": 15.11,
+              "N": 13.89,
+              "J1": 13.81,
+              "J2": null
+            },
+            "baselineLook": {
+              "T": 10.22,
+              "A": 13.96,
+              "N": 13.85,
+              "J1": 13.88,
+              "J2": null
+            },
+            "clockCells": 9
+          },
+          "outages": [
+            {
+              "platform": "N",
+              "month": "2025-11",
+              "missing_days": [
+                "2025-11-12"
+              ],
+              "masked": false
+            }
+          ]
+        },
+        {
+          "months": [
+            10,
+            11
+          ],
+          "a": 2011,
+          "b": 2012,
+          "platforms": [
+            {
+              "platform": "T",
+              "status": "too_few",
+              "sumA": 52.0,
+              "sumB": 45.0,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "A",
+              "status": "too_few",
+              "sumA": 49.0,
+              "sumB": 35.0,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "N",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": 69.0,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "J1",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "J2",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            }
+          ],
+          "harmonized": {
+            "status": "ok",
+            "sumA": 144.37,
+            "sumB": 69.0,
+            "loA": 21.0,
+            "hiA": 325.0,
+            "loB": 6.0,
+            "hiB": 180.0,
+            "ratio": 0.4779386299092609,
+            "range": [
+              0.018461538461538463,
+              8.571428571428571
+            ],
+            "changePct": -52.206137009073906,
+            "rangePct": [
+              -98.15384615384616,
+              757.1428571428571
+            ]
+          },
+          "convertedMonths": 2,
+          "convertedShare": 0.5,
+          "selectedMonthCount": 4,
+          "timingStatus": "before_2021",
+          "timing": null,
+          "outages": []
+        },
+        {
+          "months": [
+            11
+          ],
+          "a": 2021,
+          "b": 2024,
+          "platforms": [
+            {
+              "platform": "T",
+              "status": "too_few",
+              "sumA": 35.0,
+              "sumB": 1.0,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "A",
+              "status": "too_few",
+              "sumA": 51.0,
+              "sumB": 8.0,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "N",
+              "status": "too_few",
+              "sumA": 180.0,
+              "sumB": 47.0,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "J1",
+              "status": "ok",
+              "sumA": 199.0,
+              "sumB": 57.0,
+              "ratio": 0.2864321608040201,
+              "changePct": -71.35678391959799
+            },
+            {
+              "platform": "J2",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            }
+          ],
+          "harmonized": {
+            "status": "ok",
+            "sumA": 186.51,
+            "sumB": 54.78,
+            "loA": 75.0,
+            "hiA": 339.0,
+            "loB": 7.0,
+            "hiB": 139.0,
+            "ratio": 0.2937107929869712,
+            "range": [
+              0.02064896755162242,
+              1.8533333333333333
+            ],
+            "changePct": -70.62892070130287,
+            "rangePct": [
+              -97.93510324483776,
+              85.33333333333333
+            ]
+          },
+          "convertedMonths": 0,
+          "convertedShare": 0.0,
+          "selectedMonthCount": 2,
+          "timingStatus": "available",
+          "timing": {
+            "year": 2024,
+            "badge": "robust",
+            "drivers": [],
+            "bend": -14.350613225016474,
+            "tests": [
+              {
+                "platform": "T",
+                "testable": true,
+                "delta": -0.41116066587023137,
+                "sigma": 0.2726961149053123,
+                "threshold": 0.5453922298106246,
+                "count": 59.0,
+                "reference": 650.0,
+                "cells": 9,
+                "reason": "Enough observations"
+              },
+              {
+                "platform": "A",
+                "testable": true,
+                "delta": -0.03119838258351626,
+                "sigma": 0.10672829822748775,
+                "threshold": 0.2134565964549755,
+                "count": 181.0,
+                "reference": 650.0,
+                "cells": 9,
+                "reason": "Enough observations"
+              }
+            ],
+            "look": {
+              "T": 9.555,
+              "A": 14.66,
+              "N": 13.88,
+              "J1": 13.85,
+              "J2": null
+            },
+            "baselineLook": {
+              "T": 10.22,
+              "A": 13.96,
+              "N": 13.85,
+              "J1": 13.88,
+              "J2": null
+            },
+            "clockCells": 9
+          },
+          "outages": [
+            {
+              "platform": "N",
+              "month": "2024-11",
+              "missing_days": [
+                "2024-11-03",
+                "2024-11-04",
+                "2024-11-05",
+                "2024-11-06"
+              ],
+              "masked": false
+            }
+          ]
+        }
+      ],
+      "trends": [
+        {
+          "status": "ok",
+          "months": [
+            10,
+            11
+          ],
+          "start": 2012,
+          "end": 2025,
+          "years": [
+            {
+              "year": 2012,
+              "harm": 69.0,
+              "lo": 6.0,
+              "hi": 180.0
+            },
+            {
+              "year": 2013,
+              "harm": 159.0,
+              "lo": 36.0,
+              "hi": 354.0
+            },
+            {
+              "year": 2014,
+              "harm": 53.0,
+              "lo": 6.0,
+              "hi": 135.0
+            },
+            {
+              "year": 2015,
+              "harm": 153.0,
+              "lo": 36.0,
+              "hi": 338.0
+            },
+            {
+              "year": 2016,
+              "harm": 58.0,
+              "lo": 5.0,
+              "hi": 151.0
+            },
+            {
+              "year": 2017,
+              "harm": 104.0,
+              "lo": 18.0,
+              "hi": 246.0
+            },
+            {
+              "year": 2018,
+              "harm": 256.83,
+              "lo": 89.0,
+              "hi": 506.0
+            },
+            {
+              "year": 2019,
+              "harm": 101.25,
+              "lo": 12.0,
+              "hi": 255.0
+            },
+            {
+              "year": 2020,
+              "harm": 1118.49,
+              "lo": 654.0,
+              "hi": 1683.0
+            },
+            {
+              "year": 2021,
+              "harm": 496.61,
+              "lo": 237.0,
+              "hi": 845.0
+            },
+            {
+              "year": 2022,
+              "harm": 882.98,
+              "lo": 500.0,
+              "hi": 1379.0
+            },
+            {
+              "year": 2023,
+              "harm": 202.7,
+              "lo": 49.0,
+              "hi": 443.0
+            },
+            {
+              "year": 2024,
+              "harm": 174.64,
+              "lo": 36.0,
+              "hi": 391.0
+            },
+            {
+              "year": 2025,
+              "harm": 158.41,
+              "lo": 35.0,
+              "hi": 349.0
+            }
+          ],
+          "excludedYears": [],
+          "median": 158.70499999999998,
+          "slope": 11.156666666666666,
+          "pctPerYear": 7.029814225554751,
+          "rangePct": [
+            1.8902996124885798,
+            15.065115093469588
+          ],
+          "verdict": "rising",
+          "modisSlope": null,
+          "modisOpposite": false
+        },
+        {
+          "status": "ok",
+          "months": [
+            10,
+            11
+          ],
+          "start": 2003,
+          "end": 2025,
+          "years": [
+            {
+              "year": 2003,
+              "harm": 640.36,
+              "lo": 317.0,
+              "hi": 1052.0
+            },
+            {
+              "year": 2004,
+              "harm": 1075.77,
+              "lo": 598.0,
+              "hi": 1664.0
+            },
+            {
+              "year": 2005,
+              "harm": 450.25,
+              "lo": 174.0,
+              "hi": 814.0
+            },
+            {
+              "year": 2006,
+              "harm": 691.37,
+              "lo": 340.0,
+              "hi": 1141.0
+            },
+            {
+              "year": 2007,
+              "harm": 141.17,
+              "lo": 22.0,
+              "hi": 315.0
+            },
+            {
+              "year": 2008,
+              "harm": 2411.17,
+              "lo": 1469.0,
+              "hi": 3532.0
+            },
+            {
+              "year": 2009,
+              "harm": 216.4,
+              "lo": 47.0,
+              "hi": 448.0
+            },
+            {
+              "year": 2010,
+              "harm": 131.39,
+              "lo": 19.0,
+              "hi": 290.0
+            },
+            {
+              "year": 2011,
+              "harm": 144.37,
+              "lo": 21.0,
+              "hi": 325.0
+            },
+            {
+              "year": 2012,
+              "harm": 69.0,
+              "lo": 6.0,
+              "hi": 180.0
+            },
+            {
+              "year": 2013,
+              "harm": 159.0,
+              "lo": 36.0,
+              "hi": 354.0
+            },
+            {
+              "year": 2014,
+              "harm": 53.0,
+              "lo": 6.0,
+              "hi": 135.0
+            },
+            {
+              "year": 2015,
+              "harm": 153.0,
+              "lo": 36.0,
+              "hi": 338.0
+            },
+            {
+              "year": 2016,
+              "harm": 58.0,
+              "lo": 5.0,
+              "hi": 151.0
+            },
+            {
+              "year": 2017,
+              "harm": 104.0,
+              "lo": 18.0,
+              "hi": 246.0
+            },
+            {
+              "year": 2018,
+              "harm": 256.83,
+              "lo": 89.0,
+              "hi": 506.0
+            },
+            {
+              "year": 2019,
+              "harm": 101.25,
+              "lo": 12.0,
+              "hi": 255.0
+            },
+            {
+              "year": 2020,
+              "harm": 1118.49,
+              "lo": 654.0,
+              "hi": 1683.0
+            },
+            {
+              "year": 2021,
+              "harm": 496.61,
+              "lo": 237.0,
+              "hi": 845.0
+            },
+            {
+              "year": 2022,
+              "harm": 882.98,
+              "lo": 500.0,
+              "hi": 1379.0
+            },
+            {
+              "year": 2023,
+              "harm": 202.7,
+              "lo": 49.0,
+              "hi": 443.0
+            },
+            {
+              "year": 2024,
+              "harm": 174.64,
+              "lo": 36.0,
+              "hi": 391.0
+            },
+            {
+              "year": 2025,
+              "harm": 158.41,
+              "lo": 35.0,
+              "hi": 349.0
+            }
+          ],
+          "excludedYears": [],
+          "median": 174.64,
+          "slope": -8.0,
+          "pctPerYear": -4.580852038479157,
+          "rangePct": [
+            -7.5393189799969464,
+            -1.0497785921514735
+          ],
+          "verdict": "falling",
+          "modisSlope": null,
+          "modisOpposite": false
+        }
+      ]
+    },
+    "cerrado": {
+      "claims": [
+        {
+          "months": [
+            10,
+            11
+          ],
+          "a": 2021,
+          "b": 2025,
+          "platforms": [
+            {
+              "platform": "T",
+              "status": "ok",
+              "sumA": 1914.0,
+              "sumB": 2724.0,
+              "ratio": 1.4231974921630095,
+              "changePct": 42.31974921630095
+            },
+            {
+              "platform": "A",
+              "status": "ok",
+              "sumA": 4154.0,
+              "sumB": 7736.0,
+              "ratio": 1.8623013962445836,
+              "changePct": 86.23013962445836
+            },
+            {
+              "platform": "N",
+              "status": "ok",
+              "sumA": 17714.0,
+              "sumB": 22650.0,
+              "ratio": 1.2786496556396072,
+              "changePct": 27.86496556396072
+            },
+            {
+              "platform": "J1",
+              "status": "ok",
+              "sumA": 17080.0,
+              "sumB": 22290.0,
+              "ratio": 1.3050351288056206,
+              "changePct": 30.503512880562056
+            },
+            {
+              "platform": "J2",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            }
+          ],
+          "harmonized": {
+            "status": "ok",
+            "sumA": 17412.74,
+            "sumB": 22580.16,
+            "loA": 10189.0,
+            "hiA": 25831.0,
+            "loB": 13624.0,
+            "hiB": 32706.0,
+            "ratio": 1.2967608773805845,
+            "range": [
+              0.5274282838449924,
+              3.2099322799097068
+            ],
+            "changePct": 29.676087738058456,
+            "rangePct": [
+              -47.25717161550076,
+              220.99322799097067
+            ]
+          },
+          "convertedMonths": 0,
+          "convertedShare": 0.0,
+          "selectedMonthCount": 4,
+          "timingStatus": "available",
+          "timing": {
+            "year": 2025,
+            "badge": "clock_sensitive",
+            "drivers": [
+              "A"
+            ],
+            "bend": 6.208249601875404,
+            "tests": [
+              {
+                "platform": "T",
+                "testable": true,
+                "delta": -0.1515150652125472,
+                "sigma": 0.08736918753347482,
+                "threshold": 0.17473837506694964,
+                "count": 5891.0,
+                "reference": 42154.0,
+                "cells": 64,
+                "reason": "Enough observations"
+              },
+              {
+                "platform": "A",
+                "testable": true,
+                "delta": 0.16997237072940496,
+                "sigma": 0.06772860368555202,
+                "threshold": 0.15,
+                "count": 13912.0,
+                "reference": 42154.0,
+                "cells": 64,
+                "reason": "Enough observations"
+              }
+            ],
+            "look": {
+              "T": 9.184999999999999,
+              "A": 14.96,
+              "N": 13.64,
+              "J1": 13.535,
+              "J2": null
+            },
+            "baselineLook": {
+              "T": 10.45,
+              "A": 13.66,
+              "N": 13.6,
+              "J1": 13.56,
+              "J2": null
+            },
+            "clockCells": 64
+          },
+          "outages": [
+            {
+              "platform": "N",
+              "month": "2025-11",
+              "missing_days": [
+                "2025-11-12"
+              ],
+              "masked": false
+            }
+          ]
+        },
+        {
+          "months": [
+            10,
+            11
+          ],
+          "a": 2011,
+          "b": 2012,
+          "platforms": [
+            {
+              "platform": "T",
+              "status": "ok",
+              "sumA": 1682.0,
+              "sumB": 4280.0,
+              "ratio": 2.544589774078478,
+              "changePct": 154.45897740784778
+            },
+            {
+              "platform": "A",
+              "status": "ok",
+              "sumA": 4893.0,
+              "sumB": 7349.0,
+              "ratio": 1.5019415491518495,
+              "changePct": 50.19415491518495
+            },
+            {
+              "platform": "N",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": 30642.0,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "J1",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "J2",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            }
+          ],
+          "harmonized": {
+            "status": "ok",
+            "sumA": 19204.71,
+            "sumB": 30642.0,
+            "loA": 11266.0,
+            "hiA": 28251.0,
+            "loB": 21213.0,
+            "hiB": 41304.0,
+            "ratio": 1.5955460925991594,
+            "range": [
+              0.7508760751831793,
+              3.6662524409728388
+            ],
+            "changePct": 59.554609259915935,
+            "rangePct": [
+              -24.912392481682065,
+              266.6252440972839
+            ]
+          },
+          "convertedMonths": 2,
+          "convertedShare": 0.5,
+          "selectedMonthCount": 4,
+          "timingStatus": "before_2021",
+          "timing": null,
+          "outages": []
+        },
+        {
+          "months": [
+            11
+          ],
+          "a": 2021,
+          "b": 2024,
+          "platforms": [
+            {
+              "platform": "T",
+              "status": "ok",
+              "sumA": 251.0,
+              "sumB": 603.0,
+              "ratio": 2.402390438247012,
+              "changePct": 140.2390438247012
+            },
+            {
+              "platform": "A",
+              "status": "ok",
+              "sumA": 596.0,
+              "sumB": 1670.0,
+              "ratio": 2.802013422818792,
+              "changePct": 180.2013422818792
+            },
+            {
+              "platform": "N",
+              "status": "ok",
+              "sumA": 3027.0,
+              "sumB": 4560.0,
+              "ratio": 1.5064420218037662,
+              "changePct": 50.64420218037662
+            },
+            {
+              "platform": "J1",
+              "status": "ok",
+              "sumA": 3186.0,
+              "sumB": 5770.0,
+              "ratio": 1.8110483364720653,
+              "changePct": 81.10483364720653
+            },
+            {
+              "platform": "J2",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            }
+          ],
+          "harmonized": {
+            "status": "ok",
+            "sumA": 3098.6,
+            "sumB": 5502.28,
+            "loA": 1228.0,
+            "hiA": 5568.0,
+            "loB": 2627.0,
+            "hiB": 8991.0,
+            "ratio": 1.7757309752791584,
+            "range": [
+              0.4718031609195402,
+              7.321661237785016
+            ],
+            "changePct": 77.57309752791583,
+            "rangePct": [
+              -52.81968390804598,
+              632.1661237785016
+            ]
+          },
+          "convertedMonths": 0,
+          "convertedShare": 0.0,
+          "selectedMonthCount": 2,
+          "timingStatus": "available",
+          "timing": {
+            "year": 2024,
+            "badge": "clock_sensitive",
+            "drivers": [
+              "A"
+            ],
+            "bend": 10.515510896501311,
+            "tests": [
+              {
+                "platform": "T",
+                "testable": true,
+                "delta": -0.03821580054647211,
+                "sigma": 0.08736918753347482,
+                "threshold": 0.17473837506694964,
+                "count": 6298.0,
+                "reference": 40239.0,
+                "cells": 64,
+                "reason": "Enough observations"
+              },
+              {
+                "platform": "A",
+                "testable": true,
+                "delta": 0.1768764667620677,
+                "sigma": 0.06772860368555202,
+                "threshold": 0.15,
+                "count": 13372.0,
+                "reference": 40239.0,
+                "cells": 64,
+                "reason": "Enough observations"
+              }
+            ],
+            "look": {
+              "T": 9.65,
+              "A": 14.37,
+              "N": 13.58,
+              "J1": 13.504999999999999,
+              "J2": null
+            },
+            "baselineLook": {
+              "T": 10.45,
+              "A": 13.66,
+              "N": 13.6,
+              "J1": 13.56,
+              "J2": null
+            },
+            "clockCells": 64
+          },
+          "outages": [
+            {
+              "platform": "N",
+              "month": "2024-11",
+              "missing_days": [
+                "2024-11-03",
+                "2024-11-04",
+                "2024-11-05",
+                "2024-11-06"
+              ],
+              "masked": false
+            }
+          ]
+        }
+      ],
+      "trends": [
+        {
+          "status": "ok",
+          "months": [
+            10,
+            11
+          ],
+          "start": 2012,
+          "end": 2025,
+          "years": [
+            {
+              "year": 2012,
+              "harm": 30642.0,
+              "lo": 21213.0,
+              "hi": 41304.0
+            },
+            {
+              "year": 2013,
+              "harm": 22925.0,
+              "lo": 14277.0,
+              "hi": 32882.0
+            },
+            {
+              "year": 2014,
+              "harm": 27365.0,
+              "lo": 17770.0,
+              "hi": 38290.0
+            },
+            {
+              "year": 2015,
+              "harm": 39112.0,
+              "lo": 27219.0,
+              "hi": 52293.0
+            },
+            {
+              "year": 2016,
+              "harm": 28140.0,
+              "lo": 18216.0,
+              "hi": 39396.0
+            },
+            {
+              "year": 2017,
+              "harm": 25794.0,
+              "lo": 16476.0,
+              "hi": 36445.0
+            },
+            {
+              "year": 2018,
+              "harm": 18839.77,
+              "lo": 10972.0,
+              "hi": 27934.0
+            },
+            {
+              "year": 2019,
+              "harm": 24699.48,
+              "lo": 15281.0,
+              "hi": 35347.0
+            },
+            {
+              "year": 2020,
+              "harm": 25056.33,
+              "lo": 15573.0,
+              "hi": 35788.0
+            },
+            {
+              "year": 2021,
+              "harm": 17412.74,
+              "lo": 10189.0,
+              "hi": 25831.0
+            },
+            {
+              "year": 2022,
+              "harm": 26930.95,
+              "lo": 17709.0,
+              "hi": 37343.0
+            },
+            {
+              "year": 2023,
+              "harm": 24758.24,
+              "lo": 15193.0,
+              "hi": 35549.0
+            },
+            {
+              "year": 2024,
+              "harm": 17805.78,
+              "lo": 10052.0,
+              "hi": 26799.0
+            },
+            {
+              "year": 2025,
+              "harm": 22580.16,
+              "lo": 13624.0,
+              "hi": 32706.0
+            }
+          ],
+          "excludedYears": [],
+          "median": 24907.285000000003,
+          "slope": -534.8872727272726,
+          "pctPerYear": -2.1475133589521,
+          "rangePct": [
+            -2.469157116080696,
+            -2.0484859037113927
+          ],
+          "verdict": "falling",
+          "modisSlope": null,
+          "modisOpposite": false
+        },
+        {
+          "status": "ok",
+          "months": [
+            10,
+            11
+          ],
+          "start": 2003,
+          "end": 2025,
+          "years": [
+            {
+              "year": 2003,
+              "harm": 23318.46,
+              "lo": 14309.0,
+              "hi": 33535.0
+            },
+            {
+              "year": 2004,
+              "harm": 31681.88,
+              "lo": 19671.0,
+              "hi": 45299.0
+            },
+            {
+              "year": 2005,
+              "harm": 43925.01,
+              "lo": 29171.0,
+              "hi": 60444.0
+            },
+            {
+              "year": 2006,
+              "harm": 25519.89,
+              "lo": 15601.0,
+              "hi": 36765.0
+            },
+            {
+              "year": 2007,
+              "harm": 44068.56,
+              "lo": 28923.0,
+              "hi": 61081.0
+            },
+            {
+              "year": 2008,
+              "harm": 40134.49,
+              "lo": 26292.0,
+              "hi": 55722.0
+            },
+            {
+              "year": 2009,
+              "harm": 19516.25,
+              "lo": 11281.0,
+              "hi": 28932.0
+            },
+            {
+              "year": 2010,
+              "harm": 32392.96,
+              "lo": 20297.0,
+              "hi": 46104.0
+            },
+            {
+              "year": 2011,
+              "harm": 19204.71,
+              "lo": 11266.0,
+              "hi": 28251.0
+            },
+            {
+              "year": 2012,
+              "harm": 30642.0,
+              "lo": 21213.0,
+              "hi": 41304.0
+            },
+            {
+              "year": 2013,
+              "harm": 22925.0,
+              "lo": 14277.0,
+              "hi": 32882.0
+            },
+            {
+              "year": 2014,
+              "harm": 27365.0,
+              "lo": 17770.0,
+              "hi": 38290.0
+            },
+            {
+              "year": 2015,
+              "harm": 39112.0,
+              "lo": 27219.0,
+              "hi": 52293.0
+            },
+            {
+              "year": 2016,
+              "harm": 28140.0,
+              "lo": 18216.0,
+              "hi": 39396.0
+            },
+            {
+              "year": 2017,
+              "harm": 25794.0,
+              "lo": 16476.0,
+              "hi": 36445.0
+            },
+            {
+              "year": 2018,
+              "harm": 18839.77,
+              "lo": 10972.0,
+              "hi": 27934.0
+            },
+            {
+              "year": 2019,
+              "harm": 24699.48,
+              "lo": 15281.0,
+              "hi": 35347.0
+            },
+            {
+              "year": 2020,
+              "harm": 25056.33,
+              "lo": 15573.0,
+              "hi": 35788.0
+            },
+            {
+              "year": 2021,
+              "harm": 17412.74,
+              "lo": 10189.0,
+              "hi": 25831.0
+            },
+            {
+              "year": 2022,
+              "harm": 26930.95,
+              "lo": 17709.0,
+              "hi": 37343.0
+            },
+            {
+              "year": 2023,
+              "harm": 24758.24,
+              "lo": 15193.0,
+              "hi": 35549.0
+            },
+            {
+              "year": 2024,
+              "harm": 17805.78,
+              "lo": 10052.0,
+              "hi": 26799.0
+            },
+            {
+              "year": 2025,
+              "harm": 22580.16,
+              "lo": 13624.0,
+              "hi": 32706.0
+            }
+          ],
+          "excludedYears": [],
+          "median": 25519.89,
+          "slope": -495.2340000000004,
+          "pctPerYear": -1.9405804648844505,
+          "rangePct": [
+            -2.5881773001372657,
+            -1.434828546152302
+          ],
+          "verdict": "falling",
+          "modisSlope": null,
+          "modisOpposite": false
+        }
+      ]
+    },
+    "africa": {
+      "claims": [
+        {
+          "months": [
+            10,
+            11
+          ],
+          "a": 2021,
+          "b": 2025,
+          "platforms": [
+            {
+              "platform": "T",
+              "status": "ok",
+              "sumA": 5994.0,
+              "sumB": 2219.0,
+              "ratio": 0.3702035368702035,
+              "changePct": -62.97964631297965
+            },
+            {
+              "platform": "A",
+              "status": "ok",
+              "sumA": 13395.0,
+              "sumB": 9882.0,
+              "ratio": 0.7377379619260919,
+              "changePct": -26.226203807390814
+            },
+            {
+              "platform": "N",
+              "status": "ok",
+              "sumA": 40874.0,
+              "sumB": 35639.0,
+              "ratio": 0.8719234721338749,
+              "changePct": -12.807652786612511
+            },
+            {
+              "platform": "J1",
+              "status": "ok",
+              "sumA": 40164.0,
+              "sumB": 37468.0,
+              "ratio": 0.9328752116323076,
+              "changePct": -6.712478836769242
+            },
+            {
+              "platform": "J2",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            }
+          ],
+          "harmonized": {
+            "status": "ok",
+            "sumA": 39989.66,
+            "sumB": 36619.66,
+            "loA": 30851.0,
+            "hiA": 49981.0,
+            "loB": 28193.0,
+            "hiB": 45872.0,
+            "ratio": 0.9157282157437697,
+            "range": [
+              0.5640743482523359,
+              1.4868885935626073
+            ],
+            "changePct": -8.427178425623028,
+            "rangePct": [
+              -43.592565174766406,
+              48.68885935626073
+            ]
+          },
+          "convertedMonths": 0,
+          "convertedShare": 0.0,
+          "selectedMonthCount": 4,
+          "timingStatus": "available",
+          "timing": {
+            "year": 2025,
+            "badge": "clock_sensitive",
+            "drivers": [
+              "T"
+            ],
+            "bend": -22.54656126065703,
+            "tests": [
+              {
+                "platform": "T",
+                "testable": true,
+                "delta": -0.6030914015289233,
+                "sigma": 0.04650108223614172,
+                "threshold": 0.15,
+                "count": 19585.0,
+                "reference": 194627.0,
+                "cells": 60,
+                "reason": "Enough observations"
+              },
+              {
+                "platform": "A",
+                "testable": true,
+                "delta": -0.10738303269818017,
+                "sigma": 0.016647557094121957,
+                "threshold": 0.15,
+                "count": 59403.0,
+                "reference": 194627.0,
+                "cells": 60,
+                "reason": "Enough observations"
+              }
+            ],
+            "look": {
+              "T": 9.57,
+              "A": 14.594999999999999,
+              "N": 13.4,
+              "J1": 13.34,
+              "J2": null
+            },
+            "baselineLook": {
+              "T": 10.62,
+              "A": 13.5,
+              "N": 13.37,
+              "J1": 13.35,
+              "J2": null
+            },
+            "clockCells": 60
+          },
+          "outages": [
+            {
+              "platform": "N",
+              "month": "2025-11",
+              "missing_days": [
+                "2025-11-12"
+              ],
+              "masked": false
+            }
+          ]
+        },
+        {
+          "months": [
+            10,
+            11
+          ],
+          "a": 2011,
+          "b": 2012,
+          "platforms": [
+            {
+              "platform": "T",
+              "status": "ok",
+              "sumA": 6446.0,
+              "sumB": 5851.0,
+              "ratio": 0.9076946943841142,
+              "changePct": -9.23053056158858
+            },
+            {
+              "platform": "A",
+              "status": "ok",
+              "sumA": 13681.0,
+              "sumB": 12000.0,
+              "ratio": 0.8771288648490607,
+              "changePct": -12.287113515093928
+            },
+            {
+              "platform": "N",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": 33970.0,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "J1",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "J2",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            }
+          ],
+          "harmonized": {
+            "status": "ok",
+            "sumA": 40946.47,
+            "sumB": 33970.0,
+            "loA": 30598.0,
+            "hiA": 52208.0,
+            "loB": 25620.0,
+            "hiB": 43141.0,
+            "ratio": 0.8296197449987752,
+            "range": [
+              0.4907293901317806,
+              1.4099287535133016
+            ],
+            "changePct": -17.03802550012248,
+            "rangePct": [
+              -50.927060986821935,
+              40.99287535133016
+            ]
+          },
+          "convertedMonths": 2,
+          "convertedShare": 0.5,
+          "selectedMonthCount": 4,
+          "timingStatus": "before_2021",
+          "timing": null,
+          "outages": []
+        },
+        {
+          "months": [
+            11
+          ],
+          "a": 2021,
+          "b": 2024,
+          "platforms": [
+            {
+              "platform": "T",
+              "status": "ok",
+              "sumA": 5492.0,
+              "sumB": 2118.0,
+              "ratio": 0.3856518572469046,
+              "changePct": -61.43481427530955
+            },
+            {
+              "platform": "A",
+              "status": "ok",
+              "sumA": 11555.0,
+              "sumB": 8194.0,
+              "ratio": 0.7091302466464734,
+              "changePct": -29.086975335352662
+            },
+            {
+              "platform": "N",
+              "status": "ok",
+              "sumA": 33957.0,
+              "sumB": 23780.0,
+              "ratio": 0.7002974349913126,
+              "changePct": -29.970256500868743
+            },
+            {
+              "platform": "J1",
+              "status": "ok",
+              "sumA": 33606.0,
+              "sumB": 27741.0,
+              "ratio": 0.8254775932869131,
+              "changePct": -17.452240671308694
+            },
+            {
+              "platform": "J2",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            }
+          ],
+          "harmonized": {
+            "status": "ok",
+            "sumA": 33327.64,
+            "sumB": 27212.69,
+            "loA": 26151.0,
+            "hiA": 41038.0,
+            "loB": 20736.0,
+            "hiB": 34206.0,
+            "ratio": 0.8165201616436087,
+            "range": [
+              0.5052877820556557,
+              1.3080188138120914
+            ],
+            "changePct": -18.347983835639127,
+            "rangePct": [
+              -49.47122179443443,
+              30.80188138120914
+            ]
+          },
+          "convertedMonths": 0,
+          "convertedShare": 0.0,
+          "selectedMonthCount": 2,
+          "timingStatus": "available",
+          "timing": {
+            "year": 2024,
+            "badge": "clock_sensitive",
+            "drivers": [
+              "T"
+            ],
+            "bend": -10.640195190739998,
+            "tests": [
+              {
+                "platform": "T",
+                "testable": true,
+                "delta": -0.36132572305811617,
+                "sigma": 0.04650108223614172,
+                "threshold": 0.15,
+                "count": 25723.0,
+                "reference": 200726.0,
+                "cells": 60,
+                "reason": "Enough observations"
+              },
+              {
+                "platform": "A",
+                "testable": true,
+                "delta": 0.0007842415499967892,
+                "sigma": 0.016647557094121957,
+                "threshold": 0.15,
+                "count": 68263.0,
+                "reference": 200726.0,
+                "cells": 60,
+                "reason": "Enough observations"
+              }
+            ],
+            "look": {
+              "T": 9.93,
+              "A": 14.125,
+              "N": 13.34,
+              "J1": 13.34,
+              "J2": null
+            },
+            "baselineLook": {
+              "T": 10.62,
+              "A": 13.5,
+              "N": 13.37,
+              "J1": 13.35,
+              "J2": null
+            },
+            "clockCells": 60
+          },
+          "outages": [
+            {
+              "platform": "N",
+              "month": "2024-11",
+              "missing_days": [
+                "2024-11-03",
+                "2024-11-04",
+                "2024-11-05",
+                "2024-11-06"
+              ],
+              "masked": false
+            }
+          ]
+        }
+      ],
+      "trends": [
+        {
+          "status": "ok",
+          "months": [
+            10,
+            11
+          ],
+          "start": 2012,
+          "end": 2025,
+          "years": [
+            {
+              "year": 2012,
+              "harm": 33970.0,
+              "lo": 25620.0,
+              "hi": 43141.0
+            },
+            {
+              "year": 2013,
+              "harm": 41296.0,
+              "lo": 31781.0,
+              "hi": 51727.0
+            },
+            {
+              "year": 2014,
+              "harm": 42252.0,
+              "lo": 32496.0,
+              "hi": 52903.0
+            },
+            {
+              "year": 2015,
+              "harm": 42600.0,
+              "lo": 33058.0,
+              "hi": 53021.0
+            },
+            {
+              "year": 2016,
+              "harm": 48655.0,
+              "lo": 37756.0,
+              "hi": 60485.0
+            },
+            {
+              "year": 2017,
+              "harm": 42520.0,
+              "lo": 33023.0,
+              "hi": 52890.0
+            },
+            {
+              "year": 2018,
+              "harm": 53756.76,
+              "lo": 42114.0,
+              "hi": 66376.0
+            },
+            {
+              "year": 2019,
+              "harm": 31195.45,
+              "lo": 23429.0,
+              "hi": 39759.0
+            },
+            {
+              "year": 2020,
+              "harm": 39105.41,
+              "lo": 29825.0,
+              "hi": 49215.0
+            },
+            {
+              "year": 2021,
+              "harm": 39989.66,
+              "lo": 30851.0,
+              "hi": 49981.0
+            },
+            {
+              "year": 2022,
+              "harm": 42083.45,
+              "lo": 32334.0,
+              "hi": 52720.0
+            },
+            {
+              "year": 2023,
+              "harm": 20355.33,
+              "lo": 14320.0,
+              "hi": 27210.0
+            },
+            {
+              "year": 2024,
+              "harm": 30078.52,
+              "lo": 22500.0,
+              "hi": 38434.0
+            },
+            {
+              "year": 2025,
+              "harm": 36619.66,
+              "lo": 28193.0,
+              "hi": 45872.0
+            }
+          ],
+          "excludedYears": [],
+          "median": 40642.83,
+          "slope": -435.0566666666661,
+          "pctPerYear": -1.0704389105450236,
+          "rangePct": [
+            -1.246632349830626,
+            -0.803093682206677
+          ],
+          "verdict": "falling",
+          "modisSlope": null,
+          "modisOpposite": false
+        },
+        {
+          "status": "ok",
+          "months": [
+            10,
+            11
+          ],
+          "start": 2003,
+          "end": 2025,
+          "years": [
+            {
+              "year": 2003,
+              "harm": 36088.01,
+              "lo": 26261.0,
+              "hi": 46880.0
+            },
+            {
+              "year": 2004,
+              "harm": 41692.81,
+              "lo": 30867.0,
+              "hi": 53520.0
+            },
+            {
+              "year": 2005,
+              "harm": 60165.49,
+              "lo": 46033.0,
+              "hi": 75521.0
+            },
+            {
+              "year": 2006,
+              "harm": 47513.59,
+              "lo": 36030.0,
+              "hi": 60018.0
+            },
+            {
+              "year": 2007,
+              "harm": 38637.01,
+              "lo": 28674.0,
+              "hi": 49548.0
+            },
+            {
+              "year": 2008,
+              "harm": 69551.09,
+              "lo": 53093.0,
+              "hi": 87447.0
+            },
+            {
+              "year": 2009,
+              "harm": 39127.73,
+              "lo": 28878.0,
+              "hi": 50360.0
+            },
+            {
+              "year": 2010,
+              "harm": 26089.12,
+              "lo": 18600.0,
+              "hi": 34332.0
+            },
+            {
+              "year": 2011,
+              "harm": 40946.47,
+              "lo": 30598.0,
+              "hi": 52208.0
+            },
+            {
+              "year": 2012,
+              "harm": 33970.0,
+              "lo": 25620.0,
+              "hi": 43141.0
+            },
+            {
+              "year": 2013,
+              "harm": 41296.0,
+              "lo": 31781.0,
+              "hi": 51727.0
+            },
+            {
+              "year": 2014,
+              "harm": 42252.0,
+              "lo": 32496.0,
+              "hi": 52903.0
+            },
+            {
+              "year": 2015,
+              "harm": 42600.0,
+              "lo": 33058.0,
+              "hi": 53021.0
+            },
+            {
+              "year": 2016,
+              "harm": 48655.0,
+              "lo": 37756.0,
+              "hi": 60485.0
+            },
+            {
+              "year": 2017,
+              "harm": 42520.0,
+              "lo": 33023.0,
+              "hi": 52890.0
+            },
+            {
+              "year": 2018,
+              "harm": 53756.76,
+              "lo": 42114.0,
+              "hi": 66376.0
+            },
+            {
+              "year": 2019,
+              "harm": 31195.45,
+              "lo": 23429.0,
+              "hi": 39759.0
+            },
+            {
+              "year": 2020,
+              "harm": 39105.41,
+              "lo": 29825.0,
+              "hi": 49215.0
+            },
+            {
+              "year": 2021,
+              "harm": 39989.66,
+              "lo": 30851.0,
+              "hi": 49981.0
+            },
+            {
+              "year": 2022,
+              "harm": 42083.45,
+              "lo": 32334.0,
+              "hi": 52720.0
+            },
+            {
+              "year": 2023,
+              "harm": 20355.33,
+              "lo": 14320.0,
+              "hi": 27210.0
+            },
+            {
+              "year": 2024,
+              "harm": 30078.52,
+              "lo": 22500.0,
+              "hi": 38434.0
+            },
+            {
+              "year": 2025,
+              "harm": 36619.66,
+              "lo": 28193.0,
+              "hi": 45872.0
+            }
+          ],
+          "excludedYears": [],
+          "median": 40946.47,
+          "slope": -312.94142857142805,
+          "pctPerYear": -0.7642696148689448,
+          "rangePct": [
+            -1.0194494700729304,
+            -0.5641511954510364
+          ],
+          "verdict": "falling",
+          "modisSlope": null,
+          "modisOpposite": false
+        }
+      ]
+    },
+    "kalimantan": {
+      "claims": [
+        {
+          "months": [
+            10,
+            11
+          ],
+          "a": 2021,
+          "b": 2025,
+          "platforms": [
+            {
+              "platform": "T",
+              "status": "too_few",
+              "sumA": 9.0,
+              "sumB": 11.0,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "A",
+              "status": "ok",
+              "sumA": 441.0,
+              "sumB": 351.0,
+              "ratio": 0.7959183673469388,
+              "changePct": -20.408163265306122
+            },
+            {
+              "platform": "N",
+              "status": "ok",
+              "sumA": 1629.0,
+              "sumB": 1616.0,
+              "ratio": 0.9920196439533456,
+              "changePct": -0.7980356046654369
+            },
+            {
+              "platform": "J1",
+              "status": "ok",
+              "sumA": 1603.0,
+              "sumB": 1540.0,
+              "ratio": 0.9606986899563319,
+              "changePct": -3.9301310043668103
+            },
+            {
+              "platform": "J2",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            }
+          ],
+          "harmonized": {
+            "status": "ok",
+            "sumA": 1682.53,
+            "sumB": 1614.54,
+            "loA": 676.0,
+            "hiA": 3076.0,
+            "loB": 557.0,
+            "hiB": 3077.0,
+            "ratio": 0.9595906165120384,
+            "range": [
+              0.18107932379713915,
+              4.5517751479289945
+            ],
+            "changePct": -4.040938348796164,
+            "rangePct": [
+              -81.89206762028608,
+              355.17751479289944
+            ]
+          },
+          "convertedMonths": 0,
+          "convertedShare": 0.0,
+          "selectedMonthCount": 4,
+          "timingStatus": "available",
+          "timing": {
+            "year": 2025,
+            "badge": "clock_sensitive",
+            "drivers": [
+              "A"
+            ],
+            "bend": -33.7901220239901,
+            "tests": [
+              {
+                "platform": "T",
+                "testable": false,
+                "delta": -2.7490149880739763,
+                "sigma": 0.6137947193666758,
+                "threshold": 1.2275894387333517,
+                "count": 34.0,
+                "reference": 9857.0,
+                "cells": 35,
+                "reason": "Fewer than 50 Terra cell-days"
+              },
+              {
+                "platform": "A",
+                "testable": true,
+                "delta": -0.22970376038807006,
+                "sigma": 0.08919079248399339,
+                "threshold": 0.17838158496798678,
+                "count": 2348.0,
+                "reference": 9857.0,
+                "cells": 35,
+                "reason": "Enough observations"
+              }
+            ],
+            "look": {
+              "T": 9.3,
+              "A": 14.76,
+              "N": 13.63,
+              "J1": 13.56,
+              "J2": null
+            },
+            "baselineLook": {
+              "T": 10.55,
+              "A": 13.51,
+              "N": 13.55,
+              "J1": 13.52,
+              "J2": null
+            },
+            "clockCells": 35
+          },
+          "outages": [
+            {
+              "platform": "N",
+              "month": "2025-11",
+              "missing_days": [
+                "2025-11-12"
+              ],
+              "masked": false
+            }
+          ]
+        },
+        {
+          "months": [
+            10,
+            11
+          ],
+          "a": 2011,
+          "b": 2012,
+          "platforms": [
+            {
+              "platform": "T",
+              "status": "ok",
+              "sumA": 195.0,
+              "sumB": 427.0,
+              "ratio": 2.18974358974359,
+              "changePct": 118.97435897435899
+            },
+            {
+              "platform": "A",
+              "status": "ok",
+              "sumA": 730.0,
+              "sumB": 1726.0,
+              "ratio": 2.3643835616438356,
+              "changePct": 136.43835616438355
+            },
+            {
+              "platform": "N",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": 5943.0,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "J1",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "J2",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            }
+          ],
+          "harmonized": {
+            "status": "ok",
+            "sumA": 2420.68,
+            "sumB": 5943.0,
+            "loA": 1182.0,
+            "hiA": 3884.0,
+            "loB": 3742.0,
+            "hiB": 8529.0,
+            "ratio": 2.4550952624882267,
+            "range": [
+              0.9634397528321318,
+              7.215736040609137
+            ],
+            "changePct": 145.50952624882268,
+            "rangePct": [
+              -3.656024716786821,
+              621.5736040609137
+            ]
+          },
+          "convertedMonths": 2,
+          "convertedShare": 0.5,
+          "selectedMonthCount": 4,
+          "timingStatus": "before_2021",
+          "timing": null,
+          "outages": []
+        },
+        {
+          "months": [
+            11
+          ],
+          "a": 2021,
+          "b": 2024,
+          "platforms": [
+            {
+              "platform": "T",
+              "status": "too_few",
+              "sumA": 2.0,
+              "sumB": 7.0,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "A",
+              "status": "too_few",
+              "sumA": 27.0,
+              "sumB": 30.0,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "N",
+              "status": "ok",
+              "sumA": 158.0,
+              "sumB": 134.0,
+              "ratio": 0.8481012658227848,
+              "changePct": -15.189873417721522
+            },
+            {
+              "platform": "J1",
+              "status": "ok",
+              "sumA": 102.0,
+              "sumB": 154.0,
+              "ratio": 1.5098039215686274,
+              "changePct": 50.98039215686274
+            },
+            {
+              "platform": "J2",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            }
+          ],
+          "harmonized": {
+            "status": "ok",
+            "sumA": 127.77,
+            "sumB": 150.73,
+            "loA": 7.0,
+            "hiA": 383.0,
+            "loB": 12.0,
+            "hiB": 402.0,
+            "ratio": 1.1796978946544572,
+            "range": [
+              0.031331592689295036,
+              57.42857142857143
+            ],
+            "changePct": 17.969789465445718,
+            "rangePct": [
+              -96.8668407310705,
+              5642.857142857143
+            ]
+          },
+          "convertedMonths": 0,
+          "convertedShare": 0.0,
+          "selectedMonthCount": 2,
+          "timingStatus": "available",
+          "timing": {
+            "year": 2024,
+            "badge": "clock_sensitive",
+            "drivers": [
+              "T"
+            ],
+            "bend": -5.7117662086557335,
+            "tests": [
+              {
+                "platform": "T",
+                "testable": true,
+                "delta": -1.637135706622625,
+                "sigma": 0.6137947193666758,
+                "threshold": 1.2275894387333517,
+                "count": 99.0,
+                "reference": 9441.0,
+                "cells": 35,
+                "reason": "Enough observations"
+              },
+              {
+                "platform": "A",
+                "testable": true,
+                "delta": 0.10725474641654387,
+                "sigma": 0.08919079248399339,
+                "threshold": 0.17838158496798678,
+                "count": 3150.0,
+                "reference": 9441.0,
+                "cells": 35,
+                "reason": "Enough observations"
+              }
+            ],
+            "look": {
+              "T": 9.745000000000001,
+              "A": 14.21,
+              "N": 13.46,
+              "J1": 13.49,
+              "J2": null
+            },
+            "baselineLook": {
+              "T": 10.55,
+              "A": 13.51,
+              "N": 13.55,
+              "J1": 13.52,
+              "J2": null
+            },
+            "clockCells": 35
+          },
+          "outages": [
+            {
+              "platform": "N",
+              "month": "2024-11",
+              "missing_days": [
+                "2024-11-03",
+                "2024-11-04",
+                "2024-11-05",
+                "2024-11-06"
+              ],
+              "masked": false
+            }
+          ]
+        }
+      ],
+      "trends": [
+        {
+          "status": "ok",
+          "months": [
+            10,
+            11
+          ],
+          "start": 2012,
+          "end": 2025,
+          "years": [
+            {
+              "year": 2012,
+              "harm": 5943.0,
+              "lo": 3742.0,
+              "hi": 8529.0
+            },
+            {
+              "year": 2013,
+              "harm": 6384.0,
+              "lo": 3966.0,
+              "hi": 9227.0
+            },
+            {
+              "year": 2014,
+              "harm": 14831.0,
+              "lo": 10778.0,
+              "hi": 19352.0
+            },
+            {
+              "year": 2015,
+              "harm": 16410.0,
+              "lo": 12326.0,
+              "hi": 20970.0
+            },
+            {
+              "year": 2016,
+              "harm": 1767.0,
+              "lo": 722.0,
+              "hi": 3183.0
+            },
+            {
+              "year": 2017,
+              "harm": 1317.0,
+              "lo": 484.0,
+              "hi": 2476.0
+            },
+            {
+              "year": 2018,
+              "harm": 2080.94,
+              "lo": 952.0,
+              "hi": 3572.0
+            },
+            {
+              "year": 2019,
+              "harm": 5637.74,
+              "lo": 3340.0,
+              "hi": 8421.0
+            },
+            {
+              "year": 2020,
+              "harm": 2008.85,
+              "lo": 785.0,
+              "hi": 3634.0
+            },
+            {
+              "year": 2021,
+              "harm": 1682.53,
+              "lo": 676.0,
+              "hi": 3076.0
+            },
+            {
+              "year": 2022,
+              "harm": 463.22,
+              "lo": 53.0,
+              "hi": 1190.0
+            },
+            {
+              "year": 2023,
+              "harm": 5683.81,
+              "lo": 3479.0,
+              "hi": 8352.0
+            },
+            {
+              "year": 2024,
+              "harm": 1627.28,
+              "lo": 624.0,
+              "hi": 2968.0
+            },
+            {
+              "year": 2025,
+              "harm": 1614.54,
+              "lo": 557.0,
+              "hi": 3077.0
+            }
+          ],
+          "excludedYears": [],
+          "median": 2044.895,
+          "slope": -359.6433333333334,
+          "pctPerYear": -17.587374086852055,
+          "rangePct": [
+            -25.062411517461776,
+            -11.638739397377371
+          ],
+          "verdict": "falling",
+          "modisSlope": null,
+          "modisOpposite": false
+        },
+        {
+          "status": "ok",
+          "months": [
+            10,
+            11
+          ],
+          "start": 2003,
+          "end": 2025,
+          "years": [
+            {
+              "year": 2003,
+              "harm": 2116.81,
+              "lo": 1029.0,
+              "hi": 3413.0
+            },
+            {
+              "year": 2004,
+              "harm": 13488.05,
+              "lo": 9043.0,
+              "hi": 18568.0
+            },
+            {
+              "year": 2005,
+              "harm": 2927.23,
+              "lo": 1458.0,
+              "hi": 4656.0
+            },
+            {
+              "year": 2006,
+              "harm": 26081.87,
+              "lo": 18214.0,
+              "hi": 35109.0
+            },
+            {
+              "year": 2007,
+              "harm": 4268.52,
+              "lo": 2167.0,
+              "hi": 6742.0
+            },
+            {
+              "year": 2008,
+              "harm": 2156.57,
+              "lo": 1009.0,
+              "hi": 3495.0
+            },
+            {
+              "year": 2009,
+              "harm": 3837.59,
+              "lo": 1947.0,
+              "hi": 6073.0
+            },
+            {
+              "year": 2010,
+              "harm": 2499.43,
+              "lo": 1307.0,
+              "hi": 3905.0
+            },
+            {
+              "year": 2011,
+              "harm": 2420.68,
+              "lo": 1182.0,
+              "hi": 3884.0
+            },
+            {
+              "year": 2012,
+              "harm": 5943.0,
+              "lo": 3742.0,
+              "hi": 8529.0
+            },
+            {
+              "year": 2013,
+              "harm": 6384.0,
+              "lo": 3966.0,
+              "hi": 9227.0
+            },
+            {
+              "year": 2014,
+              "harm": 14831.0,
+              "lo": 10778.0,
+              "hi": 19352.0
+            },
+            {
+              "year": 2015,
+              "harm": 16410.0,
+              "lo": 12326.0,
+              "hi": 20970.0
+            },
+            {
+              "year": 2016,
+              "harm": 1767.0,
+              "lo": 722.0,
+              "hi": 3183.0
+            },
+            {
+              "year": 2017,
+              "harm": 1317.0,
+              "lo": 484.0,
+              "hi": 2476.0
+            },
+            {
+              "year": 2018,
+              "harm": 2080.94,
+              "lo": 952.0,
+              "hi": 3572.0
+            },
+            {
+              "year": 2019,
+              "harm": 5637.74,
+              "lo": 3340.0,
+              "hi": 8421.0
+            },
+            {
+              "year": 2020,
+              "harm": 2008.85,
+              "lo": 785.0,
+              "hi": 3634.0
+            },
+            {
+              "year": 2021,
+              "harm": 1682.53,
+              "lo": 676.0,
+              "hi": 3076.0
+            },
+            {
+              "year": 2022,
+              "harm": 463.22,
+              "lo": 53.0,
+              "hi": 1190.0
+            },
+            {
+              "year": 2023,
+              "harm": 5683.81,
+              "lo": 3479.0,
+              "hi": 8352.0
+            },
+            {
+              "year": 2024,
+              "harm": 1627.28,
+              "lo": 624.0,
+              "hi": 2968.0
+            },
+            {
+              "year": 2025,
+              "harm": 1614.54,
+              "lo": 557.0,
+              "hi": 3077.0
+            }
+          ],
+          "excludedYears": [],
+          "median": 2499.43,
+          "slope": -84.42500000000003,
+          "pctPerYear": -3.3777701315900037,
+          "rangePct": [
+            -4.529921711039006,
+            -2.297666725156193
+          ],
+          "verdict": "falling",
+          "modisSlope": null,
+          "modisOpposite": false
+        }
+      ]
+    },
+    "california": {
+      "claims": [
+        {
+          "months": [
+            10,
+            11
+          ],
+          "a": 2021,
+          "b": 2025,
+          "platforms": [
+            {
+              "platform": "T",
+              "status": "ok",
+              "sumA": 358.0,
+              "sumB": 153.0,
+              "ratio": 0.4273743016759777,
+              "changePct": -57.262569832402235
+            },
+            {
+              "platform": "A",
+              "status": "ok",
+              "sumA": 390.0,
+              "sumB": 279.0,
+              "ratio": 0.7153846153846154,
+              "changePct": -28.46153846153846
+            },
+            {
+              "platform": "N",
+              "status": "ok",
+              "sumA": 957.0,
+              "sumB": 891.0,
+              "ratio": 0.9310344827586207,
+              "changePct": -6.896551724137934
+            },
+            {
+              "platform": "J1",
+              "status": "ok",
+              "sumA": 992.0,
+              "sumB": 984.0,
+              "ratio": 0.9919354838709677,
+              "changePct": -0.8064516129032251
+            },
+            {
+              "platform": "J2",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            }
+          ],
+          "harmonized": {
+            "status": "ok",
+            "sumA": 965.99,
+            "sumB": 936.99,
+            "loA": 364.0,
+            "hiA": 1869.0,
+            "loB": 244.0,
+            "hiB": 1967.0,
+            "ratio": 0.9699789852897028,
+            "range": [
+              0.13055109684323168,
+              5.403846153846154
+            ],
+            "changePct": -3.0021014710297167,
+            "rangePct": [
+              -86.94489031567683,
+              440.3846153846154
+            ]
+          },
+          "convertedMonths": 0,
+          "convertedShare": 0.0,
+          "selectedMonthCount": 4,
+          "timingStatus": "available",
+          "timing": {
+            "year": 2025,
+            "badge": "clock_sensitive",
+            "drivers": [
+              "T",
+              "A"
+            ],
+            "bend": -31.91925387649527,
+            "tests": [
+              {
+                "platform": "T",
+                "testable": true,
+                "delta": -0.5054546350654869,
+                "sigma": 0.11405524427909952,
+                "threshold": 0.22811048855819904,
+                "count": 337.0,
+                "reference": 1415.0,
+                "cells": 49,
+                "reason": "Enough observations"
+              },
+              {
+                "platform": "A",
+                "testable": true,
+                "delta": -0.2816418321234221,
+                "sigma": 0.10688307718723139,
+                "threshold": 0.21376615437446278,
+                "count": 494.0,
+                "reference": 1415.0,
+                "cells": 49,
+                "reason": "Enough observations"
+              }
+            ],
+            "look": {
+              "T": 9.879999999999999,
+              "A": 14.325,
+              "N": 12.925,
+              "J1": 12.94,
+              "J2": null
+            },
+            "baselineLook": {
+              "T": 11.01,
+              "A": 13.15,
+              "N": 12.94,
+              "J1": 12.92,
+              "J2": null
+            },
+            "clockCells": 49
+          },
+          "outages": [
+            {
+              "platform": "N",
+              "month": "2025-11",
+              "missing_days": [
+                "2025-11-12"
+              ],
+              "masked": false
+            }
+          ]
+        },
+        {
+          "months": [
+            10,
+            11
+          ],
+          "a": 2011,
+          "b": 2012,
+          "platforms": [
+            {
+              "platform": "T",
+              "status": "ok",
+              "sumA": 273.0,
+              "sumB": 147.0,
+              "ratio": 0.5384615384615384,
+              "changePct": -46.15384615384615
+            },
+            {
+              "platform": "A",
+              "status": "ok",
+              "sumA": 459.0,
+              "sumB": 238.0,
+              "ratio": 0.5185185185185185,
+              "changePct": -48.14814814814815
+            },
+            {
+              "platform": "N",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": 667.0,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "J1",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            },
+            {
+              "platform": "J2",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            }
+          ],
+          "harmonized": {
+            "status": "ok",
+            "sumA": 977.76,
+            "sumB": 667.0,
+            "loA": 330.0,
+            "hiA": 1801.0,
+            "loB": 212.0,
+            "hiB": 1345.0,
+            "ratio": 0.6821714940271641,
+            "range": [
+              0.11771238200999445,
+              4.075757575757576
+            ],
+            "changePct": -31.782850597283584,
+            "rangePct": [
+              -88.22876179900055,
+              307.5757575757576
+            ]
+          },
+          "convertedMonths": 2,
+          "convertedShare": 0.5,
+          "selectedMonthCount": 4,
+          "timingStatus": "before_2021",
+          "timing": null,
+          "outages": []
+        },
+        {
+          "months": [
+            11
+          ],
+          "a": 2021,
+          "b": 2024,
+          "platforms": [
+            {
+              "platform": "T",
+              "status": "ok",
+              "sumA": 185.0,
+              "sumB": 105.0,
+              "ratio": 0.5675675675675675,
+              "changePct": -43.24324324324324
+            },
+            {
+              "platform": "A",
+              "status": "ok",
+              "sumA": 157.0,
+              "sumB": 240.0,
+              "ratio": 1.5286624203821657,
+              "changePct": 52.86624203821657
+            },
+            {
+              "platform": "N",
+              "status": "ok",
+              "sumA": 452.0,
+              "sumB": 481.0,
+              "ratio": 1.0641592920353982,
+              "changePct": 6.415929203539816
+            },
+            {
+              "platform": "J1",
+              "status": "ok",
+              "sumA": 473.0,
+              "sumB": 544.0,
+              "ratio": 1.150105708245243,
+              "changePct": 15.010570824524304
+            },
+            {
+              "platform": "J2",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            }
+          ],
+          "harmonized": {
+            "status": "ok",
+            "sumA": 458.64,
+            "sumB": 545.94,
+            "loA": 121.0,
+            "hiA": 969.0,
+            "loB": 171.0,
+            "hiB": 1083.0,
+            "ratio": 1.1903453689167975,
+            "range": [
+              0.17647058823529413,
+              8.950413223140496
+            ],
+            "changePct": 19.034536891679753,
+            "rangePct": [
+              -82.35294117647058,
+              795.0413223140496
+            ]
+          },
+          "convertedMonths": 0,
+          "convertedShare": 0.0,
+          "selectedMonthCount": 2,
+          "timingStatus": "available",
+          "timing": {
+            "year": 2024,
+            "badge": "clock_sensitive",
+            "drivers": [
+              "T",
+              "A"
+            ],
+            "bend": -27.18780518848719,
+            "tests": [
+              {
+                "platform": "T",
+                "testable": true,
+                "delta": -0.41438750204160546,
+                "sigma": 0.11405524427909952,
+                "threshold": 0.22811048855819904,
+                "count": 390.0,
+                "reference": 1495.0,
+                "cells": 49,
+                "reason": "Enough observations"
+              },
+              {
+                "platform": "A",
+                "testable": true,
+                "delta": -0.23107558354926294,
+                "sigma": 0.10688307718723139,
+                "threshold": 0.21376615437446278,
+                "count": 549.0,
+                "reference": 1495.0,
+                "cells": 49,
+                "reason": "Enough observations"
+              }
+            ],
+            "look": {
+              "T": 10.19,
+              "A": 13.8,
+              "N": 12.91,
+              "J1": 12.92,
+              "J2": null
+            },
+            "baselineLook": {
+              "T": 11.01,
+              "A": 13.15,
+              "N": 12.94,
+              "J1": 12.92,
+              "J2": null
+            },
+            "clockCells": 49
+          },
+          "outages": [
+            {
+              "platform": "N",
+              "month": "2024-11",
+              "missing_days": [
+                "2024-11-03",
+                "2024-11-04",
+                "2024-11-05",
+                "2024-11-06"
+              ],
+              "masked": false
+            }
+          ]
+        },
+        {
+          "months": [
+            8,
+            9
+          ],
+          "a": 2019,
+          "b": 2024,
+          "platforms": [
+            {
+              "platform": "T",
+              "status": "ok",
+              "sumA": 301.0,
+              "sumB": 288.0,
+              "ratio": 0.9568106312292359,
+              "changePct": -4.318936877076407
+            },
+            {
+              "platform": "A",
+              "status": "ok",
+              "sumA": 271.0,
+              "sumB": 308.0,
+              "ratio": 1.136531365313653,
+              "changePct": 13.653136531365305
+            },
+            {
+              "platform": "N",
+              "status": "ok",
+              "sumA": 769.0,
+              "sumB": 815.0,
+              "ratio": 1.0598179453836152,
+              "changePct": 5.981794538361518
+            },
+            {
+              "platform": "J1",
+              "status": "ok",
+              "sumA": 815.0,
+              "sumB": 789.0,
+              "ratio": 0.9680981595092024,
+              "changePct": -3.1901840490797584
+            },
+            {
+              "platform": "J2",
+              "status": "missing_months",
+              "sumA": null,
+              "sumB": null,
+              "ratio": null,
+              "changePct": null
+            }
+          ],
+          "harmonized": {
+            "status": "ok",
+            "sumA": 792.36,
+            "sumB": 817.45,
+            "loA": 301.0,
+            "hiA": 1537.0,
+            "loB": 351.0,
+            "hiB": 1470.0,
+            "ratio": 1.0316648997930233,
+            "range": [
+              0.2283669486011711,
+              4.883720930232558
+            ],
+            "changePct": 3.166489979302334,
+            "rangePct": [
+              -77.1633051398829,
+              388.3720930232558
+            ]
+          },
+          "convertedMonths": 0,
+          "convertedShare": 0.0,
+          "selectedMonthCount": 4,
+          "timingStatus": "available",
+          "timing": {
+            "year": 2024,
+            "badge": "clock_sensitive",
+            "drivers": [
+              "T",
+              "A"
+            ],
+            "bend": -27.18780518848719,
+            "tests": [
+              {
+                "platform": "T",
+                "testable": true,
+                "delta": -0.41438750204160546,
+                "sigma": 0.11405524427909952,
+                "threshold": 0.22811048855819904,
+                "count": 390.0,
+                "reference": 1495.0,
+                "cells": 49,
+                "reason": "Enough observations"
+              },
+              {
+                "platform": "A",
+                "testable": true,
+                "delta": -0.23107558354926294,
+                "sigma": 0.10688307718723139,
+                "threshold": 0.21376615437446278,
+                "count": 549.0,
+                "reference": 1495.0,
+                "cells": 49,
+                "reason": "Enough observations"
+              }
+            ],
+            "look": {
+              "T": 10.19,
+              "A": 13.8,
+              "N": 12.91,
+              "J1": 12.92,
+              "J2": null
+            },
+            "baselineLook": {
+              "T": 11.01,
+              "A": 13.15,
+              "N": 12.94,
+              "J1": 12.92,
+              "J2": null
+            },
+            "clockCells": 49
+          },
+          "outages": [
+            {
+              "platform": "N",
+              "month": "2024-09",
+              "missing_days": [
+                "2024-09-26",
+                "2024-09-27"
+              ],
+              "masked": false
+            }
+          ]
+        }
+      ],
+      "trends": [
+        {
+          "status": "ok",
+          "months": [
+            10,
+            11
+          ],
+          "start": 2012,
+          "end": 2025,
+          "years": [
+            {
+              "year": 2012,
+              "harm": 667.0,
+              "lo": 212.0,
+              "hi": 1345.0
+            },
+            {
+              "year": 2013,
+              "harm": 896.0,
+              "lo": 343.0,
+              "hi": 1699.0
+            },
+            {
+              "year": 2014,
+              "harm": 600.0,
+              "lo": 195.0,
+              "hi": 1209.0
+            },
+            {
+              "year": 2015,
+              "harm": 1120.0,
+              "lo": 439.0,
+              "hi": 2081.0
+            },
+            {
+              "year": 2016,
+              "harm": 1116.0,
+              "lo": 399.0,
+              "hi": 2116.0
+            },
+            {
+              "year": 2017,
+              "harm": 1587.0,
+              "lo": 722.0,
+              "hi": 2746.0
+            },
+            {
+              "year": 2018,
+              "harm": 1058.24,
+              "lo": 425.0,
+              "hi": 1970.0
+            },
+            {
+              "year": 2019,
+              "harm": 1147.38,
+              "lo": 470.0,
+              "hi": 2068.0
+            },
+            {
+              "year": 2020,
+              "harm": 2103.15,
+              "lo": 1295.0,
+              "hi": 3157.0
+            },
+            {
+              "year": 2021,
+              "harm": 965.99,
+              "lo": 364.0,
+              "hi": 1869.0
+            },
+            {
+              "year": 2022,
+              "harm": 865.07,
+              "lo": 291.0,
+              "hi": 1714.0
+            },
+            {
+              "year": 2023,
+              "harm": 1453.74,
+              "lo": 589.0,
+              "hi": 2667.0
+            },
+            {
+              "year": 2024,
+              "harm": 1135.96,
+              "lo": 437.0,
+              "hi": 2137.0
+            },
+            {
+              "year": 2025,
+              "harm": 936.99,
+              "lo": 244.0,
+              "hi": 1967.0
+            }
+          ],
+          "excludedYears": [],
+          "median": 1087.12,
+          "slope": 21.814545454545456,
+          "pctPerYear": 2.0066363837060726,
+          "rangePct": [
+            0.786063594217248,
+            4.401184215740106
+          ],
+          "verdict": "rising",
+          "modisSlope": null,
+          "modisOpposite": false
+        },
+        {
+          "status": "ok",
+          "months": [
+            10,
+            11
+          ],
+          "start": 2003,
+          "end": 2025,
+          "years": [
+            {
+              "year": 2003,
+              "harm": 1900.87,
+              "lo": 917.0,
+              "hi": 3099.0
+            },
+            {
+              "year": 2004,
+              "harm": 1011.05,
+              "lo": 356.0,
+              "hi": 1844.0
+            },
+            {
+              "year": 2005,
+              "harm": 1330.15,
+              "lo": 524.0,
+              "hi": 2340.0
+            },
+            {
+              "year": 2006,
+              "harm": 1195.37,
+              "lo": 467.0,
+              "hi": 2120.0
+            },
+            {
+              "year": 2007,
+              "harm": 1118.13,
+              "lo": 442.0,
+              "hi": 1964.0
+            },
+            {
+              "year": 2008,
+              "harm": 899.05,
+              "lo": 307.0,
+              "hi": 1650.0
+            },
+            {
+              "year": 2009,
+              "harm": 1168.69,
+              "lo": 424.0,
+              "hi": 2106.0
+            },
+            {
+              "year": 2010,
+              "harm": 621.33,
+              "lo": 169.0,
+              "hi": 1210.0
+            },
+            {
+              "year": 2011,
+              "harm": 977.76,
+              "lo": 330.0,
+              "hi": 1801.0
+            },
+            {
+              "year": 2012,
+              "harm": 667.0,
+              "lo": 212.0,
+              "hi": 1345.0
+            },
+            {
+              "year": 2013,
+              "harm": 896.0,
+              "lo": 343.0,
+              "hi": 1699.0
+            },
+            {
+              "year": 2014,
+              "harm": 600.0,
+              "lo": 195.0,
+              "hi": 1209.0
+            },
+            {
+              "year": 2015,
+              "harm": 1120.0,
+              "lo": 439.0,
+              "hi": 2081.0
+            },
+            {
+              "year": 2016,
+              "harm": 1116.0,
+              "lo": 399.0,
+              "hi": 2116.0
+            },
+            {
+              "year": 2017,
+              "harm": 1587.0,
+              "lo": 722.0,
+              "hi": 2746.0
+            },
+            {
+              "year": 2018,
+              "harm": 1058.24,
+              "lo": 425.0,
+              "hi": 1970.0
+            },
+            {
+              "year": 2019,
+              "harm": 1147.38,
+              "lo": 470.0,
+              "hi": 2068.0
+            },
+            {
+              "year": 2020,
+              "harm": 2103.15,
+              "lo": 1295.0,
+              "hi": 3157.0
+            },
+            {
+              "year": 2021,
+              "harm": 965.99,
+              "lo": 364.0,
+              "hi": 1869.0
+            },
+            {
+              "year": 2022,
+              "harm": 865.07,
+              "lo": 291.0,
+              "hi": 1714.0
+            },
+            {
+              "year": 2023,
+              "harm": 1453.74,
+              "lo": 589.0,
+              "hi": 2667.0
+            },
+            {
+              "year": 2024,
+              "harm": 1135.96,
+              "lo": 437.0,
+              "hi": 2137.0
+            },
+            {
+              "year": 2025,
+              "harm": 936.99,
+              "lo": 244.0,
+              "hi": 1967.0
+            }
+          ],
+          "excludedYears": [],
+          "median": 1116.0,
+          "slope": -2.912142857142856,
+          "pctPerYear": -0.2609447004608294,
+          "rangePct": [
+            -0.1294305057745918,
+            0.14934289127837516
+          ],
+          "verdict": "no_clear_trend",
+          "modisSlope": null,
+          "modisOpposite": false
+        },
+        {
+          "status": "ok",
+          "months": [
+            8,
+            9
+          ],
+          "start": 2012,
+          "end": 2025,
+          "years": [
+            {
+              "year": 2012,
+              "harm": 1440.0,
+              "lo": 853.0,
+              "hi": 2211.0
+            },
+            {
+              "year": 2013,
+              "harm": 1305.0,
+              "lo": 805.0,
+              "hi": 1974.0
+            },
+            {
+              "year": 2014,
+              "harm": 1108.0,
+              "lo": 664.0,
+              "hi": 1698.0
+            },
+            {
+              "year": 2015,
+              "harm": 1843.0,
+              "lo": 1262.0,
+              "hi": 2586.0
+            },
+            {
+              "year": 2016,
+              "harm": 1118.0,
+              "lo": 600.0,
+              "hi": 1816.0
+            },
+            {
+              "year": 2017,
+              "harm": 2129.0,
+              "lo": 1319.0,
+              "hi": 3171.0
+            },
+            {
+              "year": 2018,
+              "harm": 2198.41,
+              "lo": 1485.0,
+              "hi": 3128.0
+            },
+            {
+              "year": 2019,
+              "harm": 792.36,
+              "lo": 301.0,
+              "hi": 1537.0
+            },
+            {
+              "year": 2020,
+              "harm": 6265.01,
+              "lo": 4831.0,
+              "hi": 7943.0
+            },
+            {
+              "year": 2021,
+              "harm": 5060.9,
+              "lo": 3956.0,
+              "hi": 6374.0
+            },
+            {
+              "year": 2022,
+              "harm": 749.6,
+              "lo": 367.0,
+              "hi": 1300.0
+            },
+            {
+              "year": 2023,
+              "harm": 1341.07,
+              "lo": 773.0,
+              "hi": 2121.0
+            },
+            {
+              "year": 2024,
+              "harm": 817.45,
+              "lo": 351.0,
+              "hi": 1470.0
+            },
+            {
+              "year": 2025,
+              "harm": 777.99,
+              "lo": 340.0,
+              "hi": 1433.0
+            }
+          ],
+          "excludedYears": [],
+          "median": 1323.0349999999999,
+          "slope": -37.778888888888886,
+          "pctPerYear": -2.855471615557328,
+          "rangePct": [
+            -3.2501029829142847,
+            -2.365772636400398
+          ],
+          "verdict": "falling",
+          "modisSlope": -48.81818181818182,
+          "modisOpposite": false
+        }
+      ]
+    }
+  },
+  "curve": [
+    {
+      "shift": 0,
+      "hour": 13.55,
+      "curve": [
+        174,
+        2670,
+        5918,
+        10164,
+        10795,
+        8461,
+        1179
+      ],
+      "ratio": 1.0
+    },
+    {
+      "shift": 0.2,
+      "hour": 13.55,
+      "curve": [
+        0,
+        2170.800000000002,
+        5268.400000000002,
+        9314.800000000003,
+        10668.800000000001,
+        8927.8,
+        2635.399999999995
+      ],
+      "ratio": 0.8542321156090124
+    },
+    {
+      "shift": 0.5,
+      "hour": 13.55,
+      "curve": [
+        0,
+        1422.0,
+        4294.0,
+        8041.0,
+        10479.5,
+        9628.0,
+        4820.0
+      ],
+      "ratio": 0.6355802890225296
+    },
+    {
+      "shift": 1,
+      "hour": 13.55,
+      "curve": [
+        0,
+        174,
+        2670,
+        5918,
+        10164,
+        10795,
+        8461
+      ],
+      "ratio": 0.3470963109236157
+    },
+    {
+      "shift": 1.5,
+      "hour": 13.55,
+      "curve": [
+        0,
+        0,
+        1422.0,
+        4294.0,
+        8041.0,
+        10479.5,
+        9628.0
+      ],
+      "ratio": 0.06704963647787487
+    },
+    {
+      "shift": 2,
+      "hour": 13.55,
+      "curve": [
+        0,
+        0,
+        174,
+        2670,
+        5918,
+        10164,
+        10795
+      ],
+      "ratio": 0.0
+    },
+    {
+      "shift": 2.5,
+      "hour": 13.55,
+      "curve": [
+        0,
+        0,
+        0,
+        1422.0,
+        4294.0,
+        8041.0,
+        10479.5
+      ],
+      "ratio": 0.0
+    },
+    {
+      "shift": 3,
+      "hour": 13.55,
+      "curve": [
+        0,
+        0,
+        0,
+        174,
+        2670,
+        5918,
+        10164
+      ],
+      "ratio": 0.0
+    }
+  ],
+  "edges": {
+    "empty": {
+      "box": [
+        0,
+        -140,
+        0.25,
+        -139.75
+      ],
+      "cellCount": 0,
+      "claim": {
+        "months": [
+          10,
+          11
+        ],
+        "a": 2021,
+        "b": 2025,
+        "platforms": [
+          {
+            "platform": "T",
+            "status": "missing_months",
+            "sumA": null,
+            "sumB": null,
+            "ratio": null,
+            "changePct": null
+          },
+          {
+            "platform": "A",
+            "status": "missing_months",
+            "sumA": null,
+            "sumB": null,
+            "ratio": null,
+            "changePct": null
+          },
+          {
+            "platform": "N",
+            "status": "missing_months",
+            "sumA": null,
+            "sumB": null,
+            "ratio": null,
+            "changePct": null
+          },
+          {
+            "platform": "J1",
+            "status": "missing_months",
+            "sumA": null,
+            "sumB": null,
+            "ratio": null,
+            "changePct": null
+          },
+          {
+            "platform": "J2",
+            "status": "missing_months",
+            "sumA": null,
+            "sumB": null,
+            "ratio": null,
+            "changePct": null
+          }
+        ],
+        "harmonized": {
+          "status": "missing_months",
+          "sumA": null,
+          "sumB": null,
+          "loA": null,
+          "hiA": null,
+          "loB": null,
+          "hiB": null,
+          "ratio": null,
+          "range": null,
+          "changePct": null,
+          "rangePct": null
+        },
+        "convertedMonths": 0,
+        "convertedShare": 0.0,
+        "selectedMonthCount": 4,
+        "timingStatus": "missing",
+        "timing": null,
+        "outages": [
+          {
+            "platform": "N",
+            "month": "2025-11",
+            "missing_days": [
+              "2025-11-12"
+            ],
+            "masked": false
+          }
+        ]
+      },
+      "earlyMonth": {
+        "month": "2000-11",
+        "raw": {
+          "T": null,
+          "A": null,
+          "N": null,
+          "J1": null,
+          "J2": null
+        },
+        "harm": null,
+        "lo": null,
+        "hi": null,
+        "src": "X",
+        "satellites": [],
+        "median": null,
+        "p25": null,
+        "p75": null,
+        "anomaly": "missing"
+      }
+    },
+    "single_cell": {
+      "box": [
+        30.25,
+        75.5,
+        30.5,
+        75.75
+      ],
+      "cellCount": 1,
+      "claim": {
+        "months": [
+          10,
+          11
+        ],
+        "a": 2021,
+        "b": 2025,
+        "platforms": [
+          {
+            "platform": "T",
+            "status": "too_few",
+            "sumA": 34.0,
+            "sumB": 0.0,
+            "ratio": null,
+            "changePct": null
+          },
+          {
+            "platform": "A",
+            "status": "too_few",
+            "sumA": 209.0,
+            "sumB": 36.0,
+            "ratio": null,
+            "changePct": null
+          },
+          {
+            "platform": "N",
+            "status": "too_few",
+            "sumA": 447.0,
+            "sumB": 35.0,
+            "ratio": null,
+            "changePct": null
+          },
+          {
+            "platform": "J1",
+            "status": "too_few",
+            "sumA": 448.0,
+            "sumB": 31.0,
+            "ratio": null,
+            "changePct": null
+          },
+          {
+            "platform": "J2",
+            "status": "missing_months",
+            "sumA": null,
+            "sumB": null,
+            "ratio": null,
+            "changePct": null
+          }
+        ],
+        "harmonized": {
+          "status": "ok",
+          "sumA": 436.51,
+          "sumB": 32.63,
+          "loA": 390.0,
+          "hiA": 484.0,
+          "loB": 20.0,
+          "hiB": 46.0,
+          "ratio": 0.07475201026322421,
+          "range": [
+            0.04132231404958678,
+            0.11794871794871795
+          ],
+          "changePct": -92.52479897367758,
+          "rangePct": [
+            -95.86776859504133,
+            -88.2051282051282
+          ]
+        },
+        "convertedMonths": 0,
+        "convertedShare": 0.0,
+        "selectedMonthCount": 4,
+        "timingStatus": "available",
+        "timing": {
+          "year": 2025,
+          "badge": "not_identifiable",
+          "drivers": [],
+          "bend": null,
+          "tests": [
+            {
+              "platform": "T",
+              "testable": false,
+              "delta": null,
+              "sigma": null,
+              "threshold": null,
+              "count": null,
+              "reference": null,
+              "cells": 0,
+              "reason": "No complete paired clock series"
+            },
+            {
+              "platform": "A",
+              "testable": false,
+              "delta": null,
+              "sigma": null,
+              "threshold": null,
+              "count": null,
+              "reference": null,
+              "cells": 0,
+              "reason": "No complete paired clock series"
+            }
+          ],
+          "look": {
+            "T": null,
+            "A": null,
+            "N": null,
+            "J1": null,
+            "J2": null
+          },
+          "baselineLook": {
+            "T": null,
+            "A": null,
+            "N": null,
+            "J1": null,
+            "J2": null
+          },
+          "clockCells": 0
+        },
+        "outages": [
+          {
+            "platform": "N",
+            "month": "2025-11",
+            "missing_days": [
+              "2025-11-12"
+            ],
+            "masked": false
+          }
+        ]
+      },
+      "earlyMonth": {
+        "month": "2000-11",
+        "raw": {
+          "T": 0.0,
+          "A": null,
+          "N": null,
+          "J1": null,
+          "J2": null
+        },
+        "harm": 0.0,
+        "lo": 0.0,
+        "hi": 0.0,
+        "src": "M",
+        "satellites": [
+          "T"
+        ],
+        "median": 308.5,
+        "p25": 241.3075,
+        "p75": 331.25,
+        "anomaly": "below"
+      }
+    },
+    "equator": {
+      "box": [
+        -0.25,
+        20,
+        0.25,
+        20.5
+      ],
+      "cellCount": 4,
+      "claim": {
+        "months": [
+          10,
+          11
+        ],
+        "a": 2021,
+        "b": 2025,
+        "platforms": [
+          {
+            "platform": "T",
+            "status": "too_few",
+            "sumA": 0.0,
+            "sumB": 0.0,
+            "ratio": null,
+            "changePct": null
+          },
+          {
+            "platform": "A",
+            "status": "too_few",
+            "sumA": 1.0,
+            "sumB": 1.0,
+            "ratio": null,
+            "changePct": null
+          },
+          {
+            "platform": "N",
+            "status": "too_few",
+            "sumA": 2.0,
+            "sumB": 2.0,
+            "ratio": null,
+            "changePct": null
+          },
+          {
+            "platform": "J1",
+            "status": "too_few",
+            "sumA": 3.0,
+            "sumB": 1.0,
+            "ratio": null,
+            "changePct": null
+          },
+          {
+            "platform": "J2",
+            "status": "missing_months",
+            "sumA": null,
+            "sumB": null,
+            "ratio": null,
+            "changePct": null
+          }
+        ],
+        "harmonized": {
+          "status": "zero_baseline",
+          "sumA": 2.48,
+          "sumB": 1.47,
+          "loA": 0.0,
+          "hiA": 6.0,
+          "loB": 0.0,
+          "hiB": 5.0,
+          "ratio": null,
+          "range": null,
+          "changePct": null,
+          "rangePct": null
+        },
+        "convertedMonths": 0,
+        "convertedShare": 0.0,
+        "selectedMonthCount": 4,
+        "timingStatus": "available",
+        "timing": {
+          "year": 2025,
+          "badge": "not_identifiable",
+          "drivers": [],
+          "bend": null,
+          "tests": [
+            {
+              "platform": "T",
+              "testable": false,
+              "delta": null,
+              "sigma": null,
+              "threshold": null,
+              "count": null,
+              "reference": null,
+              "cells": 0,
+              "reason": "No complete paired clock series"
+            },
+            {
+              "platform": "A",
+              "testable": false,
+              "delta": null,
+              "sigma": null,
+              "threshold": null,
+              "count": null,
+              "reference": null,
+              "cells": 0,
+              "reason": "No complete paired clock series"
+            }
+          ],
+          "look": {
+            "T": null,
+            "A": null,
+            "N": null,
+            "J1": null,
+            "J2": null
+          },
+          "baselineLook": {
+            "T": null,
+            "A": null,
+            "N": null,
+            "J1": null,
+            "J2": null
+          },
+          "clockCells": 0
+        },
+        "outages": [
+          {
+            "platform": "N",
+            "month": "2025-11",
+            "missing_days": [
+              "2025-11-12"
+            ],
+            "masked": false
+          }
+        ]
+      },
+      "earlyMonth": {
+        "month": "2000-11",
+        "raw": {
+          "T": 0.0,
+          "A": null,
+          "N": null,
+          "J1": null,
+          "J2": null
+        },
+        "harm": 0.0,
+        "lo": 0.0,
+        "hi": 0.0,
+        "src": "M",
+        "satellites": [
+          "T"
+        ],
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 1.5525,
+        "anomaly": "normal"
+      }
+    },
+    "antimeridian": {
+      "box": [
+        -20,
+        178,
+        -16,
+        -178
+      ],
+      "cellCount": 62,
+      "claim": {
+        "months": [
+          10,
+          11
+        ],
+        "a": 2021,
+        "b": 2025,
+        "platforms": [
+          {
+            "platform": "T",
+            "status": "too_few",
+            "sumA": 8.0,
+            "sumB": 3.0,
+            "ratio": null,
+            "changePct": null
+          },
+          {
+            "platform": "A",
+            "status": "too_few",
+            "sumA": 19.0,
+            "sumB": 37.0,
+            "ratio": null,
+            "changePct": null
+          },
+          {
+            "platform": "N",
+            "status": "ok",
+            "sumA": 158.0,
+            "sumB": 219.0,
+            "ratio": 1.3860759493670887,
+            "changePct": 38.607594936708864
+          },
+          {
+            "platform": "J1",
+            "status": "ok",
+            "sumA": 152.0,
+            "sumB": 214.0,
+            "ratio": 1.4078947368421053,
+            "changePct": 40.789473684210535
+          },
+          {
+            "platform": "J2",
+            "status": "missing_months",
+            "sumA": null,
+            "sumB": null,
+            "ratio": null,
+            "changePct": null
+          }
+        ],
+        "harmonized": {
+          "status": "ok",
+          "sumA": 152.85,
+          "sumB": 214.17,
+          "loA": 53.0,
+          "hiA": 296.0,
+          "loB": 106.0,
+          "hiB": 348.0,
+          "ratio": 1.4011776251226693,
+          "range": [
+            0.3581081081081081,
+            6.566037735849057
+          ],
+          "changePct": 40.11776251226693,
+          "rangePct": [
+            -64.1891891891892,
+            556.6037735849056
+          ]
+        },
+        "convertedMonths": 0,
+        "convertedShare": 0.0,
+        "selectedMonthCount": 4,
+        "timingStatus": "available",
+        "timing": {
+          "year": 2025,
+          "badge": "robust",
+          "drivers": [],
+          "bend": -18.72918043009353,
+          "tests": [
+            {
+              "platform": "T",
+              "testable": false,
+              "delta": -1.116296744232986,
+              "sigma": 0.2452638648725337,
+              "threshold": 0.4905277297450674,
+              "count": 7.0,
+              "reference": 364.0,
+              "cells": 13,
+              "reason": "Fewer than 50 Terra cell-days"
+            },
+            {
+              "platform": "A",
+              "testable": true,
+              "delta": -0.004691339894659752,
+              "sigma": 0.19601030065679098,
+              "threshold": 0.39202060131358196,
+              "count": 65.0,
+              "reference": 364.0,
+              "cells": 13,
+              "reason": "Enough observations"
+            }
+          ],
+          "look": {
+            "T": 9.120000000000001,
+            "A": 15.03,
+            "N": 13.53,
+            "J1": 13.52,
+            "J2": null
+          },
+          "baselineLook": {
+            "T": 10.375,
+            "A": 13.74,
+            "N": 13.59,
+            "J1": 13.71,
+            "J2": null
+          },
+          "clockCells": 13
+        },
+        "outages": [
+          {
+            "platform": "N",
+            "month": "2025-11",
+            "missing_days": [
+              "2025-11-12"
+            ],
+            "masked": false
+          }
+        ]
+      },
+      "earlyMonth": {
+        "month": "2000-11",
+        "raw": {
+          "T": 1.0,
+          "A": null,
+          "N": null,
+          "J1": null,
+          "J2": null
+        },
+        "harm": 10.93,
+        "lo": 5.0,
+        "hi": 18.0,
+        "src": "M",
+        "satellites": [
+          "T"
+        ],
+        "median": 25.119999999999997,
+        "p25": 11.25,
+        "p75": 39.394999999999996,
+        "anomaly": "below"
+      }
+    }
+  },
+  "provenance": {
+    "generator": "pipeline/tests/claim_trend_reference.py",
+    "sourceSha256": {
+      "catalog.json": "dabd4ce120fec8e569c7284c1bea4ebd4cba5154f2a90f5666245a8589e4ffdc",
+      "clock/m05_p020.json.gz": "b7f1da57b4a848ea5263c17d124b4c92b179bc503e4cfa46d51952d92077937f",
+      "clock/m05_p110.json.gz": "b7aa49c68b63140daf11b1ff4f53b2be1e694d4a8b11fe974d4e8d07efaf1b90",
+      "clock/m05_p115.json.gz": "82d6bc3afb8c7edc49abeac192632433a606452f2ccde20387fbe378b3484119",
+      "clock/m10_m045.json.gz": "358b7d4c372c09270a5a29040e2b2f75fb6cdd0b25a9488b2f441f28a1ae70c3",
+      "clock/m10_m050.json.gz": "d7a598c053f8dd1f1820a2717f6062b35e547710e748b4409bab1c2de09d9441",
+      "clock/m15_m045.json.gz": "d871f4cb37bf268cec594375e446a4172d4a3643bef83fc687829512c205f1f4",
+      "clock/m15_m050.json.gz": "9bc679e5037bd1290bfc5623d2b51c12d8d42a8ff27f887b22245e7e27b5c0bc",
+      "clock/m20_m180.json.gz": "ea1b8533e5d9cd81a667c56182a6775f473ff4d608bf582ecde455da6402d028",
+      "clock/m20_p175.json.gz": "a43acc968ef710b3c372ff9c111d4f5b9bbbacd6bca310d622b94aa606254f78",
+      "clock/m35_m060.json.gz": "4d6e22fcdf5c96d42fc9c75d0f48d50d67377d3d360f07a6be162b810d7fabbb",
+      "clock/m35_m065.json.gz": "c701c79cefdfd62e5edfdce6f70db9b62606179bd2a8fd1dac9816447496fb07",
+      "clock/p00_p020.json.gz": "083af06318ab2d037b38cb3a0cbbe5e614e3c40a843d8dfdedab3890cdb2279f",
+      "clock/p00_p110.json.gz": "7c32224db16032f5edb3464a0af93a6d369bd1be037a81239c93f04e3a130d10",
+      "clock/p00_p115.json.gz": "e18bb41961b69ff75ec0b28489fbe331eca545f9c20af036875bd0e349ddb971",
+      "clock/p05_p015.json.gz": "c1a63e66ea54151d70b65bf89d025a9417734b95e3de876ed1c332768988af74",
+      "clock/p05_p020.json.gz": "80702c5bf73240ff592df1c0f58993ce07bdc721f8124fdf7b9b1126595b96c6",
+      "clock/p05_p025.json.gz": "b2b68f0fd1ab8be076845529e43023dee0bc227589b7139528c6d848a2486fa7",
+      "clock/p25_p070.json.gz": "9b7643f2142aaceb6e01a1eee19d8488e2e4d58aed69e9ace5e78675e4f03811",
+      "clock/p25_p075.json.gz": "4e7191a4dcb4969d6a584f3e403901106553c1bada42b25c6f1fc09397f7efeb",
+      "clock/p30_m120.json.gz": "1c619234293ec54206af17f9a971573fbf9438df324bf17072c32e7cdac31d8a",
+      "clock/p30_m125.json.gz": "a5c93be36ca2314b8b1a9f09f4ea667eb198d989286621847dde8233a6fa73a1",
+      "clock/p30_p070.json.gz": "24436952033a98ed2c3f67769426582e7a5d4c33c80b0d55696d7f633411f555",
+      "clock/p30_p075.json.gz": "660c424ff49402acc36a0da27c55f0d1780efb83306fd74bc82c74ccf717226e",
+      "clock/p35_m120.json.gz": "a5e56a48c129e9ccf588bf928dfeb3ca437097537f934a4936c8785a7d447b6c",
+      "clock/p35_m125.json.gz": "b9817e59457064f9b17e9ff4011d86022823021c3608167fa333b5c2da6ea033",
+      "clock/p40_m120.json.gz": "f6ebb92bfa8ff6b5779339415df6a127de72b149cdde47f3b6bfa785f0c08c4b",
+      "clock/p40_m125.json.gz": "c8fb2cf7c39bc749fbaf972320947fce499b94c9ce2e3e989f595ca3136b2831",
+      "manifest.json.gz": "d7dc171a8f48385fed345b996005ccc64e8f432a3df7d273160a4ed697c20ef9",
+      "punjab_receipt.json.gz": "79fcc4fe92703c3e81169b748fbca93780380b75df9a65b12818a67d277c30be",
+      "tiles/m05_p020.json.gz": "c793e122b45b52421bbc0dde5fbd93926f2722efcf0f8f18f3bf9e332f545cbc",
+      "tiles/m05_p110.json.gz": "e2ad736f7d2d511a23790dc96e4bb1d2819be35b208e74754c6a61e9c2e73488",
+      "tiles/m05_p115.json.gz": "0547ddb7dd8b0a84c3e34ba82d8086bbc94c042a6b874d8b1c6e6fb769f771d5",
+      "tiles/m10_m045.json.gz": "8d0c5a80a7fc1e38a30a0e51e8b7c071ca5a7d5ee79290f60ef7a61afffe1a37",
+      "tiles/m10_m050.json.gz": "838a96ed7fd114eee92ccf463a35502470f19dfe2a7eb5f8505e6646372b0eab",
+      "tiles/m15_m045.json.gz": "d63cefb8ab92468941b6f9ad4081a20562ab4b5fdbdfe5a16ccd8139500f50e3",
+      "tiles/m15_m050.json.gz": "55d36e0bc0debde64d0e98f505f3cd162205f56509231c84eb6b04b8ffc8930d",
+      "tiles/m20_m180.json.gz": "2c651e84cd3c437601188ebd15fc18065c3888665c87ee99f332efb0060f2879",
+      "tiles/m20_p175.json.gz": "479187710fe637480ca8f20c29361bdb005b350410abef74b56f58d36c076dfe",
+      "tiles/m35_m060.json.gz": "3b4471d5038b99150eb7c1c75c1e0755fd2bbd7be4d0c503ae43f60e8cef3403",
+      "tiles/m35_m065.json.gz": "eba1a1be222d20f464bfa79ed998f4a9c722fc6dda948fac1dd13ad00702ac54",
+      "tiles/p00_p020.json.gz": "d01e7812c05e5fdfb4995281b41259a3ed224d65205e8e6b7938c43c76f24ba9",
+      "tiles/p00_p110.json.gz": "51f7f3351aaf8f81e5a9846b780e67c15d267393ec38eada659b3b0656a7ea54",
+      "tiles/p00_p115.json.gz": "395c4e54e43ad01f009952d7d5c46fd5919c7dcbb46303cfb757ca0555214e62",
+      "tiles/p05_p015.json.gz": "7ba5701a3557343156185006d312312a6447df2a1bee79feea246bbfb57b6b55",
+      "tiles/p05_p020.json.gz": "c13a9e5e80643f223ba971ffcef623ce0adf57e68ce3b215edb38418e5e345ca",
+      "tiles/p05_p025.json.gz": "7e6afa04c5bf0fa8681e39207b257ad22b14addb8d2910a1164331682a2b38f1",
+      "tiles/p25_p070.json.gz": "214952932d08986c389d308fc09e06886ecfcfad359893df8190b5feade3d4b3",
+      "tiles/p25_p075.json.gz": "a6d9402070642a8c96390c3594e2992fe861d6899b40beaee97513bbe8de306e",
+      "tiles/p30_m120.json.gz": "368f2e41d1c207022988e892325037d979b0bd2a715342ebe81f68401ce85e7e",
+      "tiles/p30_m125.json.gz": "bc2847475864751862b057a780f64a5f3707b7397db1e96358e9d1f9eff2bf5d",
+      "tiles/p30_p070.json.gz": "4bf0e3d7093e5b99928e6930f1e08ab73b41f42db1d04fe5b9199154df7ee79b",
+      "tiles/p30_p075.json.gz": "806c0095dd01b932bfc7f1d7cb8f301ec8e2fa8abc5f09be655f2fda71bc4141",
+      "tiles/p35_m120.json.gz": "880bee83a0a8328973ab42da6db00cfb22121e4cd99c7ce8c27199f44c631c6b",
+      "tiles/p35_m125.json.gz": "5aa0295b19ecb09f2e05ea7b424270d2a45e4d9c1fde6171b21838512db2bd20",
+      "tiles/p40_m120.json.gz": "b4696830b6ae6c247c1a6aa3651bade5cc1c8d59d072804cae2040cd557729f0",
+      "tiles/p40_m125.json.gz": "0249501ffc94468155cb5434e43c2cb239f7542d9cfe936673bdcd2ba7538c40"
+    },
+    "claims": "Complete selected months only; raw >=50 in both years; independent bound ratios.",
+    "trends": "All pairwise slopes; complete selected years only; both bound slopes / median central H.",
+    "tolerance": {
+      "relative": 1e-10,
+      "absolute": 1e-08
+    }
+  }
+}

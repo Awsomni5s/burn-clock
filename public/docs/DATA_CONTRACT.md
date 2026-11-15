@@ -124,3 +124,18 @@ All numbers come from `pipeline/` scripts. The UI must never compute a number th
 | Central African savanna (CAR / S. Sudan) | 5, 18, 10, 30 |
 | Kalimantan (Indonesia) | −3.5, 110, 1, 117 |
 | California (USA) | 34, −124, 42, −117 |
+
+### 7. `contours/`: map layers as level curves
+GeoJSON FeatureCollections, ready for MapLibre `fill` / `line` layers. `contours/contours_meta.json` holds the levels, the colours (`palette`, 8 bands, ColorBrewer YlOrRd), units, plain-language labels and method notes. Built by `pipeline/contours/make_contours.py`.
+
+| File | What | Feature properties |
+|---|---|---|
+| `world_<YYYY>.geojson` (2001–2025) | Filled bands of harmonized fire-days per year per 0.25° cell (VIIRS scale) | `band`, `lo`, `hi` (null = open top), `color` |
+| `punjab_gk2a_<YYYY>_<HH>.geojson` (2019–2025 × 12–18 IST) | GK2A fire detections (conf ≥ 2) per 100 km², Oct–Nov, in that hour | same |
+| `punjab_viirs_<YYYY>.geojson` (2012–2025) | S-NPP daytime 0.05° cell-days per 100 km², Oct–Nov (~13:40 IST) | same |
+
+Rules:
+- Levels are fixed across years (and across hours for GK2A), so colours compare honestly within a layer. GK2A and VIIRS use different units: compare years within a panel, never colours across panels.
+- Contours are smoothed for display. Hover must show the unsmoothed cell value from `tiles/*.json` (world) and say "smoothed for display" in the legend.
+- Pass time is not a map layer (lines were too noisy). Show it per area as numbers from `clock/<tile>.json`.
+- Blank means no fire nearby or no data. The GK2A layers cover Punjab and Haryana only.

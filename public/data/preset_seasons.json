@@ -1,0 +1,105 @@
+{
+  "punjab": {
+    "months": [
+      10,
+      11
+    ],
+    "source": "pipeline/analysis/punjab_receipt.py \u2192 MONTHS (Punjab autumn receipt)",
+    "counts": {
+      "5": 17,
+      "11": 16,
+      "12": 8,
+      "4": 1,
+      "10": 13,
+      "1": 4,
+      "6": 1
+    }
+  },
+  "parana": {
+    "months": [
+      7,
+      8,
+      9
+    ],
+    "source": "clock/*.json \u2192 season_months; most frequent months among area cells",
+    "counts": {
+      "8": 8,
+      "9": 7,
+      "7": 7,
+      "2": 1,
+      "3": 1,
+      "1": 1,
+      "6": 1,
+      "10": 1
+    }
+  },
+  "cerrado": {
+    "months": [
+      8,
+      9,
+      10
+    ],
+    "source": "clock/*.json \u2192 season_months; most frequent months among area cells",
+    "counts": {
+      "10": 61,
+      "9": 64,
+      "11": 21,
+      "8": 42,
+      "5": 1,
+      "7": 3
+    }
+  },
+  "africa": {
+    "months": [
+      1,
+      2,
+      12
+    ],
+    "source": "clock/*.json \u2192 season_months; most frequent months among area cells",
+    "counts": {
+      "12": 59,
+      "1": 55,
+      "2": 31,
+      "11": 29,
+      "10": 5,
+      "3": 1
+    }
+  },
+  "kalimantan": {
+    "months": [
+      8,
+      9,
+      10
+    ],
+    "source": "clock/*.json \u2192 season_months; most frequent months among area cells",
+    "counts": {
+      "9": 35,
+      "10": 28,
+      "8": 32,
+      "11": 3,
+      "7": 7
+    }
+  },
+  "california": {
+    "months": [
+      8,
+      9,
+      10
+    ],
+    "source": "clock/*.json \u2192 season_months; most frequent months among area cells",
+    "counts": {
+      "7": 18,
+      "9": 19,
+      "6": 6,
+      "3": 14,
+      "2": 15,
+      "11": 15,
+      "8": 25,
+      "10": 19,
+      "4": 10,
+      "5": 2,
+      "1": 2,
+      "12": 2
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "prepared_at": "2026-11-15T01:06:57.068225Z",
+  "part_size_bytes": 16777216,
+  "releases": [
+    {
+      "id": "archive",
+      "label": "Historical public data",
+      "filename": "burnclock_public_data_2026-11-14_1.tar.gz",
+      "bytes": 85301473,
+      "sha256": "e44b3552654cbe84149c89b9775580528aefb1cb6a521e41177294fb05021255",
+      "origin": "Original archive supplied by the user; bytes preserved without extraction or repacking.",
+      "parts": [
+        {
+          "path": "/releases/parts/burnclock_public_data_2026-11-14_1.tar.gz.part001",
+          "bytes": 16777216,
+          "sha256": "c6b7141eb15eebcd69f7c5385ef7aa48df191498fd32169f2ea820bb1fe2d889"
+        },
+        {
+          "path": "/releases/parts/burnclock_public_data_2026-11-14_1.tar.gz.part002",
+          "bytes": 16777216,
+          "sha256": "9249cd79fd8c341f764052cab994c4bcf6c705b3a738d6c78fc3c75e236edbb3"
+        },
+        {
+          "path": "/releases/parts/burnclock_public_data_2026-11-14_1.tar.gz.part003",
+          "bytes": 16777216,
+          "sha256": "130767aaf00aa74715ab034136da2f28500121babc7b03d105ed9c1a6cdf42ac"
+        },
+        {
+          "path": "/releases/parts/burnclock_public_data_2026-11-14_1.tar.gz.part004",
+          "bytes": 16777216,
+          "sha256": "0644174d0cb22f27354b79a3b4a1782be4145ac065544b97f10fb06a9d09f047"
+        },
+        {
+          "path": "/releases/parts/burnclock_public_data_2026-11-14_1.tar.gz.part005",
+          "bytes": 16777216,
+          "sha256": "81da554f5b711017859d98fc7acae9f4953f82adb609731c6bce800c300c71c8"
+        },
+        {
+          "path": "/releases/parts/burnclock_public_data_2026-11-14_1.tar.gz.part006",
+          "bytes": 1415393,
+          "sha256": "e7874e845eabc484c1ef91a2462038610b7a7c41f9f620fb271588bfaa81c888"
+        }
+      ]
+    },
+    {
+      "id": "contours",
+      "label": "Precomputed contour maps",
+      "filename": "burnclock_contours_2026-11-14.tar.gz",
+      "bytes": 17128711,
+      "sha256": "a67a2036e5e97eb9773b3d1c5709ebedbdc43f85313702c1fce2d7147d8f34cb",
+      "origin": "Original archive supplied by the user; bytes preserved without extraction or repacking.",
+      "parts": [
+        {
+          "path": "/releases/parts/burnclock_contours_2026-11-14.tar.gz.part001",
+          "bytes": 16777216,
+          "sha256": "52121495863bd3ca350ccb28fb6198786d2d253443e43ada8ac9932d765ebaa9"
+        },
+        {
+          "path": "/releases/parts/burnclock_contours_2026-11-14.tar.gz.part002",
+          "bytes": 351495,
+          "sha256": "6ffe9a556b664d2bc7a93b5d6bf8c8a290e4e9fae4cf9769f2cc99a9f17601c3"
+        }
+      ]
+    },
+    {
+      "id": "pipeline",
+      "label": "Supplied pipeline source",
+      "filename": "burnclock_pipeline_code_2026-11-14_2.tar.gz",
+      "bytes": 264867,
+      "sha256": "b3c0865cd95cc6e411c408caac58287dc16d64e48f6aa8fe5625a13a26e327d1",
+      "origin": "Original archive supplied by the user; bytes preserved without extraction or repacking.",
+      "parts": [
+        {
+          "path": "/releases/parts/burnclock_pipeline_code_2026-11-14_2.tar.gz.part001",
+          "bytes": 264867,
+          "sha256": "b3c0865cd95cc6e411c408caac58287dc16d64e48f6aa8fe5625a13a26e327d1"
+        }
+      ]
+    }
+  ],
+  "note": "Parts concatenate in listed order to the original supplied archive. Each part and the complete archive have a SHA-256 checksum. The browser verifies both before saving."
+}

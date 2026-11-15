@@ -6,5 +6,5 @@
   "interval_or_source_violations": 0,
   "errors": [],
   "gzip_roundtrip": "exact byte equality for every tile",
-  "seconds": 26.73
+  "seconds": 27.46
 }
