@@ -1,0 +1,42 @@
+2026-11-14T21:55:33Z start: 40 jobs: [('modis', 2013), ('viirs-snpp', 2013), ('modis', 2014), ('viirs-snpp', 2014), ('modis', 2015), ('viirs-snpp', 2015), ('modis', 2016), ('viirs-snpp', 2016), ('modis', 2017), ('viirs-snpp', 2017), ('modis', 2018), ('viirs-snpp', 2018), ('viirs-jpss1', 2018), ('modis', 2019), ('viirs-snpp', 2019), ('viirs-jpss1', 2019), ('modis', 2020), ('viirs-snpp', 2020), ('viirs-jpss1', 2020), ('modis', 2021), ('viirs-snpp', 2021), ('viirs-jpss1', 2021), ('modis', 2022), ('viirs-snpp', 2022), ('viirs-jpss1', 2022), ('viirs-noaa21', 2023), ('viirs-jpss2', 2023), ('modis', 2023), ('viirs-snpp', 2023), ('viirs-jpss1', 2023), ('viirs-noaa21', 2024), ('viirs-jpss2', 2024), ('modis', 2024), ('viirs-snpp', 2024), ('viirs-jpss1', 2024), ('viirs-noaa21', 2025), ('viirs-jpss2', 2025), ('modis', 2025), ('viirs-snpp', 2025), ('viirs-jpss1', 2025)]
+2026-11-14T21:56:21Z modis 2013: OK bytes=74279102 rows=4226648 dl=43.4s proc=4.8s
+2026-11-14T21:56:50Z viirs-snpp 2013: OK bytes=344965208 rows=19296980 dl=14.2s proc=19.7s
+2026-11-14T21:57:00Z modis 2014: OK bytes=77920777 rows=4434374 dl=16.8s proc=9.4s
+2026-11-14T21:57:24Z viirs-snpp 2014: OK bytes=360173547 rows=20190209 dl=12.9s proc=20.1s
+2026-11-14T21:57:29Z modis 2015: OK bytes=83177469 rows=4741228 dl=4.2s proc=5.4s
+2026-11-14T21:58:36Z viirs-snpp 2015: OK bytes=379963894 rows=21329469 dl=16.7s proc=54.9s
+2026-11-14T21:58:48Z modis 2016: OK bytes=77490915 rows=4415910 dl=48.5s proc=12.4s
+2026-11-14T21:59:11Z viirs-snpp 2016: OK bytes=361719272 rows=20247889 dl=15.3s proc=19.5s
+2026-11-14T22:00:01Z modis 2017: OK bytes=78290700 rows=4453181 dl=3.6s proc=50.1s
+2026-11-14T22:00:24Z viirs-snpp 2017: OK bytes=356194900 rows=19984137 dl=16.0s proc=22.4s
+2026-11-14T22:01:52Z modis 2018: OK bytes=73887176 rows=4184262 dl=30.3s proc=80.3s
+2026-11-14T22:02:13Z viirs-snpp 2018: OK bytes=340393945 rows=19067085 dl=14.3s proc=21.0s
+2026-11-14T22:02:42Z viirs-jpss1 2018: OK bytes=259896539 rows=14524817 dl=23.6s proc=26.9s
+2026-11-14T22:03:08Z modis 2019: OK bytes=80447291 rows=4578188 dl=46.6s proc=6.5s
+2026-11-14T22:03:33Z viirs-snpp 2019: OK bytes=373189317 rows=20990294 dl=7.8s proc=23.3s
+2026-11-14T22:04:19Z viirs-jpss1 2019: OK bytes=370806690 rows=20742304 dl=47.1s proc=22.3s
+2026-11-14T22:04:39Z modis 2020: OK bytes=77958638 rows=4440623 dl=35.2s proc=6.8s
+2026-11-14T22:05:08Z viirs-snpp 2020: OK bytes=367548957 rows=20619331 dl=15.4s proc=20.1s
+2026-11-14T22:06:05Z viirs-jpss1 2020: OK bytes=365551116 rows=20385806 dl=30.4s proc=46.9s
+2026-11-14T22:06:10Z modis 2021: OK bytes=77277752 rows=4384343 dl=3.9s proc=4.8s
+2026-11-14T22:06:39Z viirs-snpp 2021: OK bytes=359617758 rows=20247675 dl=15.6s proc=18.6s
+2026-11-14T22:07:28Z viirs-jpss1 2021: OK bytes=358433386 rows=20059802 dl=48.7s proc=19.0s
+2026-11-14T22:07:44Z modis 2022: OK bytes=66472304 rows=3789164 dl=30.3s proc=4.3s
+2026-11-14T22:08:12Z viirs-snpp 2022: OK bytes=307250332 rows=17164365 dl=15.7s proc=16.6s
+2026-11-14T22:08:30Z viirs-jpss1 2022: OK bytes=324844239 rows=18043578 dl=16.5s proc=17.5s
+2026-11-14T22:08:30Z viirs-noaa21 2023: NOT_AVAILABLE (HTTP 404)
+2026-11-14T22:08:57Z viirs-jpss2 2023: NOT_AVAILABLE (HTTP 404)
+2026-11-14T22:09:03Z modis 2023: OK bytes=81766470 rows=4664302 dl=1.7s proc=5.1s
+2026-11-14T22:10:12Z viirs-snpp 2023: OK bytes=385385667 rows=21750317 dl=51.7s proc=21.6s
+2026-11-14T22:10:40Z viirs-jpss1 2023: OK bytes=379557198 rows=21288380 dl=28.7s proc=20.8s
+2026-11-14T22:10:40Z viirs-noaa21 2024: NOT_AVAILABLE (HTTP 404)
+2026-11-14T22:10:40Z viirs-jpss2 2024: NOT_AVAILABLE (HTTP 404)
+2026-11-14T22:10:50Z modis 2024: OK bytes=84548676 rows=4848247 dl=4.5s proc=5.3s
+2026-11-14T22:11:21Z viirs-snpp 2024: OK bytes=371870408 rows=20976982 dl=15.5s proc=20.2s
+2026-11-14T22:11:42Z viirs-jpss1 2024: OK bytes=401156384 rows=22511092 dl=16.7s proc=21.5s
+2026-11-14T22:11:42Z viirs-noaa21 2025: NOT_AVAILABLE (HTTP 404)
+2026-11-14T22:12:27Z viirs-jpss2 2025: NOT_AVAILABLE (HTTP 404)
+2026-11-14T22:13:03Z modis 2025: OK bytes=64771492 rows=3693555 dl=30.5s proc=4.8s
+2026-11-14T22:13:32Z viirs-snpp 2025: OK bytes=327260243 rows=18415101 dl=16.0s proc=17.9s
+2026-11-14T22:13:50Z viirs-jpss1 2025: OK bytes=328649496 rows=18376493 dl=15.9s proc=17.9s
+2026-11-14T22:13:50Z run_archive done

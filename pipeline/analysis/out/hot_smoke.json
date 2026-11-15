@@ -1,0 +1,168 @@
+{
+ "definition": "share of GK2A conf>=2 Punjab pixel-days (Oct-Nov) with >=1 S-NPP or NOAA-20 type-0 detection within 4 km of the pixel centre on the same or next local-solar day (any VIIRS confidence, day or night pass)",
+ "placebo": "same pixel, date shifted +7 and -7 days (mean): background co-location rate",
+ "years": "2021-2025",
+ "radius_km": 4.0,
+ "groups": {
+  "late_16_18": {
+   "n_pixel_days": 71916,
+   "frac_any": 0.4423,
+   "frac_placebo": 0.3756,
+   "frac_same_day_day_pass": 0.3664,
+   "frac_next_night_pass": 0.0017,
+   "frac_next_day_day_pass": 0.3537,
+   "by_year": {
+    "2021": {
+     "n": 17206,
+     "frac_any": 0.661,
+     "frac_placebo": 0.6454,
+     "frac_next_night_pass": 0.0024
+    },
+    "2022": {
+     "n": 10569,
+     "frac_any": 0.4353,
+     "frac_placebo": 0.3832,
+     "frac_next_night_pass": 0.0003
+    },
+    "2023": {
+     "n": 17320,
+     "frac_any": 0.2629,
+     "frac_placebo": 0.2063,
+     "frac_next_night_pass": 0.001
+    },
+    "2024": {
+     "n": 11262,
+     "frac_any": 0.4814,
+     "frac_placebo": 0.3627,
+     "frac_next_night_pass": 0.0019
+    },
+    "2025": {
+     "n": 15559,
+     "frac_any": 0.3767,
+     "frac_placebo": 0.27,
+     "frac_next_night_pass": 0.0023
+    }
+   }
+  },
+  "early_12_14": {
+   "n_pixel_days": 11374,
+   "frac_any": 0.9262,
+   "frac_placebo": 0.8577,
+   "frac_same_day_day_pass": 0.9189,
+   "frac_next_night_pass": 0.0031,
+   "frac_next_day_day_pass": 0.8946,
+   "by_year": {
+    "2021": {
+     "n": 7471,
+     "frac_any": 0.9644,
+     "frac_placebo": 0.9022,
+     "frac_next_night_pass": 0.0035
+    },
+    "2022": {
+     "n": 2514,
+     "frac_any": 0.9475,
+     "frac_placebo": 0.8739,
+     "frac_next_night_pass": 0.0016
+    },
+    "2023": {
+     "n": 1020,
+     "frac_any": 0.8225,
+     "frac_placebo": 0.7113,
+     "frac_next_night_pass": 0.0029
+    },
+    "2024": {
+     "n": 133,
+     "frac_any": 0.5263,
+     "frac_placebo": 0.406,
+     "frac_next_night_pass": 0.0075
+    },
+    "2025": {
+     "n": 236,
+     "frac_any": 0.1653,
+     "frac_placebo": 0.1631,
+     "frac_next_night_pass": 0.0042
+    }
+   }
+  },
+  "late_only_16_18_not_12_15": {
+   "n_pixel_days": 62014,
+   "frac_any": 0.3779,
+   "frac_placebo": 0.3107,
+   "frac_same_day_day_pass": 0.2925,
+   "frac_next_night_pass": 0.0015,
+   "frac_next_day_day_pass": 0.2811,
+   "by_year": {
+    "2021": {
+     "n": 10966,
+     "frac_any": 0.5164,
+     "frac_placebo": 0.5185,
+     "frac_next_night_pass": 0.0017
+    },
+    "2022": {
+     "n": 8931,
+     "frac_any": 0.339,
+     "frac_placebo": 0.292,
+     "frac_next_night_pass": 0.0003
+    },
+    "2023": {
+     "n": 15765,
+     "frac_any": 0.2362,
+     "frac_placebo": 0.1807,
+     "frac_next_night_pass": 0.001
+    },
+    "2024": {
+     "n": 10953,
+     "frac_any": 0.4745,
+     "frac_placebo": 0.3606,
+     "frac_next_night_pass": 0.0017
+    },
+    "2025": {
+     "n": 15399,
+     "frac_any": 0.3781,
+     "frac_placebo": 0.2711,
+     "frac_next_night_pass": 0.0023
+    }
+   }
+  },
+  "h17": {
+   "n_pixel_days": 41000,
+   "frac_any": 0.3603,
+   "frac_placebo": 0.3006,
+   "frac_same_day_day_pass": 0.2581,
+   "frac_next_night_pass": 0.0019,
+   "frac_next_day_day_pass": 0.2504,
+   "by_year": {
+    "2021": {
+     "n": 8461,
+     "frac_any": 0.4564,
+     "frac_placebo": 0.4763,
+     "frac_next_night_pass": 0.0032
+    },
+    "2022": {
+     "n": 4142,
+     "frac_any": 0.3817,
+     "frac_placebo": 0.3372,
+     "frac_next_night_pass": 0.0002
+    },
+    "2023": {
+     "n": 11019,
+     "frac_any": 0.1556,
+     "frac_placebo": 0.1129,
+     "frac_next_night_pass": 0.0005
+    },
+    "2024": {
+     "n": 5520,
+     "frac_any": 0.4578,
+     "frac_placebo": 0.352,
+     "frac_next_night_pass": 0.0024
+    },
+    "2025": {
+     "n": 11858,
+     "frac_any": 0.4291,
+     "frac_placebo": 0.3129,
+     "frac_next_night_pass": 0.0027
+    }
+   }
+  }
+ }
+}

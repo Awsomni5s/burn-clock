@@ -1,0 +1,594 @@
+{
+ "config_hash": "d0f62a55636f6def8856f4be39ec2b67bb79fd4fce96adf42234f297d98cec63",
+ "input": "q25",
+ "stage": "final",
+ "grid_deg": 0.25,
+ "value_column": "detections",
+ "years_loaded": [
+  2012,
+  2013,
+  2014,
+  2015,
+  2016,
+  2017,
+  2018,
+  2019,
+  2020,
+  2021,
+  2022,
+  2023,
+  2024,
+  2025
+ ],
+ "n_cells": 191187,
+ "cells_per_region": {
+  "global": 191187,
+  "Africa": 31154,
+  "Asia": 66988,
+  "Europe": 20764,
+  "North America": 33714,
+  "Oceania": 12586,
+  "South America": 23800,
+  "punjab_haryana": 300,
+  "parana_delta": 100
+ },
+ "coverage_sources": [
+  "/home/claude/burnclock/scratch/global/out/platform_month_coverage.csv",
+  "/home/claude/burnclock/data/processed/outage_days.json",
+  "/home/claude/burnclock/public/data/manifest.json"
+ ],
+ "fit_excluded_months": [
+  "2016-02",
+  "2022-07",
+  "2022-08",
+  "2022-10",
+  "2024-07",
+  "2024-11"
+ ],
+ "bridge_loyo": {
+  "tau_b_deviance": {
+   "0": "inf",
+   "10": 11046748.0,
+   "30": 11033852.6,
+   "100": 11018092.3,
+   "300": 11002188.7,
+   "1000": 10985366.8,
+   "3000": 10972859.3
+  },
+  "tau_b": 3000,
+  "years": [
+   2018,
+   2020,
+   2021,
+   2022,
+   2023,
+   2024,
+   2025
+  ],
+  "metrics": {
+   "global": {
+    "median_annual_err_pct": 0.4,
+    "mean_signed_err_pct": 0.09,
+    "per_year_signed_pct": {
+     "2018": -0.33,
+     "2020": 0.25,
+     "2021": 0.52,
+     "2022": 0.75,
+     "2023": 0.21,
+     "2024": -0.4,
+     "2025": -0.41
+    },
+    "n_years": 7,
+    "r2_log_monthly": 0.9971,
+    "obs_annual_total_mean": 13242373.4,
+    "n_months": 76
+   },
+   "Africa": {
+    "median_annual_err_pct": 0.31,
+    "mean_signed_err_pct": 0.07,
+    "per_year_signed_pct": {
+     "2018": -0.31,
+     "2020": 0.37,
+     "2021": 0.05,
+     "2022": 0.89,
+     "2023": 0.3,
+     "2024": -0.17,
+     "2025": -0.62
+    },
+    "n_years": 7,
+    "r2_log_monthly": 0.9984,
+    "obs_annual_total_mean": 8016425.9,
+    "n_months": 76
+   },
+   "Asia": {
+    "median_annual_err_pct": 0.42,
+    "mean_signed_err_pct": 0.47,
+    "per_year_signed_pct": {
+     "2018": -0.37,
+     "2020": 0.39,
+     "2021": 1.37,
+     "2022": 0.81,
+     "2023": 0.1,
+     "2024": 1.42,
+     "2025": -0.42
+    },
+    "n_years": 7,
+    "r2_log_monthly": 0.9986,
+    "obs_annual_total_mean": 1894034.0,
+    "n_months": 76
+   },
+   "Europe": {
+    "median_annual_err_pct": 1.56,
+    "mean_signed_err_pct": 1.28,
+    "per_year_signed_pct": {
+     "2018": -1.33,
+     "2020": 1.12,
+     "2021": 2.82,
+     "2022": 2.39,
+     "2023": 3.02,
+     "2024": -0.62,
+     "2025": 1.56
+    },
+    "n_years": 7,
+    "r2_log_monthly": 0.9975,
+    "obs_annual_total_mean": 164804.4,
+    "n_months": 76
+   },
+   "North America": {
+    "median_annual_err_pct": 0.62,
+    "mean_signed_err_pct": 0.24,
+    "per_year_signed_pct": {
+     "2018": 1.1,
+     "2020": -1.14,
+     "2021": 1.9,
+     "2022": 0.08,
+     "2023": -0.56,
+     "2024": 0.62,
+     "2025": -0.3
+    },
+    "n_years": 7,
+    "r2_log_monthly": 0.9988,
+    "obs_annual_total_mean": 776450.0,
+    "n_months": 76
+   },
+   "Oceania": {
+    "median_annual_err_pct": 0.67,
+    "mean_signed_err_pct": -0.52,
+    "per_year_signed_pct": {
+     "2018": -1.72,
+     "2020": -1.55,
+     "2021": 1.15,
+     "2022": 0.32,
+     "2023": -0.67,
+     "2024": -0.63,
+     "2025": -0.51
+    },
+    "n_years": 7,
+    "r2_log_monthly": 0.998,
+    "obs_annual_total_mean": 730082.5,
+    "n_months": 76
+   },
+   "South America": {
+    "median_annual_err_pct": 0.71,
+    "mean_signed_err_pct": 0.08,
+    "per_year_signed_pct": {
+     "2018": 0.29,
+     "2020": 0.44,
+     "2021": 0.71,
+     "2022": 0.39,
+     "2023": 0.79,
+     "2024": -3.06,
+     "2025": 0.99
+    },
+    "n_years": 7,
+    "r2_log_monthly": 0.9985,
+    "obs_annual_total_mean": 1660436.9,
+    "n_months": 76
+   },
+   "punjab_haryana": {
+    "median_annual_err_pct": 2.4,
+    "mean_signed_err_pct": -0.46,
+    "per_year_signed_pct": {
+     "2018": 6.49,
+     "2020": -0.82,
+     "2021": -2.57,
+     "2022": 0.35,
+     "2023": 2.23,
+     "2024": -6.5,
+     "2025": -2.4
+    },
+    "n_years": 7,
+    "r2_log_monthly": 0.9955,
+    "obs_annual_total_mean": 86813.2,
+    "n_months": 76
+   },
+   "parana_delta": {
+    "median_annual_err_pct": 2.22,
+    "mean_signed_err_pct": -0.8,
+    "per_year_signed_pct": {
+     "2018": 1.7,
+     "2020": -6.7,
+     "2021": -2.22,
+     "2022": -2.31,
+     "2023": 1.05,
+     "2024": 3.15,
+     "2025": -0.28
+    },
+    "n_years": 7,
+    "r2_log_monthly": 0.986,
+    "obs_annual_total_mean": 9290.9,
+    "n_months": 76
+   }
+  }
+ },
+ "bridge_global_ratio_N_over_J1_by_moy": [
+  1.0084,
+  1.0126,
+  1.0131,
+  1.0151,
+  1.0138,
+  1.0145,
+  1.0302,
+  1.0137,
+  1.0235,
+  1.0253,
+  1.007,
+  1.0131
+ ],
+ "bridge_J2": "no J2 overlap in input",
+ "tau": 100,
+ "tau_b": 3000,
+ "drift_seam_k_years": [
+  2013,
+  2014,
+  2015,
+  2016,
+  2017,
+  2018,
+  2019
+ ],
+ "drift_seam": {
+  "global": {
+   "R_by_year": {
+    "2012": 1.0319,
+    "2013": 0.9885,
+    "2014": 0.9805,
+    "2015": 0.992,
+    "2016": 1.0018,
+    "2017": 0.9977,
+    "2018": 0.9833,
+    "2019": 0.9752,
+    "2020": 0.9603,
+    "2021": 0.9871,
+    "2022": 0.9405,
+    "2023": 0.9518,
+    "2024": 0.9418,
+    "2025": 0.8931
+   },
+   "seam_2023_25_vs_training": 0.9398
+  },
+  "Africa": {
+   "R_by_year": {
+    "2012": 1.0244,
+    "2013": 0.9908,
+    "2014": 0.9824,
+    "2015": 0.9985,
+    "2016": 1.0101,
+    "2017": 0.9868,
+    "2018": 0.9864,
+    "2019": 0.9693,
+    "2020": 0.9577,
+    "2021": 0.9736,
+    "2022": 0.9564,
+    "2023": 0.9326,
+    "2024": 0.9332,
+    "2025": 0.8583
+   },
+   "seam_2023_25_vs_training": 0.9182
+  },
+  "Asia": {
+   "R_by_year": {
+    "2012": 1.0619,
+    "2013": 0.9851,
+    "2014": 0.9743,
+    "2015": 0.9725,
+    "2016": 0.9745,
+    "2017": 1.01,
+    "2018": 0.9876,
+    "2019": 0.9859,
+    "2020": 0.9583,
+    "2021": 1.032,
+    "2022": 0.878,
+    "2023": 0.9957,
+    "2024": 0.944,
+    "2025": 0.9766
+   },
+   "seam_2023_25_vs_training": 0.986
+  },
+  "Europe": {
+   "R_by_year": {
+    "2012": 1.0705,
+    "2013": 0.9808,
+    "2014": 0.9937,
+    "2015": 0.988,
+    "2016": 0.9964,
+    "2017": 1.0493,
+    "2018": 0.97,
+    "2019": 0.9754,
+    "2020": 1.0478,
+    "2021": 1.0088,
+    "2022": 0.9714,
+    "2023": 1.0001,
+    "2024": 0.9196,
+    "2025": 0.9527
+   },
+   "seam_2023_25_vs_training": 0.961
+  },
+  "North America": {
+   "R_by_year": {
+    "2012": 1.0062,
+    "2013": 1.0038,
+    "2014": 0.9722,
+    "2015": 0.9759,
+    "2016": 1.0076,
+    "2017": 1.0154,
+    "2018": 0.9565,
+    "2019": 0.9845,
+    "2020": 0.9878,
+    "2021": 1.0169,
+    "2022": 0.9184,
+    "2023": 0.9303,
+    "2024": 0.9386,
+    "2025": 0.9298
+   },
+   "seam_2023_25_vs_training": 0.9473
+  },
+  "Oceania": {
+   "R_by_year": {
+    "2012": 1.0536,
+    "2013": 0.9742,
+    "2014": 0.9767,
+    "2015": 0.9994,
+    "2016": 0.9873,
+    "2017": 0.9983,
+    "2018": 0.9953,
+    "2019": 0.9885,
+    "2020": 0.9244,
+    "2021": 0.9807,
+    "2022": 0.9007,
+    "2023": 0.9863,
+    "2024": 0.9423,
+    "2025": 0.8969
+   },
+   "seam_2023_25_vs_training": 0.9525
+  },
+  "South America": {
+   "R_by_year": {
+    "2012": 1.0052,
+    "2013": 0.9774,
+    "2014": 0.984,
+    "2015": 0.9924,
+    "2016": 0.9993,
+    "2017": 1.021,
+    "2018": 0.9645,
+    "2019": 0.9767,
+    "2020": 0.964,
+    "2021": 0.979,
+    "2022": 0.9394,
+    "2023": 0.9869,
+    "2024": 0.9775,
+    "2025": 0.988
+   },
+   "seam_2023_25_vs_training": 0.9962
+  },
+  "punjab_haryana": {
+   "R_by_year": {
+    "2012": 1.1729,
+    "2013": 1.0971,
+    "2014": 0.9651,
+    "2015": 0.9098,
+    "2016": 0.9648,
+    "2017": 0.9179,
+    "2018": 1.0442,
+    "2019": 1.0639,
+    "2020": 1.0069,
+    "2021": 1.0539,
+    "2022": 1.0078,
+    "2023": 1.0081,
+    "2024": 1.0618,
+    "2025": 1.1363
+   },
+   "seam_2023_25_vs_training": 1.083
+  },
+  "parana_delta": {
+   "R_by_year": {
+    "2012": 1.126,
+    "2013": 1.0272,
+    "2014": 1.4393,
+    "2015": 1.2085,
+    "2016": 1.201,
+    "2017": 1.7319,
+    "2018": 0.8317,
+    "2019": 0.7421,
+    "2020": 0.8653,
+    "2021": 0.7495,
+    "2022": 0.6065,
+    "2023": 0.7682,
+    "2024": 0.8093,
+    "2025": 0.6792
+   },
+   "seam_2023_25_vs_training": 0.6029
+  }
+ },
+ "seam_2012": {
+  "global": {
+   "raw_jump": 3.7799999713897705,
+   "harm_jump": 0.958,
+   "modis_only_jump": 0.9589999914169312
+  },
+  "Africa": {
+   "raw_jump": 4.011000156402588,
+   "harm_jump": 0.957,
+   "modis_only_jump": 0.9760000109672546
+  },
+  "Asia": {
+   "raw_jump": 4.210000038146973,
+   "harm_jump": 1.082,
+   "modis_only_jump": 1.062000036239624
+  },
+  "Europe": {
+   "raw_jump": 2.186000108718872,
+   "harm_jump": 0.815,
+   "modis_only_jump": 0.8230000138282776
+  },
+  "North America": {
+   "raw_jump": 3.492000102996826,
+   "harm_jump": 1.046,
+   "modis_only_jump": 1.0119999647140503
+  },
+  "Oceania": {
+   "raw_jump": 3.5260000228881836,
+   "harm_jump": 0.901,
+   "modis_only_jump": 0.8840000033378601
+  },
+  "South America": {
+   "raw_jump": 2.927999973297119,
+   "harm_jump": 0.822,
+   "modis_only_jump": 0.8090000152587891
+  },
+  "punjab_haryana": {
+   "raw_jump": 5.0279998779296875,
+   "harm_jump": 1.014,
+   "modis_only_jump": 0.984000027179718
+  },
+  "parana_delta": {
+   "raw_jump": 2.0329999923706055,
+   "harm_jump": 0.759,
+   "modis_only_jump": 0.906000018119812
+  }
+ },
+ "locked_bridge": {
+  "global": {
+   "median_annual_err_pct": 0.96,
+   "mean_signed_err_pct": -0.72,
+   "per_year_signed_pct": {
+    "2016": 0.24,
+    "2019": -1.68
+   },
+   "n_years": 2,
+   "r2_log_monthly": 0.9881,
+   "obs_annual_total_mean": 14580981.5,
+   "n_months": 23
+  },
+  "Africa": {
+   "median_annual_err_pct": 1.57,
+   "mean_signed_err_pct": -0.79,
+   "per_year_signed_pct": {
+    "2016": 0.79,
+    "2019": -2.36
+   },
+   "n_years": 2,
+   "r2_log_monthly": 0.9927,
+   "obs_annual_total_mean": 8693112.0,
+   "n_months": 23
+  },
+  "Asia": {
+   "median_annual_err_pct": 2.46,
+   "mean_signed_err_pct": -2.46,
+   "per_year_signed_pct": {
+    "2016": -3.73,
+    "2019": -1.18
+   },
+   "n_years": 2,
+   "r2_log_monthly": 0.9887,
+   "obs_annual_total_mean": 2493323.9,
+   "n_months": 23
+  },
+  "Europe": {
+   "median_annual_err_pct": 1.11,
+   "mean_signed_err_pct": 1.11,
+   "per_year_signed_pct": {
+    "2016": 2.0,
+    "2019": 0.22
+   },
+   "n_years": 2,
+   "r2_log_monthly": 0.9938,
+   "obs_annual_total_mean": 240678.9,
+   "n_months": 23
+  },
+  "North America": {
+   "median_annual_err_pct": 2.22,
+   "mean_signed_err_pct": 1.14,
+   "per_year_signed_pct": {
+    "2016": 3.35,
+    "2019": -1.08
+   },
+   "n_years": 2,
+   "r2_log_monthly": 0.9923,
+   "obs_annual_total_mean": 665641.6,
+   "n_months": 23
+  },
+  "Oceania": {
+   "median_annual_err_pct": 1.2,
+   "mean_signed_err_pct": 1.2,
+   "per_year_signed_pct": {
+    "2016": 0.55,
+    "2019": 1.85
+   },
+   "n_years": 2,
+   "r2_log_monthly": 0.9942,
+   "obs_annual_total_mean": 717940.0,
+   "n_months": 23
+  },
+  "South America": {
+   "median_annual_err_pct": 1.44,
+   "mean_signed_err_pct": -0.04,
+   "per_year_signed_pct": {
+    "2016": 1.4,
+    "2019": -1.48
+   },
+   "n_years": 2,
+   "r2_log_monthly": 0.9974,
+   "obs_annual_total_mean": 1770439.9,
+   "n_months": 23
+  },
+  "punjab_haryana": {
+   "median_annual_err_pct": 5.03,
+   "mean_signed_err_pct": 2.86,
+   "per_year_signed_pct": {
+    "2016": -2.17,
+    "2019": 7.9
+   },
+   "n_years": 2,
+   "r2_log_monthly": 0.9502,
+   "obs_annual_total_mean": 115471.4,
+   "n_months": 23
+  },
+  "parana_delta": {
+   "median_annual_err_pct": 20.82,
+   "mean_signed_err_pct": -5.92,
+   "per_year_signed_pct": {
+    "2016": 14.9,
+    "2019": -26.74
+   },
+   "n_years": 2,
+   "r2_log_monthly": 0.4494,
+   "obs_annual_total_mean": 1088.6,
+   "n_months": 23
+  }
+ },
+ "locked_bridge_tile": {
+  "median_abs_annual_err_pct_tile_years": 8.53,
+  "n_tile_years": 1310
+ },
+ "model_choice": {
+  "chosen": "ratio_bridge_pre_drift",
+  "note": "gbm skipped (dev smoke run)"
+ },
+ "decisions": {
+  "tau": 100,
+  "tau_b": 3000,
+  "chosen_model": "ratio_bridge_pre_drift"
+ },
+ "runtime_sec": 46
+}

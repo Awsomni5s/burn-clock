@@ -1,0 +1,115 @@
+2026-11-14T22:14:02Z start: 6 jobs: [('viirs-noaa21', 2023), ('viirs-jpss2', 2023), ('viirs-noaa21', 2024), ('viirs-jpss2', 2024), ('viirs-noaa21', 2025), ('viirs-jpss2', 2025)]
+2026-11-14T22:14:29Z viirs-noaa21 2023: NOT_AVAILABLE (HTTP 404)
+2026-11-14T22:14:29Z viirs-jpss2 2023: NOT_AVAILABLE (HTTP 404)
+2026-11-14T22:14:29Z viirs-noaa21 2024: NOT_AVAILABLE (HTTP 404)
+2026-11-14T22:14:43Z viirs-jpss2 2024: NOT_AVAILABLE (HTTP 404)
+2026-11-14T22:14:44Z viirs-noaa21 2025: NOT_AVAILABLE (HTTP 404)
+2026-11-14T22:15:02Z viirs-jpss2 2025: NOT_AVAILABLE (HTTP 404)
+2026-11-14T22:15:02Z run_archive done
+part modis 2015: {'cell_days': 2895366, 'spill_rows_from_neighbours': 229, 'inputs': ['celldays_modis_2014.parquet', 'celldays_modis_2015.parquet', 'celldays_modis_2016.parquet'], 'seconds': 2.7}
+part modis 2016: {'cell_days': 2736548, 'spill_rows_from_neighbours': 283, 'inputs': ['celldays_modis_2015.parquet', 'celldays_modis_2016.parquet', 'celldays_modis_2017.parquet'], 'seconds': 2.8}
+part modis 2017: {'cell_days': 2699837, 'spill_rows_from_neighbours': 233, 'inputs': ['celldays_modis_2016.parquet', 'celldays_modis_2017.parquet', 'celldays_modis_2018.parquet'], 'seconds': 2.7}
+part modis 2018: {'cell_days': 2492538, 'spill_rows_from_neighbours': 70, 'inputs': ['celldays_modis_2017.parquet', 'celldays_modis_2018.parquet', 'celldays_modis_2019.parquet'], 'seconds': 2.3}
+part modis 2019: {'cell_days': 2729106, 'spill_rows_from_neighbours': 62, 'inputs': ['celldays_modis_2018.parquet', 'celldays_modis_2019.parquet', 'celldays_modis_2020.parquet'], 'seconds': 2.6}
+part modis 2020: {'cell_days': 2672540, 'spill_rows_from_neighbours': 483, 'inputs': ['celldays_modis_2019.parquet', 'celldays_modis_2020.parquet', 'celldays_modis_2021.parquet'], 'seconds': 2.5}
+part modis 2021: {'cell_days': 2570100, 'spill_rows_from_neighbours': 209, 'inputs': ['celldays_modis_2020.parquet', 'celldays_modis_2021.parquet', 'celldays_modis_2022.parquet'], 'seconds': 2.2}
+part modis 2022: {'cell_days': 2298103, 'spill_rows_from_neighbours': 96, 'inputs': ['celldays_modis_2021.parquet', 'celldays_modis_2022.parquet', 'celldays_modis_2023.parquet'], 'seconds': 2.1}
+part modis 2023: {'cell_days': 2737011, 'spill_rows_from_neighbours': 40, 'inputs': ['celldays_modis_2022.parquet', 'celldays_modis_2023.parquet', 'celldays_modis_2024.parquet'], 'seconds': 2.6}
+part modis 2024: {'cell_days': 2866259, 'spill_rows_from_neighbours': 179, 'inputs': ['celldays_modis_2023.parquet', 'celldays_modis_2024.parquet', 'celldays_modis_2025.parquet'], 'seconds': 2.6}
+part modis 2025: {'cell_days': 2233201, 'spill_rows_from_neighbours': 50, 'inputs': ['celldays_modis_2024.parquet', 'celldays_modis_2025.parquet'], 'seconds': 2.0}
+part viirs-jpss1 2018: {'cell_days': 5277893, 'spill_rows_from_neighbours': 1, 'inputs': ['celldays_viirs-jpss1_2018.parquet', 'celldays_viirs-jpss1_2019.parquet'], 'seconds': 5.1}
+part viirs-jpss1 2019: {'cell_days': 7735132, 'spill_rows_from_neighbours': 1269, 'inputs': ['celldays_viirs-jpss1_2018.parquet', 'celldays_viirs-jpss1_2019.parquet', 'celldays_viirs-jpss1_2020.parquet'], 'seconds': 7.3}
+part viirs-jpss1 2020: {'cell_days': 7860503, 'spill_rows_from_neighbours': 1966, 'inputs': ['celldays_viirs-jpss1_2019.parquet', 'celldays_viirs-jpss1_2020.parquet', 'celldays_viirs-jpss1_2021.parquet'], 'seconds': 7.9}
+part viirs-jpss1 2021: {'cell_days': 7380740, 'spill_rows_from_neighbours': 1248, 'inputs': ['celldays_viirs-jpss1_2020.parquet', 'celldays_viirs-jpss1_2021.parquet', 'celldays_viirs-jpss1_2022.parquet'], 'seconds': 7.3}
+part viirs-jpss1 2022: {'cell_days': 7032279, 'spill_rows_from_neighbours': 1444, 'inputs': ['celldays_viirs-jpss1_2021.parquet', 'celldays_viirs-jpss1_2022.parquet', 'celldays_viirs-jpss1_2023.parquet'], 'seconds': 6.9}
+part viirs-jpss1 2023: {'cell_days': 7751952, 'spill_rows_from_neighbours': 1279, 'inputs': ['celldays_viirs-jpss1_2022.parquet', 'celldays_viirs-jpss1_2023.parquet', 'celldays_viirs-jpss1_2024.parquet'], 'seconds': 7.4}
+part viirs-jpss1 2024: {'cell_days': 8283475, 'spill_rows_from_neighbours': 1021, 'inputs': ['celldays_viirs-jpss1_2023.parquet', 'celldays_viirs-jpss1_2024.parquet', 'celldays_viirs-jpss1_2025.parquet'], 'seconds': 7.8}
+part viirs-jpss1 2025: {'cell_days': 7049765, 'spill_rows_from_neighbours': 1412, 'inputs': ['celldays_viirs-jpss1_2024.parquet', 'celldays_viirs-jpss1_2025.parquet'], 'seconds': 6.9}
+part viirs-snpp 2014: {'cell_days': 7554307, 'spill_rows_from_neighbours': 1508, 'inputs': ['celldays_viirs-snpp_2013.parquet', 'celldays_viirs-snpp_2014.parquet', 'celldays_viirs-snpp_2015.parquet'], 'seconds': 7.0}
+part viirs-snpp 2015: {'cell_days': 7981179, 'spill_rows_from_neighbours': 1914, 'inputs': ['celldays_viirs-snpp_2014.parquet', 'celldays_viirs-snpp_2015.parquet', 'celldays_viirs-snpp_2016.parquet'], 'seconds': 7.9}
+part viirs-snpp 2016: {'cell_days': 7760815, 'spill_rows_from_neighbours': 2018, 'inputs': ['celldays_viirs-snpp_2015.parquet', 'celldays_viirs-snpp_2016.parquet', 'celldays_viirs-snpp_2017.parquet'], 'seconds': 7.5}
+part viirs-snpp 2017: {'cell_days': 7308931, 'spill_rows_from_neighbours': 2296, 'inputs': ['celldays_viirs-snpp_2016.parquet', 'celldays_viirs-snpp_2017.parquet', 'celldays_viirs-snpp_2018.parquet'], 'seconds': 7.3}
+part viirs-snpp 2018: {'cell_days': 7078726, 'spill_rows_from_neighbours': 1643, 'inputs': ['celldays_viirs-snpp_2017.parquet', 'celldays_viirs-snpp_2018.parquet', 'celldays_viirs-snpp_2019.parquet'], 'seconds': 7.1}
+part viirs-snpp 2019: {'cell_days': 7626503, 'spill_rows_from_neighbours': 1907, 'inputs': ['celldays_viirs-snpp_2018.parquet', 'celldays_viirs-snpp_2019.parquet', 'celldays_viirs-snpp_2020.parquet'], 'seconds': 7.4}
+part viirs-snpp 2020: {'cell_days': 7687278, 'spill_rows_from_neighbours': 2644, 'inputs': ['celldays_viirs-snpp_2019.parquet', 'celldays_viirs-snpp_2020.parquet', 'celldays_viirs-snpp_2021.parquet'], 'seconds': 7.5}
+part viirs-snpp 2021: {'cell_days': 7199870, 'spill_rows_from_neighbours': 1723, 'inputs': ['celldays_viirs-snpp_2020.parquet', 'celldays_viirs-snpp_2021.parquet', 'celldays_viirs-snpp_2022.parquet'], 'seconds': 7.2}
+part viirs-snpp 2022: {'cell_days': 6518484, 'spill_rows_from_neighbours': 974, 'inputs': ['celldays_viirs-snpp_2021.parquet', 'celldays_viirs-snpp_2022.parquet', 'celldays_viirs-snpp_2023.parquet'], 'seconds': 6.2}
+part viirs-snpp 2023: {'cell_days': 7649521, 'spill_rows_from_neighbours': 557, 'inputs': ['celldays_viirs-snpp_2022.parquet', 'celldays_viirs-snpp_2023.parquet', 'celldays_viirs-snpp_2024.parquet'], 'seconds': 7.2}
+part viirs-snpp 2024: {'cell_days': 7554359, 'spill_rows_from_neighbours': 1898, 'inputs': ['celldays_viirs-snpp_2023.parquet', 'celldays_viirs-snpp_2024.parquet', 'celldays_viirs-snpp_2025.parquet'], 'seconds': 7.6}
+part viirs-snpp 2025: {'cell_days': 6836550, 'spill_rows_from_neighbours': 3668, 'inputs': ['celldays_viirs-snpp_2024.parquet', 'celldays_viirs-snpp_2025.parquet'], 'seconds': 7.1}
+q25_month.parquet: 22270883 rows from 34 parts
+c1_year_month.parquet: 4958814 rows from 34 parts
+outage months: 23 masked: 4
+stage 2 done in 189s
+2026-11-14T22:18:11Z start: 14 jobs: [('modis', 2000), ('modis', 2001), ('modis', 2002), ('modis', 2003), ('modis', 2004), ('modis', 2005), ('modis', 2006), ('modis', 2007), ('modis', 2008), ('modis', 2009), ('modis', 2010), ('modis', 2011), ('modis', 2012), ('viirs-snpp', 2012)]
+2026-11-14T22:18:26Z modis 2000: OK bytes=4658057 rows=261363 dl=14.1s proc=0.9s
+2026-11-14T22:18:30Z modis 2001: OK bytes=31545201 rows=1769987 dl=1.9s proc=2.4s
+2026-11-14T22:18:34Z modis 2002: OK bytes=65275966 rows=3699859 dl=3.0s proc=4.0s
+2026-11-14T22:19:33Z modis 2003: OK bytes=90378077 rows=5149401 dl=19.1s proc=43.7s
+2026-11-14T22:20:00Z stage 2 after 2003: rc=0
+2026-11-14T22:20:07Z modis 2004: OK bytes=89357956 rows=5092534 dl=1.6s proc=7.2s
+2026-11-14T22:20:14Z modis 2005: OK bytes=89941181 rows=5125152 dl=4.5s proc=6.5s
+2026-11-14T22:20:20Z modis 2006: OK bytes=82443496 rows=4688046 dl=3.5s proc=6.2s
+2026-11-14T22:26:14Z modis 2007: OK bytes=90015477 rows=5134642 dl=17.4s proc=343.3s
+2026-11-14T22:27:42Z stage 2 after 2007: rc=0
+2026-11-14T22:27:48Z modis 2008: OK bytes=84590452 rows=4818997 dl=17.6s proc=5.6s
+2026-11-14T22:27:54Z modis 2009: OK bytes=78288906 rows=4456446 dl=4.9s proc=6.1s
+2026-11-14T22:28:00Z modis 2010: OK bytes=82694466 rows=4715142 dl=1.7s proc=5.5s
+2026-11-14T22:28:54Z modis 2011: OK bytes=82526410 rows=4699314 dl=53.6s proc=5.6s
+2026-11-14T22:29:21Z stage 2 after 2011: rc=0
+2026-11-14T22:29:26Z modis 2012: OK bytes=87107469 rows=4959509 dl=17.4s proc=5.4s
+2026-11-14T22:29:59Z viirs-snpp 2012: OK bytes=369758237 rows=20864680 dl=15.7s proc=22.2s
+2026-11-14T22:30:34Z stage 2 final: rc=0
+2026-11-14T22:30:34Z run_archive done
+q25_month.parquet: 29806656 rows from 48 parts
+c1_year_month.parquet: 6782019 rows from 48 parts
+outage months: 39 masked: 5
+stage 2 done in 13s
+tiles: 1237 files, 191187 cells, 681.9 MB
+clock 2013 done
+clock 2014 done
+clock 2015 done
+clock 2016 done
+clock 2017 done
+clock 2018 done
+clock 2019 done
+clock 2020 done
+clock 2021 done
+clock 2022 done
+clock 2023 done
+clock 2024 done
+clock 2025 done
+clock: 887 files, 14303 cells, 9.0 MB
+{
+ "detections_processed": 548501203,
+ "by_platform": {
+  "T": 39682127,
+  "A": 71742290,
+  "N": 281144514,
+  "J1": 155932272,
+  "J2": 0
+ },
+ "type0_detections": 515029947,
+ "active_cell_days": 192342680,
+ "type0_by_platform": {
+  "T": 37574576,
+  "A": 70099066,
+  "N": 262114642,
+  "J1": 145241663,
+  "J2": 0
+ },
+ "active_cell_days_by_platform": {
+  "T": 18650980,
+  "A": 41463177,
+  "N": 84657777,
+  "J1": 47570746,
+  "J2": 0
+ },
+ "active_cell_days_night": 36715213,
+ "rows_unknown_platform": 0,
+ "type0_exact_duplicates_removed": 226,
+ "csv_files": 10095,
+ "archives": 48
+}
+stage 3 done in 143s
+RUN_ALL_DONE

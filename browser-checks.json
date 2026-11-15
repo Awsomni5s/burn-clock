@@ -1,0 +1,17 @@
+{
+  "base": "http://127.0.0.1:4173",
+  "checks": [
+    "Initial calendar renders 23 full years from supplied data",
+    "All six preset cell counts and November 2025 values match independent Python sums",
+    "Raw/harmonized/anomaly toggles, pre-VIIRS nulls, absent NOAA-21 and early era",
+    "CSV contains 276 visible months, nulls, interval labels and source/badge fields",
+    "Calendar keyboard navigation updates the selected month",
+    "All routes render; clock slider, world layers, country filter and receipt base/mask work",
+    "Drawing a rectangle updates the area and recomputes the calendar",
+    "Coordinates reject invalid bounds and accept date-line-crossing areas",
+    "All five screens fit a 390px mobile viewport and mobile navigation works",
+    "Tile failure is an explicit retryable error, never a fabricated zero calendar",
+    "No JavaScript or console errors in the normal workflows"
+  ],
+  "errors": []
+}

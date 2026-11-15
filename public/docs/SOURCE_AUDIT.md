@@ -1,0 +1,48 @@
+# Burn Clock: source audit
+
+Checked on 14 November 2026, approximately 23:30–23:45 UTC. This audit separates public-source confirmation, local consistency checks, and supplied research claims. It does not repeat the full 548-million-row pipeline or independently validate causal attribution.
+
+## Public sources
+
+| Source | What was established | Limit |
+| --- | --- | --- |
+| [NASA Space Apps challenge](https://www.spaceappschallenge.org/2026/challenges/modis-and-viirs-hot-spots/) | The official search result identifies “Harmonization of MODIS and VIIRS Hot Spots” at the corrected URL supplied in the plan. | Direct opens returned HTTP 502 during this audit. The complete challenge text and current submission requirements were not independently retrieved. |
+| [NASA FIRMS notifications](https://firms2.modaps.eosdis.nasa.gov/content/notifications/firms2/news.html) | NASA's live notification says S-NPP observation delivery ceased on 2 November 2026 and recommends NOAA-20/21 alternatives. | The [linked detailed announcement](https://www.earthdata.nasa.gov/news/blog/transitioning-from-suomi-npp-viirs-omps-what-firms-users-need-know) and [alert](https://www.earthdata.nasa.gov/data/alerts-outages/suomi-npp-data-product-delivery-cease-november-1-2026) returned HTTP 403. The precise 13:00 UTC cutoff was not independently confirmed from a readable primary page. A delivery cutoff is not a claim about physical spacecraft shutdown. |
+| [NASA FIRMS Area API](https://firms.modaps.eosdis.nasa.gov/api/area) | Official documentation lists NOAA-21 NRT and standard-processing source names. | Absence of NOAA-21 in this bundle does not mean NOAA-21 data are generally unavailable. No authenticated Area API data were fetched. |
+| [NOAA-21 yearly ZIP probe](https://firms.modaps.eosdis.nasa.gov/data/country/zips/viirs-jpss2_2025_all_countries.zip) | An independent HEAD request returned HTTP 404. | This checks one naming/path/date combination, not every NOAA-21 distribution route. The manifest records six unavailable URL probes; the others were not repeated. |
+| [NASA Terra orbital information](https://terra.nasa.gov/about) | NASA describes orbital drift and changing local crossing times. | Its dated estimates are not a measurement of look time over any particular area. Burn Clock's regional times are detection-derived summaries. |
+| [GK2A dataset, Zenodo 20084790](https://zenodo.org/records/20084790) | The record exists, names Hiren Jethva, links the associated paper, and provides Punjab/Haryana 2019–2025 data. It describes a preliminary fire/hot-smoke contrast algorithm and roughly 3.8–4 km pixels over northwestern India. | Dataset existence and metadata were checked; its raw files were not downloaded or reprocessed here. This does not independently reproduce the receipt. |
+| [Jethva, Remote Sensing 18(10):1506](https://www.mdpi.com/2072-4292/18/10/1506) | The paper exists, published 11 May 2026, and reports later-day burning from geostationary observations. | The paper supports the scientific context; it does not certify Burn Clock's particular aggregates, classification rules, or counterfactual percentages. |
+| [NASA Earth Observatory: New Timing for Stubble Burning](https://science.nasa.gov/earth/earth-observatory/new-timing-for-stubble-burning-in-india/) | The December 2025 article discusses later burning and links independent geostationary studies and the official 2025 release. | Narrative corroboration is not ground truth or an independent reprocessing of Burn Clock. |
+| [PIB official 2025 release](https://www.pib.gov.in/PressReleseDetailm.aspx?PRID=2197201&lang=2&reg=3) | The 1 December 2025 release states Punjab recorded 5,114 incidents, 93% below 2021, for the official 15 September–30 November monitoring period. | That window and counting protocol differ from the receipt's October–November active cell-days. The release verifies what was reported, not the true total of all fires. |
+
+The four named rival repositories are available; the findings and limits are in [COMPETITOR_DIFFERENTIATION.md](COMPETITOR_DIFFERENTIATION.md). No nonexistent-source conclusion was reached. HTTP 403/502 responses were treated as access failures, not proof that the underlying sources do not exist.
+
+## Independent archive spot check
+
+The [MODIS 2000 all-country ZIP](https://firms.modaps.eosdis.nasa.gov/data/country/zips/modis_2000_all_countries.zip) was downloaded afresh from NASA with certificate verification enabled. It contains 163 CSVs and 261,363 data rows excluding CSV headers. Its size is 4,658,057 bytes and SHA-256 is `569669636fd149a5cbc41a9c77bef994c20a700e17011940046f12e69cf977a2`. All three values match the supplied manifest. The other 47 archives were not downloaded again. An initial Python download encountered a local CA configuration error; the successful curl download used normal TLS verification.
+
+All 48 local manifest source records match their corresponding successful entries in `pipeline/out/MANIFEST_SOURCES.json` for URL, bytes, hash and rows. Each detailed entry's per-CSV row sum agrees with its archive row count. The supplied records sum to 548,501,203 rows, 10,095 CSVs and 9,751,298,609 downloaded bytes. These checks establish internal consistency, not independent verification of all underlying observations.
+
+## Dates and inconsistent metadata
+
+- The audit clock read 2026-11-14 23:36:52 UTC. Manifest fetch times span 21:56:16–22:29:36 UTC on that date. Its generation time is 22:33:10 UTC; validation is timestamped 22:49:52 UTC. No future-date inconsistency was found in these records relative to the audit time.
+- Observational coverage ends at December 2025. The app must say “latest supplied month” or “December 2025,” not “current month” or “live.” November 2026 satellite status does not extend the historical data.
+- The supplied manifest and data README describe `harm` as empty. Actual sampled tiles contain harmonized arrays. All 1,237 tile JSON files total 1,120,909,041 bytes, while the earlier manifest reports 681,935,081 bytes. Clock files total 9,040,082 bytes, agreeing with the manifest. The tile-size and empty-array metadata predate final harmonization.
+- Supplied reports include different stages and region definitions. Use final JSON values for display, and preserve the reports as historical provenance rather than silently treating every earlier prose number as final.
+
+## Scientific cautions that affect the interface
+
+- Active cell-days are a sampling unit, not unique fires, burned area or emissions. The same cell can count on multiple days and platforms; averaging onto one sensor scale is not the same operation as summing observations.
+- A clock-sensitive badge detects a departure in MODIS/VIIRS ratios. It does not identify motive, prove a clock-only cause, or measure how many fires were missed. “Robust” means within the diagnostic's threshold, not validated ground truth.
+- The supplied world atlas uses nominal/high-confidence detection counts. The calendar uses type-0 active cell-days at all confidence levels. World atlas percentages must not be presented as a direct correction to the calendar's units. World `bend_TA_pct` (−12.7%) and `artifact_2019_2025_pct` (−11.1%) are different statistics.
+- The global artifact is a supplied model-based attribution, conditional on assumptions about non-clock instrument changes. The plan's “purely the clock” language is stronger than those assumptions support. Prefer “estimated clock-associated distortion.”
+- The raw monthly mask drops a platform at more than 30% missing days. Harmonization can retain/rescale it with at least 50% coverage. A null raw S-NPP month can coexist with a non-null harmonized month; that is a documented policy difference.
+- Summed cell-level bootstrap endpoints are conservative AOI bounds, not a calibrated 90% AOI confidence interval. A zero MODIS cell-month can yield zero harmonized value and a zero-width range while VIIRS would detect small fires.
+- Reported global LOYO error is 1.06%, but 5° tile-year LOYO is 8.83%, Paraná is 21.31%, and spatial tile-block holdout is 40.71%. The global score must not be used as a universal area-level accuracy claim. The Terra-only era is less reliable and cannot be directly validated against pre-2002 VIIRS observations.
+- The receipt's unmasked GK2A unique pixel-days ratio is 16,096 / 24,447 = 0.6584 (−34.2%). Its matched-calendar base-year fan gives 0.636 against 2021 (−36.4%), and 1.727 against 2019. Label the masking rule and comparison year. These are not interchangeable estimates.
+- GK2A pixel-hours include fire duration and have hour-dependent thresholds. GK2A unique pixel-days reduce repeat counting but remain affected by smoke, cloud, pixel size and detection thresholds. The supplied hot-smoke test is inconclusive; do not call the product ground truth. Avoid promoting the 18:00 signal to a headline.
+- The fixed-clock and drifting-clock receipt rows measure different observation regimes. Terra/Aqua ratios are not controlled estimates of a true activity decline. Do not describe the ratio of percentage declines across sensors as a measured correction factor.
+- Local solar time (UTC + longitude/15) is distinct from IST (UTC + 5:30). Calendar selection must not silently change the clock convention used in the receipt.
+
+The intermediate Parquet inputs are absent from this delivered workspace, so the complete scientific pipeline and its original validation runs were not reproduced. [DATA_PROVENANCE.md](DATA_PROVENANCE.md) records the complete supplied archive inventory and the distinction between reported and independently checked quantities.

@@ -1,0 +1,121 @@
+# Burn Clock harmonization + validation: PRE-REGISTERED METHOD
+# Written 2026-11-14 before any scoring. The sha256 of the canonical JSON of the
+# `method` block is stored in CONFIG.lock (config_hash). Every script refuses to
+# run if the hash of this block differs from the lock. Locked test years are
+# never read by any stage except `final`, which requires the lock to exist.
+# The `inputs` block is NOT part of the hash: it only says where the data are.
+
+method:
+  unit: "daytime active cell-days per platform (FIRMS type 0, all confidences); dev input uses 1deg n_conf detections as a stand-in"
+  daynight: D
+  reference_platform: N            # S-NPP VIIRS scale
+  viirs_platforms: [N, J1, J2]
+  modis_platforms: [T, A]
+
+  years:
+    overlap_pre_drift: [2013, 2014, 2015, 2016, 2017, 2018, 2019]
+    locked_test: [2016, 2019]
+    training: [2013, 2014, 2015, 2017, 2018]
+    all_overlap_drift_contaminated: [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
+    production_fit: [2013, 2014, 2015, 2016, 2017, 2018, 2019]
+    terra_only_before: "2002-07"   # MODIS = T before this month, T+A after
+
+  coverage:
+    rule: "platform-day missing if global day count < 20% of its centred 31-day median; coverage = observed days / days in month; manifest outage_months used when present"
+    fit_min: 0.9          # a month enters a fit or a score only if T, A and N (and the bridged platform) all have coverage >= 0.9
+    use_min: 0.5          # a platform-month is usable for the harmonized output if coverage >= 0.5
+    scale_partial: true   # usable platform counts are divided by coverage when coverage < 1
+
+  bridge:                 # VIIRS platforms -> S-NPP scale
+    form: "r_P(tile5,moy) = (sum N + tau_b * r_P(global,moy)) / (sum P + tau_b); r_P(global,moy) = sum N / sum P"
+    fit_years: "all years where both N and P have coverage >= 0.9, excluding locked_test years"
+    tau_b_grid: [0, 10, 30, 100, 300, 1000, 3000]
+    tau_b_selection: "LOYO over the bridge fit years; minimise Poisson deviance of N vs r_P*P at finest cell-month with P>0"
+
+  k:
+    combos: {TA: [T, A], T: [T], A: [A]}
+    form: "k_L = (V_L + tau * k_parent) / (M_L + tau); levels cell -> 1deg -> 5deg tile -> global(moy); global unshrunk; all sums over fit years, per month-of-year"
+    tau_grid: [0, 1, 3, 10, 30, 100, 300, 1000, 3000]
+    tau_shared: "one tau for all levels and all combos, selected on combo TA"
+    tau_selection: "LOYO over training years; minimise total Poisson deviance of held-out cell-month V vs k*M over rows with M>0 (rows with M=0 predict 0 for every tau)"
+
+  output:
+    src_V: "any VIIRS platform usable -> harm = mean over usable VIIRS P of r_P * P / cov_P"
+    src_M: "else any MODIS usable -> combo TA if both usable (T only before terra_only_before), else T or A; harm = k_combo * M / cov"
+    src_X: "else null"
+    precision_decimals: 2
+
+  uncertainty:
+    B: 200
+    seed: 20261114
+    bootstrap: "year blocks: resample production_fit years with replacement, refit k at fixed tau; bridge r refit by resampling bridge years"
+    interval: "negative binomial moment-matched to mean = harm, var = harm + sum(count_i^2 * Var_b(factor_i)); 5% and 95% quantiles; var == mean -> Poisson"
+
+  gbm:
+    estimator: sklearn.ensemble.HistGradientBoostingRegressor
+    target: log1p(V)
+    features: [log1p_T, log1p_A, month, lat_center, lon_center, tile5_mean_k_TA]
+    tile5_mean_k_TA: "sum V / sum (T+A) over the fit years of the fold, per 5deg tile, all months; tiles with no MODIS -> global"
+    params: {max_iter: 200, learning_rate: 0.1, max_leaf_nodes: 63, min_samples_leaf: 100, l2_regularization: 1.0, early_stopping: false, random_state: 0}
+    rows: "dense cell x month grid over universe cells in usable fit months; rows with T=A=V=0 subsampled at 0.25 with weight 4 (seed)"
+    back_transform: "expm1(pred) * smear; smear = sum V / sum expm1(pred) on the fit rows (weighted)"
+    bootstrap_B_if_shipped: 20
+
+  model_choice:
+    primary_metric: "LOYO (training years) median over 5deg tile-years with observed annual V >= 100 of |annual % error|"
+    rule: "ship gbm iff primary_gbm <= 0.9 * primary_bridge, else ship ratio_bridge_pre_drift"
+    decided_before_unlock: true
+
+  regions:
+    punjab_haryana: [27.6, 73.8, 32.6, 77.6]   # south, west, north, east
+    parana_delta: [-34.5, -60.8, -32.0, -58.3]
+    cell_in_box: "cell centre inside box"
+    continents: "dominant FIRMS country (VIIRS N, all years) of the parent 1deg cell -> scratch/global/regions.py continent()"
+
+  metrics:
+    annual_pct_err: "100*|sum pred - sum obs| / sum obs per region-year over usable months; median over held-out years; signed mean also reported"
+    r2_log_monthly: "1 - SSres/SStot of ln(1 + monthly region totals), pred vs obs, pooled over held-out months"
+    universe: "cells with >= 1 detection ever (any platform, day or night)"
+
+  loro:
+    continents: "hold out each continent (all its cells); k for held-out cells falls back to parents fitted on the rest (global if parents empty)"
+    tile_blocks: {n_folds: 10, seed: 7, unit: 5deg tile}
+    years: training
+
+  denial:
+    - {hidden: V, from: T+A, design: LOYO training years}
+    - {hidden: V, from: T+A, design: "forward: fit 2013-2015, reconstruct 2017-2018"}
+    - {hidden: "V,A", from: T, design: LOYO training years}
+    - {hidden: "V,T", from: A, design: LOYO training years}
+    - {hidden: N, from: J1, design: "LOYO over bridge fit years"}
+
+  changepoint:
+    seam_2012: "per continent and global: mean annual (2013-15) / mean annual (2009-11) for raw naive splice (MODIS T+A to 2011-12, S-NPP from 2012-01), harmonized, and MODIS T+A alone; needs 2009-11 data"
+    drift_2020_22: "per continent and global, per year: R(y) = sum k_pre*M / sum V (MODIS-only reconstruction vs observed VIIRS); seam = mean R(2023-25) / mean R(training years)"
+
+  drift_contaminated_comparison: "fit k on all_overlap_drift_contaminated minus held-out and locked years; compare LOYO errors on training years and the implied scale sum k_all*M / sum k_pre*M over the MODIS-only era (2003-2011 if present) and over 2013-15"
+
+  final:
+    model_for_locked_scoring: "fit on training years with the selected tau (and tau_b), score 2016 and 2019 with the same metrics, for both models"
+    production: "refit on production_fit years after final scoring; bootstrap on production_fit years"
+
+inputs:
+  dev:
+    path: /home/claude/burnclock/data/processed/global_cell_month.parquet
+    grid_deg: 1.0
+    value: n_conf
+  q25:
+    path: /home/claude/burnclock/data/processed/q25_month.parquet
+    grid_deg: 0.25
+    value: cell_days
+  q25snap:   # frozen copy of q25 (2013-2025 complete) taken 22:20 UTC while the builder adds 2000-2012
+    path: /home/claude/burnclock/pipeline/harmonize/out/q25_snapshot_2013_2025.parquet
+    grid_deg: 0.25
+    value: cell_days
+  coverage_csv: /home/claude/burnclock/scratch/global/out/platform_month_coverage.csv
+  platform_daily: /home/claude/burnclock/data/processed/global_platform_daily.parquet
+  country_cells: /home/claude/burnclock/data/processed/global_country_cell_month.parquet
+  manifest: /home/claude/burnclock/public/data/manifest.json
+  outage_days: /home/claude/burnclock/data/processed/outage_days.json   # q25 builder's outage screen; overrides coverage_csv where it covers
+  tiles_dir: /home/claude/burnclock/public/data/tiles
+  validation_out: /home/claude/burnclock/public/data/validation.json

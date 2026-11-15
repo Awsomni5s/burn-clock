@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.DS_Store
+test-results/
+playwright-report/
+.openai/*.zip
+*.log
+tmp/
+tsconfig.tsbuildinfo
+.artifact-build/

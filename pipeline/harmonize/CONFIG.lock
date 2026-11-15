@@ -1,0 +1,16 @@
+{
+ "config_hash": "d0f62a55636f6def8856f4be39ec2b67bb79fd4fce96adf42234f297d98cec63",
+ "locked_utc": "2026-11-14T21:54:54Z",
+ "history": [],
+ "unlocked_test_years": true,
+ "unlock_log": [
+  {
+   "input": "q25",
+   "utc": "2026-11-14T22:46:53Z"
+  },
+  {
+   "input": "q25",
+   "utc": "2026-11-14T22:48:58Z"
+  }
+ ]
+}

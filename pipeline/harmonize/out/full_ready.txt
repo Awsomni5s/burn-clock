@@ -1,0 +1,1 @@
+{'T': (np.int64(2000), np.int64(2025), 26), 'A': (np.int64(2002), np.int64(2025), 24), 'N': (np.int64(2012), np.int64(2025), 14), 'J1': (np.int64(2018), np.int64(2025), 8)} q25_full public_ready 1237

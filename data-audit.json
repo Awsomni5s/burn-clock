@@ -1,0 +1,10 @@
+{
+  "calendar_tiles_checked": 1237,
+  "cells_checked": 191187,
+  "months_per_cell": 302,
+  "cell_months_checked": 57738474,
+  "interval_or_source_violations": 0,
+  "errors": [],
+  "gzip_roundtrip": "exact byte equality for every tile",
+  "seconds": 26.73
+}

@@ -1,0 +1,10 @@
+{
+  "checks": [
+    "Invalid shared month defaults safely",
+    "Polar area completes without map errors",
+    "Worldwide rectangle aggregates all 191187 cells",
+    "No JavaScript or console errors"
+  ],
+  "global_seconds": 15,
+  "errors": []
+}
