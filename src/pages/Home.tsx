@@ -1,3 +1,4 @@
+import {JOBS} from '../nextMove';
 import {PRESETS,type BBox} from '../types';
 import PlaceSearch from '../components/PlaceSearch';
 import {Evidence} from '../components/Provenance';
@@ -35,4 +36,15 @@ function VerdictStrip(){
  if(!cases)return null;
  const pick=(['timing','modis','clear','unknown'] as Verdict[]).map(v=>cases.find(c=>c.verdict===v)).filter(Boolean);
  return <section className="verdict-strip" aria-labelledby="strip-title"><h2 id="strip-title">Same check, different answers</h2><p>Burn Clock doesn’t say “timing matters” everywhere. Here is what it finds in four of our case studies.</p><div className="strip-grid">{pick.map(c=><a key={c.id} href={c.link} className={'strip-card verdict-'+c.verdict}><span className={'v-chip verdict-'+c.verdict}>{VERDICT_SHORT[c.verdict as Verdict]}</span><strong>{c.title}</strong><span className="strip-season">{c.season}</span><span className="strip-lesson">{c.lesson}</span></a>)}</div><a href="#cases">See all six case studies →</a></section>;
+}
+
+const JOB_TEXT:Record<Role,string>={policy:'Plan field checks and enforcement',air:'Forecast smoke and air quality',journalist:'Report or fact-check fire claims',research:'Study fire trends over time'};
+/** First visit: who are you, then where. The dashboard follows. */
+export function Onboard({step,onJob,onSelect,onShape}:{step:'job'|'place';onJob:(r:Role)=>void;onSelect:(b:BBox,name?:string)=>void;onShape:(b:BBox,shape:string,name:string)=>void}){
+ if(step==='job')return <div className="home-page onboard" data-testid="onboard-job"><p className="ob-step">Burn Clock · NASA satellite fire records · Step 1 of 2</p><h1>What do you do?</h1><p className="ob-lead">We’ll tailor the fire calendar and the advice to your job.</p>
+  <div className="ob-jobs">{(Object.keys(JOBS) as Role[]).map(r=><button key={r} onClick={()=>onJob(r)} data-testid={'ob-job-'+r}><span className="ob-icon" aria-hidden="true">{JOBS[r].icon}</span><strong>{JOBS[r].label}</strong><span>{JOB_TEXT[r]}</span></button>)}</div></div>;
+ return <div className="home-page onboard" data-testid="onboard-place"><p className="ob-step">Step 2 of 2</p><h1>Which place?</h1><p className="ob-lead">Search any country or province. You can also draw your own area on the map next.</p>
+  <div className="ob-search"><PlaceSearch onSelect={onSelect} onShape={onShape}/></div>
+  <p className="ob-or">Or start with an example:</p><div className="ob-presets">{PRESETS.map(p=><button key={p.id} onClick={()=>onSelect(p.box)}>{p.name}</button>)}</div>
+  <button className="ob-back" onClick={()=>updateView({role:null},'home')}>← Change job</button></div>;
 }
