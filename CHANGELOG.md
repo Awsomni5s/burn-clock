@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-11-15 — Act on it: Punjab, district by district, and a brief for every role
+
+- **Punjab action planner (`#act`, new menu item "Act on it: Punjab").** Built from `public/data/punjab_districts.json`, which is made by `pipeline/analysis/punjab_districts.py`.
+  - **Data:**
+    - GK2A hourly fire pixels and S-NPP/NOAA-20 daytime cell-days are assigned to 22 districts using geoBoundaries ADM2 (ODbL).
+    - Daily series let each comparison drop the outage days of both compared years. This is the same rule as the statewide base-year fan, and the unit tests assert the all-district result matches it.
+  - **Field teams:** districts ranked by fire signal at 4 pm or later, the best 1–4-hour check window, a map, and a copyable plan.
+  - **Forecasters:** how much further the ~1:40 pm count fell than the whole-afternoon record, for every base year, plus hourly profiles as CSV.
+  - **Reporters:** "You can say / Don't say / Why" wording per district. It is withheld where data are thin.
+  - **Researchers:** CSV and JSON downloads.
+- **Role brief from any place report.** "Download one-page brief" saves a printable HTML file; "Copy brief as text" copies the same content. The order is verdict, actions for the chosen role, evidence, then limits. Areas overlapping Punjab link to the planner.
+- **Links to the planner:**
+  - the home page, through a Punjab callout;
+  - the Punjab case study, through "Plan by district";
+  - the judge tour, which gains a fifth step.
+- **Tests:** `src/act.test.ts` and `src/roleBrief.test.ts`. `scripts/act_browser_checks.mjs`, now part of `node scripts/reproduce.mjs`, recomputes the window, gap and ranking from the shipped file, downloads the CSV and brief, runs an axe scan and checks for phone overflow.
+
 ## 2026-11-15 — Verdicts, case studies and judge deliverables
 
 - **Verdict card on every place report.** The answer now comes first: one of four verdicts (*Timing matters here*, *The older MODIS record is off here*, *Satellite timing doesn't explain this*, *Can't tell yet*), a one-sentence answer, and the two checks in plain words ("Yes, likely" / "No sign" / "Can't tell"). Rule in `src/verdict.ts`, unit-tested in `src/verdict.test.ts`, documented on the Methods page.

@@ -1,7 +1,7 @@
 import {useEffect,useState} from 'react';
 import {VERDICT_SHORT,type Verdict} from '../verdict';
 
-interface Case{id:string;title:string;season:string;months:number[];a:number;b:number;question:string;do:string;lesson:string;deep?:string;
+interface Case{id:string;title:string;season:string;months:number[];a:number;b:number;question:string;do:string;lesson:string;deep?:string;plan?:string;
   link:string;verdict:Verdict;verdict_label:string;sentence:string;late:string;modis:string;viirs:string;aqua:string}
 const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
@@ -25,7 +25,7 @@ export default function CaseStudies(){
       <h3>What Burn Clock finds</h3><p data-testid={'case-sentence-'+c.id}>{c.sentence}</p>
       <h3>What to do</h3><p>{c.do}</p>
       <p className="case-lesson"><strong>Lesson:</strong> {c.lesson}</p>
-      <div className="case-actions"><a className="button primary" href={c.link}>Open this place</a>{c.deep&&<a className="button secondary" href={c.deep}>See the hourly evidence</a>}</div>
+      <div className="case-actions"><a className="button primary" href={c.link}>Open this place</a>{c.deep&&<a className="button secondary" href={c.deep}>See the hourly evidence</a>}{c.plan&&<a className="button secondary" href={c.plan} data-testid="case-plan">Plan by district</a>}</div>
     </section>)}</div>
     <p className="case-source">Each verdict and sentence above is computed by the same code as the place reports ({data.producer}), from NASA FIRMS data. Built {data.generated_utc.slice(0,10)}. Open any place to change the months, years or area.</p>
   </article>;

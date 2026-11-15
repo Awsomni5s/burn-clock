@@ -1,0 +1,76 @@
+{
+  "tested_at": "2026-11-15T17:42:42.344Z",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "window share",
+      "ok": true
+    },
+    {
+      "name": "pass share",
+      "ok": true
+    },
+    {
+      "name": "gap satellite change",
+      "ok": true
+    },
+    {
+      "name": "gap afternoon change",
+      "ok": true
+    },
+    {
+      "name": "gap factor",
+      "ok": true
+    },
+    {
+      "name": "wording",
+      "ok": true
+    },
+    {
+      "name": "WhatsApp plan link",
+      "ok": true
+    },
+    {
+      "name": "priority order",
+      "ok": true
+    },
+    {
+      "name": "select from table writes URL",
+      "ok": true
+    },
+    {
+      "name": "thin district refused",
+      "ok": true
+    },
+    {
+      "name": "profile CSV rows",
+      "ok": true
+    },
+    {
+      "name": "act page axe",
+      "ok": true
+    },
+    {
+      "name": "planner link shown for Punjab",
+      "ok": true
+    },
+    {
+      "name": "brief carries verdict and actions",
+      "ok": true
+    },
+    {
+      "name": "mobile no horizontal scroll",
+      "ok": true
+    }
+  ],
+  "scans": [
+    {
+      "page": "act",
+      "violations": []
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Automated checks only; no human usability study was conducted."
+  ]
+}

@@ -22,3 +22,19 @@ Product decisions supported by this review:
 - Make exports reproducible by including the selected area, baseline, source, missingness, uncertainty interpretation and data version.
 
 These are implementation priorities, not verified claims that a rival lacks them. The competitor websites were not interactively tested in this audit.
+
+## Update, 15 November 2026: what each tool lets a user *do*
+
+- **Scope:** a README review of 326 public repositories for this challenge pushed after 13 November (294 had a readable README).
+- **Read in full:** FireClock, BlindSpot, Mee, HazeWatch and Oryx (Punjab).
+- **Limits:** this is not an interactive benchmark, and capabilities are as the authors describe them.
+
+| Need | Closest rival approach | Burn Clock |
+| --- | --- | --- |
+| Is this place's trend distorted by satellite timing? | FireClock: a satellite-clock panel for Punjab & Haryana and Paraná | A four-way verdict for any place and months, with actions per verdict × role |
+| When should field teams check? | BlindSpot: best hours from gaps between satellite passes (Pakistan) | Best window from when fire was actually observed burning (hourly GK2A), per Punjab district, plus the busiest two weeks |
+| How far to trust the count for emissions inputs? | Described qualitatively by several projects | Count change vs whole-afternoon change per district and base year, shown as a sensitivity range |
+| What can a reporter safely write? | — | "You can say / Don't say / Why", generated per district, withheld for thin data |
+| Alerts | Mee (Telegram), BlindSpot | Not offered: needs a live server; listed as future work |
+
+Overlap remains real. FireClock reports the same Aqua-drift finding for Punjab, with a wheat-season placebo and a second continent. Burn Clock's distinct contribution is turning that evidence into district-level, role-specific actions. This review does not establish that no other team does this.

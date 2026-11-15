@@ -1,38 +1,38 @@
 # Burn Clock: two-minute demonstration
 
-Use the deployed app, already signed in if it retains private access. Begin on **Explore the record**, preset **Punjab + Haryana**, harmonized mode, November 2025. Keep the network available for the first tile load. The archive is historical through December 2025, not a live fire feed.
+Open the deployed app and choose **Start here**. The five-step tour follows the order below. The archive is historical through 2025. The live panel on a place report shows NASA's dated near-real-time feed separately.
 
-## 0:00–0:20 — The record
+## 0:00–0:20 — The verdict (Check a place → Punjab + Haryana)
 
-“Burn Clock puts four satellite records onto one VIIRS scale and keeps the observation time visible. The supplied pipeline processed 548,501,203 rows from 48 NASA archives. These are satellite hotspots, not individual fires.”
+"Fire satellites look at each place a few fixed times a day, and two of them have drifted. Burn Clock joins MODIS and VIIRS into one record and gives every place a verdict."
 
-Point to the source totals and selected rectangle. Change to California or draw a box, then return to Punjab + Haryana. Only the required compressed tiles load.
+- Punjab + Haryana, Oct–Nov, 2021 vs 2025: **Timing matters here**.
+- Read the one-sentence answer and the two checks: "Has burning moved to hours the satellites miss?" and "Is the older MODIS record off here?".
+- Pick a role and point out that the actions change with both the verdict and the job.
+- Show **Download one-page brief**: verdict, then actions, then evidence, then limits, ready to print.
 
-## 0:20–0:45 — Read the calendar
+## 0:20–0:50 — Act on it: Punjab, district by district
 
-Select November 2025. The supplied tiles sum to about 3,903 VIIRS-scale active cell-days for this preset. Show its historical median, approximate interval and contributing satellites. Switch between Harmonized, Raw observations and Anomaly. Explain that raw sensors have different sensitivities and missing observations remain missing. Download CSV to show the estimates and provenance leave the app together.
+"For Punjab we have hourly geostationary data, so we turn the verdict into a plan."
 
-## 0:45–1:10 — Follow the clock
+- The districts are ranked by burning at 4 pm or later.
+- Click the darkest district on the map (Fazilka in 2025):
+  - **Field teams:** 4–6 pm covered almost all of the afternoon fire signal, while the 1–2 pm satellite-pass images held almost none. The busiest two weeks are named. Copy or WhatsApp the plan.
+  - **Forecasters:** the 1:40 pm count fell far more than the whole-afternoon record. The factor appears for every base year as a sensitivity range, not a correction. Download the hourly profiles.
+  - **Reporters:** "You can say / Don't say / Why", generated per district and withheld where the data are thin.
 
-Open **Satellite clock**. Move the year slider between 2021 and 2025. Solid hands show medians of cell-median look times; dashed hands show the pre-drift baseline. The annual badge tests Terra and Aqua separately against their pre-drift MODIS/VIIRS relationship. A badge is a diagnostic, not a causal proof.
+## 0:50–1:10 — Same check, different answers (Case studies)
 
-The Punjab + Haryana annual preset can remain within threshold while the separate Punjab state October–November receipt is clock-sensitive. Their areas and seasons differ; do not imply they are the same measurement. Scroll to the Terra day/night maps and country table to show the global context.
+There are six places with four different verdicts.
+- **Punjab's wheat season** is the built-in control: same place, no timing problem.
+- **Kalimantan** shows the error running the other way, because MODIS exaggerates the decline.
 
-## 1:10–1:35 — Audit a headline
+## 1:10–1:35 — The hourly evidence (Case studies → Punjab → hourly evidence)
 
-Open **Punjab receipt**. “The official 93% claim is a satellite count over its stated window. Our receipt compares within-instrument ratios and shows how the observation time affects the signal.”
+Move the India-time slider from 1 pm to 5 pm. At 5 pm, 2025 had more fire detections than 2021, even though the 1:40 pm count fell sharply. GK2A is a preliminary product with ~4 km pixels. It is not ground truth.
 
-Show the fixed-clock S-NPP and NOAA-20 rows, then the GK2A hourly view. Change the base year from 2021 to 2019 and show the masked/unmasked switch. GK2A is not ground truth; its pixel scale, smoke sensitivity and thresholds differ.
+## 1:35–2:00 — How reliable is it?
 
-## 1:35–2:00 — Show the failures
-
-Open **Validation**. “The ratio bridge won: 8.83% versus 10.55% on held-out tile-years. Global LOYO error is 1.06%, but Paraná is 21.31%, and transfer to unseen continents is weak. Those failures are on the page.”
-
-Point to locked 2016/2019, the configuration hash and same-day pair tests. Finish on **Methods & sources**, with the downloadable methods PDF, seven-slide overview, source audit and AI-use disclosure.
-
-## Before presenting
-
-- Test access using the intended judge account. An owner-private URL is not anonymously public.
-- The map uses locally hosted Natural Earth layers and needs no external map API key.
-- No NOAA-21 or 2026 observations are included; do not claim full five-satellite/current-year coverage.
-- Do not claim the entire scientific pipeline was rerun in this app build, universal accuracy, a true fire total, causal motive, ground truth or superiority over every rival.
+- Held-out errors, the removed 2012 jump, and where the method fails (Paraná, transfer between continents).
+- Click any underlined number to see its file, field and producing script.
+- `node scripts/reproduce.mjs` recomputes the checked numbers in a browser.
