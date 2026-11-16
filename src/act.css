@@ -332,3 +332,11 @@
 .hd-panel select{max-width:100%}
 .fp-table{width:100%}
 .hd-mapbox .draw-hint{top:auto!important;bottom:8px!important;left:8px!important;right:auto!important;transform:none!important;max-width:60%;font-size:.8rem;padding:6px 8px}
+@media(max-width:600px){.platform-claims{display:block!important;grid-template-columns:1fr!important}.platform-claims p{min-width:0;overflow-wrap:anywhere}}
+@media(max-width:600px){
+ .hd-bar .scenarios{display:none}
+ .chat-btn{padding:10px 14px;font-size:.88rem}
+ .chat-fab{right:10px;bottom:10px}
+ .hd-title{font-size:1.25rem}
+ .hd-views{width:100%}.hd-views button{flex:1;padding:9px 8px;font-size:.9rem}
+}
