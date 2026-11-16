@@ -149,9 +149,8 @@ try {
   const obPresets = await page.locator('.ob-presets button').count();
   check('six example places', () => assert.equal(obPresets, 6));
   await page.locator('.ob-presets button', {hasText: 'Punjab + Haryana'}).click(); await page.getByTestId('hd-mapview').waitFor({timeout: 90000}); await page.locator('.hd-cal .calendar-facts').waitFor({timeout: 90000});
-  await page.getByTestId('hd-connector').waitFor({timeout: 30000});
   const mapCal = await page.evaluate(() => { const m = document.querySelector('.hd-mapbox').getBoundingClientRect(), c = document.querySelector('.hd-cal').getBoundingClientRect(); return m.right <= c.left + 2; });
-  check('map view: the map sits beside its calendar, joined by a line', () => assert.ok(mapCal));
+  check('map view: the map sits beside its calendar', () => assert.ok(mapCal));
   await page.getByTestId('calendar-facts').getByRole('link', {name: /trust that trend/}).click(); await page.getByTestId('hd-act').waitFor();
   check('the calendar trust link opens the act view', () => assert.match(page.url(), /view=act/));
   await page.locator('#answer').waitFor({timeout: 60000}); await page.getByTestId('live-check').waitFor({timeout: 60000});

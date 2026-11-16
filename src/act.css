@@ -225,7 +225,7 @@
 .hd-views{display:flex;gap:6px;margin-left:auto}
 .hd-views button{margin:0;padding:10px 16px;border:2px solid #0b0c0c;border-radius:8px;background:#fff;font:inherit;font-weight:700;cursor:pointer}
 .hd-views button.active{background:#0b0c0c;color:#fff}
-.hd-mapview{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:70px;align-items:start}
+.hd-mapview{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:24px;align-items:start}
 .hd-mapbox .contour-map-section{margin:0}
 .hd-mapbox .area-map{min-height:460px}
 .hd-hint{margin:0 0 6px;font-size:.85rem;color:#505a5f}
