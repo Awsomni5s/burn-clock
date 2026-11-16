@@ -1,5 +1,5 @@
 {
-  "tested_at": "2026-11-16T02:08:48.658Z",
+  "tested_at": "2026-11-16T02:20:45.807Z",
   "status": "passed",
   "checks": [
     {
@@ -159,7 +159,7 @@
       "ok": true
     },
     {
-      "name": "map view: the map sits beside its calendar, joined by a line",
+      "name": "map view: the map sits beside its calendar",
       "ok": true
     },
     {
