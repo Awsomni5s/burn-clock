@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16T03:04:20.920Z",
+  "generatedAt": "2026-11-16T03:35:12.357Z",
   "status": "passed",
   "checks": [
     {
@@ -26,7 +26,7 @@
       "name": "Claim page preserves the submitted text without pretending to verify arbitrary prose",
       "status": "passed",
       "detail": {
-        "localExportMs": 158,
+        "localExportMs": 147,
         "width": 650,
         "height": 1162
       }
@@ -47,11 +47,11 @@
       "name": "Local first view and year-change interaction meet the stated speed budget",
       "status": "passed",
       "detail": {
-        "firstViewMs": 184,
+        "firstViewMs": 237,
         "yearChangeMs": [
-          48,
-          44,
-          34
+          50,
+          60,
+          48
         ],
         "environment": "Fresh browser context for first view; local Chromium, production build when run through make reproduce; no network throttling"
       }
@@ -255,11 +255,11 @@
   ],
   "performance": [
     {
-      "firstViewMs": 184,
+      "firstViewMs": 237,
       "yearChangeMs": [
-        48,
-        44,
-        34
+        50,
+        60,
+        48
       ],
       "environment": "Fresh browser context for first view; local Chromium, production build when run through make reproduce; no network throttling"
     }
