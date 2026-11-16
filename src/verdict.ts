@@ -20,6 +20,9 @@ export const VERDICT_LABEL:Record<Verdict,string>={
   clear:'Satellite timing doesn’t explain this',
   unknown:'Can’t tell yet',
 };
+/** The plain answer to “Can you trust this trend?”, shown before the reason. */
+export const TRUST_ANSWER:Record<Verdict,string>={timing:'No',modis:'Yes, but not old MODIS counts',clear:'Yes',unknown:'Can’t tell yet'};
+export const TRUST_REASON:Record<Verdict,string>={timing:'Burning moved to hours the satellites miss, so the count changed more than the burning.',modis:'The trend holds in the combined record; Terra or Aqua counts alone would mislead here.',clear:'Satellite timing doesn’t explain this change.',unknown:'Too little data here to test satellite timing.'};
 export const VERDICT_SHORT:Record<Verdict,string>={timing:'Timing matters',modis:'MODIS record off',clear:'Timing isn’t the issue',unknown:'Can’t tell'};
 
 const pct=(v:number)=>Math.round(Math.abs(v));

@@ -5,7 +5,8 @@ import LiveTimingCheck from './components/LiveTimingCheck';
 import {civilHour,areaZone,zoneLabel,civilNote} from './civilTime';
 import Provenance,{Evidence} from './components/Provenance';
 import {JudgeTour,ShareView,NasaLinks,CiteDataset,Glossary,PolicyBrief,ApiDocs,EmbedBadge} from './components/Sharing';
-import {useEffect,useState,useRef,lazy,Suspense} from 'react';
+import {useEffect,useState,useRef,useMemo,lazy,Suspense} from 'react';
+import {timingChecks} from './timing';
 import Calendar,{calendarFacts} from './components/Calendar';
 import NextMove from './components/NextMove';
 import Playbook from './components/Playbook';
@@ -64,7 +65,12 @@ export default function App(){
  const handleShape=(v:BBox,shapeParam:string,label:string)=>{pendingScroll.current=true;updateView({box:v,shape:shapeParam,place:label,months:null,season:'auto',choose:false},page==='claim'?'claim':page==='home'?'home':'explorer');setCoordError('');};
  const handleBox=(v:BBox,label?:string)=>{pendingScroll.current=true;const p=PRESETS.find(p=>p.box.every((x,i)=>x===v[i]));updateView({box:v,shape:null,place:p?null:label??null,months:bundle&&p?bundle.seasons[p.id].months:null,season:p?null:'auto',choose:false},page==='claim'?'claim':page==='home'?'home':'explorer');setCoordError('');};
  const applyCoordinates=(e:React.FormEvent)=>{e.preventDefault();const v=coordValues.map(Number);if(coordValues.some(x=>!x.trim())||!validBox(v)){setCoordError('Use valid south/north bounds and distinct west/east bounds.');return;}handleBox(v);setCoords(false);};
- const selectMonth=(s:string)=>updateView({month:s,clockYear:Math.max(2013,+s.slice(0,4))});
+ const [focus]=useURLState('focus','live',choice(['live','month'] as const));
+ const selectMonth=(s:string)=>updateView({month:s,clockYear:Math.max(2013,+s.slice(0,4)),focus:'month',mapYear:Math.max(2001,Math.min(2025,+s.slice(0,4)))});
+ const fm=focus==='month'?{y:+selected.slice(0,4),m:+selected.slice(5)}:null;
+ const am=fm?[fm.m]:months,ab=fm?fm.y:b,aa=fm?(a<fm.y?a:Math.max(2001,fm.y-4)):a;
+ const monthLate=useMemo(()=>area&&fm&&fm.y>=2021?timingChecks(area.months,[fm.m],fm.y).late:'unknown' as const,[area,fm?.y,fm?.m]);
+ const focusBar=bundle&&<FocusBar focus={focus} selected={selected} months={bundle.manifest.months} onPick={(v,f)=>updateView(f==='live'?{focus:'live'}:{focus:'month',month:v,clockYear:Math.max(2013,+v.slice(0,4)),mapYear:Math.max(2001,Math.min(2025,+v.slice(0,4)))})}/>;
  const clock=area?.clock.find(c=>c.year===b),overlapsPunjab=box[0]<PRESETS[0].box[2]&&box[2]>PRESETS[0].box[0]&&(box[1]<=box[3]?box[1]<PRESETS[0].box[3]&&box[3]>PRESETS[0].box[1]:box[1]<PRESETS[0].box[3]||box[3]>PRESETS[0].box[1]);
  const zone=areaZone(box),referenceDate=selected+'-15',pass=(v:number|null)=>`${hour(civilHour(v,box,referenceDate,zone))} ${zoneLabel(zone)}`;
  const monthNames=months.map(m=>new Intl.DateTimeFormat('en',{month:'long',timeZone:'UTC'}).format(new Date(Date.UTC(2025,m-1,15)))).join('–');
@@ -79,15 +85,16 @@ export default function App(){
   <div className="hd-bar"><div className="hd-ctx"><span className="hd-k">Place</span><h1 className="hd-title">{name}</h1><button className="hd-change" onClick={()=>updateView({box:null,shape:null,place:null,view:null},'home')} data-testid="hd-change-place">Change</button></div>
    <div className="hd-ctx"><span className="hd-k">You are</span><strong>{JOBS[job!].icon} {JOBS[job!].label}</strong><button className="hd-change" onClick={()=>updateView({role:null},'home')} data-testid="hd-change-job">Change</button></div>
    <div className="hd-views" role="tablist" aria-label="View">{([['map','📅 Fire calendar'],['act','✅ What should I do?']] as const).map(([v,l])=><button key={v} role="tab" aria-selected={hv===v} className={hv===v?'active':''} onClick={()=>homeView(v)} data-testid={'view-'+v}>{l}</button>)}</div></div>
+  {focusBar}
   {areaError?<section className="error-state" role="alert"><h2>This area could not be evaluated</h2><p>{areaError}</p><button onClick={()=>setRetry(v=>v+1)}>Retry area</button></section>:!area?<Loading text={progress.total?`Reading ${progress.done} of ${progress.total} area files…`:'Preparing the area record…'}/>:!area.cellCount?<section className="empty-state"><h2>No archived fire cells here</h2><p>Empty archive coverage is no data, not proof of no burning. Choose a larger area.</p></section>
   :hv==='map'?<div className="hd-mapview" data-testid="hd-mapview">
     <div className="hd-mapbox"><p className="hd-hint">Fire level curves (days with a fire, per year). Your area is outlined. Draw another with the tools above the map.</p><Suspense fallback={<Loading text="Loading the map…"/>}><AreaMap box={box} name={name} onBox={handleBox} onShape={handleShape} polys={shape?.polys??null} manifest={bundle.manifest}/></Suspense></div>
     <section className="monthly-detail calendar-core hd-cal" aria-label="Burning activity calendar"><Calendar area={area} selected={selected} onSelect={selectMonth} manifest={bundle.manifest} name={name} season={months} onTrend={()=>homeView('act')}/><button className="hd-next" onClick={()=>homeView('act')} data-testid="hd-to-act">What should I do about this? →</button></section>
-    <Connector/></div>
-  :hv==='act'?<div className="hd-act" data-testid="hd-act"><NextMove area={area} name={name} months={months} a={a} b={b} manifest={bundle.manifest} preset={preset?.id} ask onGo={v=>{if(v==='ask')setChat(true);else document.getElementById(v==='trend'?'answer':'hd-week')?.scrollIntoView({behavior:'smooth',block:'start'});}}/>
-    <Playbook role={job!} box={box} name={name} receipt={bundle.receipt} validation={bundle.validation}/>
-    <div className="hd-panels"><section className="hd-panel"><ClaimChecker area={area} manifest={bundle.manifest} name={name} preset={preset?.id} months={months} a={a} b={b} onMonths={setMonths} onA={setA} onB={setB} receipt={bundle.receipt}/></section>
-     <section className="hd-panel" id="hd-week"><h2 className="hd-panel-title">This week, satellite by satellite</h2><Deferred label="this week’s provisional observations"><Suspense fallback={<Loading/>}><LivePanel/></Suspense></Deferred></section></div></div>
+    </div>
+  :hv==='act'?<div className="hd-act" data-testid="hd-act"><NextMove area={area} name={name} months={am} a={aa} b={ab} focusMonth={fm} manifest={bundle.manifest} preset={preset?.id} polys={activePolys} ask onGo={v=>{if(v==='ask')setChat(true);else document.getElementById(v==='trend'?'answer':'hd-week')?.scrollIntoView({behavior:'smooth',block:'start'});}}/>
+    <Playbook role={job!} box={box} name={name} receipt={bundle.receipt} validation={bundle.validation} months={area?.months} focusMonth={fm} manifest={bundle.manifest} monthLate={monthLate} clockYear={fm?area.clock.find(c=>c.year===fm.y):undefined} polys={shape&&shape.key===shapeStr?shape.polys:null}/>
+    <div className="hd-panels"><section className="hd-panel"><ClaimChecker area={area} manifest={bundle.manifest} name={name} preset={preset?.id} months={am} a={aa} b={ab} onMonths={v=>{if(fm&&v.length===1)updateView({month:`${fm.y}-${String(v[0]).padStart(2,'0')}`});else{updateView({focus:'live'});setMonths(v);}}} onA={setA} onB={v=>{if(fm)updateView({month:`${v}-${String(fm.m).padStart(2,'0')}`,clockYear:Math.max(2013,v),mapYear:v});else setB(v);}} receipt={bundle.receipt}/></section>
+     {!fm&&<section className="hd-panel" id="hd-week"><h2 className="hd-panel-title">This week, satellite by satellite</h2><Deferred label="this week’s provisional observations"><Suspense fallback={<Loading/>}><LivePanel/></Suspense></Deferred></section>}</div></div>
   :<Home onSelect={handleBox} data={bundle.receipt} validation={bundle.validation} rows={metadata.rows}/>}
   <div className={'chat-fab'+(chat?' open':'')}>{chat&&<div className="chat-pop" role="dialog" aria-label="AI Advisor for this place"><div className="chat-head"><strong>AI Advisor · {name}</strong><button onClick={()=>setChat(false)} aria-label="Close">×</button></div><AskPanel compact initialRole={job??undefined} context={`place “${name}”, box ${box.join(",")} (south,west,north,east), months ${months.join(",")}, comparing ${a} with ${b}`} offText="The AI Advisor is switched off on this copy of the site."/></div>}<button className="chat-btn" onClick={()=>setChat(!chat)} data-testid="chat-fab" aria-expanded={chat}>{chat?'Close':'💬 AI Advisor'}</button></div>
  </div>:<Loading/>;
@@ -107,13 +114,17 @@ export default function App(){
  {page!=='embed'&&<Glossary/>}</main><footer className="plain-footer">{bundle&&<p data-source="validation.json:config_hash;manifest.json:generated_utc,totals.detections_processed">Data version {metadata.config.slice(0,8)} · built {__APP_BUILT_AT__.slice(0,10)} · <Evidence value={metadata.rows.toLocaleString('en-US')} expression="totals.detections_processed" source="manifest.json" producer="pipeline/build_public.py"/> FIRMS rows</p>}<nav aria-label="Further information"><a href="#methods">Methods & disclosure</a><a href="#api">Data & API</a><a href="#claim">Check a claim</a><a href="#brief">Monitoring brief</a><a href="#cases">Case studies</a><a href="#act">Punjab action planner</a><a href="/docs/Burn_Clock_Demo_7_Slides.pdf">Demo slides (PDF)</a><a href="/docs/TESTING.md">Testing record</a><a href="https://github.com/Awsomni5s/burn-clock">GitHub</a></nav><p>Independent project using NASA FIRMS and GK2A data. All numbers traceable to source files.</p></footer></div></Provenance>;
 }
 
-/** A line with a hollow dot: from the area on the map (the map is fitted to it, so its centre) to its calendar. */
-function Connector(){
- const [d,setD]=useState<{x1:number;y1:number;x2:number;y2:number;w:number;h:number}|null>(null);
- useEffect(()=>{const f=()=>{const root=document.querySelector('.hd-mapview'),m=document.querySelector('.hd-mapbox .map-canvas')??document.querySelector('.hd-mapbox .area-map'),c=document.querySelector('.hd-cal');if(!root||!m||!c)return;const r=root.getBoundingClientRect(),a=m.getBoundingClientRect(),b=c.getBoundingClientRect();
-  setD({x1:a.left+a.width/2-r.left,y1:a.top+a.height/2-r.top,x2:b.left-r.left+2,y2:Math.min(b.top-r.top+70,b.bottom-r.top),w:r.width,h:r.height});};
-  f();const t=[300,1200,3000].map(ms=>setTimeout(f,ms));addEventListener('resize',f);return()=>{t.forEach(clearTimeout);removeEventListener('resize',f);};},[]);
- if(!d)return null;
- const mx=(d.x1+d.x2)/2;
- return <svg className="hd-connector" width={d.w} height={d.h} aria-hidden="true" data-testid="hd-connector"><path d={`M${d.x1},${d.y1} C${mx},${d.y1} ${mx},${d.y2} ${d.x2-8},${d.y2}`} fill="none" stroke="#0b0c0c" strokeWidth="2.5"/><circle cx={d.x1} cy={d.y1} r="9" fill="none" stroke="#0b0c0c" strokeWidth="3"/><circle cx={d.x1} cy={d.y1} r="12" fill="none" stroke="#fff" strokeWidth="2"/><path d={`M${d.x2-14},${d.y2-7} L${d.x2-2},${d.y2} L${d.x2-14},${d.y2+7}`} fill="none" stroke="#0b0c0c" strokeWidth="2.5"/></svg>;
+const MONTH_LONG=['January','February','March','April','May','June','July','August','September','October','November','December'];
+/** Which period the whole page is about: this week's live NASA data, or one past month from the archive (also set by clicking the calendar). */
+function FocusBar({focus,selected,months,onPick}:{focus:'live'|'month';selected:string;months:string[];onPick:(month:string,focus:'live'|'month')=>void}){
+ const years=[...new Set(months.map(m=>+m.slice(0,4)))].sort((x,y)=>y-x),y=+selected.slice(0,4),m=+selected.slice(5);
+ const pick=(yy:number,mm:number)=>{let k=`${yy}-${String(mm).padStart(2,'0')}`;if(!months.includes(k))k=months.filter(x=>x.startsWith(String(yy))).at(-1)??months.at(-1)!;onPick(k,'month');};
+ return <div className="focus-bar" data-testid="focus-bar" role="group" aria-label="Which period the page shows">
+  <span className="hd-k">Showing</span>
+  <div className="segmented"><button aria-pressed={focus==='live'} onClick={()=>onPick(selected,'live')} data-testid="focus-live">This week (live)</button><button aria-pressed={focus==='month'} onClick={()=>pick(y,m)} data-testid="focus-month">A past month</button></div>
+  {focus==='month'?<><label className="focus-sel">Month <select value={m} onChange={e=>pick(y,+e.target.value)} data-testid="focus-m">{MONTH_LONG.map((n,i)=><option key={n} value={i+1}>{n}</option>)}</select></label>
+   <label className="focus-sel">Year <select value={y} onChange={e=>pick(+e.target.value,m)} data-testid="focus-y">{years.map(v=><option key={v} value={v}>{v}</option>)}</select></label>
+   <p className="focus-note">Everything on the page is for <strong>{MONTH_LONG[m-1]} {y}</strong>: the map, the verdict, the plan and the advice. Click any month on the calendar to switch.</p></>
+  :<p className="focus-note">Advice uses <strong>this week’s</strong> NASA data. Click a month on the calendar, or choose “A past month”, to see that month instead.</p>}
+ </div>;
 }

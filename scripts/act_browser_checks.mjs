@@ -126,7 +126,7 @@ try {
   const nmWhen = await page.getByTestId('nm-when').innerText();
   check('next move: Punjab season Oct-Nov with a share', () => assert.match(nmWhen, /Oct–Nov[\s\S]*\d+% of a normal year/));
   const trendChip = await page.getByTestId('nm-trend-head').innerText();
-  check('next move: trend card has a verdict', () => assert.match(trendChip, /Don’t trust the drop|skip old MODIS|trend is real|Not enough data/));
+  check('next move: trend card has a verdict', () => assert.match(trendChip, /[Dd]on’t trust the drop|skip old MODIS|trend is real|Can’t tell yet/));
   await page.getByTestId('playbook').getByText(/Where to send field teams/).waitFor({timeout: 60000});
   const pbRows = await page.getByTestId('playbook').locator('tbody tr').count();
   check('playbook: districts ranked with a check window for field teams', () => assert.ok(pbRows >= 5));
@@ -149,9 +149,9 @@ try {
   const obPresets = await page.locator('.ob-presets button').count();
   check('six example places', () => assert.equal(obPresets, 6));
   await page.locator('.ob-presets button', {hasText: 'Punjab + Haryana'}).click(); await page.getByTestId('hd-mapview').waitFor({timeout: 90000}); await page.locator('.hd-cal .calendar-facts').waitFor({timeout: 90000});
-  await page.getByTestId('hd-connector').waitFor({timeout: 30000});
   const mapCal = await page.evaluate(() => { const m = document.querySelector('.hd-mapbox').getBoundingClientRect(), c = document.querySelector('.hd-cal').getBoundingClientRect(); return m.right <= c.left + 2; });
-  check('map view: the map sits beside its calendar, joined by a line', () => assert.ok(mapCal));
+  const document_has_connector = await page.getByTestId('hd-connector').count() > 0;
+  check('map view: the map sits beside its calendar (no connector line that drifts when the map zooms)', () => assert.ok(mapCal && !document_has_connector));
   await page.getByTestId('calendar-facts').getByRole('link', {name: /trust that trend/}).click(); await page.getByTestId('hd-act').waitFor();
   check('the calendar trust link opens the act view', () => assert.match(page.url(), /view=act/));
   await page.locator('#answer').waitFor({timeout: 60000}); await page.getByTestId('live-check').waitFor({timeout: 60000});
@@ -185,8 +185,8 @@ try {
   const busiest = await page.locator('.day-summary').innerText();
   check('day view shows busiest days', () => assert.match(busiest, /Busiest day in \d{4}: \d+ (Oct|Nov)/));
   await page.goto(`${base}/?box=-20,-55,-5,-40#explorer`); await page.locator('.calendar-core').waitFor({timeout: 90000});
-  const daysDisabled = await page.getByRole('button', {name: 'Days'}).isDisabled();
-  check('days button disabled outside Punjab', () => assert.equal(daysDisabled, true));
+  const daysButtons = await page.getByRole('button', {name: 'Days'}).count(), daysNote = await page.getByTestId('days-note').innerText();
+  check('outside Punjab the Days button is replaced by a visible note', () => { assert.equal(daysButtons, 0); assert.match(daysNote, /Punjab \+ Haryana only/); });
   // 10. Mobile layout: no horizontal scroll on the planner.
   const mobile = await browser.newPage({viewport: {width: 390, height: 844}});
   await mobile.goto(`${base}/?district=Fazilka#act`); await mobile.getByTestId('act-window').waitFor();

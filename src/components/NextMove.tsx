@@ -10,7 +10,8 @@ import {useURLState,choice} from '../urlState';
 import {calendarFacts} from './Calendar';
 import {liveTiming,liveAmount,type LiveCells,type LiveStatus} from '../liveCheck';
 import {useDaily,dailyValues} from './DayCalendar';
-import {nextSeasons,seasonICS,thisWeekAction,VERDICT_TRUST,MONTH_NAMES,AMOUNT_CLASS,JOBS,whenPlain,TREND_HEADLINE,trendPlain,weekHeadline} from '../nextMove';
+import {nextSeasons,seasonICS,thisWeekAction,VERDICT_TRUST,MONTH_NAMES,AMOUNT_CLASS,JOBS,whenPlain,TREND_HEADLINE,trendPlain,weekHeadline,monthHeadline,monthAction} from '../nextMove';
+import {lateLabel} from '../labels';
 
 const LIVE_INLINE:Record<LiveStatus,string>={signal:'burning later than usual',within:'no shift from usual',below:'Aqua sees less than usual',unknown:'can’t tell this week'};
 const LIVE:Record<LiveStatus,string>={signal:'Burning later than usual',within:'No timing shift',below:'Aqua sees less',unknown:'Can’t tell this week'};
@@ -19,7 +20,7 @@ const weekClass=(a:import('../liveCheck').AmountStatus|undefined,t:LiveStatus|un
 const scrollTo=(id:string)=>()=>{const el=document.getElementById(id)??document.querySelector(`[data-testid="${id}"]`);el?.scrollIntoView({behavior:'smooth',block:'start'});};
 
 /** The first answer after choosing a place: when to be ready, whether the trend is real, what this week looks like, and what to do in your job. */
-export default function NextMove({area,name,months,a,b,manifest,preset,polys,ask=false,onGo}:{area:AreaResult;name:string;months:number[];a:number;b:number;manifest:Manifest;preset?:string;polys?:Polys|null;ask?:boolean;onGo?:(v:'trend'|'week'|'ask')=>void}){
+export default function NextMove({area,name,months,a,b,manifest,preset,polys,ask=false,onGo,focusMonth}:{area:AreaResult;name:string;months:number[];a:number;b:number;manifest:Manifest;preset?:string;polys?:Polys|null;ask?:boolean;onGo?:(v:'trend'|'week'|'ask')=>void;focusMonth?:{y:number;m:number}|null}){
   const go=(v:'trend'|'week'|'ask',id:string)=>onGo?()=>onGo(v):scrollTo(id);
   const [role,setRole]=useURLState<Role>('role',preset==='punjab'?'policy':'research',choice(['policy','air','journalist','research'] as const));
   const [doc,setDoc]=useState<LiveCells|null>(null),[liveError,setLiveError]=useState(false);
@@ -48,7 +49,7 @@ export default function NextMove({area,name,months,a,b,manifest,preset,polys,ask
   const summary=()=>[`Burn Clock · ${name} · for ${job.label.toLowerCase()}`,
     `1. ${whenHead} (${seasonLabel}). Do: ${doWhen}`,
     `2. ${TREND_HEADLINE[verdict]}. Do: ${doTrend}`,
-    `3. This week: ${weekHead}. Do: ${doWeek}`,
+    focusMonth?`3. ${fLabel}: ${fHead}. Do: ${fDo}`:`3. This week: ${weekHead}. Do: ${doWeek}`,
     `NASA satellite data; this week's data is provisional. ${location.href}`].join('\n');
   const copy=async()=>{try{await navigator.clipboard.writeText(summary());setCopied(true);setTimeout(()=>setCopied(false),2000);}catch{setCopied(false);}};
   const download=()=>{const ics=seasonICS({name,months:critical,share:facts?.peakShare??null,link:location.href,today});const url=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));const el=document.createElement('a');el.href=url;el.download=`burning-season-${name.replace(/[^A-Za-z0-9]+/g,'-').toLowerCase()}.ics`;el.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
@@ -56,6 +57,10 @@ export default function NextMove({area,name,months,a,b,manifest,preset,polys,ask
     <p className="nm-q">{n} · {q}</p><p className="nm-big" data-testid={id+'-head'}>{head}</p><p className="nm-sub">{sub}</p>
     <p className="nm-do"><span>Do:</span> {todo}</p>{extra}<details className="nm-why"><summary>Why?</summary>{why}</details></article>;
   const weekCls=weekClass(amount?.status,live?.status);
+  const fKey=focusMonth?`${focusMonth.y}-${String(focusMonth.m).padStart(2,'0')}`:'',fRow=focusMonth?area.months.find(x=>x.month===fKey)??null:null;
+  const fLate=claim?.checks.late??'unknown',fAnom=(fRow&&fRow.harm!=null?fRow.anomaly:'missing') as 'above'|'normal'|'below'|'missing';
+  const fLabel=focusMonth?`${MONTH_NAMES[focusMonth.m-1]} ${focusMonth.y}`:'',fHead=focusMonth?monthHeadline(fAnom,fLate):'',fDo=focusMonth?monthAction(role,fAnom,fLate):'';
+  const fCls=fAnom==='missing'?'unknown':fAnom==='above'||(fAnom==='below'&&fLate==='signal')?'timing':'clear';
   return <section className="next-move" aria-labelledby="next-move-title" data-testid="next-move">
     <p className="step-tag"><b>2</b> I am a…</p>
     <div className="job-picker" role="group" aria-label="I am a">{(Object.keys(JOBS) as Role[]).map(r=><button key={r} aria-pressed={role===r} className={role===r?'active':''} onClick={()=>setRole(r)} data-testid={'nm-role-'+r}><span aria-hidden="true">{JOBS[r].icon}</span>{JOBS[r].label}</button>)}</div>
@@ -66,7 +71,9 @@ export default function NextMove({area,name,months,a,b,manifest,preset,polys,ask
         <button className="button secondary nm-btn" onClick={download} data-testid="nm-ics">Remind me before next season (.ics)</button>)}
       {card('nm-trend',2,'Can you trust the trend?',verdict,TREND_HEADLINE[verdict],change!=null?<>Satellites saw {number(Math.abs(change),0)}% {change>0?'more':'fewer'} fires, {da}→{db} ({dm.map(m=>MONTH_NAMES[m-1].slice(0,3)).join('–')})</>:VERDICT_TRUST[verdict],doTrend,
         <><p><span className={'v-chip verdict-'+verdict}>{VERDICT_SHORT[verdict]}</span> {VERDICT_TRUST[verdict]}.</p><p>{ACTIONS[verdict][role][0]}</p><button className="nm-link" onClick={go('trend','answer')}>See the two checks →</button></>)}
-      {card('nm-week',3,'This week'+(doc?.window.first_date&&doc.window.last_date?` (${shortDay(doc.window.first_date)}–${shortDay(doc.window.last_date)})`:''),weekCls,weekHead,
+      {focusMonth?card('nm-month',3,fLabel,fCls,fHead,fRow&&fRow.harm!=null&&fRow.median!=null?<>{number(fRow.harm,0)} fire-days vs {number(fRow.median,0)} in a usual {MONTH_NAMES[focusMonth.m-1]} (2003–2022)</>:'No complete record for this month',fDo,
+        <><p>{fRow&&fRow.harm!=null?<>Combined MODIS + VIIRS record, VIIRS scale: {number(fRow.harm,0)} active fire-days in {fLabel}{fRow.p25!=null&&fRow.p75!=null&&<>; a usual {MONTH_NAMES[focusMonth.m-1]} runs {number(fRow.p25,0)}–{number(fRow.p75,0)} (middle half of 2003–2022)</>}.</>:'This month is missing from the archive.'} Timing check for {fLabel}: <strong>{lateLabel(fLate)}</strong>{fLate==='unknown'&&focusMonth.y<2021?' (the timing check starts in 2021)':''}.</p></>)
+      :card('nm-week',3,'This week'+(doc?.window.first_date&&doc.window.last_date?` (${shortDay(doc.window.first_date)}–${shortDay(doc.window.last_date)})`:''),weekCls,weekHead,
         amount&&amount.median!=null?<>{number(amount.week,0)} fire detections vs {number(amount.median,0)} in a normal {MONTH_NAMES[amount.month-1]} week</>:amount?<>{number(amount.week,0)} fire detections this week</>:'',doWeek,
         <><p><span className={'v-chip verdict-'+weekCls} data-testid="nm-amount">{amount?weekHead:'Loading…'}</span></p>{amount&&live&&<p>{number(amount.week,0)} NOAA-20 active cell-days this week{amount.median!=null&&<>; an average {MONTH_NAMES[amount.month-1]} week in 2019–2025: {number(amount.median,0)} (range {number(amount.min!,0)}–{number(amount.max!,0)})</>}. Timing: {LIVE_INLINE[live.status]}. Provisional NASA near-real-time data.</p>}<button className="nm-link" onClick={go('week','live-title')}>This week in detail →</button></>)}
     </div>

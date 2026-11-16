@@ -58,3 +58,6 @@
 .live-check.live-signal .live-answer{border-color:#c2410c;color:#7a3300;background:#fff1e0}
 .live-check.live-within .live-answer,.live-check.live-below .live-answer{border-color:#00703c;color:#005a30;background:#e7f4ec}
 .live-check p{margin:6px 0;max-width:70ch}
+/* Plain yes/no answer before the reason */
+.trend-verdict .verdict-answer{margin:0 0 10px;font-size:2.1rem;font-weight:800;line-height:1.15;color:#0b0c0c}
+.trend-verdict .verdict-answer .verdict-reason{display:block;font-size:1.05rem;font-weight:600;line-height:1.4;color:#383f43;margin-top:4px}

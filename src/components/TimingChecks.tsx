@@ -3,7 +3,7 @@ import type {ClaimResult} from '../stats';
 import {PLATFORM_NAMES} from '../types';
 import {number,signed} from '../data';
 import {Evidence} from './Provenance';
-import {verdictFor,verdictSentence,VERDICT_LABEL} from '../verdict';
+import {verdictFor,verdictSentence,VERDICT_LABEL,TRUST_ANSWER,TRUST_REASON} from '../verdict';
 import type {ReactNode} from 'react';
 
 import {lateLabel,modisLabel} from '../labels';
@@ -20,6 +20,7 @@ export default function TimingChecks({checks,result,monthLabel,aquaPass,children
   const modisText=checks.relationship==='signal'?`${drivers} ${checks.drivers.length>1?'have':'has'} moved away from VIIRS beyond normal year-to-year swings. Trends from Terra or Aqua alone would mislead here; use the combined record.`:checks.relationship==='within'?'Terra and Aqua still track VIIRS as closely as they did in 2013–19.':'Not enough fires to compare both Terra and Aqua with VIIRS.';
   return <section className={'trend-verdict verdict-'+verdict} aria-labelledby="verdict-title" data-source="tiles/*.json:raw.T,raw.A,raw.N;src/timing.ts;src/verdict.ts">
     <p className="verdict-eyebrow">Can you trust this trend?</p>
+    <p className="verdict-answer" data-testid="verdict-answer">{TRUST_ANSWER[verdict]}<span className="verdict-reason"> {TRUST_REASON[verdict]}</span></p>
     <h2 id="verdict-title" className="verdict-chip" data-testid="verdict">{VERDICT_LABEL[verdict]}</h2>
     {result&&<p className="verdict-sentence" data-testid="verdict-sentence">{verdictSentence(verdict,result,monthLabel??'')}</p>}
     {children}

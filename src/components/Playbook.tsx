@@ -1,9 +1,16 @@
-import {useEffect,useMemo,useState} from 'react';
-import {fetchData,number,download} from '../data';
+import {lazy,Suspense,useEffect,useMemo,useState} from 'react';
+import {fetchData,number,download,areaTiles} from '../data';
 import type {BBox} from '../types';
 import type {Role} from '../insights';
 import {receiptFacts} from '../insights';
-import type {LiveCells} from '../liveCheck';
+import {liveTiming,type LiveCells} from '../liveCheck';
+import type {Month,Manifest,CalendarTile,ClockYear} from '../types';
+import type {TimingStatus} from '../timing';
+import {MONTH_NAMES} from '../nextMove';
+import {areaZone,civilHour,zoneLabel} from '../civilTime';
+import FieldPlan,{type DistrictInput} from './FieldPlan';
+import {inPolys,type Polys} from '../shape';
+const HotMap=lazy(()=>import('./HotMap'));
 
 /** The job-specific playbook under the plan: WHERE to go (map), WHEN, WHAT to do and HOW, from the same data the rest of the site uses.
  * Punjab + Haryana gets district detail (NASA FIRMS this week + GK2A hourly evidence); any other area gets this week's hotspots from the live grid. */
@@ -20,24 +27,41 @@ function districtRows(d:{hours_ist:number[];districts:District[]},w:Week):Row[]{
   return d.districts.map(x=>{const v=x.gk2a_pixel_hours['2025']??[],t=v.reduce((a,b)=>a+b,0)||1,hrs=d.hours_ist;
     let bi=0,bs=-1;for(let i=0;i+2<v.length;i++){const s=v[i]+v[i+1]+v[i+2];if(s>bs){bs=s;bi=i;}}
     const late=100*v.reduce((a,b,i)=>a+(hrs[i]>=16?b:0),0)/t,pk=v.indexOf(Math.max(...v));
-    return {name:x.name,week:wk.get(x.name)??0,win:`${hourLabel(hrs[bi])}–${hourLabel(hrs[bi]+3)}`,winShare:100*bs/t,late,peak:hourLabel(hrs[pk]),geometry:x.geometry};
+    return {name:x.name,week:wk.get(x.name)??0,win:`${hourLabel(hrs[bi])}–${hourLabel(hrs[Math.min(bi+2,hrs.length-1)])}`,winShare:100*bs/t,late,peak:hourLabel(hrs[pk]),geometry:x.geometry};
   }).sort((a,b)=>b.week-a.week);
 }
 
 const COPY:Record<Role,{title:string;lead:string;col:string}>={
-  policy:{title:'Where to send field teams this week, and when',lead:'Districts ranked by satellite fire detections in NASA’s last seven days. The check window is the 3-hour stretch that held most of each district’s afternoon burning in 2025 (hourly GK2A satellite).',col:'Send teams'},
+  policy:{title:'Where to send field teams this week, and when',lead:'Districts ranked by satellite fire detections in NASA’s last seven days. The check window is the run of three hourly GK2A satellite images (for example 4, 5 and 6 pm) that held most of each district’s noon–6 pm fire signal in 2025; the hourly record covers noon–6 pm only.',col:'Send teams'},
   air:{title:'Where this week’s smoke comes from, and at what hour',lead:'Fire sources this week by district, with the share of each district’s afternoon burning that now happens after 4 pm: the hours the ~1:30 pm satellites miss and your emission timing should cover.',col:'After 4 pm'},
   journalist:{title:'Your story this week: where it’s burning, and what you can say',lead:'The districts with the most fire detections this week, and the numbers you can stand behind.',col:'Most fire at'},
   research:{title:'Data, checks and downloads for this area',lead:'This week’s detections and the 2025 hourly profile by district, with the record’s tested error and every source one click away.',col:'Best 3-h window'},
 };
 
-export default function Playbook({role,box,name,receipt,validation}:{role:Role;box:BBox;name:string;receipt?:Record<string,any>;validation?:Record<string,any>}){
-  const punjab=overlaps(box,PUNJAB);
+export default function Playbook({role,box,name,receipt,validation,months,focusMonth,manifest,monthLate,clockYear,polys}:{role:Role;box:BBox;name:string;receipt?:Record<string,any>;validation?:Record<string,any>;months?:Month[];focusMonth?:{y:number;m:number}|null;manifest?:Manifest;monthLate?:TimingStatus;clockYear?:ClockYear;polys?:Polys|null}){
+  const punjabArea=overlaps(box,PUNJAB),punjab=punjabArea&&!focusMonth;
+  const fKey=focusMonth?`${focusMonth.y}-${String(focusMonth.m).padStart(2,'0')}`:'',fLabel=focusMonth?`${MONTH_NAMES[focusMonth.m-1]} ${focusMonth.y}`:'';
+  const [monthHot,setMonthHot]=useState<{key:string;hot:{lat:number;lon:number;n:number}[]}|null>(null);
+  useEffect(()=>{if(!focusMonth||!manifest)return;const idx=manifest.months.indexOf(fKey);if(idx<0){setMonthHot({key:fKey,hot:[]});return;}let live=true;
+    Promise.all(areaTiles(manifest.tiles,box).map(n=>fetchData<CalendarTile>(`tiles/${n}.json`).catch(()=>null))).then(tiles=>{if(!live)return;const out:{lat:number;lon:number;n:number}[]=[];
+      for(const t of tiles){if(!t)continue;t.cells.forEach(([la,lo],ci)=>{const lat=la+.125,lon=lo+.125;if(lat<box[0]||lat>=box[2]||lon<box[1]||lon>=box[3])return;const v=t.harm[ci]?.[idx];if(v!=null&&v>0)out.push({lat,lon,n:v});});}
+      setMonthHot({key:fKey,hot:out.sort((a,b)=>b.n-a.n)});});return()=>{live=false;};},[fKey,manifest,box]);
   const [dist,setDist]=useState<any>(null),[week,setWeek]=useState<Week|null>(null),[cells,setCells]=useState<LiveCells|null>(null);
   useEffect(()=>{if(!punjab)return;fetch('/data/punjab_districts.json').then(r=>r.json()).then(setDist).catch(()=>{});fetch('/data/punjab_week.json').then(r=>r.json()).then(setWeek).catch(()=>{});},[punjab]);
-  useEffect(()=>{if(punjab)return;fetchData<LiveCells>('live/week_cells.json').then(setCells).catch(()=>{});},[punjab]);
+  useEffect(()=>{if(punjab||focusMonth)return;fetchData<LiveCells>('live/week_cells.json').then(setCells).catch(()=>{});},[punjab,!!focusMonth]);
   const rows=useMemo(()=>dist&&week?districtRows(dist,week):null,[dist,week]);
-  const hot=useMemo(()=>{if(!cells)return null;const h=cells.bin_deg;return cells.rows.filter(([s,w])=>s+h/2>=box[0]&&s+h/2<box[2]&&w+h/2>=box[1]&&w+h/2<box[3]).map(([s,w,T,A,J1,J2])=>({lat:s+h/2,lon:w+h/2,n:A+J1+J2+T})).filter(c=>c.n>0).sort((a,b)=>b.n-a.n);},[cells,box]);
+  const liveHot=useMemo(()=>{if(!cells)return null;const h=cells.bin_deg;return cells.rows.filter(([s,w])=>s+h/2>=box[0]&&s+h/2<box[2]&&w+h/2>=box[1]&&w+h/2<box[3]).map(([s,w,T,A,J1,J2])=>({lat:s+h/2,lon:w+h/2,n:A+J1+J2+T})).filter(c=>c.n>0).sort((a,b)=>b.n-a.n);},[cells,box]);
+  const hot0=focusMonth?(monthHot&&monthHot.key===fKey?monthHot.hot:null):liveHot;
+  // A province or drawn shape: keep only squares whose centre is inside it, not the whole bounding box.
+  const hot=useMemo(()=>hot0&&polys?hot0.filter(h=>inPolys(h.lat,h.lon,polys)):hot0,[hot0,polys]),bin=focusMonth?0.25:cells?.bin_deg??0.25;
+  const monthWin=useMemo(()=>{if(!focusMonth)return null;const zone=areaZone(box),date=`${fKey}-15`,lk=clockYear?.look;
+    return {viirsLocal:civilHour((lk?.N??lk?.J1)??13.5,box,date,zone),aquaLocal:civilHour(lk?.A??null,box,date,zone),zone:zoneLabel(zone)};},[focusMonth,fKey,box,clockYear]);
+  const [focus,setFocus]=useState<{i:number;t:number}|null>(null);
+  const districtsIn=useMemo<DistrictInput[]|null>(()=>{if(!dist||!rows)return null;const byName=new Map<string,District>(dist.districts.map((x:District)=>[x.name,x]));
+    return rows.map(r=>{const g=byName.get(r.name)!,ring=rings(r.geometry)[0] as number[][],[x,y]=ring.reduce((a,q)=>[a[0]+q[0],a[1]+q[1]],[0,0]);
+      return {name:r.name,week:r.week,lon:x/ring.length,lat:y/ring.length,hours:dist.hours_ist,values:g.gk2a_pixel_hours['2025']??[]};});},[dist,rows]);
+  const live=useMemo(()=>{if(!cells)return null;const date=cells.window.last_date??'2026-11-15',med=cells.median_daytime_local_solar_hour??{},zone=areaZone(box);
+    return {status:months?liveTiming(cells,box,months).status:'unknown' as const,viirsLocal:civilHour(med.J1??null,box,date,zone),aquaLocal:civilHour(med.A??null,box,date,zone),zone:zoneLabel(zone)};},[cells,box,months]);
   const c=COPY[role],f=receipt?receiptFacts(receipt):null;
   const [copied,setCopied]=useState(false);
   const planText=()=>{if(!punjab||!rows)return hot&&hot.length?[`Burn Clock: ${name}, hotspots this week (NASA FIRMS, provisional)`,...hot.slice(0,8).map((h,i)=>`${i+1}. ${h.lat.toFixed(2)}, ${h.lon.toFixed(2)}: ${h.n} detections`),location.href].join('\n'):'';
@@ -52,9 +76,9 @@ export default function Playbook({role,box,name,receipt,validation}:{role:Role;b
   const copyPlan=async()=>{try{await navigator.clipboard.writeText(planText());setCopied(true);setTimeout(()=>setCopied(false),2000);}catch{}};
   const csv=()=>rows&&download('burn-clock-districts-this-week.csv','district,daytime_detections_this_week,best_3h_window_2025,share_in_window_pct,share_after_4pm_pct,peak_hour\n'+rows.map(r=>[r.name,r.week,r.win,r.winShare.toFixed(1),r.late.toFixed(1),r.peak].join(',')).join('\n'));
   return <section className="playbook" data-testid="playbook" aria-labelledby="pb-title">
-    <h2 id="pb-title">{punjab?c.title:`Where it’s burning in ${name} this week`}</h2>
-    <p className="pb-lead">{punjab?c.lead:'The busiest 0.25° squares (about 28 km) in NASA’s last seven days, inside your area. District-level plans are available for Punjab + Haryana.'}</p>
-    {punjab?(rows?<div className="pb-grid">
+    <h2 id="pb-title">{punjab?c.title:focusMonth?`Where it burned in ${name}, ${fLabel}`:`Where it’s burning in ${name} this week`}</h2>
+    <p className="pb-lead">{punjab?c.lead:focusMonth?`The busiest 0.25° squares (about 28 km) inside your area in ${fLabel}: days with a satellite fire detection, on one VIIRS scale (combined MODIS + VIIRS record).`:'The busiest 0.25° squares (about 28 km) in NASA’s last seven days, inside your area. District-level plans are available for Punjab + Haryana.'}</p>
+    {punjab&&(rows?<div className="pb-grid">
       <DistrictMap rows={rows}/>
       <div className="pb-table"><table><thead><tr><th>#</th><th>District</th><th>Fires this week</th><th>{c.col}</th></tr></thead>
         <tbody>{rows.slice(0,8).map((r,i)=><tr key={r.name}><td><span className="pb-pin">{i+1}</span></td><td><a href={`?district=${encodeURIComponent(r.name)}#act`}>{r.name}</a></td><td>{number(r.week,0)}</td>
@@ -82,11 +106,14 @@ export default function Playbook({role,box,name,receipt,validation}:{role:Role;b
           <li><strong>API:</strong> <code>/api/check?box={box.join(',')}</code> and <code>/api/punjab</code> return the same numbers as JSON.</li>
           <li><strong>Methods:</strong> <a href="#methods">methods</a> · <a href="#validation">validation and failures</a>.</li></ol></>}
         <div className="pb-share"><a className="nm-share" href={`https://wa.me/?text=${encodeURIComponent(planText())}`} target="_blank" rel="noopener noreferrer" data-testid="pb-whatsapp">Send this full plan to WhatsApp</a><button className="button secondary" onClick={copyPlan} data-testid="pb-copy">{copied?'Copied':'Copy the full plan'}</button><button className="button secondary" onClick={csv} data-testid="pb-csv">Download district table (CSV)</button></div></div>
-    </div>:<p role="status">Loading district data…</p>)
-    :hot?(hot.length?<div className="pb-grid"><HotMap box={box} hot={hot.slice(0,40)}/><div className="pb-table"><table><thead><tr><th>#</th><th>Square (centre)</th><th>Fires this week</th></tr></thead><tbody>{hot.slice(0,8).map((h,i)=><tr key={i}><td><span className="pb-pin">{i+1}</span></td><td><a href={`https://www.google.com/maps/@${h.lat},${h.lon},10z`} target="_blank" rel="noopener noreferrer">{h.lat.toFixed(2)}°, {h.lon.toFixed(2)}°</a></td><td>{number(h.n,0)}</td></tr>)}</tbody></table>
-      <p className="pb-src">NASA FIRMS daytime detections (Terra, Aqua, NOAA-20, NOAA-21), {cells!.window.first_date} to {cells!.window.last_date}; provisional.</p></div>
-      <div className="pb-how"><h3>How to use it</h3><ol>{role==='policy'&&<li>Send checks to squares 1–3 first; they hold {number(100*hot.slice(0,3).reduce((a,h)=>a+h.n,0)/hot.reduce((a,h)=>a+h.n,0),0)}% of this week’s detections here.</li>}{role==='air'&&<li>Weight this week’s fire sources to these squares; check the trend card before scaling by counts.</li>}{role==='journalist'&&<li>These are this week’s hotspots (provisional). Name the satellite and dates if you report them.</li>}{role==='research'&&<li>Same grid via <code>/api/check?box={box.join(',')}</code>; the calendar exports the monthly record.</li>}<li>Read the timing card before calling a low count “less burning”.</li></ol></div></div>
-      :<p>No satellite fire detections inside {name} in NASA’s last seven days.</p>):<p role="status">Loading this week’s hotspots…</p>}
+    </div>:<p role="status">Loading district data…</p>)}
+    {punjab&&role==='policy'&&districtsIn&&week&&<FieldPlan kind="districts" name={name} dates={`${week.window.first_date} to ${week.window.last_date}`} districts={districtsIn}/>}
+    {!punjab&&(hot?(hot.length?<div className="pb-grid"><div><Suspense fallback={<div className="pb-livemap" role="status">Loading the map…</div>}><HotMap box={box} hot={hot.slice(0,300)} bin={bin} name={name} focus={focus} outline={polys??null} unit={focusMonth?`fire-day`:'fire detection'} period={focusMonth?`in ${fLabel}`:'this week'}/></Suspense><p className="pb-src">Zoom with + and −, or click a number in the table. Nearby numbers appear as you zoom in; click a square for its count.</p></div><div className="pb-table"><table><thead><tr><th>#</th><th>Square (centre)</th><th>{focusMonth?'Fire-days':'Fires this week'}</th></tr></thead><tbody>{hot.slice(0,8).map((h,i)=><tr key={i}><td><button type="button" className="pb-pin pb-pinbtn" onClick={()=>setFocus({i,t:Date.now()})} aria-label={`Show square ${i+1} on the map`}>{i+1}</button></td><td><a href={`https://www.google.com/maps/@${h.lat},${h.lon},10z`} target="_blank" rel="noopener noreferrer">{h.lat.toFixed(2)}°, {h.lon.toFixed(2)}°</a></td><td>{number(h.n,0)}</td></tr>)}</tbody></table>
+      <p className="pb-src">{focusMonth?<>Combined MODIS + VIIRS record (VIIRS scale), {fLabel}: days with a fire per 0.25° square, from NASA FIRMS archives.</>:<>NASA FIRMS daytime detections (Terra, Aqua, NOAA-20, NOAA-21), {cells?.window.first_date} to {cells?.window.last_date}; provisional.</>}</p></div>
+      <div className="pb-how"><h3>How to use it</h3><ol>{role==='policy'&&<li>Click a number to find that square on the map. The team plan below splits your teams across these hotspots.</li>}{role==='air'&&<li>Weight this week’s fire sources to these squares; check the trend card before scaling by counts.</li>}{role==='journalist'&&<li>These are this week’s hotspots (provisional). Name the satellite and dates if you report them.</li>}{role==='research'&&<li>Same grid via <code>/api/check?box={box.join(',')}</code>; the calendar exports the monthly record.</li>}<li>Read the timing card before calling a low count “less burning”.</li></ol></div></div>
+      :<p>No satellite fire detections inside {name} {focusMonth?`in ${fLabel}`:'in NASA’s last seven days'}.</p>):<p role="status">{focusMonth?`Loading ${fLabel}…`:'Loading this week’s hotspots…'}</p>)}
+    {!punjab&&role==='policy'&&hot&&hot.length>0&&!focusMonth&&live&&<FieldPlan kind="squares" name={name} dates={`${cells!.window.first_date} to ${cells!.window.last_date}`} squares={hot} status={live.status} viirsLocal={live.viirsLocal} aquaLocal={live.aquaLocal} zone={live.zone}/>}
+    {role==='policy'&&hot&&hot.length>0&&focusMonth&&monthWin&&<FieldPlan kind="squares" name={name} dates={fLabel} period={`in ${fLabel}`} scope="that month’s" noun="fire-days" squares={hot} status={monthLate??'unknown'} viirsLocal={monthWin.viirsLocal} aquaLocal={monthWin.aquaLocal} zone={monthWin.zone}/>}
   </section>;
 }
 
@@ -98,11 +125,5 @@ function DistrictMap({rows}:{rows:Row[]}){
   return <svg className="pb-map" viewBox="0 0 320 260" role="img" aria-label={`Punjab districts by fire detections this week; most in ${top.slice(0,3).map(r=>r.name).join(', ')}`}>
     {rows.map(r=><g key={r.name}><title>{`${r.name}: ${r.week} detections this week; window ${r.win}`}</title>{rings(r.geometry).map((ring:number[][],i:number)=><path key={i} d={'M'+ring.map(p=>P(p[0],p[1]).map(v=>v.toFixed(1)).join(',')).join('L')+'Z'} fill={col(r.week)} stroke="#fff" strokeWidth=".8"/>)}</g>)}
     {top.map((r,i)=>{const [x,y]=cen(r.geometry);return <g key={r.name}><circle cx={x} cy={y} r="8" fill="#0b0c0c" stroke="#fff" strokeWidth="1.5"/><text x={x} y={y+3.5} textAnchor="middle" fontSize="10" fontWeight="700" fill="#fff">{i+1}</text></g>;})}
-  </svg>;
-}
-function HotMap({box,hot}:{box:BBox;hot:{lat:number;lon:number;n:number}[]}){
-  const P=project(box),max=Math.max(1,...hot.map(h=>h.n));
-  return <svg className="pb-map" viewBox="0 0 320 260" role="img" aria-label="This week’s busiest squares inside the area"><rect x="0" y="0" width="320" height="260" fill="#f8f8f6"/>
-    {hot.map((h,i)=>{const [x,y]=P(h.lon,h.lat);return <g key={i}><circle cx={x} cy={y} r={3+9*Math.sqrt(h.n/max)} fill="rgba(179,58,11,.55)"/>{i<8&&<><circle cx={x} cy={y} r="7" fill="#0b0c0c"/><text x={x} y={y+3} textAnchor="middle" fontSize="9" fontWeight="700" fill="#fff">{i+1}</text></>}</g>;})}
   </svg>;
 }

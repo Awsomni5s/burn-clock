@@ -58,7 +58,7 @@ export function whenAction(role:Role,label:string,share:number|null){
 }
 /** One concrete line per job for this week's live check. */
 export function weekAction(role:Role,status:LiveStatus){
-  if(status==='signal')return {policy:'Burning looks later than the satellites look this week: send checks after 3–4 pm, not only around the passes.',
+  if(status==='signal')return {policy:'This week Aqua, now passing about 3:45 pm, sees more fire than usual next to the ~1:30 pm satellites: keep field checks going until at least 4 pm, not only around the passes.',
     air:'Shift this week’s fire timing later in your smoke forecast; the ~1:30 pm counts under-sample it.',
     journalist:'If this week’s fire count is quoted as low, add that burning is happening later than the satellites look.',
     research:'Flag this week’s counts as timing-affected before comparing them with past years.'}[role];
@@ -77,7 +77,7 @@ export function thisWeekAction(role:Role,amount:AmountStatus,timing:LiveStatus){
     air:'Raise this week’s fire emissions above a typical week in your smoke forecast'+(later?', and move them later in the day.':'.'),
     journalist:'This week is busier than usual for the time of year. Say the NASA data is provisional (near real time).',
     research:'Log this week as an anomaly and re-check it when standard-quality data replaces the near-real-time files.'}[role];
-  if(amount==='below'||amount==='lowest')return later?{policy:'The count is low, but burning has moved later than the satellites look. Don’t call it progress: check fields after 3–4 pm.',
+  if(amount==='below'||amount==='lowest')return later?{policy:'The count is low, but burning has shifted later in the afternoon than the ~1:30 pm satellites look. Don’t call it progress: keep field checks going until at least 4 pm.',
     air:'Don’t cut emissions just because the count is low: burning moved later, past the ~1:30 pm passes.',
     journalist:'Don’t report “fewer fires” from this week’s count: burning moved later than the satellites look.',
     research:'This week’s low count is confounded by a timing shift; don’t read it as less burning.'}[role]
@@ -86,6 +86,33 @@ export function thisWeekAction(role:Role,amount:AmountStatus,timing:LiveStatus){
     journalist:'Fewer detections than usual, with no timing shift: you can say less burning was detected (provisional).',
     research:'A low week without a timing shift; keep it, flagged as provisional.'}[role];
   return weekAction(role,timing);
+}
+
+/** A past month instead of this week: how busy it was against the usual for that calendar month, read with that month's timing check. */
+export type MonthAnomaly='above'|'normal'|'below'|'missing';
+export function monthHeadline(a:MonthAnomaly,late:'signal'|'within'|'unknown'){
+  if(a==='below'&&late==='signal')return 'Fewer fires seen, but burning moved later';
+  return {above:'Busier than usual for this month',normal:'About usual for this month',below:'Quieter than usual for this month',missing:'No complete record for this month'}[a];
+}
+export function monthAction(role:Role,a:MonthAnomaly,late:'signal'|'within'|'unknown'){
+  const later=late==='signal';
+  if(a==='missing')return 'This month isn’t complete in the archive; pick another month.';
+  if(a==='above')return {policy:`A busier month than usual: for this month next season, have teams out earlier and keep them out through the afternoon${later?', until at least 4 pm':''}.`,
+    air:'Treat this month as a high-emission month in hindcasts'+(later?', with fire timing moved later in the day.':'.'),
+    journalist:'You can say satellites detected more burning than usual this month (name the satellites and the comparison years).',
+    research:'Flag this month as above its 2003–2022 range and check the timing verdict before using it in a trend.'}[role];
+  if(a==='below')return later?{policy:'The count was low, but burning had shifted later than the ~1:30 pm satellites look. Don’t count this month as progress; next season, keep checks going until at least 4 pm.',
+    air:'Don’t cut emissions for this month by the count alone: burning moved later in the day.',
+    journalist:'Don’t report “fewer fires” for this month from the count alone: burning moved later than the satellites look.',
+    research:'This month’s low count is confounded by a timing shift; don’t read it as less burning.'}[role]
+    :{policy:'A quieter month than usual, with no timing shift: a fair sign of less burning. Check it against your field reports for the month.',
+    air:'Lower fire emissions than usual are justified for this month.',
+    journalist:'You can say satellites detected less burning than usual this month, with no sign of a timing shift.',
+    research:'A low month without a timing shift; usable as is, with its range.'}[role];
+  return {policy:later?'About a usual month, but burning had shifted later in the day: next season, keep checks going until at least 4 pm.':'About a usual month: plan this month next season like a normal year.',
+    air:later?'Usual amount, later timing: shift this month’s fire emissions later in the day.':'Use normal fire emissions for this month.',
+    journalist:'Nothing unusual to report for this month'+(later?', except that burning moved later in the day.':'.'),
+    research:'Within its usual range for this month'+(later?'; note the timing shift.':'.')}[role];
 }
 
 /* ===== Plain-language layer: one headline and one command per card, by job ===== */
@@ -100,10 +127,10 @@ export function whenPlain(role:Role,label:string,peak:string|null){
     journalist:`Compare ${label} with ${label} in past years, never whole years.`,
     research:`Use ${label} as the fire-season window and say so.`}[role];
 }
-export const TREND_HEADLINE:Record<V,string>={timing:'Don’t trust the drop',modis:'Real, but skip old MODIS counts',clear:'Yes, the trend is real',unknown:'Not enough data to tell'};
+export const TREND_HEADLINE:Record<V,string>={timing:'No: don’t trust the drop',modis:'Yes, but skip old MODIS counts',clear:'Yes, the trend is real',unknown:'Can’t tell yet: too little data'};
 export function trendPlain(role:Role,v:V){
   const t:Record<V,Record<Role,string>>={
-    timing:{policy:'Don’t count the drop as progress: fires now burn after the satellites pass. Check fields after 3–4 pm.',air:'Don’t cut fire emissions by the drop: burning moved later in the day.',journalist:'Don’t write “fires fell X%”. Write “detected fires fell, but burning moved later”.',research:'Treat changes since 2021 here as partly a timing effect.'},
+    timing:{policy:'Don’t count the drop as progress: more of the burning now happens after the ~1:30 pm satellites pass. Keep field checks going until at least 4 pm.',air:'Don’t cut fire emissions by the drop: burning moved later in the day.',journalist:'Don’t write “fires fell X%”. Write “detected fires fell, but burning moved later”.',research:'Treat changes since 2021 here as partly a timing effect.'},
     modis:{policy:'Judge change with this combined record, not old MODIS counts.',air:'Use VIIRS-based fire inputs from 2021 on.',journalist:'If someone quotes a MODIS trend since 2020, ask about satellite drift.',research:'Don’t use Terra/Aqua trends after 2020 without a drift correction.'},
     clear:{policy:'You can track progress with this record.',air:'Use the record as it is, with its range.',journalist:'You can report this change, with its range.',research:'Use the combined record with its range.'},
     unknown:{policy:'Don’t draw a conclusion yet.',air:'Don’t change inputs on this evidence.',journalist:'Don’t report a trend from this yet.',research:'Too little data here for a trend.'}};

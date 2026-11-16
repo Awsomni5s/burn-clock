@@ -4,7 +4,7 @@ import type {Role} from './insights';
 export const GEO='an every-10–15-minute geostationary feed (INSAT-3D/3DR or GK2A over India, GOES over the Americas, Meteosat over Africa and Europe, Himawari over East Asia and Australia)';
 export const ACTIONS:Record<Verdict,Record<Role,string[]>>={
  timing:{
-  policy:['Watch the late afternoon. Check for fires after 3–4 pm, not only around the satellite passes (about 10 am and 1:30 pm).',`Add ${GEO} to your fire alerts.`,'Don’t judge progress by the early-afternoon count alone. Report it next to the timing shift and burned area.'],
+  policy:['Watch the late afternoon: keep field checks going until at least 4 pm, not only around the satellite passes (about 10 am and 1:30 pm).',`Add ${GEO} to your fire alerts.`,'Don’t judge progress by the early-afternoon count alone. Report it next to the timing shift and burned area.'],
   air:['Move your fire timing later. Counts from the ~1:30 pm satellites now miss much of the burning.','Don’t scale emissions year on year with VIIRS counts here: the count fell more than the burning.','Re-check any fire climatology built before 2021; it predates the shift.'],
   journalist:['Don’t report the drop in the count as the drop in burning.','Say when the satellites look, and that burning has moved later.','Share the claim card: it carries the verdict and its caveats.'],
   research:['Treat post-2021 changes here as partly a timing effect.','Use the combined record or VIIRS, and report the timing check with any trend.','Add an hourly (geostationary) source where you can.']},
