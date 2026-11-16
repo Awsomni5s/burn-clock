@@ -1,5 +1,5 @@
 {
-  "tested_at": "2026-11-16T03:35:38.719Z",
+  "tested_at": "2026-11-16T03:53:33.958Z",
   "status": "passed",
   "checks": [
     "Both hourly distributions and late share match original integer counts; the 2019 comparison matches gk2a_hourly_by_year.json",
