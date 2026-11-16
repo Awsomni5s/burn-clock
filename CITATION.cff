@@ -7,12 +7,12 @@ message: >-
 type: software
 title: "Burn Clock: satellite timing and fire activity"
 authors:
-  - given-names: "Otto"
-    family-names: "Skibeli"
   - given-names: "Xavier"
     family-names: "Goff"
   - given-names: "Harshiv"
     family-names: "Puri"
+  - given-names: "Otto"
+    family-names: "Skibeli"
 version: "1.0.0"
 date-released: "2026-11-14"
 url: "https://burn-clock.vercel.app/"

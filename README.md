@@ -144,4 +144,4 @@ Codex AI assistance was used to implement the application, documentation and aut
 
 ## Team
 
-**Team Blackout:** Otto Skibeli, Xavier Goff and Harshiv Puri, for NASA Space Apps 2026. Built with AI assistance (Anthropic Claude, OpenAI Codex); the in-app advisor uses Claude.
+**Team Blackout:** Xavier Goff, Harshiv Puri and Otto Skibeli, for NASA Space Apps 2026. Built with AI assistance (Anthropic Claude, OpenAI Codex); the in-app advisor uses Claude.
