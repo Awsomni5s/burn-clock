@@ -10,7 +10,9 @@ const EXAMPLES:Record<string,string[]>={
   research:['Which record should I use for a 2003–2025 fire trend in Cerrado?','How reliable is the harmonized record, and where does it fail?'],
   public:['Is burning near Ludhiana happening later in the day now?','Why do some say Punjab’s fires fell when smoke is still bad?'],
 };
-const linkify=(t:string)=>t.split(/(https?:\/\/\S+)/g).map((p,i)=>/^https?:\/\//.test(p)?<a key={i} href={p.replace(/[).,]+$/,'')}>{decodeURIComponent(p.replace(/^https?:\/\/[^/]+/,'').replace(/[).,]+$/,''))||'open'}</a>:p);
+const PAGE_NAMES:Record<string,string>={act:'Punjab planner',methods:'Methods',validation:'Validation',cases:'Case studies',clock:'Where it matters',receipt:'Punjab evidence',api:'Data and API',claim:'Check a claim',home:'Fire calendar',explorer:'Full report'};
+const friendly=(u:string)=>{try{const x=new URL(u,location.origin);const page=x.hash.slice(1)||'home',d=x.searchParams.get('district');return `Open the ${PAGE_NAMES[page]??'page'}${d?`: ${d}`:''} →`;}catch{return 'Open →';}};
+const linkify=(t:string)=>t.split(/((?:https?:\/\/\S+)|(?:\/\?[^\s)]+#[a-z]+)|(?:(?<=\s|^)#(?:act|methods|validation|cases|clock|receipt|api|claim)\b))/g).map((p,i)=>{if(!p)return p;const clean=p.replace(/[).,]+$/,'');if(/^(https?:\/\/|\/\?|#)/.test(clean)&&(/^https?:\/\//.test(clean)?new URL(clean).host===location.host||true:true))return /^https?:\/\//.test(clean)&&new URL(clean).host!==location.host?<a key={i} href={clean} target="_blank" rel="noopener noreferrer">{clean.replace(/^https?:\/\//,'')}</a>:<a key={i} href={clean.replace(/^https?:\/\/[^/]+/,'')} className="ask-open">{friendly(clean)}</a>;return p;});
 
 /** “Ask what to do”: a role-aware advisor. Shown only when the server says it is switched on. */
 export default function AskPanel({compact=false,offText,initialRole,context}:{compact?:boolean;offText?:string;initialRole?:string;context?:string}){
