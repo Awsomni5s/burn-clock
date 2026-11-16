@@ -18,13 +18,14 @@ maplibregl.setWorkerUrl(mapWorkerUrl);
 function polygon(box:BBox):FeatureCollection<Geometry>{const [s,w,n,e]=box;const parts=w>e?[[s,w,n,180],[s,-180,n,e]]:[box];return {type:'FeatureCollection',features:parts.map(([s,w,n,e])=>({type:'Feature',properties:{},geometry:{type:'Polygon',coordinates:[[[w,s],[e,s],[e,n],[w,n],[w,s]]]}}))};}
 function polysFC(polys:Polys):FeatureCollection<Geometry>{return {type:'FeatureCollection',features:polys.map(p=>({type:'Feature',properties:{},geometry:{type:'Polygon',coordinates:p}}))};}
 type Mode='rect'|'circle'|'free'|'province';
-const MODES:[Mode,string,string][]=[['rect','Rectangle','Click two opposite corners.'],['circle','Circle','Click the centre, then click again to set the radius.'],['free','Draw by hand','Press and drag around the area, then let go.'],['province','Province','Click any state or province.']];
+const MODES:[Mode,string,string][]=[['province','Province','Click any state or province on the map.'],['rect','Rectangle','Click two opposite corners.'],['circle','Circle','Click the centre, then click again to set the radius.'],['free','Draw by hand','Press and drag around the area, then let go.']];
 const km=(a:number[],b:number[])=>{const R=6371,t=Math.PI/180,dl=(b[1]-a[1])*t,dp=(b[0]-a[0])*t,x=Math.sin(dp/2)**2+Math.cos(a[0]*t)*Math.cos(b[0]*t)*Math.sin(dl/2)**2;return 2*R*Math.asin(Math.sqrt(x));};
 export default function AreaMap({box,name,onBox,onShape,polys,manifest,initialYear=2025}:{box:BBox;name:string;onBox:(b:BBox)=>void;onShape?:(b:BBox,shape:string,label:string)=>void;polys?:Polys|null;manifest?:Manifest;initialYear?:number}){
   const container=useRef<HTMLDivElement>(null),map=useRef<maplibregl.Map|null>(null),callback=useRef(onBox),currentBox=useRef(box);
-  const modeRef=useRef<Mode>('rect'),[mode,setModeState]=useState<Mode>('rect'),path=useRef<number[][]|null>(null),shapeCb=useRef(onShape),currentPolys=useRef(polys),countries=useRef<any>(null),[provStatus,setProvStatus]=useState('');
-  const drawing=useRef(false),start=useRef<[number,number]|null>(null),hoverTimer=useRef<ReturnType<typeof setTimeout>|null>(null),hoverAbort=useRef<AbortController|null>(null);
-  const [draw,setDraw]=useState(false),[first,setFirst]=useState(false),[ready,setReady]=useState(false),[error,setError]=useState(''),[layerLoading,setLayerLoading]=useState(true);
+  const modeRef=useRef<Mode>(onShape?'province':'rect'),[mode,setModeState]=useState<Mode>(onShape?'province':'rect'),path=useRef<number[][]|null>(null),shapeCb=useRef(onShape),currentPolys=useRef(polys),countries=useRef<any>(null),[provStatus,setProvStatus]=useState('');
+  // Province picking is on from the start where shapes are allowed: clicking a state or province is the natural way to choose an area.
+  const drawing=useRef(!!onShape),start=useRef<[number,number]|null>(null),hoverTimer=useRef<ReturnType<typeof setTimeout>|null>(null),hoverAbort=useRef<AbortController|null>(null);
+  const [draw,setDraw]=useState(!!onShape),[first,setFirst]=useState(false),[ready,setReady]=useState(false),[error,setError]=useState(''),[layerLoading,setLayerLoading]=useState(true);
   const [year,setYear]=useURLState('mapYear',Math.max(2001,Math.min(2025,initialYear)),numeric(2001,2025)),[meta,setMeta]=useState<ContourMeta|null>(null),[dataManifest,setDataManifest]=useState<Manifest|undefined>(manifest);
   const [pointText,setPointText]=useState('Hover over the map for an original, unsmoothed annual cell value.'),[pointStatus,setPointStatus]=useState('');
   const [latitude,setLatitude]=useState(String((box[0]+box[2])/2)),[longitude,setLongitude]=useState(String((box[1]+box[3])/2));
@@ -57,6 +58,7 @@ export default function AreaMap({box,name,onBox,onShape,polys,manifest,initialYe
     catch{setError('The map needs WebGL. Choose a preset, search for a place or enter coordinates instead.');return;}
     m.addControl(new maplibregl.AttributionControl({compact:false}),'bottom-right');
     m.on('load',()=>{
+      if(drawing.current&&modeRef.current==='province')m.getCanvas().style.cursor='pointer';
       m.addSource('activity-contours',{type:'geojson',data:EMPTY_CONTOURS});
       m.addLayer({id:'activity-contours',type:'fill',source:'activity-contours',paint:{'fill-color':['get','color'],'fill-opacity':1}},'provinces');
       m.addSource('aoi',{type:'geojson',data:aoiData()});
@@ -97,11 +99,11 @@ export default function AreaMap({box,name,onBox,onShape,polys,manifest,initialYe
     fetchData<FeatureCollection>(`contours/world_${year}.geojson.gz`,abort.signal).then(data=>{if(abort.signal.aborted)return;(map.current?.getSource('activity-contours') as GeoJSONSource)?.setData(data);setLayerLoading(false);}).catch(e=>{if(e.name!=='AbortError'){setLayerLoading(false);setError(`The ${year} contour layer is unavailable. Area selection still works.`);}});
     return()=>abort.abort();
   },[year,ready,meta]);
-  const startMode=(md:Mode)=>{modeRef.current=md;setModeState(md);setProvStatus('');path.current=null;start.current=null;setFirst(false);const on=!(drawing.current&&mode===md);drawing.current=on;setDraw(on);if(map.current){map.current.getCanvas().style.cursor=on?(md==='province'?'pointer':'crosshair'):'';if(on&&md==='free')map.current.dragPan.disable();else map.current.dragPan.enable();if(!on){map.current.dragPan.enable();(map.current.getSource('aoi') as GeoJSONSource)?.setData(aoiData());}}};
+  const startMode=(md:Mode)=>{modeRef.current=md;setModeState(md);setProvStatus('');path.current=null;start.current=null;setFirst(false);const on=md==='province'?true:!(drawing.current&&mode===md);drawing.current=on;setDraw(on);if(map.current){map.current.getCanvas().style.cursor=on?(md==='province'?'pointer':'crosshair'):'';if(on&&md==='free')map.current.dragPan.disable();else map.current.dragPan.enable();if(!on){map.current.dragPan.enable();(map.current.getSource('aoi') as GeoJSONSource)?.setData(aoiData());}}};
   const toggleDraw=()=>startMode('rect');
   return <section className="contour-map-section" aria-label={`Fire activity map for ${name}`}>
     <GisDownload file={`world_${year}`} label={`${year} world level curves`}/><div className="contour-year-controls"><label>Map year <input aria-label="World map year" type="range" min={meta?.world.years[0]??2001} max={meta?.world.years.at(-1)??2025} step="1" value={year} onChange={e=>setYear(Number(e.target.value))}/><output>{year}</output></label></div>
-    <div className="shape-tools" role="group" aria-label="Choose the area by"><span className="shape-label">Choose the area by:</span>{MODES.filter(([md])=>md==='rect'||onShape).map(([md,label])=><button key={md} className={draw&&mode===md?'map-btn active':'map-btn'} aria-pressed={draw&&mode===md} onClick={()=>startMode(md)} data-testid={'shape-'+md}>{draw&&mode===md?'Cancel':label}</button>)}</div>
+    <div className="shape-tools" role="group" aria-label="Choose the area by"><span className="shape-label">Choose the area by:</span>{MODES.filter(([md])=>md==='rect'||onShape).map(([md,label])=><button key={md} className={draw&&mode===md?'map-btn active':'map-btn'} aria-pressed={draw&&mode===md} onClick={()=>startMode(md)} data-testid={'shape-'+md}>{draw&&mode===md&&md!=='province'?'Cancel':label}</button>)}</div>
     <div className="area-map"><div ref={container} className="map-canvas"/>
       <div className="map-toolbar"><div className="map-tools"><button className="map-btn" onClick={()=>map.current?.jumpTo({center:[20,15],zoom:1.2})}>Show world</button><button className="map-btn" onClick={()=>fit(box)}>Fit area</button><button className="map-btn" onClick={()=>map.current?.zoomIn({duration:0})}>Zoom in</button><button className="map-btn" onClick={()=>map.current?.zoomOut({duration:0})}>Zoom out</button></div></div>
       {draw&&<div className="draw-hint" role="status">{mode==='rect'?(first?'Choose the opposite corner.':'Choose the first corner.'):mode==='circle'?(first?'Move to set the radius, then click.':'Click the centre of the circle.'):MODES.find(x=>x[0]===mode)![2]} {provStatus} Use the page’s area coordinate fields for keyboard selection.</div>}

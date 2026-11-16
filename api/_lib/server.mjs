@@ -259,9 +259,9 @@ var modisLabel = (s) => s === "signal" ? "Yes" : s === "within" ? "No" : "Can\u2
 // src/liveCheck.ts
 var LIVE_MIN_J1 = 100;
 var LIVE_MIN_A = 30;
-function liveSums(doc, box) {
+function liveSums(doc, box, polys) {
   const h = doc.bin_deg / 2, s = { T: 0, A: 0, J1: 0, J2: 0 };
-  for (const [south, west, T, A, J1, J2] of doc.rows) if (inside(south + h, west + h, box)) {
+  for (const [south, west, T, A, J1, J2] of doc.rows) if (inside(south + h, west + h, box) && (!polys || inPolys(south + h, west + h, polys))) {
     s.T += T;
     s.A += A;
     s.J1 += J1;
@@ -269,8 +269,8 @@ function liveSums(doc, box) {
   }
   return s;
 }
-function liveTiming(doc, box, months) {
-  const m = Number((doc.window.last_date ?? "2026-11-01").slice(5, 7)), sums = liveSums(doc, box);
+function liveTiming(doc, box, months, polys) {
+  const m = Number((doc.window.last_date ?? "2026-11-01").slice(5, 7)), sums = liveSums(doc, box, polys);
   const at = (y) => months.find((x) => x.month === `${y}-${String(m).padStart(2, "0")}`);
   const base = [];
   for (let y = 2013; y <= 2019; y++) {
@@ -297,10 +297,10 @@ function liveTiming(doc, box, months) {
   return { ...empty, ratio: Math.exp(rho), baseline: Math.exp(mu), low: Math.exp(mu - thr), high: Math.exp(mu + thr), delta, threshold: thr, status, reason: "" };
 }
 var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-function liveAmount(doc, box, months) {
+function liveAmount(doc, box, months, polys) {
   const last = doc.window.last_date, first = doc.window.first_date ?? last;
   const m = Number((last ?? "2026-11-01").slice(5, 7)), days = last && first ? Math.round((Date.parse(last) - Date.parse(first)) / 864e5) + 1 : 7;
-  const week = liveSums(doc, box).J1 * 7 / Math.max(1, days);
+  const week = liveSums(doc, box, polys).J1 * 7 / Math.max(1, days);
   const dim = (y) => new Date(Date.UTC(y, m, 0)).getUTCDate();
   const hist = [];
   for (let y = 2019; y <= 2025; y++) {
@@ -601,7 +601,7 @@ function receiptFacts(data) {
 var GEO = "an every-10\u201315-minute geostationary feed (INSAT-3D/3DR or GK2A over India, GOES over the Americas, Meteosat over Africa and Europe, Himawari over East Asia and Australia)";
 var ACTIONS = {
   timing: {
-    policy: ["Watch the late afternoon. Check for fires after 3\u20134 pm, not only around the satellite passes (about 10 am and 1:30 pm).", `Add ${GEO} to your fire alerts.`, "Don\u2019t judge progress by the early-afternoon count alone. Report it next to the timing shift and burned area."],
+    policy: ["Watch the late afternoon: keep field checks going until at least 4 pm, not only around the satellite passes (about 10 am and 1:30 pm).", `Add ${GEO} to your fire alerts.`, "Don\u2019t judge progress by the early-afternoon count alone. Report it next to the timing shift and burned area."],
     air: ["Move your fire timing later. Counts from the ~1:30 pm satellites now miss much of the burning.", "Don\u2019t scale emissions year on year with VIIRS counts here: the count fell more than the burning.", "Re-check any fire climatology built before 2021; it predates the shift."],
     journalist: ["Don\u2019t report the drop in the count as the drop in burning.", "Say when the satellites look, and that burning has moved later.", "Share the claim card: it carries the verdict and its caveats."],
     research: ["Treat post-2021 changes here as partly a timing effect.", "Use the combined record or VIIRS, and report the timing check with any trend.", "Add an hourly (geostationary) source where you can."]

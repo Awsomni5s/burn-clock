@@ -65,7 +65,7 @@ Fire satellites look at each place only at a few fixed times a day, and two of t
   - season start, halfway and end dates by year;
   - a 90% day-resampling range on the count gap, plus a check that the two records agree at the hour the satellites pass.
 - **One-page brief for your role:** every place report can download a printable brief (verdict, then actions, then numbers, then limits) or copy it as text.
-- **Demo (7 slides):** [`public/docs/Burn_Clock_Demo_7_Slides.pdf`](public/docs/Burn_Clock_Demo_7_Slides.pdf)
+- **Demo (7 slides):** [`public/docs/Burn_Clock_7_Slides_SpaceApps2026.pdf`](public/docs/Burn_Clock_7_Slides_SpaceApps2026.pdf) (earlier draft: [`Burn_Clock_Demo_7_Slides.pdf`](public/docs/Burn_Clock_Demo_7_Slides.pdf))
 - **Case studies:** `#cases` in the app, built by [`scripts/build_case_studies.mjs`](scripts/build_case_studies.mjs) from the app's own verdicts.
 - **AI use:** built with AI assistants (Anthropic Claude, OpenAI Codex). Every number is produced by code in this repository and checked by the tests below.
 

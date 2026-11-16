@@ -1,5 +1,5 @@
 {
-  "tested_at": "2026-11-16T01:37:20.987Z",
+  "tested_at": "2026-11-16T02:11:00.131Z",
   "status": "passed",
   "checks": [
     {
@@ -159,7 +159,7 @@
       "ok": true
     },
     {
-      "name": "map view: the map sits beside its calendar, joined by a line",
+      "name": "map view: the map sits beside its calendar (no connector line that drifts when the map zooms)",
       "ok": true
     },
     {
@@ -199,7 +199,7 @@
       "ok": true
     },
     {
-      "name": "days button disabled outside Punjab",
+      "name": "outside Punjab the Days button is replaced by a visible note",
       "ok": true
     },
     {
