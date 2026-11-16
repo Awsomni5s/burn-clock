@@ -42,9 +42,21 @@ const JOB_TEXT:Record<Role,string>={policy:'Plan field checks and enforcement',a
 /** First visit: who are you, then where. The dashboard follows. */
 export function Onboard({step,onJob,onSelect,onShape}:{step:'job'|'place';onJob:(r:Role)=>void;onSelect:(b:BBox,name?:string)=>void;onShape:(b:BBox,shape:string,name:string)=>void}){
  if(step==='job')return <div className="home-page onboard" data-testid="onboard-job"><p className="ob-step">Burn Clock · NASA satellite fire records · Step 1 of 2</p><h1>What do you do?</h1><p className="ob-lead">We’ll tailor the fire calendar and the advice to your job.</p>
-  <div className="ob-jobs">{(Object.keys(JOBS) as Role[]).map(r=><button key={r} onClick={()=>onJob(r)} data-testid={'ob-job-'+r}><span className="ob-icon" aria-hidden="true">{JOBS[r].icon}</span><strong>{JOBS[r].label}</strong><span>{JOB_TEXT[r]}</span></button>)}</div></div>;
+  <div className="ob-jobs">{(Object.keys(JOBS) as Role[]).map(r=><button key={r} onClick={()=>onJob(r)} data-testid={'ob-job-'+r}><span className="ob-icon" aria-hidden="true">{JOBS[r].icon}</span><strong>{JOBS[r].label}</strong><span>{JOB_TEXT[r]}</span></button>)}</div><Scenarios/></div>;
  return <div className="home-page onboard" data-testid="onboard-place"><p className="ob-step">Step 2 of 2</p><h1>Which place?</h1><p className="ob-lead">Search any country or province. You can also draw your own area on the map next.</p>
   <div className="ob-search"><PlaceSearch onSelect={onSelect} onShape={onShape}/></div>
   <p className="ob-or">Or start with an example:</p><div className="ob-presets">{PRESETS.map(p=><button key={p.id} onClick={()=>onSelect(p.box)}>{p.name}</button>)}</div>
   <button className="ob-back" onClick={()=>updateView({role:null},'home')}>← Change job</button></div>;
+}
+
+/** One click per verdict: the four case studies with their exact box, months and years. */
+const SCENARIOS:{id:string;label:string;verdict:string;box:number[];months:number[];a:number;b:number}[]=[
+ {id:'punjab',label:'Punjab',verdict:'Timing illusion',box:[27.6,73.8,32.6,77.6],months:[10,11],a:2021,b:2025},
+ {id:'kalimantan',label:'Kalimantan',verdict:'MODIS record off',box:[-3.5,110,1,117],months:[8,9],a:2019,b:2025},
+ {id:'california',label:'California',verdict:'Timing isn’t the issue',box:[34,-124,42,-117],months:[7,8,9],a:2019,b:2025},
+ {id:'parana',label:'Paraná Delta',verdict:'Can’t tell yet',box:[-34.5,-60.8,-32,-58.3],months:[7,8,9],a:2019,b:2025}];
+const SC_CLASS:Record<string,string>={punjab:'timing',kalimantan:'modis',california:'clear',parana:'unknown'};
+export function Scenarios({role,compact=false}:{role?:string|null;compact?:boolean}){
+ return <div className={'scenarios'+(compact?' compact':'')} data-testid="scenarios"><span className="sc-label">{compact?'Try:':'Just looking? See all four answers in one click:'}</span>
+  {SCENARIOS.map(s=><button key={s.id} className={'sc-pill verdict-'+SC_CLASS[s.id]} data-testid={'scenario-'+s.id} onClick={()=>{updateView({role:role??'policy',box:s.box as BBox,months:s.months,a:s.a,b:s.b,shape:null,place:null,season:null,view:'act',choose:false},'home');scrollTo({top:0});}}><strong>{s.label}</strong><span>{s.verdict}</span></button>)}</div>;
 }

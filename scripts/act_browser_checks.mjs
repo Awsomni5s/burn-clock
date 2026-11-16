@@ -126,7 +126,7 @@ try {
   const nmWhen = await page.getByTestId('nm-when').innerText();
   check('next move: Punjab season Oct-Nov with a share', () => assert.match(nmWhen, /Oct–Nov[\s\S]*\d+% of a normal year/));
   const trendChip = await page.getByTestId('nm-trend-head').innerText();
-  check('next move: trend card has a verdict', () => assert.match(trendChip, /Don’t trust the drop|skip old MODIS|trend is real|Not enough data/));
+  check('next move: trend card has a verdict', () => assert.match(trendChip, /Don’t trust the drop|skip old MODIS|Timing isn’t the issue|Not enough data/));
   await page.getByTestId('playbook').getByText(/Where to send field teams/).waitFor({timeout: 60000});
   const pbRows = await page.getByTestId('playbook').locator('tbody tr').count();
   check('playbook: districts ranked with a check window for field teams', () => assert.ok(pbRows >= 5));
@@ -157,6 +157,10 @@ try {
   await page.locator('#answer').waitFor({timeout: 60000}); await page.getByTestId('live-check').waitFor({timeout: 60000});
   const actParts = {nm: await page.getByTestId('next-move').count(), ans: await page.locator('#answer').count()};
   check('act view has the plan and the trend check', () => { assert.equal(actParts.nm, 1); assert.equal(actParts.ans, 1); });
+  // 11c. One click per verdict from the first screen.
+  const scen = {};
+  for (const id of ['punjab', 'kalimantan', 'california', 'parana']) { await page.goto(`${base}/#home`); await page.getByTestId('scenario-' + id).click(); await page.getByTestId('nm-trend-head').waitFor({timeout: 90000}); await page.locator('.trend-verdict').first().waitFor({timeout: 90000}); scen[id] = await page.locator('.trend-verdict').first().innerText(); }
+  check('scenarios: Punjab timing, Kalimantan MODIS, California clear, Paraná can’t tell', () => { assert.match(scen.punjab, /Timing matters here/); assert.match(scen.kalimantan, /older MODIS record is off/); assert.match(scen.california, /Satellite timing doesn’t explain/); assert.match(scen.parana, /Can’t tell yet/); });
   // 12. Area shapes: a circle and a province count only the cells inside them.
   const cells = async url => { await page.goto(`${base}/${url}`); await page.locator('.area-name').filter({hasText: /grid cells/}).waitFor({timeout: 90000}); return page.locator('.area-name').innerText(); };
   const boxText = await cells('?box=29.6,74.46,31.4,76.54&choose=true#explorer'), circleText = await cells('?box=29.6,74.46,31.4,76.54&shape=c:30.5,75.5,100&choose=true#explorer');

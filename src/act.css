@@ -356,3 +356,15 @@
 .pb-say li.no{border-color:#b3261e;background:#fbeeed}
 @media(max-width:1100px){.pb-grid{grid-template-columns:1fr}}
 .pb-share{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.pb-share>*{margin:0}
+/* One-click scenarios: one per verdict */
+.scenarios{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;margin-top:26px}
+.sc-label{width:100%;color:#505a5f;font-size:.95rem}
+.sc-pill{display:flex;flex-direction:column;align-items:flex-start;margin:0;padding:8px 14px;border:2px solid #6f777b;border-left-width:6px;border-radius:6px;background:#fff;font:inherit;cursor:pointer;text-align:left}
+.sc-pill strong{font-size:.95rem}.sc-pill span{font-size:.8rem;color:#383f43}
+.sc-pill.verdict-timing{border-color:#b34b20}.sc-pill.verdict-modis{border-color:#a77c00}.sc-pill.verdict-clear{border-color:#00703c}.sc-pill.verdict-unknown{border-color:#6f777b}
+.sc-pill:hover{background:#f8f8f6}
+.scenarios.compact{margin:0;justify-content:flex-start;gap:5px}
+.scenarios.compact .sc-label{width:auto;font-size:.8rem;font-weight:700}
+.scenarios.compact .sc-pill{padding:3px 8px;border-width:1.5px;border-left-width:5px}
+.scenarios.compact .sc-pill strong{font-size:.8rem}.scenarios.compact .sc-pill span{font-size:.7rem}
+.hd-why{border:1px solid #b1b4b6;padding:14px 16px;background:#fff}

@@ -1,5 +1,5 @@
 {
-  "tested_at": "2026-11-16T01:37:20.987Z",
+  "tested_at": "2026-11-16T02:06:27.884Z",
   "status": "passed",
   "checks": [
     {
@@ -168,6 +168,10 @@
     },
     {
       "name": "act view has the plan and the trend check",
+      "ok": true
+    },
+    {
+      "name": "scenarios: Punjab timing, Kalimantan MODIS, California clear, Paraná can’t tell",
       "ok": true
     },
     {
