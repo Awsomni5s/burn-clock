@@ -32,10 +32,10 @@ function districtRows(d:{hours_ist:number[];districts:District[]},w:Week):Row[]{
 }
 
 const COPY:Record<Role,{title:string;lead:string;col:string}>={
-  policy:{title:'Where to send field teams this week, and when',lead:'Districts ranked by satellite fire detections in NASA’s last seven days. The check window is the run of three hourly GK2A satellite images (for example 4, 5 and 6 pm) that held most of each district’s noon–6 pm fire signal in 2025; the hourly record covers noon–6 pm only.',col:'Send teams'},
-  air:{title:'Where this week’s smoke comes from, and at what hour',lead:'Fire sources this week by district, with the share of each district’s afternoon burning that now happens after 4 pm: the hours the ~1:30 pm satellites miss and your emission timing should cover.',col:'After 4 pm'},
-  journalist:{title:'Your story this week: where it’s burning, and what you can say',lead:'The districts with the most fire detections this week, and the numbers you can stand behind.',col:'Most fire at'},
-  research:{title:'Data, checks and downloads for this area',lead:'This week’s detections and the 2025 hourly profile by district, with the record’s tested error and every source one click away.',col:'Best 3-h window'},
+  policy:{title:'Where to send field teams this week, and when',lead:'Start at the top of this list and check fields at the time shown. Districts are ranked by how many fires NASA satellites saw in the last 7 days. The time is when each district burned most in 2025, measured by a satellite that takes a picture every hour (noon–6 pm).',col:'Check fields'},
+  air:{title:'Where this week’s smoke comes from, and at what hour',lead:'Where this week’s fire smoke comes from, and how much of each district’s burning now happens after 4 pm. Put that share of fire emissions after 4 pm in your forecast: the main satellites pass at about 1:30 pm and miss it.',col:'Burning after 4 pm'},
+  journalist:{title:'Your story this week: where it’s burning, and what you can say',lead:'Where it’s burning most this week, and exactly what you can and can’t write, with the numbers to back it.',col:'Busiest hour'},
+  research:{title:'Data, checks and downloads for this area',lead:'This week’s fire counts and each district’s 2025 burning hours, the record’s tested error, and every source and download.',col:'Busiest 3 hours'},
 };
 
 export default function Playbook({role,box,name,receipt,validation,months,focusMonth,manifest,monthLate,clockYear,polys}:{role:Role;box:BBox;name:string;receipt?:Record<string,any>;validation?:Record<string,any>;months?:Month[];focusMonth?:{y:number;m:number}|null;manifest?:Manifest;monthLate?:TimingStatus;clockYear?:ClockYear;polys?:Polys|null}){
