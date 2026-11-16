@@ -127,12 +127,12 @@ export function whenPlain(role:Role,label:string,peak:string|null){
     journalist:`Compare ${label} with ${label} in past years, never whole years.`,
     research:`Use ${label} as the fire-season window and say so.`}[role];
 }
-export const TREND_HEADLINE:Record<V,string>={timing:'No: don’t trust the drop',modis:'Yes, but skip old MODIS counts',clear:'Yes, the trend is real',unknown:'Can’t tell yet: too little data'};
+export const TREND_HEADLINE:Record<V,string>={timing:'No: don’t trust the drop',modis:'Yes, but skip old MODIS counts',clear:'Timing isn’t the issue',unknown:'Can’t tell yet: too little data'};
 export function trendPlain(role:Role,v:V){
   const t:Record<V,Record<Role,string>>={
     timing:{policy:'Don’t count the drop as progress: more of the burning now happens after the ~1:30 pm satellites pass. Keep field checks going until at least 4 pm.',air:'Don’t cut fire emissions by the drop: burning moved later in the day.',journalist:'Don’t write “fires fell X%”. Write “detected fires fell, but burning moved later”.',research:'Treat changes since 2021 here as partly a timing effect.'},
     modis:{policy:'Judge change with this combined record, not old MODIS counts.',air:'Use VIIRS-based fire inputs from 2021 on.',journalist:'If someone quotes a MODIS trend since 2020, ask about satellite drift.',research:'Don’t use Terra/Aqua trends after 2020 without a drift correction.'},
-    clear:{policy:'You can track progress with this record.',air:'Use the record as it is, with its range.',journalist:'You can report this change, with its range.',research:'Use the combined record with its range.'},
+    clear:{policy:'Use this combined record to track progress, and quote its range: if the range includes zero, there is no clear change yet.',air:'Use the record as it is; satellite timing doesn’t bias it here.',journalist:'You can report the change with its range; if the range includes zero, say there is no clear change.',research:'Use the combined record with its range; timing doesn’t bias it here.'},
     unknown:{policy:'Don’t draw a conclusion yet.',air:'Don’t change inputs on this evidence.',journalist:'Don’t report a trend from this yet.',research:'Too little data here for a trend.'}};
   return t[v][role];
 }
