@@ -767,8 +767,9 @@ ${briefing}
   }
   if (fixed.length && fixed[fixed.length - 1].role === "user") fixed.pop();
   const role = opts.role && ROLE_NAMES[opts.role] ? `(My role: someone who ${ROLE_NAMES[opts.role]}.) ` : "";
-  const messages = [...fixed, { role: "user", content: role + question }];
-  const asked = [question, ...history.filter((m) => m.role === "user").map((m) => m.content)].join(" ");
+  const ctx = typeof opts.context === "string" && opts.context.trim() ? `(Selected on the site right now: ${opts.context.replace(/[\r\n]+/g, " ").slice(0, 400)}. Use this place for check_place unless I name another one.) ` : "";
+  const messages = [...fixed, { role: "user", content: ctx + role + question }];
+  const asked = [ctx, question, ...history.filter((m) => m.role === "user").map((m) => m.content)].join(" ");
   let final = "";
   for (let round = 0; round < 5; round++) {
     const res = await call(messages);
@@ -976,12 +977,13 @@ async function handleAsk(request, env, loader, fetchImpl = fetch) {
   if (request.method === "GET") return json({ configured: on, model: on ? env.ANTHROPIC_MODEL || DEFAULT_MODEL : null }, 200, 60);
   if (!on) return json({ status: "not_configured", message: "The assistant is not switched on (ANTHROPIC_API_KEY is not set)." }, 503);
   if (request.method !== "POST") return json({ status: "method_not_allowed" }, 405);
-  let question = "", history = [], role = "";
+  let question = "", history = [], role = "", context = "";
   try {
     const b = await request.json();
     question = String(b.question ?? "").trim();
     history = Array.isArray(b.history) ? b.history : [];
     role = typeof b.role === "string" ? b.role : "";
+    context = typeof b.context === "string" ? b.context.slice(0, 400) : "";
   } catch {
     return json({ status: "bad_request", message: 'Send JSON: {"question": "\u2026", "history"?: [...], "role"?: "policy"|"air"|"journalist"|"research"|"public"}' }, 400);
   }
@@ -990,7 +992,7 @@ async function handleAsk(request, env, loader, fetchImpl = fetch) {
   if (limit) return json({ status: "rate_limited", message: limit }, 429);
   const u = new URL(request.url);
   try {
-    return json(await ask(question, env, loader ?? originLoader(u.origin, fetchImpl), site(request, env), fetchImpl, { history, role }), 200, 0);
+    return json(await ask(question, env, loader ?? originLoader(u.origin, fetchImpl), site(request, env), fetchImpl, { history, role, context }), 200, 0);
   } catch (e) {
     return json({ status: "error", message: "The assistant could not answer right now." }, 502);
   }

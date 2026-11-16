@@ -80,9 +80,9 @@ export async function handleAsk(request:Request,env:Env,loader?:Loader,fetchImpl
   if(request.method==='GET')return json({configured:on,model:on?(env.ANTHROPIC_MODEL||DEFAULT_MODEL):null},200,60);
   if(!on)return json({status:'not_configured',message:'The assistant is not switched on (ANTHROPIC_API_KEY is not set).'},503);
   if(request.method!=='POST')return json({status:'method_not_allowed'},405);
-  let question='',history:any[]=[],role='';try{const b=await request.json();question=String(b.question??'').trim();history=Array.isArray(b.history)?b.history:[];role=typeof b.role==='string'?b.role:'';}catch{return json({status:'bad_request',message:'Send JSON: {"question": "…", "history"?: [...], "role"?: "policy"|"air"|"journalist"|"research"|"public"}'},400);}
+  let question='',history:any[]=[],role='',context='';try{const b=await request.json();question=String(b.question??'').trim();history=Array.isArray(b.history)?b.history:[];role=typeof b.role==='string'?b.role:'';context=typeof b.context==='string'?b.context.slice(0,400):'';}catch{return json({status:'bad_request',message:'Send JSON: {"question": "…", "history"?: [...], "role"?: "policy"|"air"|"journalist"|"research"|"public"}'},400);}
   if(!question||question.length>500)return json({status:'bad_request',message:'Ask a question of up to 500 characters.'},400);
   const limit=await allowed(request.headers.get('x-forwarded-for')?.split(',')[0].trim()||'unknown',env,fetchImpl);if(limit)return json({status:'rate_limited',message:limit},429);
   const u=new URL(request.url);
-  try{return json(await ask(question,env,loader??originLoader(u.origin,fetchImpl),site(request,env),fetchImpl,{history,role}),200,0);}catch(e){return json({status:'error',message:'The assistant could not answer right now.'},502);}
+  try{return json(await ask(question,env,loader??originLoader(u.origin,fetchImpl),site(request,env),fetchImpl,{history,role,context}),200,0);}catch(e){return json({status:'error',message:'The assistant could not answer right now.'},502);}
 }

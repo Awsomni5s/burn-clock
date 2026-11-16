@@ -57,7 +57,7 @@ export function unverified(answer:string,sources:string[],question:string):numbe
 
 type Msg={role:'user'|'assistant';content:any};
 export interface AskResult{status:'ok'|'unverified'|'error';answer:string;tools:{name:string;input:unknown}[];unverified:number[];model:string}
-export interface AskOptions{history?:{role:'user'|'assistant';content:string}[];role?:string}
+export interface AskOptions{history?:{role:'user'|'assistant';content:string}[];role?:string;context?:string}
 const ROLE_NAMES:Record<string,string>={policy:'monitors or enforces burning rules (field teams, district officials)',air:'forecasts air quality or models smoke emissions',journalist:'reports news or checks claims',research:'studies fire trends',public:'is a resident or member of the public worried about smoke'};
 export async function ask(question:string,env:Record<string,string|undefined>,load:Loader,appUrl:string,fetchImpl:typeof fetch=fetch,opts:AskOptions={}):Promise<AskResult>{
   const model=env.ANTHROPIC_MODEL||DEFAULT_MODEL,tools:{name:string;input:unknown}[]=[],sources:string[]=[];
@@ -72,8 +72,9 @@ export async function ask(question:string,env:Record<string,string|undefined>,lo
   const fixed:Msg[]=[];for(const m of history){if(fixed.length&&fixed[fixed.length-1].role===m.role)fixed[fixed.length-1]={role:m.role,content:fixed[fixed.length-1].content+'\n'+m.content};else fixed.push(m);}
   if(fixed.length&&fixed[fixed.length-1].role==='user')fixed.pop();
   const role=opts.role&&ROLE_NAMES[opts.role]?`(My role: someone who ${ROLE_NAMES[opts.role]}.) `:'';
-  const messages:Msg[]=[...fixed,{role:'user',content:role+question}];
-  const asked=[question,...history.filter(m=>m.role==='user').map(m=>m.content)].join(' ');
+  const ctx=typeof opts.context==='string'&&opts.context.trim()?`(Selected on the site right now: ${opts.context.replace(/[\r\n]+/g,' ').slice(0,400)}. Use this place for check_place unless I name another one.) `:'';
+  const messages:Msg[]=[...fixed,{role:'user',content:ctx+role+question}];
+  const asked=[ctx,question,...history.filter(m=>m.role==='user').map(m=>m.content)].join(' ');
   let final='';
   for(let round=0;round<5;round++){
     const res=await call(messages);messages.push({role:'assistant',content:res.content});

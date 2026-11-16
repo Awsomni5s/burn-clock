@@ -1,11 +1,11 @@
 {
   "status": "passed",
-  "generatedAt": "2026-11-15T23:01:56Z",
+  "generatedAt": "2026-11-16T01:11:34Z",
   "calendarTiles": 1237,
   "cells": 191187,
   "cellMonths": 57738474,
   "configHash": "d0f62a55636f6def8856f4be39ec2b67bb79fd4fce96adf42234f297d98cec63",
   "rankedCountries": 72,
-  "seconds": 33.74,
+  "seconds": 43.38,
   "scope": "Shipped output integrity and configuration. Does not reproduce unavailable raw/Parquet inputs or the missing contour generator."
 }
