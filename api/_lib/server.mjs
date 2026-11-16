@@ -797,7 +797,7 @@ ${briefing}
   if (!final) return { status: "error", answer: "No answer could be produced. Try the place search on the site.", tools, unverified: [], model };
   let bad = unverified(final, sources, asked);
   if (bad.length) {
-    messages.push({ role: "user", content: `These numbers in your answer do not appear in the briefing or any tool result: ${bad.join(", ")}. Rewrite the answer using only numbers from the briefing or the tool results.` });
+    messages.push({ role: "user", content: `These numbers in your answer do not appear in the briefing or any tool result: ${bad.join(", ")}. Rewrite the answer using only numbers from the briefing or the tool results. Reply with the rewritten answer only: no preamble, and don\u2019t mention this check or rounding.` });
     const res = await call(messages);
     const retry = res.content.filter((c) => c.type === "text").map((c) => c.text).join("\n").trim();
     if (retry) {
