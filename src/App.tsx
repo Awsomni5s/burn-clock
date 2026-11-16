@@ -12,7 +12,7 @@ import NextMove from './components/NextMove';
 import Playbook from './components/Playbook';
 import {JOBS} from './nextMove';
 import type {Role} from './insights';
-import {Onboard} from './pages/Home';
+import {Onboard,Scenarios} from './pages/Home';
 import PlaceSearch from './components/PlaceSearch';
 import ClaimChecker from './components/ClaimChecker';
 import ClockIllustration from './components/ClockIllustration';
@@ -84,7 +84,7 @@ export default function App(){
  const homeJSX=page!=='home'?null:needJob||needPlace?<Onboard step={needJob?'job':'place'} onJob={r=>updateView({role:r},'home')} onSelect={handleBox} onShape={handleShape}/>:bundle?<div className="hd">
   <div className="hd-bar"><div className="hd-ctx"><span className="hd-k">Place</span><h1 className="hd-title">{name}</h1><button className="hd-change" onClick={()=>updateView({box:null,shape:null,place:null,view:null},'home')} data-testid="hd-change-place">Change</button></div>
    <div className="hd-ctx"><span className="hd-k">You are</span><strong>{JOBS[job!].icon} {JOBS[job!].label}</strong><button className="hd-change" onClick={()=>updateView({role:null},'home')} data-testid="hd-change-job">Change</button></div>
-   <div className="hd-views" role="tablist" aria-label="View">{([['map','📅 Fire calendar'],['act','✅ What should I do?']] as const).map(([v,l])=><button key={v} role="tab" aria-selected={hv===v} className={hv===v?'active':''} onClick={()=>homeView(v)} data-testid={'view-'+v}>{l}</button>)}</div></div>
+   <Scenarios role={job} compact/><div className="hd-views" role="tablist" aria-label="View">{([['map','📅 Fire calendar'],['act','✅ What should I do?']] as const).map(([v,l])=><button key={v} role="tab" aria-selected={hv===v} className={hv===v?'active':''} onClick={()=>homeView(v)} data-testid={'view-'+v}>{l}</button>)}</div></div>
   {focusBar}
   {areaError?<section className="error-state" role="alert"><h2>This area could not be evaluated</h2><p>{areaError}</p><button onClick={()=>setRetry(v=>v+1)}>Retry area</button></section>:!area?<Loading text={progress.total?`Reading ${progress.done} of ${progress.total} area files…`:'Preparing the area record…'}/>:!area.cellCount?<section className="empty-state"><h2>No archived fire cells here</h2><p>Empty archive coverage is no data, not proof of no burning. Choose a larger area.</p></section>
   :hv==='map'?<div className="hd-mapview" data-testid="hd-mapview">
@@ -93,6 +93,7 @@ export default function App(){
     </div>
   :hv==='act'?<div className="hd-act" data-testid="hd-act"><NextMove area={area} name={name} months={am} a={aa} b={ab} focusMonth={fm} manifest={bundle.manifest} preset={preset?.id} polys={activePolys} ask onGo={v=>{if(v==='ask')setChat(true);else document.getElementById(v==='trend'?'answer':'hd-week')?.scrollIntoView({behavior:'smooth',block:'start'});}}/>
     <Playbook role={job!} box={box} name={name} receipt={bundle.receipt} validation={bundle.validation} months={area?.months} focusMonth={fm} manifest={bundle.manifest} monthLate={monthLate} clockYear={fm?area.clock.find(c=>c.year===fm.y):undefined} polys={shape&&shape.key===shapeStr?shape.polys:null}/>
+    <section className="hd-why" aria-label="Why the satellite count can mislead"><h2 className="hd-panel-title">Why the count can mislead here: when the satellites look vs. when it burns</h2><SatelliteTimeline clock={clock} year={b} box={box} name={name} receipt={preset?.id==='punjab'?bundle.receipt:undefined}/></section>
     <div className="hd-panels"><section className="hd-panel"><ClaimChecker area={area} manifest={bundle.manifest} name={name} preset={preset?.id} months={am} a={aa} b={ab} onMonths={v=>{if(fm&&v.length===1)updateView({month:`${fm.y}-${String(v[0]).padStart(2,'0')}`});else{updateView({focus:'live'});setMonths(v);}}} onA={setA} onB={v=>{if(fm)updateView({month:`${v}-${String(fm.m).padStart(2,'0')}`,clockYear:Math.max(2013,v),mapYear:v});else setB(v);}} receipt={bundle.receipt}/></section>
      {!fm&&<section className="hd-panel" id="hd-week"><h2 className="hd-panel-title">This week, satellite by satellite</h2><Deferred label="this week’s provisional observations"><Suspense fallback={<Loading/>}><LivePanel/></Suspense></Deferred></section>}</div></div>
   :<Home onSelect={handleBox} data={bundle.receipt} validation={bundle.validation} rows={metadata.rows}/>}
