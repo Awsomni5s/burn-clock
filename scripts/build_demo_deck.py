@@ -77,7 +77,7 @@ S = []
 S.append(f"""<div class="s"><img class="logo" src="{logo}"><div class="cols" style="grid-template-columns:1.05fr 1fr;margin-top:26px">
 <div><p class="eyebrow">NASA Space Apps 2026 · Harmonization of MODIS and VIIRS Hot Spots</p><h1>A fire calendar you can act on</h1>
 <p class="sub">Burn Clock joins NASA’s MODIS and VIIRS fire records into one 2001–2025 calendar for any place on Earth, tells you whether its trend is real or an artifact of <b>when satellites look</b>, and turns that into a plan for your job.</p>
-<p style="margin-top:22px;font-size:19px"><b>Team:</b> {ph(team_name)}<br><b>Members:</b> {ph(members)}</p>
+<p style="margin-top:16px;font-size:20px;padding:10px 14px;border-left:6px solid #b34b20;background:#fbf1ec"><b>Punjab’s official fire count fell 93%. The real afternoon burning fell about 34%</b>: 96% of it now happens after the satellites pass.</p><p style="margin-top:14px;font-size:19px"><b>Team:</b> {ph(team_name)}<br><b>Members:</b> {ph(members)}</p>
 <p style="font-size:17px">Live: {ph(site)} · Code: {repo}</p></div>
 <div style="margin-top:40px">{vcard(byid['punjab-stubble'], True)}<p class="small" style="margin-top:8px">The answer every place report leads with: Punjab + Haryana, Oct–Nov, 2021 vs 2025. Live output of the app.</p></div></div>{foot(1)}</div>""")
 
