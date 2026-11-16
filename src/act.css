@@ -319,3 +319,16 @@
 /* Contrast: halos behind chart text so labels stay legible over bars and lines (WCAG AA) */
 .timeline-chart text,svg[aria-label^="Recorded 2021 hourly pattern"] text,.pb-map+text{paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round}
 .ratio-number{display:inline-block;padding:1px 6px;background:#fff;color:#0b0c0c;border-radius:4px}
+/* Phone: tables scroll inside their own box; maps and tables never push the page wide */
+@media(max-width:700px){.fp-table,.pb-table table{display:block;max-width:100%;overflow-x:auto}}
+.pb-table,.pb-grid>*,.hd-act>*,.playbook,.fp{min-width:0;max-width:100%}
+.pb-map,.pb-livemap{max-width:100%}
+@media(max-width:600px){.playbook{padding:12px 10px}.pb-table td,.pb-table th{padding:4px 4px}}
+
+.hd-panel{max-height:none!important;overflow:visible!important;min-width:0}
+.hd-panels>*{min-width:0}
+.hd-panel .claim-controls,.hd-panel .month-choices{flex-wrap:wrap;max-width:100%}
+.hd-panel .claim-controls>*{min-width:0;max-width:100%}
+.hd-panel select{max-width:100%}
+.fp-table{width:100%}
+.hd-mapbox .draw-hint{top:auto!important;bottom:8px!important;left:8px!important;right:auto!important;transform:none!important;max-width:60%;font-size:.8rem;padding:6px 8px}
