@@ -130,6 +130,8 @@ try {
   await page.getByTestId('playbook').getByText(/Where to send field teams/).waitFor({timeout: 60000});
   const pbRows = await page.getByTestId('playbook').locator('tbody tr').count();
   check('playbook: districts ranked with a check window for field teams', () => assert.ok(pbRows >= 5));
+  const pbWa = decodeURIComponent((await page.getByTestId('pb-whatsapp').getAttribute('href')).split('text=')[1]);
+  check('playbook: the shared plan lists districts with check windows', () => { assert.match(pbWa, /FIELD PLAN, Punjab/); assert.match(pbWa, /1\. \w+: \d+ detections; check \d+ (am|pm|noon)/); });
   const policyDo = await page.getByTestId('nm-when').locator('.nm-do').innerText();
   await page.goto(`${base}/?role=air&box=27.6,73.8,32.6,77.6&view=act#home`); await page.getByTestId('nm-week-head').getByText(/week|unavailable|burning|compare/i).waitFor({timeout: 60000});
   const airDo = await page.getByTestId('nm-when').locator('.nm-do').innerText();

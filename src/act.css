@@ -357,3 +357,4 @@
 .pb-say li.ok{border-color:#00703c;background:#eef7f1}
 .pb-say li.no{border-color:#b3261e;background:#fbeeed}
 @media(max-width:1100px){.pb-grid{grid-template-columns:1fr}}
+.pb-share{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.pb-share>*{margin:0}
