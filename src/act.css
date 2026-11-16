@@ -182,7 +182,6 @@
 /* ===== One-screen dashboard (home, desktop) ===== */
 @media(min-width:1100px){
  .plain-app main:has(.dash){max-width:none;padding:10px 20px 12px}
- .plain-app:has(.dash) footer{display:none}
  .plain-app:has(.dash) .site-tools{position:absolute;top:28px;right:24px;margin:0}
  .plain-app:has(.dash) .plain-header{padding-top:6px;padding-bottom:6px}
  .dash{display:grid;grid-template-columns:minmax(320px,.95fr) minmax(0,1.55fr) minmax(360px,1.05fr);grid-template-rows:auto auto minmax(0,1fr);gap:8px 16px;height:calc(100vh - 92px);min-height:640px}
@@ -209,7 +208,7 @@
  .dash>.home-tabs button{padding:7px 10px;font-size:.88rem}
  .dash>#pick-place{position:fixed;z-index:70;top:70px;left:50%;transform:translateX(-50%);width:min(1100px,94vw);max-height:84vh;overflow:auto;background:#fff;padding:16px 20px;border:2px solid #0b0c0c;box-shadow:0 12px 40px rgba(0,0,0,.35)}
  .dash>.area-name{display:none}
- .dash>.next-move{grid-column:1;grid-row:3;overflow:auto;margin:0!important;padding:12px 14px}
+ .dash>.next-move{grid-column:1;grid-row:3;margin:0!important;padding:12px 14px}
  .dash .next-move-head{margin-bottom:8px}
  .dash .next-move-head h2{font-size:1.05rem}
  .dash .next-move-grid{grid-template-columns:1fr;gap:8px}
@@ -219,9 +218,9 @@
  .dash .nm-do{padding:7px 10px;font-size:.88rem}
  .dash .role-chips button{font-size:.8rem;padding:4px 9px}
  .dash .nm-more{font-size:.85rem;margin-top:8px}
- .dash>.calendar-core{grid-column:2;grid-row:3;overflow:auto;margin:0!important;padding:0}
+ .dash>.calendar-core{grid-column:2;grid-row:3;margin:0!important;padding:0}
  .dash>.calendar-core .calendar-card{margin:0;border:0}
- .dash>.dash-detail{grid-column:3;grid-row:3;overflow:auto;border:1px solid #b1b4b6;padding:10px 14px;background:#fff}
+ .dash>.dash-detail{grid-column:3;grid-row:3;border:1px solid #b1b4b6;padding:10px 14px;background:#fff}
  .dash>.dash-detail>*:first-child{margin-top:0}
  .dash>.loading-state,.dash>.error-state,.dash>.empty-state,.dash>[role=status]{grid-column:1/-1;grid-row:3}
  .dash .heatmap-row,.dash .heatmap-header{min-height:0}
@@ -258,7 +257,6 @@
 @media(min-width:1100px){
  .plain-app main:has(.dash){padding-bottom:0}
  .plain-app main:has(.dash)>.glossary{display:none}
- .dash{height:calc(100vh - 98px)}
 }
 /* Job picker and plain cards */
 .job-picker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:0 0 12px}

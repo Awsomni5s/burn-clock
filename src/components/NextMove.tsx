@@ -1,6 +1,7 @@
 import {useDeferredValue,useEffect,useMemo,useState} from 'react';
 import {fetchData,number} from '../data';
 import type {AreaResult,Manifest} from '../types';
+import type {Polys} from '../shape'
 import {computeClaim} from '../stats';
 import {verdictFor,VERDICT_SHORT} from '../verdict';
 import {ACTIONS} from '../roleActions';
@@ -18,7 +19,7 @@ const weekClass=(a:import('../liveCheck').AmountStatus|undefined,t:LiveStatus|un
 const scrollTo=(id:string)=>()=>{const el=document.getElementById(id)??document.querySelector(`[data-testid="${id}"]`);el?.scrollIntoView({behavior:'smooth',block:'start'});};
 
 /** The first answer after choosing a place: when to be ready, whether the trend is real, what this week looks like, and what to do in your job. */
-export default function NextMove({area,name,months,a,b,manifest,preset,ask=false,onGo}:{area:AreaResult;name:string;months:number[];a:number;b:number;manifest:Manifest;preset?:string;ask?:boolean;onGo?:(v:'trend'|'week'|'ask')=>void}){
+export default function NextMove({area,name,months,a,b,manifest,preset,polys,ask=false,onGo}:{area:AreaResult;name:string;months:number[];a:number;b:number;manifest:Manifest;preset?:string;polys?:Polys|null;ask?:boolean;onGo?:(v:'trend'|'week'|'ask')=>void}){
   const go=(v:'trend'|'week'|'ask',id:string)=>onGo?()=>onGo(v):scrollTo(id);
   const [role,setRole]=useURLState<Role>('role',preset==='punjab'?'policy':'research',choice(['policy','air','journalist','research'] as const));
   const [doc,setDoc]=useState<LiveCells|null>(null),[liveError,setLiveError]=useState(false);
@@ -28,8 +29,7 @@ export default function NextMove({area,name,months,a,b,manifest,preset,ask=false
   const da=useDeferredValue(a),db=useDeferredValue(b),dm=useDeferredValue(months);
   const claim=useMemo(()=>dm.length?computeClaim(area,dm,da,db,manifest):null,[area,dm,da,db,manifest]);
   const verdict=claim?verdictFor(claim.checks):'unknown';
-  const live=useMemo(()=>doc?liveTiming(doc,area.box,area.months):null,[doc,area]),amount=useMemo(()=>doc?liveAmount(doc,area.box,area.months):null,[doc,area]);
-  const critical=facts?.critical?.length?facts.critical:months;
+  const live=useMemo(()=>doc?liveTiming(doc,area.box,area.months,polys):null,[doc,area,polys]),amount=useMemo(()=>doc?liveAmount(doc,area.box,area.months,polys):null,[doc,area,polys]);  const critical=facts?.critical?.length?facts.critical:months;
   const today=new Date(),seasons=nextSeasons(critical,today),next=seasons.find(s=>s.now)??seasons[0];
   const peakDay=useMemo(()=>{if(!daily)return null;
     for(const y of [...daily.years].sort((x,z)=>z-x)){let best:{v:number;label:string;year:number}|null=null;
